@@ -1,12 +1,21 @@
 {
   "name": "linter-jing",
   "main": "./lib/linter-jing",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "On-the-fly well-formedness check and validation of XML files against RelaxNG (compact, XML), Schematron (1.5, ISO) and W3C Schema",
-  "keywords": ["XML", "validation", "Jing", "RelaxNG", "RNG", "RNC", "XSD", "Schematron"],
+  "keywords": [
+    "XML",
+    "validation",
+    "Jing",
+    "RelaxNG",
+    "RNG",
+    "RNC",
+    "XSD",
+    "Schematron"
+  ],
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/aerhard/linter-jing.git"
+    "type": "git",
+    "url": "https://github.com/aerhard/linter-jing.git"
   },
   "bugs": "https://github.com/aerhard/linter-jing/issues",
   "license": "MIT",
