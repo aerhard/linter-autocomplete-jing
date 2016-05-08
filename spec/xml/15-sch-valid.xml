@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schema/schema.15.sch" type="application/xml" schematypens="http://www.ascc.net/xml/schematron"?>
+<root xmlns="http://www.example.com">
+  <child x="a">text</child>
+  <!-- asdf -->
+</root>

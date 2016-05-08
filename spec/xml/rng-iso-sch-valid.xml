@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schema/schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../schema/schema.iso.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<root xmlns="http://www.example.com">
+  <child x="a">text</child>
+  <!-- asdf -->
+</root>

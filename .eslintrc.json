@@ -1,0 +1,18 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "plugins": ["jasmine"],
+  "rules": {
+    "no-param-reassign": [0],
+    "func-names": [0],
+    "space-before-function-paren": [2, "never"],
+    "prefer-template": [0]
+  },
+  "globals": {
+    "atom": true,
+    "waitsForPromise": true
+  },
+  "env": {
+    "jasmine": true
+  }
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schema/schema.rnc" type="application/relax-ng-compact-syntax"?>
+<root xmlns="http://www.example.com">
+  <child y="a">text</child>
+  <child/>
+  <!-- asdf -->
+</root>
