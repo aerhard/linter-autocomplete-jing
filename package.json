@@ -5,13 +5,10 @@
   "description": "On-the-fly well-formedness check and validation of XML files against RelaxNG (compact, XML), Schematron (1.5, ISO) and W3C Schema",
   "keywords": [
     "XML",
-    "validation",
-    "Jing",
     "RelaxNG",
-    "RNG",
-    "RNC",
+    "Schematron",
     "XSD",
-    "Schematron"
+    "validation"
   ],
   "repository": {
     "type": "git",
