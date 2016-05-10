@@ -272,7 +272,7 @@ module.exports = {
   provideLinter() {
     return {
       name: 'Jing',
-      grammarScopes: ['text.xml', 'text.mei'],
+      grammarScopes: ['text.xml', 'text.xml.plist', 'text.xml.xsl', 'text.mei'],
       scope: 'file',
       lintOnFly: true,
       lint: textEditor => getSchemaRefs(textEditor).then(validateAll),
