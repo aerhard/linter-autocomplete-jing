@@ -11,3 +11,12 @@ On-the-fly well-formedness check and validation of XML files in Atom. Supported 
 Run `apm install linter-jing` or select the package in Atom's Settings view / Install Packages.
 
 The linter depends on the Java Runtime Environment (JRE) v1.6 or above. If running `java -version` on the command line returns an appropriate version number, you should be set. Otherwise, install a recent JRE and provide the path to the Java executable either in the PATH environment variable or in the linter-jing package settings in Atom.
+
+## Settings
+
+* *Java Executable Path:* The path to the Java executable file (`java`) to be used running Jing.
+* *Display Schema Warnings:* Whether or not to display warning messages from the schema parser.
+
+## Development
+
+While developing, run `npm run watch` to transpile the ES6 code in `src` to ES5 in `lib`.

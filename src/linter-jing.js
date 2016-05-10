@@ -9,7 +9,7 @@ let subscriptions;
 const localConfig = {};
 
 const classPathDelimiter = process.platform === 'win32' ? ';' : ':';
-const messageRegex = /^((.*?):)?((\d+):)?((\d+): )?((error|fatal|warning): )(.*)$/;
+const messageRegex = /^((.*?):\s?)?((\d+):)?((\d+): )?((error|fatal|warning): )(.*)$/;
 const jars = {
   jing: '../vendor/jing/jing.jar',
   saxon: '../vendor/saxon/saxon9he.jar',
@@ -19,31 +19,29 @@ const jars = {
 const parseMessage = (textEditor, schema) => function(str) {
   if (!helpers) helpers = require('atom-linter');
 
-  if (!str) return null;
   const match = messageRegex.exec(str);
   if (!match) {
-    return {
-      type: 'Error',
-      html: str,
-    };
+    console.log(`Could not parse message "${str}"`); // eslint-disable-line
+    return null;
   }
 
   const [,, systemId,, line,, ,, level, text] = match;
 
-  const effectiveLine = typeof line === 'undefined' && text.startsWith('file not found')
-    ? schema.line
-    : Number(line) - 1;
-
   const filePath = textEditor.getPath();
-  const range = systemId === filePath
-    ? helpers.rangeFromLineNumber(textEditor, effectiveLine)
-    : undefined;
+
+  if (systemId !== filePath && level === 'warning' && !localConfig.displaySchemaWarnings) {
+    return null;
+  }
+
+  const effectiveLine = systemId === filePath
+    ? Number(line) - 1
+    : schema.line;
 
   return {
     type: level === 'warning' ? 'Warning' : 'Error',
     html: `${text}`,
     filePath,
-    range,
+    range: helpers.rangeFromLineNumber(textEditor, effectiveLine),
   };
 };
 
@@ -84,15 +82,14 @@ function runJing(textEditor, schema) {
 
   return helpers
     .exec(localConfig.javaExecutablePath, params, options)
-    .then(
-      messageString =>
-        messageString
-          .split('\n')
-          .map(parseMessage(textEditor, schema))
-          .reduce(
-            (result, current) => (current ? result.concat(current) : result),
-            []
-          )
+    .then(stdout =>
+      stdout
+        .split('\n')
+        .map(parseMessage(textEditor, schema))
+        .reduce(
+          (result, current) => (current ? result.concat(current) : result),
+          []
+        )
     );
 }
 
@@ -100,7 +97,10 @@ function validateAll({ textEditor, schemata, messages }) {
   return Promise
     .all(schemata.map(schema => runJing(textEditor, schema)))
     .then(validatorMessages =>
-      validatorMessages.reduce((result, current) => result.concat(current), messages)
+      validatorMessages.reduce(
+        (result, current) => result.concat(current),
+        messages
+      )
     );
 }
 
@@ -237,9 +237,14 @@ function getSchemaRefs(textEditor) {
 module.exports = {
   config: {
     javaExecutablePath: {
+      order: 1,
       type: 'string',
-      title: 'Java Executable Path',
       default: 'java',
+    },
+    displaySchemaWarnings: {
+      order: 2,
+      type: 'boolean',
+      default: false,
     },
   },
 
