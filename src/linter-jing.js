@@ -9,7 +9,7 @@ let subscriptions;
 const localConfig = {};
 
 const classPathDelimiter = process.platform === 'win32' ? ';' : ':';
-const messageRegex = /^((.*?):\s?)?((\d+):)?((\d+): )?((error|fatal|warning): )(.*)$/;
+const messageRegex = /^((.*?):\s?)?((\d+):)?((\d+):\s)?((error|fatal|warning):\s)(.*)\s?$/;
 const jars = {
   jing: '../vendor/jing/jing.jar',
   saxon: '../vendor/saxon/saxon9he.jar',
