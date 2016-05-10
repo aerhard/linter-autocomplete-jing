@@ -3,6 +3,7 @@
 [![Travis CI Status](https://travis-ci.org/aerhard/linter-jing.svg?branch=master)](https://travis-ci.org/aerhard/linter-jing)
 [![Appveyor CI Status](https://ci.appveyor.com/api/projects/status/github/aerhard/linter-jing?branch=master&svg=true)](https://ci.appveyor.com/project/aerhard/linter-jing)
 [![Circle CI Status](https://circleci.com/gh/aerhard/linter-jing/tree/master.svg?style=shield&circle-token=93c48cdbcad41ba1b7cd08f231286b94b195de53)](https://circleci.com/gh/aerhard/linter-jing)
+[![Dependencies](https://david-dm.org/aerhard/linter-jing.svg)](https://david-dm.org/aerhard/linter-jing)
 
 On-the-fly well-formedness check and validation of XML files in Atom. Supported schema types: RelaxNG (XML and compact syntax), Schematron (1.5, ISO) and W3C Schema (XSD).
 

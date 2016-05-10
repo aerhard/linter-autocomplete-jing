@@ -78,6 +78,7 @@ function runJing(textEditor, schema) {
     cwd: path.dirname(xmlPath),
     stdin: textEditor.getText(),
     stream: 'stdout',
+    ignoreExitCode: true,
   };
 
   return helpers
