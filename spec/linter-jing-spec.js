@@ -57,6 +57,17 @@ describe('linter-jing', () => {
       });
     });
 
+    describe('given a well-formed xml document with a schema references ' +
+    'pointing to a missing file', () => {
+      it('returns an array with an error message', () => {
+        testLinter('wrong-schema-path.xml', (messages) => {
+          expect(Array.isArray(messages)).toBe(true);
+          expect(messages.length).toEqual(1);
+          expect(messages[0].type).toEqual('Error');
+        });
+      });
+    });
+
     describe('given a well-formed xml document with an unknown schema type', () => {
       it('returns a warning', () => {
         testLinter('unknown-schematype.xml', (messages) => {
