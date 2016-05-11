@@ -9,7 +9,7 @@ let subscriptions;
 const localConfig = {};
 
 const classPathDelimiter = process.platform === 'win32' ? ';' : ':';
-const messageRegex = /^((.*?):\s?)?((\d+):)?((\d+):\s)?((error|fatal|warning):\s)(.*)\s?$/;
+const messageRegex = /^((.*?):\s?)?((\d+):)?((\d+):\s)?((error|fatal|warning):\s)(.*)$/;
 const jars = {
   jing: '../vendor/jing/jing.jar',
   saxon: '../vendor/saxon/saxon9he.jar',
@@ -85,7 +85,7 @@ function runJing(textEditor, schema) {
     .exec(localConfig.javaExecutablePath, params, options)
     .then(stdout =>
       stdout
-        .split('\n')
+        .split(/\r?\n/)
         .map(parseMessage(textEditor, schema))
         .reduce(
           (result, current) => (current ? result.concat(current) : result),
