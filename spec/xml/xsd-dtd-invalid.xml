@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE root SYSTEM "../schema/schema.xsd.dtd">
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.example.com ../schema/schema.xsd" xmlns="http://www.example.com">
+  <child y="a">text</child>
+  <child/>
+  <!-- asdf -->
+</root>

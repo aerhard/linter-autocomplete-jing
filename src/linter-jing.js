@@ -69,6 +69,7 @@ function runJing(textEditor, schema) {
       .join(classPathDelimiter),
     'com.thaiopensource.relaxng.util.Driver',
     '-S',
+    ...schema.lang === 'xsd' && schema.path === '-' ? ['-x'] : [],
     ...schema.lang === 'dtd' ? ['-v'] : [],
     ...schema.lang === 'rnc' ? ['-c'] : [],
     schema.path,
@@ -183,36 +184,22 @@ function getSchemaRefs(textEditor) {
       }
     };
 
-    const onOpenTag = node => {
+    const onOpenTag = (node) => {
       if (done) return;
 
-      const schemaLocations = [];
+      const hasSchemaLocation = getXsiNamespacePrefixes(node.attributes)
+        .some(prefix =>
+          node.attributes[prefix + ':noNamespaceSchemaLocation'] ||
+          node.attributes[prefix + ':schemaLocation']
+        );
 
-      getXsiNamespacePrefixes(node.attributes)
-        .forEach(prefix => {
-          const noNamespaceSchemaLocation = node.attributes[prefix + ':noNamespaceSchemaLocation'];
-          if (noNamespaceSchemaLocation) {
-            noNamespaceSchemaLocation
-              .split(/\s+/)
-              .forEach(schema => schemaLocations.push(schema));
-          }
-
-          const schemaLocation = node.attributes[prefix + ':schemaLocation'];
-          if (schemaLocation) {
-            schemaLocation
-              .split(/\s+/)
-              .filter((unused, index) => index % 2)
-              .forEach(schema => schemaLocations.push(schema));
-          }
+      if (hasSchemaLocation) {
+        schemata.push({
+          lang: 'xsd',
+          line: saxParser.line,
+          path: '-',
         });
-
-      const xsdSchemata = schemaLocations.map(schemaLocation => ({
-        lang: 'xsd',
-        line: saxParser.line,
-        path: schemaLocation,
-      }));
-
-      schemata.push(...xsdSchemata);
+      }
 
       done = true;
     };

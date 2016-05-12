@@ -11,4 +11,4 @@
 
 ## 0.2.0
 * add support for `text.xml.xsl` and `text.xml.plist` grammar scopes
-* add support for DTDs
+* add DTD support

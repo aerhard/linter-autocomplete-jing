@@ -266,5 +266,26 @@ describe('linter-jing', () => {
         });
       });
     });
+
+    describe('given a well-formed xml document with a correct ' +
+      'reference to a valid XSD and a valid DTD', () => {
+      describe('when the document is valid', () => {
+        it('returns an empty array', () => {
+          testLinter('xsd-dtd-valid.xml', (messages) => {
+            expect(Array.isArray(messages)).toBe(true);
+            expect(messages.length).toEqual(0);
+          });
+        });
+      });
+
+      describe('when the document contains 10 validation errors', () => {
+        it('returns an array of length 10', () => {
+          testLinter('xsd-dtd-invalid.xml', (messages) => {
+            expect(Array.isArray(messages)).toBe(true);
+            expect(messages.length).toEqual(10);
+          });
+        });
+      });
+    });
   });
 });

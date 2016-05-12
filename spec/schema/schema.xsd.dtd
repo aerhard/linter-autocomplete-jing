@@ -1,0 +1,12 @@
+<?xml encoding="UTF-8"?>
+
+<!ELEMENT root (child)>
+<!ATTLIST root
+  xmlns CDATA #FIXED 'http://www.example.com'
+  xmlns:xsi CDATA #FIXED 'http://www.w3.org/2001/XMLSchema-instance'
+  xsi:schemaLocation CDATA #REQUIRED>
+
+<!ELEMENT child (#PCDATA)>
+<!ATTLIST child
+  xmlns CDATA #FIXED 'http://www.example.com'
+  x NMTOKEN #REQUIRED>
