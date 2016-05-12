@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE root SYSTEM "../schema/schema.dtd">
+<?xml-model href="../schema/schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<root xmlns="http://www.example.com">
+  <child x="a">text</child>
+  <!-- asdf -->
+</root>

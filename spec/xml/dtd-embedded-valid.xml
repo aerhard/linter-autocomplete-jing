@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE root [
+<!ELEMENT root (child)>
+<!ATTLIST root
+  xmlns CDATA #FIXED 'http://www.example.com'>
+
+<!ELEMENT child (#PCDATA)>
+<!ATTLIST child
+  xmlns CDATA #FIXED 'http://www.example.com'
+  x NMTOKEN #REQUIRED>
+]>
+<root xmlns="http://www.example.com">
+  <child x="a">text</child>
+  <!-- asdf -->
+</root>

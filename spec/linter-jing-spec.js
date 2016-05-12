@@ -89,7 +89,7 @@ describe('linter-jing', () => {
         });
       });
 
-      describe('when the document contains five validation errors', () => {
+      describe('when the document contains 5 validation errors', () => {
         it('returns an array of length 5', () => {
           testLinter('rng-invalid.xml', (messages) => {
             expect(Array.isArray(messages)).toBe(true);
@@ -110,7 +110,7 @@ describe('linter-jing', () => {
         });
       });
 
-      describe('when the document contains five validation errors', () => {
+      describe('when the document contains 5 validation errors', () => {
         it('returns an array of length 5', () => {
           testLinter('rnc-invalid.xml', (messages) => {
             expect(Array.isArray(messages)).toBe(true);
@@ -131,7 +131,7 @@ describe('linter-jing', () => {
         });
       });
 
-      describe('when the document contains six validation errors', () => {
+      describe('when the document contains 6 validation errors', () => {
         it('returns an array of length 6', () => {
           testLinter('xsd-invalid.xml', (messages) => {
             expect(Array.isArray(messages)).toBe(true);
@@ -152,7 +152,7 @@ describe('linter-jing', () => {
         });
       });
 
-      describe('when the document contains three validation errors', () => {
+      describe('when the document contains 3 validation errors', () => {
         it('returns an array of length 3', () => {
           testLinter('iso-sch-invalid.xml', (messages) => {
             expect(Array.isArray(messages)).toBe(true);
@@ -173,7 +173,7 @@ describe('linter-jing', () => {
         });
       });
 
-      describe('when the document contains three validation errors', () => {
+      describe('when the document contains 3 validation errors', () => {
         it('returns an array of length 3', () => {
           testLinter('15-sch-invalid.xml', (messages) => {
             expect(Array.isArray(messages)).toBe(true);
@@ -194,11 +194,74 @@ describe('linter-jing', () => {
         });
       });
 
-      describe('when the document contains eight validation errors', () => {
+      describe('when the document contains 8 validation errors', () => {
         it('returns an array of length 8', () => {
           testLinter('rng-iso-sch-invalid.xml', (messages) => {
             expect(Array.isArray(messages)).toBe(true);
             expect(messages.length).toEqual(8);
+          });
+        });
+      });
+    });
+
+    describe('given a well-formed xml document with a correct ' +
+      'reference to a DTD', () => {
+      describe('when the document is valid', () => {
+        it('returns an empty array', () => {
+          testLinter('dtd-valid.xml', (messages) => {
+            expect(Array.isArray(messages)).toBe(true);
+            expect(messages.length).toEqual(0);
+          });
+        });
+      });
+
+      describe('when the document contains 5 validation errors', () => {
+        it('returns an array of length 5', () => {
+          testLinter('dtd-invalid.xml', (messages) => {
+            expect(Array.isArray(messages)).toBe(true);
+            expect(messages.length).toEqual(5);
+          });
+        });
+      });
+    });
+
+    describe('given a well-formed xml document with a correct ' +
+      'embedded DTD', () => {
+      describe('when the document is valid', () => {
+        it('returns an empty array', () => {
+          testLinter('dtd-embedded-valid.xml', (messages) => {
+            expect(Array.isArray(messages)).toBe(true);
+            expect(messages.length).toEqual(0);
+          });
+        });
+      });
+
+      describe('when the document contains 5 validation errors', () => {
+        it('returns an array of length 5', () => {
+          testLinter('dtd-embedded-invalid.xml', (messages) => {
+            expect(Array.isArray(messages)).toBe(true);
+            expect(messages.length).toEqual(5);
+          });
+        });
+      });
+    });
+
+    describe('given a well-formed xml document with a correct ' +
+      'reference to a valid RNG and a valid DTD', () => {
+      describe('when the document is valid', () => {
+        it('returns an empty array', () => {
+          testLinter('rng-dtd-valid.xml', (messages) => {
+            expect(Array.isArray(messages)).toBe(true);
+            expect(messages.length).toEqual(0);
+          });
+        });
+      });
+
+      describe('when the document contains 9 validation errors', () => {
+        it('returns an array of length 9', () => {
+          testLinter('rng-dtd-invalid.xml', (messages) => {
+            expect(Array.isArray(messages)).toBe(true);
+            expect(messages.length).toEqual(9);
           });
         });
       });

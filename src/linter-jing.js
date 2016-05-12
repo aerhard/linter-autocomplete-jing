@@ -39,7 +39,7 @@ const parseMessage = (textEditor, schema) => function(str) {
 
   return {
     type: level === 'warning' ? 'Warning' : 'Error',
-    html: `${text}`,
+    html: text,
     filePath,
     range: helpers.rangeFromLineNumber(textEditor, effectiveLine),
   };
@@ -69,8 +69,9 @@ function runJing(textEditor, schema) {
       .join(classPathDelimiter),
     'com.thaiopensource.relaxng.util.Driver',
     '-S',
+    ...schema.lang === 'dtd' ? ['-v'] : [],
     ...schema.lang === 'rnc' ? ['-c'] : [],
-    schema.path || '-',
+    schema.path,
     xmlPath,
   ];
 
@@ -83,15 +84,17 @@ function runJing(textEditor, schema) {
 
   return helpers
     .exec(localConfig.javaExecutablePath, params, options)
-    .then(stdout =>
-      stdout
+    .then(stdout => {
+      if (!stdout) return [];
+
+      return stdout
         .split(/\r?\n/)
         .map(parseMessage(textEditor, schema))
         .reduce(
           (result, current) => (current ? result.concat(current) : result),
           []
-        )
-    );
+        );
+    });
 }
 
 function validateAll({ textEditor, schemata, messages }) {
@@ -135,6 +138,14 @@ function getSchemaRefs(textEditor) {
     const saxParser = sax.parser(true);
 
     let done = false;
+
+    const onDoctype = () => {
+      schemata.push({
+        lang: 'dtd',
+        line: saxParser.line,
+        path: '-',
+      });
+    };
 
     const onProcessingInstruction = node => {
       if (node.name !== 'xml-model') return;
@@ -207,14 +218,15 @@ function getSchemaRefs(textEditor) {
     };
 
     saxParser.onerror = () => (done = true);
+    saxParser.ondoctype = onDoctype;
     saxParser.onprocessinginstruction = onProcessingInstruction;
     saxParser.onopentag = onOpenTag;
 
     const textBuffer = textEditor.getBuffer();
     const lineCount = textBuffer.getLineCount();
     const chunkSize = 64;
-    let row = 0;
 
+    let row = 0;
     while (!done && row < lineCount) {
       const line = textBuffer.lineForRow(row);
       const lineLength = line.length;
@@ -228,7 +240,7 @@ function getSchemaRefs(textEditor) {
     }
 
     if (!schemata.length) {
-      schemata.push({});
+      schemata.push({ path: '-' });
     }
 
     resolve({ textEditor, schemata, messages });

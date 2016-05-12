@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE root SYSTEM "../schema/schema.dtd">
+<root xmlns="http://www.example.com">
+  <child y="a">text</child>
+  <child y="a">text</child>
+  <!-- asdf -->
+</root>

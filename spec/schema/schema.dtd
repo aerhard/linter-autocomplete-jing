@@ -1,0 +1,10 @@
+<?xml encoding="UTF-8"?>
+
+<!ELEMENT root (child)>
+<!ATTLIST root
+  xmlns CDATA #FIXED 'http://www.example.com'>
+
+<!ELEMENT child (#PCDATA)>
+<!ATTLIST child
+  xmlns CDATA #FIXED 'http://www.example.com'
+  x NMTOKEN #REQUIRED>
