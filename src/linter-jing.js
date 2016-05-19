@@ -12,6 +12,7 @@ const classPathDelimiter = process.platform === 'win32' ? ';' : ':';
 const messageRegex = /^((.*?):\s?)?((\d+):)?((\d+):\s)?((error|fatal|warning):\s)(.*)$/;
 const jars = {
   jing: '../vendor/jing/jing.jar',
+  resolver: '../vendor/jing/resolver.jar',
   saxon: '../vendor/saxon/saxon9he.jar',
   xerces: '../vendor/xerces/xercesImpl.jar',
 };
@@ -45,17 +46,12 @@ const parseMessage = (textEditor, schema) => function(str) {
   };
 };
 
-function getJars(lang) {
-  switch (lang) {
-    case 'xsd':
-      return [jars.xerces, jars.jing];
-    case 'sch.15':
-    case 'sch.iso':
-      return [jars.saxon, jars.jing];
-    default:
-      return [jars.jing];
-  }
-}
+const getJars = (lang) => [
+  ...lang === 'xsd' ? [jars.xerces] : [],
+  ...lang === 'sch.15' || lang === 'sch.iso' ? [jars.saxon] : [],
+  ...localConfig.xmlCatalogs ? [jars.resolver] : [],
+  jars.jing,
+];
 
 function runJing(textEditor, schema) {
   if (!path) path = require('path');
@@ -69,9 +65,11 @@ function runJing(textEditor, schema) {
       .join(classPathDelimiter),
     'com.thaiopensource.relaxng.util.Driver',
     '-S',
+    '-r',
     ...schema.lang === 'xsd' && schema.path === '-' ? ['-x'] : [],
     ...schema.lang === 'dtd' ? ['-v'] : [],
     ...schema.lang === 'rnc' ? ['-c'] : [],
+    ...localConfig.xmlCatalogs ? ['-C', localConfig.xmlCatalogs] : [],
     schema.path,
     xmlPath,
   ];
@@ -241,8 +239,15 @@ module.exports = {
       type: 'string',
       default: 'java',
     },
-    displaySchemaWarnings: {
+    xmlCatalogs: {
       order: 2,
+      title: 'XML Catalogs',
+      description: 'Comma-separated list of XML Catalog files',
+      type: 'string',
+      default: '',
+    },
+    displaySchemaWarnings: {
+      order: 3,
       type: 'boolean',
       default: false,
     },
