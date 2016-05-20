@@ -12,3 +12,6 @@
 ## 0.2.0
 * add support for `text.xml.xsl` and `text.xml.plist` grammar scopes
 * add DTD support
+
+## 0.3.0
+* add XML catalog support
