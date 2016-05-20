@@ -49,7 +49,7 @@ const parseMessage = (textEditor, schema) => function(str) {
 const getJars = (lang) => [
   ...lang === 'xsd' ? [jars.xerces] : [],
   ...lang === 'sch.15' || lang === 'sch.iso' ? [jars.saxon] : [],
-  ...localConfig.xmlCatalogs ? [jars.resolver] : [],
+  ...localConfig.xmlCatalog ? [jars.resolver] : [],
   jars.jing,
 ];
 
@@ -69,7 +69,7 @@ function runJing(textEditor, schema) {
     ...schema.lang === 'xsd' && schema.path === '-' ? ['-x'] : [],
     ...schema.lang === 'dtd' ? ['-v'] : [],
     ...schema.lang === 'rnc' ? ['-c'] : [],
-    ...localConfig.xmlCatalogs ? ['-C', localConfig.xmlCatalogs] : [],
+    ...localConfig.xmlCatalog ? ['-C', localConfig.xmlCatalog] : [],
     schema.path,
     xmlPath,
   ];
@@ -239,10 +239,9 @@ module.exports = {
       type: 'string',
       default: 'java',
     },
-    xmlCatalogs: {
+    xmlCatalog: {
       order: 2,
-      title: 'XML Catalogs',
-      description: 'Comma-separated list of XML Catalog files',
+      title: 'XML Catalog',
       type: 'string',
       default: '',
     },

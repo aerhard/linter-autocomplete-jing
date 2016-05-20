@@ -7,25 +7,26 @@ const xmlPath = (filename) => path.resolve(__dirname, `xml/${filename}`);
 const catalogPath = (filename) => path.resolve(__dirname, `catalog/${filename}`);
 
 describe('linter-jing', () => {
+  const testValidation = (basename, cb) =>
+    waitsForPromise(() =>
+      atom.workspace.open(xmlPath(basename))
+        .then((editor) =>
+          linter.provideLinter().lint(editor)
+            .then(cb)
+            .then(() => {
+              const pane = atom.workspace.paneForItem(editor);
+              pane.destroyItem(editor);
+            })
+        )
+    );
+
   describe('lint', () => {
     describe('Schema Types', () => {
-      const testValidation = (basename, cb) =>
-        waitsForPromise(() =>
-          atom.workspace.open(xmlPath(basename))
-            .then((editor) =>
-              linter.provideLinter().lint(editor)
-                .then(cb)
-                .then(() => {
-                  const pane = atom.workspace.paneForItem(editor);
-                  pane.destroyItem(editor);
-                })
-            )
-        );
-
       beforeEach(() => {
         waitsForPromise(() =>
           atom.packages.activatePackage('linter-jing')
         );
+        atom.config.set('linter-jing.xmlCatalog', catalogPath('catalog.xml'));
       });
 
       describe('given an empty file', () => {
@@ -247,10 +248,10 @@ describe('linter-jing', () => {
       });
 
       describe('given a well-formed xml document with a correct ' +
-        'reference to a valid RNG and a valid DTD', () => {
+        'reference to a valid RNG and correct system reference to a valid DTD', () => {
         describe('when the document is valid', () => {
           it('returns an empty array', () => {
-            testValidation('rng-dtd-valid.xml', (messages) => {
+            testValidation('rng-dtd-system-valid.xml', (messages) => {
               expect(Array.isArray(messages)).toBe(true);
               expect(messages.length).toEqual(0);
             });
@@ -259,7 +260,28 @@ describe('linter-jing', () => {
 
         describe('when the document contains 9 validation errors', () => {
           it('returns an array of length 9', () => {
-            testValidation('rng-dtd-invalid.xml', (messages) => {
+            testValidation('rng-dtd-system-invalid.xml', (messages) => {
+              expect(Array.isArray(messages)).toBe(true);
+              expect(messages.length).toEqual(9);
+            });
+          });
+        });
+      });
+
+      describe('given a well-formed xml document with a correct ' +
+        'reference to a valid RNG and correct public reference to a valid DTD', () => {
+        describe('when the document is valid', () => {
+          it('returns an empty array', () => {
+            testValidation('rng-dtd-public-valid.xml', (messages) => {
+              expect(Array.isArray(messages)).toBe(true);
+              expect(messages.length).toEqual(0);
+            });
+          });
+        });
+
+        describe('when the document contains 9 validation errors', () => {
+          it('returns an array of length 9', () => {
+            testValidation('rng-dtd-public-invalid.xml', (messages) => {
               expect(Array.isArray(messages)).toBe(true);
               expect(messages.length).toEqual(9);
             });
@@ -290,25 +312,12 @@ describe('linter-jing', () => {
     });
 
     describe('XML Catalogs', () => {
-      const testValidation = (basename, cb) =>
-        waitsForPromise(() =>
-          atom.workspace.open(xmlPath(basename))
-            .then((editor) =>
-              linter.provideLinter().lint(editor)
-                .then(cb)
-                .then(() => {
-                  const pane = atom.workspace.paneForItem(editor);
-                  pane.destroyItem(editor);
-                })
-            )
-        );
-
       describe('provided with a reference to a non-existent XML catalog', () => {
         beforeEach(() => {
           waitsForPromise(() =>
             atom.packages.activatePackage('linter-jing')
           );
-          atom.config.set('linter-jing.xmlCatalogs', catalogPath('missing-catalog.xml'));
+          atom.config.set('linter-jing.xmlCatalog', catalogPath('missing-catalog.xml'));
         });
 
         describe('given a well-formed xml document with a correct reference to a valid ' +
@@ -328,7 +337,7 @@ describe('linter-jing', () => {
           waitsForPromise(() =>
             atom.packages.activatePackage('linter-jing')
           );
-          atom.config.set('linter-jing.xmlCatalogs', catalogPath('catalog-not-well-formed.xml'));
+          atom.config.set('linter-jing.xmlCatalog', catalogPath('catalog-not-well-formed.xml'));
         });
 
         describe('given a well-formed xml document with a correct reference to a valid ' +
@@ -348,7 +357,7 @@ describe('linter-jing', () => {
           waitsForPromise(() =>
             atom.packages.activatePackage('linter-jing')
           );
-          atom.config.set('linter-jing.xmlCatalogs', catalogPath('not-a-catalog.xml'));
+          atom.config.set('linter-jing.xmlCatalog', catalogPath('not-a-catalog.xml'));
         });
 
         describe('given a well-formed xml document with a correct reference to a valid ' +
@@ -368,7 +377,7 @@ describe('linter-jing', () => {
           waitsForPromise(() =>
             atom.packages.activatePackage('linter-jing')
           );
-          atom.config.set('linter-jing.xmlCatalogs', catalogPath('catalog.xml'));
+          atom.config.set('linter-jing.xmlCatalog', catalogPath('catalog.xml'));
         });
 
         describe('given a well-formed xml document with a correct reference to a valid ' +
@@ -392,51 +401,29 @@ describe('linter-jing', () => {
             });
           });
         });
+      });
 
-        describe('given a well-formed xml document with a correct reference to a valid ' +
-          'RNC schema by means of a relative path in the xml-model which should not ' +
-          'get resolved by the catalog file', () => {
-          describe('when the document is valid', () => {
-            it('returns an empty array', () => {
-              testValidation('rng-valid.xml', (messages) => {
-                expect(Array.isArray(messages)).toBe(true);
-                expect(messages.length).toEqual(0);
-              });
+      describe('given a well-formed xml document with a correct ' +
+        'reference to a valid XSD and a valid DTD which both need to get resolved ' +
+        'with a catalog', () => {
+        describe('when the document is valid', () => {
+          it('returns an empty array', () => {
+            testValidation('catalog-xsd-dtd-valid.xml', (messages) => {
+              expect(Array.isArray(messages)).toBe(true);
+              expect(messages.length).toEqual(0);
             });
           });
+        });
 
-          describe('when the document contains 5 validation errors', () => {
-            it('returns an array of length 5', () => {
-              testValidation('rng-invalid.xml', (messages) => {
-                expect(Array.isArray(messages)).toBe(true);
-                expect(messages.length).toEqual(5);
-              });
+        describe('when the document contains 10 validation errors', () => {
+          it('returns an array of length 10', () => {
+            testValidation('catalog-xsd-dtd-invalid.xml', (messages) => {
+              expect(Array.isArray(messages)).toBe(true);
+              expect(messages.length).toEqual(10);
             });
           });
         });
       });
-
-      // describe('given a well-formed xml document with a correct ' +
-      //   'reference to a valid XSD and a valid DTD which both need to get resolved ' +
-      //   'with a catalog', () => {
-      //   describe('when the document is valid', () => {
-      //     it('returns an empty array', () => {
-      //       testValidation('catalog-xsd-dtd-valid.xml', (messages) => {
-      //         expect(Array.isArray(messages)).toBe(true);
-      //         expect(messages.length).toEqual(0);
-      //       });
-      //     });
-      //   });
-      //
-      //   describe('when the document contains 10 validation errors', () => {
-      //     it('returns an array of length 10', () => {
-      //       testValidation('catalog-xsd-dtd-invalid.xml', (messages) => {
-      //         expect(Array.isArray(messages)).toBe(true);
-      //         expect(messages.length).toEqual(10);
-      //       });
-      //     });
-      //   });
-      // });
     });
   });
 });
