@@ -404,6 +404,28 @@ describe('linter-jing', () => {
       });
 
       describe('given a well-formed xml document with a correct ' +
+        'reference to a valid XSD schema which needs to get resolved with a catalog ' +
+        'and includes another schema which needs to get resolved with a catalog', () => {
+        describe('when the document is valid', () => {
+          it('returns an empty array', () => {
+            testValidation('catalog-xsd-valid.xml', (messages) => {
+              expect(Array.isArray(messages)).toBe(true);
+              expect(messages.length).toEqual(0);
+            });
+          });
+        });
+
+        describe('when the document contains 6 validation errors', () => {
+          it('returns an array of length 6', () => {
+            testValidation('catalog-xsd-invalid.xml', (messages) => {
+              expect(Array.isArray(messages)).toBe(true);
+              expect(messages.length).toEqual(6);
+            });
+          });
+        });
+      });
+
+      describe('given a well-formed xml document with a correct ' +
         'reference to a valid XSD and a valid DTD which both need to get resolved ' +
         'with a catalog', () => {
         describe('when the document is valid', () => {

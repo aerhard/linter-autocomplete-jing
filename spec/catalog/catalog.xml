@@ -10,4 +10,12 @@
     systemId="http://github.com/aerhard/linter-jing/missing-file-resolved-in-catalog.xsd"
     uri="../schema/schema.xsd"
   />
+  <system
+    systemId="http://github.com/aerhard/linter-jing/missing-file-resolved-in-catalog-1.xsd"
+    uri="../schema/schema-1.xsd"
+  />
+  <system
+    systemId="http://github.com/aerhard/linter-jing/missing-file-resolved-in-catalog-r.xsd"
+    uri="../schema/schema-referenced.xsd"
+  />
 </catalog>
