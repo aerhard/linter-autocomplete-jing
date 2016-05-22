@@ -247,6 +247,7 @@ module.exports = {
     },
     displaySchemaWarnings: {
       order: 3,
+      title: 'Display Schema Parser Warnings',
       type: 'boolean',
       default: false,
     },
