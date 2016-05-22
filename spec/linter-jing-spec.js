@@ -60,11 +60,11 @@ describe('linter-jing', () => {
 
       describe('given a well-formed xml document with a schema references ' +
       'pointing to a missing file', () => {
-        it('returns an array with an error message', () => {
+        it('returns an array with a warning', () => {
           testValidation('wrong-schema-path.xml', (messages) => {
             expect(Array.isArray(messages)).toBe(true);
             expect(messages.length).toEqual(1);
-            expect(messages[0].type).toEqual('Error');
+            expect(messages[0].type).toEqual('Warning');
           });
         });
       });
@@ -323,10 +323,11 @@ describe('linter-jing', () => {
         describe('given a well-formed xml document with a correct reference to a valid ' +
           'RNC schema in an xml-model processing instruction which needs to get resolved ' +
           'with a catalog file', () => {
-          it('returns an array containing an error message', () => {
+          it('returns an array containing a warning', () => {
             testValidation('catalog-rnc-valid.xml', (messages) => {
               expect(Array.isArray(messages)).toBe(true);
               expect(messages.length).toEqual(1);
+              expect(messages[0].type).toEqual('Warning');
             });
           });
         });
@@ -343,10 +344,11 @@ describe('linter-jing', () => {
         describe('given a well-formed xml document with a correct reference to a valid ' +
           'RNC schema in an xml-model processing instruction which needs to get resolved ' +
           'with a catalog file', () => {
-          it('returns an array containing an error message', () => {
+          it('returns an array containing a warning', () => {
             testValidation('catalog-rnc-valid.xml', (messages) => {
               expect(Array.isArray(messages)).toBe(true);
               expect(messages.length).toEqual(1);
+              expect(messages[0].type).toEqual('Warning');
             });
           });
         });
@@ -363,10 +365,11 @@ describe('linter-jing', () => {
         describe('given a well-formed xml document with a correct reference to a valid ' +
           'RNC schema in an xml-model processing instruction which needs to get resolved ' +
           'with a catalog file', () => {
-          it('returns an array containing an error message', () => {
+          it('returns an array containing a warning', () => {
             testValidation('catalog-rnc-valid.xml', (messages) => {
               expect(Array.isArray(messages)).toBe(true);
               expect(messages.length).toEqual(1);
+              expect(messages[0].type).toEqual('Warning');
             });
           });
         });
