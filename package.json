@@ -15,10 +15,10 @@
     "url": "https://github.com/aerhard/linter-jing.git"
   },
   "bugs": "https://github.com/aerhard/linter-jing/issues",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE.md",
   "author": "Alexander Erhard (https://github.com/aerhard/)",
   "engines": {
-    "atom": ">0.50.0"
+    "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
     "atom-linter": "^5.0.1",

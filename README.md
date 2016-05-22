@@ -16,7 +16,7 @@ The linter depends on a Java Runtime Environment (JRE) v1.6 or above. If running
 ## Settings
 
 * *Java Executable Path:* The path to the Java executable file (`java`) to be used running Jing.
-* *Display Schema Warnings:* Whether or not to display warning messages from the schema parser.
+* *Display Schema Parser Warnings:* Whether or not to display warning messages from the schema parser.
 * *XML Catalog:* The path to the XML Catalog file to be used in validation.
 
 (In order to edit the settings, open Atom's settings view by pressing <kbd>Ctrl</kbd> + <kbd>,</kbd> or by selecting "Packages" / "Settings View" / "Open" in the main menu). In the "Packages" tab, search for "linter-jing" and click the "Settings" button.)

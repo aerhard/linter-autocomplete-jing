@@ -30,19 +30,28 @@ const parseMessage = (textEditor, schema) => function(str) {
 
   const filePath = textEditor.getPath();
 
-  if (systemId !== filePath && level === 'warning' && !localConfig.displaySchemaWarnings) {
+  if (systemId === filePath) {
+    return {
+      type: level === 'warning' ? 'Warning' : 'Error',
+      html: text,
+      filePath,
+      range: helpers.rangeFromLineNumber(textEditor, Number(line) - 1),
+    };
+  }
+
+  if (!localConfig.displaySchemaWarnings && level === 'warning') {
     return null;
   }
 
-  const effectiveLine = systemId === filePath
-    ? Number(line) - 1
-    : schema.line;
+  const textPrefix = level === 'warning'
+    ? 'Schema parser warning: '
+    : 'Could not process schema / catalog: ';
 
   return {
-    type: level === 'warning' ? 'Warning' : 'Error',
-    html: text,
+    type: 'Warning',
+    html: textPrefix + text,
     filePath,
-    range: helpers.rangeFromLineNumber(textEditor, effectiveLine),
+    range: helpers.rangeFromLineNumber(textEditor, schema.line),
   };
 };
 
@@ -137,14 +146,10 @@ function getSchemaRefs(textEditor) {
     const saxParser = sax.parser(true);
 
     let done = false;
+    let hasDTD = false;
+    let hasSchemaLocation = false;
 
-    const onDoctype = () => {
-      schemata.push({
-        lang: 'dtd',
-        line: saxParser.line,
-        path: '-',
-      });
-    };
+    const onDoctype = () => (hasDTD = true);
 
     const onProcessingInstruction = node => {
       if (node.name !== 'xml-model') return;
@@ -185,19 +190,11 @@ function getSchemaRefs(textEditor) {
     const onOpenTag = (node) => {
       if (done) return;
 
-      const hasSchemaLocation = getXsiNamespacePrefixes(node.attributes)
+      hasSchemaLocation = getXsiNamespacePrefixes(node.attributes)
         .some(prefix =>
           node.attributes[prefix + ':noNamespaceSchemaLocation'] ||
           node.attributes[prefix + ':schemaLocation']
         );
-
-      if (hasSchemaLocation) {
-        schemata.push({
-          lang: 'xsd',
-          line: saxParser.line,
-          path: '-',
-        });
-      }
 
       done = true;
     };
@@ -224,7 +221,19 @@ function getSchemaRefs(textEditor) {
       row++;
     }
 
-    if (!schemata.length) {
+    if (hasSchemaLocation) {
+      schemata.push({
+        lang: 'xsd',
+        line: saxParser.line,
+        path: '-',
+      });
+    } else if (hasDTD) {
+      schemata.push({
+        lang: 'dtd',
+        line: saxParser.line,
+        path: '-',
+      });
+    } else if (!schemata.length) {
       schemata.push({ path: '-' });
     }
 
@@ -247,6 +256,7 @@ module.exports = {
     },
     displaySchemaWarnings: {
       order: 3,
+      title: 'Display Schema Parser Warnings',
       type: 'boolean',
       default: false,
     },

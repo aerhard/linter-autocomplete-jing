@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <grammar ns="http://www.example.com" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
-  <start>
-    <element name="root">
-      <element name="child">
-        <attribute name="x">
-          <data type="NCName"/>
-        </attribute>
-        <data type="NCName"/>
-      </element>
-    </element>
-  </start>
+  <include href="schema-referenced.rng"/>
 </grammar>

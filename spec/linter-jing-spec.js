@@ -60,11 +60,11 @@ describe('linter-jing', () => {
 
       describe('given a well-formed xml document with a schema references ' +
       'pointing to a missing file', () => {
-        it('returns an array with an error message', () => {
+        it('returns an array with a warning', () => {
           testValidation('wrong-schema-path.xml', (messages) => {
             expect(Array.isArray(messages)).toBe(true);
             expect(messages.length).toEqual(1);
-            expect(messages[0].type).toEqual('Error');
+            expect(messages[0].type).toEqual('Warning');
           });
         });
       });
@@ -321,12 +321,13 @@ describe('linter-jing', () => {
         });
 
         describe('given a well-formed xml document with a correct reference to a valid ' +
-          'RNC schema in an xml-model processing instruction which needs to get resolved ' +
+          'RNG schema in an xml-model processing instruction which needs to get resolved ' +
           'with a catalog file', () => {
-          it('returns an array containing an error message', () => {
-            testValidation('catalog-rnc-valid.xml', (messages) => {
+          it('returns an array containing a warning', () => {
+            testValidation('catalog-rng-valid.xml', (messages) => {
               expect(Array.isArray(messages)).toBe(true);
               expect(messages.length).toEqual(1);
+              expect(messages[0].type).toEqual('Warning');
             });
           });
         });
@@ -341,12 +342,13 @@ describe('linter-jing', () => {
         });
 
         describe('given a well-formed xml document with a correct reference to a valid ' +
-          'RNC schema in an xml-model processing instruction which needs to get resolved ' +
+          'RNG schema in an xml-model processing instruction which needs to get resolved ' +
           'with a catalog file', () => {
-          it('returns an array containing an error message', () => {
-            testValidation('catalog-rnc-valid.xml', (messages) => {
+          it('returns an array containing a warning', () => {
+            testValidation('catalog-rng-valid.xml', (messages) => {
               expect(Array.isArray(messages)).toBe(true);
               expect(messages.length).toEqual(1);
+              expect(messages[0].type).toEqual('Warning');
             });
           });
         });
@@ -361,12 +363,13 @@ describe('linter-jing', () => {
         });
 
         describe('given a well-formed xml document with a correct reference to a valid ' +
-          'RNC schema in an xml-model processing instruction which needs to get resolved ' +
+          'RNG schema in an xml-model processing instruction which needs to get resolved ' +
           'with a catalog file', () => {
-          it('returns an array containing an error message', () => {
-            testValidation('catalog-rnc-valid.xml', (messages) => {
+          it('returns an array containing a warning', () => {
+            testValidation('catalog-rng-valid.xml', (messages) => {
               expect(Array.isArray(messages)).toBe(true);
               expect(messages.length).toEqual(1);
+              expect(messages[0].type).toEqual('Warning');
             });
           });
         });
@@ -381,11 +384,11 @@ describe('linter-jing', () => {
         });
 
         describe('given a well-formed xml document with a correct reference to a valid ' +
-          'RNC schema in an xml-model processing instruction which needs to get resolved ' +
+          'RNG schema in an xml-model processing instruction which needs to get resolved ' +
           'with a catalog file', () => {
           describe('when the document is valid', () => {
             it('returns an empty array', () => {
-              testValidation('catalog-rnc-valid.xml', (messages) => {
+              testValidation('catalog-rng-valid.xml', (messages) => {
                 expect(Array.isArray(messages)).toBe(true);
                 expect(messages.length).toEqual(0);
               });
@@ -394,10 +397,53 @@ describe('linter-jing', () => {
 
           describe('when the document contains 5 validation errors', () => {
             it('returns an array of length 5', () => {
-              testValidation('catalog-rnc-invalid.xml', (messages) => {
+              testValidation('catalog-rng-invalid.xml', (messages) => {
                 expect(Array.isArray(messages)).toBe(true);
                 expect(messages.length).toEqual(5);
               });
+            });
+          });
+        });
+      });
+
+      describe('given a well-formed xml document with a correct ' +
+       'xml-model reference to a valid XSD schema which needs to get ' +
+       'resolved with a catalog', () => {
+        describe('when the document is valid', () => {
+          it('returns an empty array', () => {
+            testValidation('catalog-xsd-xmlmodel-valid.xml', (messages) => {
+              expect(Array.isArray(messages)).toBe(true);
+              expect(messages.length).toEqual(0);
+            });
+          });
+        });
+        describe('when the document contains 6 validation errors', () => {
+          it('returns an array of length 6', () => {
+            testValidation('catalog-xsd-xmlmodel-invalid.xml', (messages) => {
+              expect(Array.isArray(messages)).toBe(true);
+              expect(messages.length).toEqual(6);
+            });
+          });
+        });
+      });
+
+      describe('given a well-formed xml document with a correct ' +
+        'reference to a valid XSD schema which needs to get resolved with a catalog ' +
+        'and includes another schema which needs to get resolved with a catalog', () => {
+        describe('when the document is valid', () => {
+          it('returns an empty array', () => {
+            testValidation('catalog-xsd-valid.xml', (messages) => {
+              expect(Array.isArray(messages)).toBe(true);
+              expect(messages.length).toEqual(0);
+            });
+          });
+        });
+
+        describe('when the document contains 6 validation errors', () => {
+          it('returns an array of length 6', () => {
+            testValidation('catalog-xsd-invalid.xml', (messages) => {
+              expect(Array.isArray(messages)).toBe(true);
+              expect(messages.length).toEqual(6);
             });
           });
         });
