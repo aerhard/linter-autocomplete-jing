@@ -16,6 +16,9 @@
 ## 0.3.0
 * add XML catalog support
 
-### 0.3.1
+### 0.3.2
 * fix supported Atom version range
 * add prefix to schema / catalog error messages and render them as as warnings
+
+### 0.3.3
+* extend documentation

@@ -2,10 +2,10 @@
   "name": "linter-jing",
   "main": "./lib/linter-jing",
   "version": "0.3.2",
-  "description": "Well-formedness check and validation of XML files against RELAX NG (compact, XML), Schematron (1.5, ISO), W3C Schema (XSD) and DTD",
+  "description": "On-the-fly validation and well-formedness check of XML documents against RELAX NG (compact, XML), Schematron (1.5, ISO), W3C Schema (XSD 1.0) and DTD",
   "keywords": [
     "XML",
-    "RELAX NG",
+    "RELAXNG",
     "Schematron",
     "XSD",
     "validation"
