@@ -17,7 +17,7 @@ The linter depends on a Java Runtime Environment (JRE) v1.6 or above. If running
 
 The linter gets activated when the document in the active editor tab has one of the following top-level grammar scopes: `text.xml`, `text.xml.xsl`, `text.xml.plist` or `text.mei`. The Atom core package [language-xml](https://atom.io/packages/language-xml) (installed by default) assigns a large set of common XML file extensions to the `text.xml` and `text.xml.xsl` scopes. XML property lists are supported by another core package, [language-property-list](https://atom.io/packages/language-property-list). In order to associate `.mei` files with `text.mei`, install [language-mei](https://atom.io/packages/language-xml).
 
-Please send a pull request or create an issue on the [Github page of this package](https://github.com/aerhard/linter-jing) when you would like to extend the linter's list of supported grammar scopes. If your file name extension is not supported there's no grammar scope available for s, you can either request to extend the list at https://github.com/atom/language-xml or create a local association in your `config.cson`:
+Please send a pull request or create an issue on the [Github page of this package](https://github.com/aerhard/linter-jing) when you would like to extend the linter's list of supported grammar scopes. If there's no grammar scope available for your file name extension yet, you can either request to extend the list at https://github.com/atom/language-xml or create a local association in your `config.cson`:
 
 1. Open `config.cson` by pressing <kbd>Ctrl-Shift-P</kbd> and then entering `Open Your Config`
 2. Add or extend the `customFileTypes` property of `core`
