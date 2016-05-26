@@ -22,3 +22,8 @@
 
 ### 0.3.3
 * extend documentation
+
+## 0.4.0
+* support Schematron rules embedded in RNG and XSD files
+* improve performance by moving Java validation to a socket server
+* improve error messages

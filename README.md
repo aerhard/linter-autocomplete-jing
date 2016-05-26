@@ -13,6 +13,20 @@ Run `apm install linter-jing` or select the package in Atom's Settings view / In
 
 The linter depends on a Java Runtime Environment (JRE) v1.6 or above. If running `java -version` on the command line returns an appropriate version number, you should be set. Otherwise, install a recent JRE and provide the path to the Java executable either in the PATH environment variable or in the linter-jing package settings in Atom.
 
+## Settings
+
+* *Java Executable Path:* The path to the Java executable file (`java`) to be used running Jing.
+* *JVM Arguments:* Space-separated list of arguments to get passed to the Java Virtual Machine on which the validation server is run.
+* *Schema Cache Size:* The maximum number of schemata retained simultaneously in memory. (There is a -- now fixed -- bug in a recent version of Atom's Settings View preventing users from setting 0 as a value in numeric fields, see the discussion at https://github.com/atom/settings-view/issues/783).
+* *Display Schema Parser Warnings:* Whether or not to display warning messages from the schema parser.
+* *XML Catalog:* The path to the XML Catalog file to be used in validation.
+
+(In order to edit the settings, open Atom's settings view by pressing <kbd>Ctrl-,</kbd> or by selecting "Packages" / "Settings View" / "Open" in the main menu). In the "Packages" tab, search for "linter-jing" and click the "Settings" button.)
+
+## Commands
+
+* *linter-jing:clear-schema-cache*: Removes all schema and catalog data from the in-memory cache so it will get read from disk in the next validation run.
+
 ## File types
 
 The linter gets activated when the document in the active editor tab has one of the following top-level grammar scopes: `text.xml`, `text.xml.xsl`, `text.xml.plist` or `text.mei`. The Atom core package [language-xml](https://atom.io/packages/language-xml) (installed by default) assigns a large set of common XML file extensions to the `text.xml` and `text.xml.xsl` scopes. XML property lists are supported by another core package, [language-property-list](https://atom.io/packages/language-property-list). In order to associate `.mei` files with `text.mei`, install [language-mei](https://atom.io/packages/language-xml).
@@ -37,14 +51,6 @@ The following example assigns the `.tei` and `.odd` extensions to the `text.xml`
 
 The linter supports the common ways of referencing schemata in XML files (DOCTYPE declarations, XSI schema instance references, xml-model processing instructions; see  https://github.com/aerhard/linter-jing/tree/master/spec/xml for a collection of examples).   
 If your documents contain references to remote schemata, you can improve performance and reduce network traffic by specifying an XML catalog file which maps remote resources to local files. Projects like the Text Encoding Initiative (TEI) provide [packages](https://sourceforge.net/projects/tei/files/TEI-P5-all/) which already include a catalog file that can be added to the linter settings.
-
-## Settings
-
-* *Java Executable Path:* The path to the Java executable file (`java`) to be used running Jing.
-* *Display Schema Parser Warnings:* Whether or not to display warning messages from the schema parser.
-* *XML Catalog:* The path to the XML Catalog file to be used in validation.
-
-(In order to edit the settings, open Atom's settings view by pressing <kbd>Ctrl-,</kbd> or by selecting "Packages" / "Settings View" / "Open" in the main menu). In the "Packages" tab, search for "linter-jing" and click the "Settings" button.)
 
 ## Development
 

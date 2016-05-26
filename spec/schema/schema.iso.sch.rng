@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar
+  ns="http://www.example.com"
+  xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <include href="schema-referenced.rng"/>
+
+  <sch:ns prefix="example" uri="http://www.example.com"/>
+  <sch:pattern id="root-child">
+    <sch:rule context="example:root">
+      <sch:assert test="count(*) = 1">The root element may only contain one child element.</sch:assert>
+    </sch:rule>
+  </sch:pattern>
+  <sch:pattern id="child-att">
+    <sch:rule context="example:child">
+      <sch:assert test="@x='a'">A child element must contain an x attribute with value 'a'.</sch:assert>
+    </sch:rule>
+  </sch:pattern>
+  <sch:diagnostics/>
+</grammar>
