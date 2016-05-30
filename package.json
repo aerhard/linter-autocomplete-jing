@@ -1,13 +1,13 @@
 {
   "name": "linter-jing",
-  "main": "./lib/linter-jing",
+  "main": "./lib/main.js",
   "version": "0.3.2",
   "description": "On-the-fly validation and well-formedness check of XML documents against RELAX NG (compact, XML), Schematron (1.5, ISO), W3C Schema (XSD 1.0) and DTD",
   "keywords": [
-    "XML",
-    "RELAXNG",
-    "Schematron",
-    "XSD",
+    "xml",
+    "relaxng",
+    "schematron",
+    "xsd",
     "validation"
   ],
   "repository": {
@@ -23,6 +23,8 @@
   "dependencies": {
     "atom-linter": "^5.0.1",
     "atom-package-deps": "^4.0.1",
+    "cross-spawn": "^4.0.0",
+    "lodash": "^4.13.1",
     "sax": "^1.1.4"
   },
   "devDependencies": {
@@ -42,8 +44,8 @@
   "scripts": {
     "eslint": "eslint .",
     "test": "apm test",
-    "build": "babel src --out-file lib/linter-jing.js --presets es2015-loose",
-    "watch": "babel src --watch --out-file lib/linter-jing.js --presets es2015-loose"
+    "build": "babel src --out-dir lib --presets es2015-loose",
+    "watch": "babel src --watch --out-dir lib --presets es2015-loose"
   },
   "providedServices": {
     "linter": {

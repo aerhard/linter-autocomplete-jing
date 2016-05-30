@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schema/schema.wronginclude.iso.sch.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<root xmlns="http://www.example.com">
+  <child y="a">text</child>
+  <child/>
+  <!-- asdf -->
+</root>
