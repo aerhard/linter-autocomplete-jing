@@ -5,7 +5,11 @@
 [![Circle CI Status](https://circleci.com/gh/aerhard/linter-jing/tree/master.svg?style=shield&circle-token=93c48cdbcad41ba1b7cd08f231286b94b195de53)](https://circleci.com/gh/aerhard/linter-jing)
 [![Dependencies](https://david-dm.org/aerhard/linter-jing.svg)](https://david-dm.org/aerhard/linter-jing)
 
-On-the-fly validation and well-formedness check of XML documents in Atom. Supported schema types: RELAX NG (XML and compact syntax), Schematron (1.5, ISO), W3C Schema (XSD 1.0) and DTD.
+On-the-fly validation and well-formedness check of XML documents in Atom.
+
+Supported schema types: RELAX NG (XML and compact syntax), Schematron (1.5, ISO), W3C Schema (XSD 1.0) and DTD.
+
+The XML document checks are based on a slightly extended and adapted version of [Jing](https://github.com/relaxng/jing-trang). 
 
 ## Installation
 
@@ -17,7 +21,7 @@ The linter depends on a Java Runtime Environment (JRE) v1.6 or above. If running
 
 * *Java Executable Path:* The path to the Java executable file (`java`) to be used running Jing.
 * *JVM Arguments:* Space-separated list of arguments to get passed to the Java Virtual Machine on which the validation server is run.
-* *Schema Cache Size:* The maximum number of schemata retained simultaneously in memory. (There is a -- now fixed -- bug in a recent version of Atom's Settings View preventing users from setting 0 as a value in numeric fields, see the discussion at https://github.com/atom/settings-view/issues/783).
+* *Schema Cache Size:* The maximum number of schemata retained simultaneously in memory. (There is a -- now fixed -- bug in a recent version of Atom's Settings View preventing users from setting 0 as a value in numeric fields, see the discussion at https://github.com/atom/settings-view/issues/783). Currently only schemata referenced via xml-model processing instructions are added to the cache.
 * *Display Schema Parser Warnings:* Whether or not to display warning messages from the schema parser.
 * *XML Catalog:* The path to the XML Catalog file to be used in validation.
 
