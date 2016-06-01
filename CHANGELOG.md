@@ -27,3 +27,6 @@
 * support Schematron rules embedded in RNG and XSD files
 * improve performance by moving Java validation to a socket server
 * improve error messages
+
+### 0.4.1
+* fix bug in socket communication
