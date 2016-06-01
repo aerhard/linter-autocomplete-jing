@@ -1,7 +1,7 @@
 {
   "name": "linter-jing",
   "main": "./lib/main.js",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "On-the-fly validation and well-formedness check of XML documents against RELAX NG (compact, XML), Schematron (1.5, ISO), W3C Schema (XSD 1.0) and DTD",
   "keywords": [
     "xml",
