@@ -3,7 +3,7 @@ let spawn;
 let path;
 
 const portRegex = /Validation server listening on port (\d+)/;
-const jarPath = '../vendor/validation-server-0.2.0.jar';
+const jarPath = '../vendor/validation-server-0.2.1.jar';
 const port = 0;
 
 function ServerProcessError(message, err) {
