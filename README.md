@@ -9,7 +9,7 @@ On-the-fly validation and well-formedness check of XML documents in Atom.
 
 Supported schema types: RELAX NG (XML and compact syntax), Schematron (1.5, ISO), W3C Schema (XSD 1.0) and DTD.
 
-The XML document checks are based on a slightly extended and adapted version of [Jing](https://github.com/relaxng/jing-trang). 
+The XML document checks are based on a slightly extended and adapted version of [Jing](https://github.com/relaxng/jing-trang).
 
 ## Installation
 
@@ -51,10 +51,10 @@ The following example assigns the `.tei` and `.odd` extensions to the `text.xml`
       ]
 ```
 
-## Referencing Schemata
+## Specifying Schemata
 
-The linter supports the common ways of referencing schemata in XML files (DOCTYPE declarations, XSI schema instance references, xml-model processing instructions; see  https://github.com/aerhard/linter-jing/tree/master/spec/xml for a collection of examples).   
-If your documents contain references to remote schemata, you can improve performance and reduce network traffic by specifying an XML catalog file which maps remote resources to local files. Projects like the Text Encoding Initiative (TEI) provide [packages](https://sourceforge.net/projects/tei/files/TEI-P5-all/) which already include a catalog file that can be added to the linter settings.
+The linter supports the common ways of specifying schemata in XML files (DOCTYPE declarations, XSI schema instance attributes, xml-model processing instructions; see  https://github.com/aerhard/linter-jing/tree/master/spec/xml for a collection of examples).   
+If your documents contain references to remote schemata, you can improve performance and reduce network traffic by using an XML catalog file to map remote resources to local files. Projects like the Text Encoding Initiative (TEI) provide [packages](https://sourceforge.net/projects/tei/files/TEI-P5-all/) which include catalog files that can be added to the linter settings.
 
 ## Development
 
