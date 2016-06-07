@@ -14,7 +14,10 @@ const setServerConfig = args => server =>
       socket.end(headers);
     });
     socket.on('close', resolve);
-    socket.on('error', reject);
+    socket.on('error', err => {
+      socket.destroy();
+      reject(err);
+    });
 
     socket.connect({ port: server.port });
   });

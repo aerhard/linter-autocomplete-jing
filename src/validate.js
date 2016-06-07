@@ -87,7 +87,10 @@ const validate = (textEditor, config) => ([server, { schemaProps, messages }]) =
     });
 
     socket.on('close', () => resolve(sortBy(messages, 'range[0][0]')));
-    socket.on('error', reject);
+    socket.on('error', err => {
+      socket.destroy();
+      reject(err);
+    });
 
     socket.connect({ port: server.port });
   });
