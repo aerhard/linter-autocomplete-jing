@@ -4,7 +4,8 @@ let helpers;
 let net;
 let sortBy;
 
-const messageRegex = /^((.*?):\s?)?((\d+):)?(?:\d+:\s)?(error|fatal|warning):\s(.*)$/;
+const messageRegex =
+  /^([a-z0-9\.]+?):((.*?):\s?)?((\d+):)?(?:\d+:\s)?(error|fatal|warning):\s(.*)$/;
 
 const parseMessage = (textEditor, schemaProps, config) => function(str) {
   if (!helpers) helpers = require('atom-linter');
@@ -15,14 +16,14 @@ const parseMessage = (textEditor, schemaProps, config) => function(str) {
     return null;
   }
 
-  const [,, systemId,, line, level, text] = match;
+  const [, lang,, systemId,, line, level, text] = match;
 
   const filePath = textEditor.getPath();
 
   if (systemId === filePath) {
     return {
       type: level === 'warning' ? 'Warning' : 'Error',
-      html: text,
+      html: `[${lang}] ${text}`,
       filePath,
       range: helpers.rangeFromLineNumber(textEditor, Number(line) - 1),
     };
@@ -36,7 +37,7 @@ const parseMessage = (textEditor, schemaProps, config) => function(str) {
     ? 'Schema parser warning: '
     : 'Could not process schema or catalog: ';
 
-  const schema = schemaProps.find(sch => sch.path === systemId);
+  const schema = schemaProps.find(sch => sch.path === systemId && sch.lang === lang);
   const range = schema
     ? helpers.rangeFromLineNumber(textEditor, schema.line)
     : [[0, 0], [0, 0]];

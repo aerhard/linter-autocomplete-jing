@@ -30,3 +30,8 @@
 
 ### 0.4.1
 * fix bug in socket communication
+
+### 0.4.2
+* update validation server (fix error message output bug in Java)
+* fix schema error highlighting in editor
+* display schema language in linter messages
