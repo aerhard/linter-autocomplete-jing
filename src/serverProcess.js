@@ -2,8 +2,8 @@
 let spawn;
 let path;
 
-const portRegex = /Validation server listening on port (\d+)/;
-const jarPath = '../vendor/validation-server-0.2.2.jar';
+const portRegex = /XML Tools Server listening on port (\d+)/;
+const jarPath = '../vendor/xml-tools-server-0.2.2.jar';
 const port = 0;
 
 function ServerProcessError(message, err) {
