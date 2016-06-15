@@ -1,0 +1,494 @@
+[{
+  "description": "Schema Types",
+  "catalog": "../catalog/catalog.xml",
+  "items": [{
+    "description": "given an empty file",
+    "schemata": [
+      { "lang": "none" }
+    ],
+    "items": [{
+      "expectation": "returns an array containing an error message",
+      "file": "../xml/empty.xml",
+      "expectArray": true,
+      "expectMessageLength": 1,
+      "expectFirstItemType": "Error"
+    }]
+  }, {
+    "description": "given a not well-formed file",
+    "schemata": [
+      { "lang": "none" }
+    ],
+    "items": [{
+      "expectation": "returns an array containing an error message",
+      "file": "../xml/notwellformed.xml",
+      "expectArray": true,
+      "expectMessageLength": 1,
+      "expectFirstItemType": "Error"
+    }]
+  }, {
+    "description": "given a well-formed xml document without schema references",
+    "schemata": [
+      { "lang": "none" }
+    ],
+    "items": [{
+      "expectation": "returns an empty array",
+      "file": "../xml/wellformed.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }]
+  }, {
+    "description": "given a well-formed xml document with a schema reference pointing to a missing file",
+    "schemata": [
+      { "lang": "rng", "path": "../schema/missing-file.rng" }
+    ],
+    "items": [{
+      "expectation": "returns an array with a warning",
+      "file": "../xml/wrong-schema-path.xml",
+      "expectArray": true,
+      "expectMessageLength": 1,
+      "expectFirstItemType": "Warning"
+    }]
+  }, {
+    "description": "given a well-formed xml document with an unknown schema type",
+    "schemata": [
+      { "lang": "none" }
+    ],
+    "items": [{
+      "expectation": "returns a warning",
+      "file": "../xml/unknown-schematype.xml",
+      "expectArray": true,
+      "expectMessageLength": 1,
+      "expectFirstItemType": "Warning"
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct reference to a valid RNG schema",
+    "schemata": [
+      { "lang": "rng", "path": "../schema/schema.rng" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/rng-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 5 validation errors",
+      "expectation": "returns an array of length 5",
+      "file": "../xml/rng-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 5
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct reference to a valid RNC schema",
+    "schemata": [
+      { "lang": "rnc", "path": "../schema/schema.rnc" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/rnc-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 5 validation errors",
+      "expectation": "returns an array of length 5",
+      "file": "../xml/rnc-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 5
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct reference to a valid XSD schema",
+    "schemata": [
+      { "lang": "xsd" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/xsd-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 6 validation errors",
+      "expectation": "returns an array of length 6",
+      "file": "../xml/xsd-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 6
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct reference to a valid ISO schematron schema",
+    "schemata": [
+      { "lang": "sch.iso", "path": "../schema/schema.iso.sch" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/iso-sch-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 3 validation errors",
+      "expectation": "returns an array of length 3",
+      "file": "../xml/iso-sch-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 3
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct reference to a valid schematron 1.5 schema",
+    "schemata": [
+      { "lang": "sch.15", "path": "../schema/schema.15.sch" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/15-sch-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 3 validation errors",
+      "expectation": "returns an array of length 3",
+      "file": "../xml/15-sch-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 3
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct reference to a valid RNG and a valid iso schematron schema",
+    "schemata": [
+      { "lang": "rng", "path": "../schema/schema.rng" },
+      { "lang": "sch.iso", "path": "../schema/schema.iso.sch" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/rng-iso-sch-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 8 validation errors",
+      "expectation": "returns an array of length 8",
+      "file": "../xml/rng-iso-sch-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 8
+    }]
+  }, {
+    "description": "given a well-formed xml document with correct RNG and ISO schematron references to an RNG file with embedded schematron rules",
+    "schemata": [
+      { "lang": "rng", "path": "../schema/schema.iso.sch.rng" },
+      { "lang": "sch.iso", "path": "../schema/schema.iso.sch.rng" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/rng-embedded-iso-sch-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 8 validation errors",
+      "expectation": "returns an array of length 8",
+      "file": "../xml/rng-embedded-iso-sch-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 8
+    }]
+  }, {
+    "description": "given a well-formed xml document with correct RNG and schematron 1.5 references to an RNG file with embedded schematron rules",
+    "schemata": [
+      { "lang": "rng", "path": "../schema/schema.15.sch.rng" },
+      { "lang": "sch.15", "path": "../schema/schema.15.sch.rng" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/rng-embedded-15-sch-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 8 validation errors",
+      "expectation": "returns an array of length 8",
+      "file": "../xml/rng-embedded-15-sch-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 8
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct RNG reference to a not well-formed RNG file",
+    "schemata": [
+      { "lang": "rng", "path": "../schema/schema.notwellformed.iso.sch.rng" }
+    ],
+    "items": [{
+      "expectation": "returns an array containing a warning",
+      "file": "../xml/rng-notwellformed.xml",
+      "expectArray": true,
+      "expectMessageLength": 1,
+      "expectFirstItemType": "Warning"
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct schematron reference to an RNG file with embedded schematron rules and an include element with a wrong path",
+    "schemata": [
+      { "lang": "rng", "path": "../schema/schema.wronginclude.iso.sch.rng" }
+    ],
+    "items": [{
+      "expectation": "returns an array containing a warning",
+      "file": "../xml/rng-embedded-iso-sch-wronginclude.xml",
+      "expectArray": true,
+      "expectMessageLength": 1,
+      "expectFirstItemType": "Warning"
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct RNG reference to an RNG file containing an include element with a wrong path",
+    "schemata": [
+      { "lang": "rng", "path": "../schema/schema.wronginclude.iso.sch.rng" }
+    ],
+    "items": [{
+      "expectation": "returns an array containing a warning",
+      "file": "../xml/rng-schema-wronginclude.xml",
+      "expectArray": true,
+      "expectMessageLength": 1,
+      "expectFirstItemType": "Warning"
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct schematron reference to a not well-formed RNG file with embedded schematron rules",
+    "schemata": [
+      { "lang": "sch.iso", "path": "../schema/schema.notwellformed.iso.sch.rng" }
+    ],
+    "items": [{
+      "expectation": "returns an array containing a warning",
+      "file": "../xml/rng-embedded-iso-sch-notwellformed.xml",
+      "expectArray": true,
+      "expectMessageLength": 1,
+      "expectFirstItemType": "Warning"
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct reference to a DTD",
+    "schemata": [
+      { "lang": "dtd" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/dtd-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 5 validation errors",
+      "expectation": "returns an array of length 5",
+      "file": "../xml/dtd-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 5
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct embedded DTD",
+    "schemata": [
+      { "lang": "dtd" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/dtd-embedded-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 5 validation errors",
+      "expectation": "returns an array of length 5",
+      "file": "../xml/dtd-embedded-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 5
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct reference to a valid RNG and correct system reference to a valid DTD",
+    "schemata": [
+      { "lang": "rng", "path": "../schema/schema.rng" },
+      { "lang": "dtd" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/rng-dtd-system-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 9 validation errors",
+      "expectation": "returns an array of length 9",
+      "file": "../xml/rng-dtd-system-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 9
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct reference to a valid RNG and correct public reference to a valid DTD",
+    "schemata": [
+      { "lang": "rng", "path": "../schema/schema.rng" },
+      { "lang": "dtd" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/rng-dtd-public-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 9 validation errors",
+      "expectation": "returns an array of length 9",
+      "file": "../xml/rng-dtd-public-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 9
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct reference to a valid XSD and a valid DTD",
+    "schemata": [
+      { "lang": "xsd" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/xsd-dtd-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 10 validation errors",
+      "expectation": "returns an array of length 10",
+      "file": "../xml/xsd-dtd-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 10
+    }]
+  }, {
+    "description": "given a well-formed xml document with correct XSD and schematron references to an XSD file with embedded schematron rules",
+    "schemata": [
+      { "lang": "xsd", "path": "../schema/schema.iso.sch.xsd" },
+      { "lang": "sch.iso", "path": "../schema/schema.iso.sch.xsd" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/xsd-embedded-iso-sch-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 9 validation errors",
+      "expectation": "returns an array of length 9",
+      "file": "../xml/xsd-embedded-iso-sch-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 9
+    }]
+  }]
+}, {
+  "description": "with a reference to a missing catalog",
+  "catalog": "../catalog/missing-catalog.xml",
+  "items": [{
+    "description": "given a well-formed xml document with a correct reference to a valid RNC schema in an xml-model processing instruction which needs to get resolved with a catalog file",
+    "schemata": [
+      { "lang": "rnc", "path": "http://github.com/aerhard/linter-jing/missing-file-resolved-in-catalog.rnc" }
+    ],
+    "items": [{
+      "expectation": "returns an array containing a warning",
+      "file": "../xml/catalog-rnc-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 1,
+      "expectFirstItemType": "Warning"
+    }]
+  }]
+}, {
+  "description": "with a reference to a not well-formed catalog",
+  "catalog": "../catalog/catalog-not-well-formed.xml",
+  "items": [{
+    "description": "given a well-formed xml document with a correct reference to a valid RNC schema in an xml-model processing instruction which needs to get resolved with a catalog file",
+    "schemata": [
+      { "lang": "rnc", "path": "http://github.com/aerhard/linter-jing/missing-file-resolved-in-catalog.rnc" }
+    ],
+    "items": [{
+      "expectation": "returns an array containing a warning",
+      "file": "../xml/catalog-rnc-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 1,
+      "expectFirstItemType": "Warning"
+    }]
+  }]
+}, {
+  "description": "with a catalog reference to an XML file that's not a catalog",
+  "catalog": "../catalog/not-a-catalog.xml",
+  "items": [{
+    "description": "given a well-formed xml document with a correct reference to a valid RNC schema in an xml-model processing instruction which needs to get resolved with a catalog file",
+    "schemata": [
+      { "lang": "rnc", "path": "http://github.com/aerhard/linter-jing/missing-file-resolved-in-catalog.rnc" }
+    ],
+    "items": [{
+      "expectation": "returns an array containing a warning",
+      "file": "../xml/catalog-rnc-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 1,
+      "expectFirstItemType": "Warning"
+    }]
+  }]
+}, {
+  "description": "with a reference to a valid catalog",
+  "catalog": "../catalog/catalog.xml",
+  "items": [{
+    "description": "given a well-formed xml document with a correct reference to a valid 'RNC schema in an xml-model processing instruction which needs to get resolved 'with a catalog file",
+    "schemata": [
+      { "lang": "rnc", "path": "http://github.com/aerhard/linter-jing/missing-file-resolved-in-catalog.rnc" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/catalog-rnc-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 5 validation errors",
+      "expectation": "returns an array of length 5",
+      "file": "../xml/catalog-rnc-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 5
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct xml-model reference to a valid XSD schema which needs to get resolved with a catalog",
+    "schemata": [
+      { "lang": "xsd", "path": "http://github.com/aerhard/linter-jing/missing-file-resolved-in-catalog.xsd" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/catalog-xsd-xmlmodel-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 6 validation errors",
+      "expectation": "returns an array of length 6",
+      "file": "../xml/catalog-xsd-xmlmodel-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 6
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct reference to a valid XSD schema which needs to get resolved with a catalog and includes another schema which needs to get resolved with a catalog",
+    "schemata": [
+      { "lang": "xsd" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/catalog-xsd-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 6 validation errors",
+      "expectation": "returns an array of length 6",
+      "file": "../xml/catalog-xsd-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 6
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct reference to a valid XSD and a valid DTD which both need to get resolved with a catalog",
+    "schemata": [
+      { "lang": "xsd" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/catalog-xsd-dtd-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 10 validation errors",
+      "expectation": "returns an array of length 10",
+      "file": "../xml/catalog-xsd-dtd-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 10
+    }]
+  }]
+}]
