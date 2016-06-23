@@ -35,3 +35,6 @@
 * update validation server (fix error message output bug in Java)
 * fix schema error highlighting in editor
 * display schema language in linter messages
+
+### 0.4.3
+* avoid duplicate XML Parser error messages

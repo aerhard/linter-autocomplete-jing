@@ -23,7 +23,7 @@ const parseMessage = (textEditor, schemaProps, config) => function(str) {
   if (systemId === filePath) {
     return {
       type: level === 'warning' ? 'Warning' : 'Error',
-      html: `[${lang}] ${text}`,
+      html: lang === 'none' ? text : `[${lang}] ${text}`,
       filePath,
       range: helpers.rangeFromLineNumber(textEditor, Number(line) - 1),
     };
