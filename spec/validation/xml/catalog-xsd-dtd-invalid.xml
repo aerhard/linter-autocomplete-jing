@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE root PUBLIC "abcde"
+                      "aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog.dtd">
+<root
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.example.com aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog.xsd"
+  xmlns="http://www.example.com">
+  <child y="a">text</child>
+  <child/>
+  <!-- asdf -->
+</root>

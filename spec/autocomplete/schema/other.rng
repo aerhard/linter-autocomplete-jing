@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar
+    ns="http://www.example.com"
+    xmlns="http://relaxng.org/ns/structure/1.0"
+    xmlns:other="http://www.other.com"
+    datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <start combine="choice">
+    <notAllowed></notAllowed>
+  </start>
+  
+  <define name="child">
+    <externalRef href="other-child.rng"/>
+  </define>
+  
+</grammar>

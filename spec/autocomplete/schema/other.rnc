@@ -1,0 +1,5 @@
+namespace ns1 = "http://www.example.com"
+namespace other = "http://www.other.com"
+
+start |= notAllowed
+child = external "other-child.rnc" inherit = ns1

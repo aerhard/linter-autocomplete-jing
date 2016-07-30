@@ -1,15 +1,16 @@
 
-let path;
-let helpers;
-let net;
-let sortBy;
+import {
+  flow, trim, split, map, compact, concat, sortBy,
+  filter, identity,
+} from 'lodash/fp';
+import sendRequest from './sendRequest';
+
+const helpers = require('atom-linter');
 
 const messageRegex =
   /^([a-z0-9\.]+?):((.*?):\s?)?((\d+):)?(?:\d+:\s)?(error|fatal|warning):\s(.*)$/;
 
 const parseMessage = (textEditor, schemaProps, config) => function(str) {
-  if (!helpers) helpers = require('atom-linter');
-
   const match = messageRegex.exec(str);
   if (!match) {
     console.error(`Could not parse message "${str}"`); // eslint-disable-line
@@ -20,10 +21,16 @@ const parseMessage = (textEditor, schemaProps, config) => function(str) {
 
   const filePath = textEditor.getPath();
 
+  const html = document
+    .createElement('div')
+    .appendChild(document.createTextNode(text))
+    .parentNode
+    .innerHTML;
+
   if (systemId === filePath) {
     return {
       type: level === 'warning' ? 'Warning' : 'Error',
-      html: lang === 'none' ? text : `[${lang}] ${text}`,
+      html: lang === 'none' ? html : `${lang.toUpperCase()}: ${html}`,
       filePath,
       range: helpers.rangeFromLineNumber(textEditor, Number(line) - 1),
     };
@@ -33,7 +40,7 @@ const parseMessage = (textEditor, schemaProps, config) => function(str) {
     return null;
   }
 
-  const prolog = level === 'warning'
+  const label = level === 'warning'
     ? 'Schema parser warning: '
     : 'Could not process schema or catalog: ';
 
@@ -44,56 +51,34 @@ const parseMessage = (textEditor, schemaProps, config) => function(str) {
 
   return {
     type: 'Warning',
-    html: prolog + text,
+    html: label + html,
     filePath,
     range,
   };
 };
 
-const validate = (textEditor, config) => ([server, { schemaProps, messages }]) =>
-  new Promise((resolve, reject) => {
-    if (!path) path = require('path');
-    if (!helpers) helpers = require('atom-linter');
-    if (!net) net = require('net');
-    if (!sortBy) sortBy = require('lodash/sortBy');
+const validate = (textEditor, config) => ([{ port }, { schemaProps, messages }]) => {
+  const headers = [
+    'V',
+    'r',
+    textEditor.getPath(),
+    config.xmlCatalog || '',
+    ...schemaProps.map(schema => schema.lang + ' ' + (schema.path || '')),
+  ];
+  const body = textEditor.getText();
 
-    const socket = new net.Socket();
-
-    socket.on('connect', () => {
-      const headers = [
-        '-V',
-        '-r',
-        '-' + textEditor.getPath(),
-        '-' + (config.xmlCatalog || ''),
-        ...schemaProps.map(schema => '-' + schema.lang + ' ' + (schema.path || '')),
-        '\n',
-      ].join('\n');
-
-      socket.write(headers);
-      socket.end(textEditor.getText());
-    });
-
-    socket.on('data', data => {
-      const validationMessages = data
-        .toString()
-        .trim()
-        .split(/\r?\n/)
-        .map(parseMessage(textEditor, schemaProps, config))
-        .reduce(
-          (result, current) => (current ? result.concat(current) : result),
-          []
-        );
-
-      messages.push(...validationMessages);
-    });
-
-    socket.on('close', () => resolve(sortBy(messages, 'range[0][0]')));
-    socket.on('error', err => {
-      socket.destroy();
-      reject(err);
-    });
-
-    socket.connect({ port: server.port });
-  });
+  return sendRequest(headers, body, port)
+    .then(
+      flow(
+        trim,
+        split(/\r?\n/),
+        filter(identity),
+        map(parseMessage(textEditor, schemaProps, config)),
+        compact,
+        concat(messages),
+        sortBy('range[0][0]')
+      )
+    );
+};
 
 module.exports = validate;

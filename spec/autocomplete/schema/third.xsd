@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" 
+  targetNamespace="http://www.third.com">
+  <xs:element name="xxx">
+    <xs:complexType>
+      <xs:sequence minOccurs="0">
+        <xs:element name="yyy">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="zzz"></xs:enumeration>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="x" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:NCName">
+            <xs:enumeration value="val1"/>
+            <xs:enumeration value="val2"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

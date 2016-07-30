@@ -15,7 +15,7 @@ describe('serverProcess', () => {
         .then(() => {
           throw new Error('expected error');
         })
-        .catch(err => {
+        .catch((err) => {
           expect(err instanceof Error).toBe(true);
         })
       );

@@ -3,7 +3,7 @@ let spawn;
 let path;
 
 const portRegex = /XML Tools Server listening on port (\d+)/;
-const jarPath = '../vendor/xml-tools-server-0.3.0.jar';
+const jarPath = '../vendor/xml-tools-server-0.4.0.jar';
 const port = 0;
 
 function ServerProcessError(message, err) {
@@ -46,7 +46,7 @@ module.exports = {
   },
 
   setStartupListeners(config, resolve, reject) {
-    const onData = data => {
+    const onData = (data) => {
       const match = data.toString().match(portRegex);
       if (match) {
         this.port = Number(match[1]);
@@ -63,20 +63,21 @@ module.exports = {
     this.javaProcess.stdout.on('data', onData);
     this.javaProcess.stderr.on('data', onData);
 
-    this.javaProcess.on('error', err => {
+    this.javaProcess.on('error', (err) => {
       reject(new ServerProcessError(`Failed to execute "${config.javaExecutablePath}".\n` +
-        'Please adjust the Java executable path in the "linter-jing" package settings', err));
+        'Please adjust the Java executable path in the "linter-autocomplete-jing" ' +
+        'package settings', err));
       this.exit();
     });
   },
 
   setRuntimeListeners() {
-    this.javaProcess.stderr.on('data', data => {
+    this.javaProcess.stderr.on('data', (data) => {
       console.error(`Server reported error: ${data}`); // eslint-disable-line
     });
 
-    this.javaProcess.on('error', err => {
-      atom.notifications.addError(`[Linter-Jing] ${err.message}`, {
+    this.javaProcess.on('error', (err) => {
+      atom.notifications.addError(`[linter-autocomplete-jing] ${err.message}`, {
         detail: err.stack,
         dismissable: true,
       });

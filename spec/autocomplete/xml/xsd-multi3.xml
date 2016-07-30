@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-2.xsd"
+  xsi:schemaLocation="
+  http://www.other.com ../../validation/schema/schema-multi-2.xsd 
+  http://www.example.com aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-1.xsd
+  "
+  xmlns:other="http://www.other.com">
+    <other:child x="a">
+      <child xmlns="http://www.example.com" x="a">text</child>
+    </other:child>

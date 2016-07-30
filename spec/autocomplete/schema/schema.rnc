@@ -1,0 +1,118 @@
+default namespace = "http://www.example.com"
+namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+namespace other = "http://www.other.com"
+namespace rng = "http://relaxng.org/ns/structure/1.0"
+namespace sch = "http://purl.oclc.org/dsdl/schematron"
+
+include "other.rnc"
+start = root
+data.b = xsd:NCName
+another-b-attribute =
+  
+  ## another-@b
+  attribute b { xsd:NCName }
+secondChild-content =
+  [
+    sch:pattern [
+      id = "tei_all-att.datable.w3c-att-datable-w3c-when-constraint-1"
+      "\x{a}" ~
+      "        "
+      sch:rule [
+        context = "tei:*[@when]"
+        "\x{a}" ~
+        "          "
+        sch:report [
+          test = "@notBefore|@notAfter|@from|@to"
+          role = "nonfatal"
+          "The @when attribute cannot be used with any other att.datable.w3c attributes."
+        ]
+        "\x{a}" ~
+        "        "
+      ]
+      "\x{a}" ~
+      "      "
+    ]
+    a:documentation [ "other:yiu1" ]
+    a:documentation [ rng:empty [ ] "other:yiu2" ]
+  ]
+  attribute other:yiu { data.vals },
+  text
+another-second-element =
+  
+  ## another-secondChild
+  element secondChild { secondChild-content }
+data.vals =
+  
+  ## val3
+  [
+    sch:pattern [
+      id =
+        "tei_all-att.datable.w3c-att-datable-w3c-when-constraint-1-copy"
+      "\x{a}" ~
+      "        "
+      sch:rule [
+        context = "tei:*[@when]"
+        "\x{a}" ~
+        "          "
+        sch:report [
+          test = "@notBefore|@notAfter|@from|@to"
+          role = "nonfatal"
+          "The @when attribute cannot be used with any other att.datable.w3c attributes."
+        ]
+        "\x{a}" ~
+        "        "
+      ]
+      "\x{a}" ~
+      "      "
+    ]
+  ]
+  xsd:string "val3"
+  | 
+    ## val4
+    xsd:string "val4"
+data.other-vals =
+  
+  ## other-val3
+  [
+    sch:pattern [
+      id =
+        "tei_all-att.datable.w3c-att-datable-w3c-when-constraint-1-copy"
+      "\x{a}" ~
+      "        "
+      sch:rule [
+        context = "tei:*[@when]"
+        "\x{a}" ~
+        "          "
+        sch:report [
+          test = "@notBefore|@notAfter|@from|@to"
+          role = "nonfatal"
+          "The @when attribute cannot be used with any other att.datable.w3c attributes."
+        ]
+        "\x{a}" ~
+        "        "
+      ]
+      "\x{a}" ~
+      "      "
+    ]
+  ]
+  xsd:string "val3"
+  | 
+    ## other-val4
+    xsd:string "val4"
+root =
+  
+  ## root
+  element root {
+    
+    ## 
+    ##           @b
+    ##         
+    attribute b { data.b },
+    
+    ## @l
+    attribute l { xsd:NCName },
+    child,
+    
+    ## secondChild
+    element secondChild { secondChild-content }
+  }

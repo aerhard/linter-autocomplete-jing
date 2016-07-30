@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar
+  ns="http://www.example.com"
+  xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:other="http://www.other.com"
+  xmlns:third="http://www.third.com"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  
+  <start>
+    <element name="root">
+      <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">root</documentation>
+      <attribute name="b">
+        <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">@b</documentation>
+        
+        <list>
+          <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">text</documentation>
+          <oneOrMore>
+            <value>a</value>
+            <value>b</value>
+          </oneOrMore>
+          <value>eee</value>
+          <zeroOrMore>
+            <value>c</value>
+            <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">c</documentation>
+          </zeroOrMore>
+        </list>
+        
+      </attribute>
+    </element>
+  </start>
+</grammar>

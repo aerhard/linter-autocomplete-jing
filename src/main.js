@@ -1,85 +1,74 @@
 
-import { CompositeDisposable } from 'atom';
+import { CompositeDisposable } from 'atom'; // eslint-disable-line
 import serverProcess from './serverProcess';
 
 let validate;
-let setServerConfig;
+let suggest;
+let sendRequest;
 let getSchemaProps;
 let subscriptions;
 
 const localConfig = {};
 
-const addErrorNotification = err => {
-  atom.notifications.addError(`[Linter-Jing] ${err.message}`, {
+const addErrorNotification = (err) => {
+  atom.notifications.addError(`[linter-autocomplete-jing] ${err.message}`, {
     detail: err.stack,
     dismissable: true,
   });
   return [];
 };
 
-const setServerConfigIfReady = args => {
+const setServerConfig = (args) => {
   if (serverProcess.isReadyPromise) {
-    if (!setServerConfig) setServerConfig = require('./setServerConfig');
+    if (!sendRequest) sendRequest = require('./sendRequest');
+
     serverProcess.isReadyPromise
-      .then(setServerConfig(args))
+      .then(({ port }) => sendRequest(args, null, port))
       .catch(addErrorNotification);
   }
 };
 
-const setLocalConfig = key => value => {
+const setLocalConfig = key => (value) => {
   localConfig[key] = value;
   if (!serverProcess.isReady) return;
 
   if (['javaExecutablePath', 'jvmArguments'].includes(key)) {
     serverProcess.exit();
   } else if (key === 'schemaCacheSize') {
-    setServerConfigIfReady(['S', value]);
+    setServerConfig(['S', value]);
   }
 };
 
-module.exports = {
-  config: {
-    javaExecutablePath: {
-      type: 'string',
-      default: 'java',
-    },
-    jvmArguments: {
-      type: 'string',
-      title: 'JVM Arguments',
-      default: '-Xms32m -Xmx256m',
-    },
-    schemaCacheSize: {
-      type: 'integer',
-      minimum: 0,
-      default: 10,
-    },
-    displaySchemaWarnings: {
-      title: 'Display Schema Parser Warnings',
-      type: 'boolean',
-      default: false,
-    },
-    xmlCatalog: {
-      title: 'XML Catalog',
-      type: 'string',
-      default: '',
-    },
-  },
+let shouldSuppressAutocomplete = false;
 
+const triggerAutocomplete = (editor) => {
+  atom.commands.dispatch(atom.views.getView(editor), 'autocomplete-plus:activate', {
+    activatedManually: false,
+  });
+};
+
+const cancelAutocomplete = (editor) => {
+  atom.commands.dispatch(atom.views.getView(editor), 'autocomplete-plus:cancel', {
+    activatedManually: false,
+  });
+};
+
+module.exports = {
   activate() {
     require('atom-package-deps').install();
 
     subscriptions = new CompositeDisposable();
 
     Object
-      .keys(this.config)
+      .keys(atom.config.get('linter-autocomplete-jing'))
       .forEach(key =>
         subscriptions.add(
-          atom.config.observe(`linter-jing.${key}`, setLocalConfig(key))
+          atom.config.observe(`linter-autocomplete-jing.${key}`, setLocalConfig(key))
         )
       );
 
     subscriptions.add(atom.commands.add('atom-workspace', {
-      'linter-jing:clear-schema-cache': () => setServerConfigIfReady(['C']),
+      'linter-autocomplete-jing:clear-schema-cache': () => setServerConfig(['C']),
     }));
 
     serverProcess
@@ -108,6 +97,42 @@ module.exports = {
         ])
         .then(validate(textEditor, localConfig))
         .catch(addErrorNotification);
+      },
+    };
+  },
+
+  provideAutocomplete() {
+    if (!suggest) suggest = require('./suggest');
+    if (!getSchemaProps) getSchemaProps = require('./getSchemaProps');
+
+    return {
+      selector: '.text.xml, .text.mei',
+      disableForSelector: '.comment',
+      inclusionPriority: localConfig.autocompletePriority,
+      excludeLowerPriority: true,
+      getSuggestions(options) {
+        if (shouldSuppressAutocomplete) {
+          cancelAutocomplete(options.editor);
+          shouldSuppressAutocomplete = false;
+          return null;
+        }
+
+        return Promise.all([
+          serverProcess.ensureIsReady(localConfig),
+          getSchemaProps(options.editor),
+        ])
+        .then(suggest(options, localConfig))
+        .catch(addErrorNotification);
+      },
+
+      onDidInsertSuggestion(data) {
+        const { editor, suggestion } = data;
+        if (suggestion.retrigger) {
+          setTimeout(() => triggerAutocomplete(editor), 1);
+        } else {
+          shouldSuppressAutocomplete = true;
+          setTimeout(() => { shouldSuppressAutocomplete = false; }, 300);
+        }
       },
     };
   },

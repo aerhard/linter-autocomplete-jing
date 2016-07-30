@@ -1,21 +1,21 @@
 
-let path;
-let sax;
-let helpers;
+import path from 'path';
+import sax from 'sax';
+import regex from './regex';
 
-const urlRegex = /^(?:[a-z]+:)?\/\//i;
+const helpers = require('atom-linter');
 
-const getPseudoAtts = body => {
+const getPseudoAtts = (body) => {
   const pseudoAtts = {};
   body.replace(/(\w+)="(.+?)"/g, (unused, key, value) => (pseudoAtts[key] = value));
   return pseudoAtts;
 };
 
-const getXsiNamespacePrefixes = attributes => {
+const getXsiNamespacePrefixes = (attributes) => {
   const prefixes = [];
   Object
     .keys(attributes)
-    .forEach(key => {
+    .forEach((key) => {
       const match = key.match(/xmlns:(.*)/);
       if (match && attributes[key] === 'http://www.w3.org/2001/XMLSchema-instance') {
         prefixes.push(match[1]);
@@ -24,22 +24,26 @@ const getXsiNamespacePrefixes = attributes => {
   return prefixes;
 };
 
-const getSchemaProps = textEditor =>
-  new Promise(resolve => {
-    if (!path) path = require('path');
-    if (!sax) sax = require('sax');
-    if (!helpers) helpers = require('atom-linter');
+const hasEvenIndex = (unused, index) => index % 2;
 
+const getSchemaProps = textEditor =>
+  new Promise((resolve) => {
     const messages = [];
     const schemaProps = [];
+    const xsdSchemaPaths = [];
     const saxParser = sax.parser(true);
 
     let row = 0;
     let done = false;
     let hasDoctype = false;
-    let hasSchemaLocation = false;
 
-    const onProcessingInstruction = node => {
+    const addXsdSchemaPath = href => href && xsdSchemaPaths.push(
+      regex.url.test(href)
+        ? href
+        : path.resolve(path.dirname(textEditor.getPath()), href)
+    );
+
+    const onProcessingInstruction = (node) => {
       if (node.name !== 'xml-model') return;
 
       const { href, type, schematypens } = getPseudoAtts(node.body);
@@ -55,7 +59,7 @@ const getSchemaProps = textEditor =>
         } else if (schematypens === 'http://www.ascc.net/xml/schematron') {
           lang = 'sch.15';
         } else if (schematypens === 'http://www.w3.org/2001/XMLSchema') {
-          lang = 'xsd';
+          addXsdSchemaPath(href);
         } else {
           messages.push({
             type: 'Warning',
@@ -70,21 +74,35 @@ const getSchemaProps = textEditor =>
         schemaProps.push({
           lang,
           line: row,
-          path: urlRegex.test(href)
+          path: regex.url.test(href)
             ? href
             : path.resolve(path.dirname(textEditor.getPath()), href),
         });
       }
     };
 
-    const onOpenTag = node => {
+    const onOpenTag = (node) => {
       if (done) return;
 
-      hasSchemaLocation = getXsiNamespacePrefixes(node.attributes)
-        .some(prefix =>
-          node.attributes[prefix + ':noNamespaceSchemaLocation'] ||
-          node.attributes[prefix + ':schemaLocation']
-        );
+      getXsiNamespacePrefixes(node.attributes)
+        .forEach((prefix) => {
+          const noNamespaceSchemaLocation = node.attributes[prefix + ':noNamespaceSchemaLocation'];
+          if (noNamespaceSchemaLocation) {
+            noNamespaceSchemaLocation
+              .trim()
+              .split(regex.spaces)
+              .forEach(addXsdSchemaPath);
+          }
+
+          const schemaLocation = node.attributes[prefix + ':schemaLocation'];
+          if (schemaLocation) {
+            schemaLocation
+              .trim()
+              .split(regex.spaces)
+              .filter(hasEvenIndex)
+              .forEach(addXsdSchemaPath);
+          }
+        });
 
       done = true;
     };
@@ -109,13 +127,14 @@ const getSchemaProps = textEditor =>
       row++;
     }
 
-    if (hasSchemaLocation) {
+    if (xsdSchemaPaths.length) {
       schemaProps.push({
         lang: 'xsd',
-        line: saxParser.line,
-        path: null,
+        path: xsdSchemaPaths.join(' '),
       });
-    } else if (hasDoctype) {
+    }
+
+    if (hasDoctype) {
       schemaProps.push({
         lang: 'dtd',
         line: saxParser.line,

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.example.com" xmlns:other="http://www.other.com" xmlns:ns1="http://www.example.com">
+  <xs:import namespace="http://www.other.com" schemaLocation="other.xsd"/>
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:sequence>
+        <!--<xs:choice>-->
+          <!--<xs:element ref="other:child"/>-->
+          <!--<xs:element ref="ns1:secondChild"/>-->
+        <!--</xs:choice>-->
+
+        <xs:element ref="other:child" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="ns1:secondChild"/>
+      </xs:sequence>
+      <xs:attribute name="b" use="required" type="xs:NCName"/>
+      <xs:attribute name="l" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="secondChild">
+    <xs:complexType>
+      <xs:attribute ref="other:yiu" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

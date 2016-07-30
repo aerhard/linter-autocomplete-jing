@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog.rnc" type="application/relax-ng-compact-syntax"?>
+<root xmlns="http://www.example.com">
+  <child y="a">text</child>
+  <child/>
+  <!-- asdf -->
+</root>

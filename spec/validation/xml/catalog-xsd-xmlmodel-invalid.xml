@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<root xmlns="http://www.example.com">
+ <child y="a">text</child>
+  <child/>
+  <!-- asdf -->
+</root>

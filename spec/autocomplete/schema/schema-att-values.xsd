@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.example.com" xmlns:ns1="http://www.example.com">
+  <xs:element name="root">
+    <xs:annotation>
+      <xs:documentation>root</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="b" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="&amp;'&gt;&lt;&quot;&quot;'&gt;@"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

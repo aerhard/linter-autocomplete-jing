@@ -38,3 +38,10 @@
 
 ### 0.4.3
 * avoid duplicate XML Parser error messages
+
+## 0.5.0
+* add autocomplete on basis of XSD, RNG and RNC schemata
+* rename package as linter-autocomplete-jing
+* improve linter messages
+* replace 'http' with private URI scheme in tests to prevent failing tests caused by timeouts
+* update dependencies

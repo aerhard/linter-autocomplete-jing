@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.example.com" xmlns:other="http://www.other.com" xmlns:ns1="http://www.example.com">
+  <xs:import namespace="http://www.other.com" schemaLocation="other.xsd"/>
+  
+  <xs:simpleType name="type-2">
+    <xs:restriction base="ns1:type-3">
+      <xs:fractionDigits value="2"/>
+      <xs:totalDigits value="3"/>
+      <xs:minInclusive value="1.11"/>
+      <xs:maxInclusive value="1.11"/>
+    </xs:restriction>    
+  </xs:simpleType>
+  
+  <xs:simpleType name="type-3">
+    <xs:restriction base="xs:decimal">
+      <xs:enumeration value="1.11"/>
+      <xs:enumeration value="0.11"/>
+      <xs:enumeration value="2.11"/>
+      <xs:enumeration value="10.11"/>
+      <xs:enumeration value="2.222"/>
+    </xs:restriction>    
+  </xs:simpleType>
+  
+  <xs:complexType name="ct1">
+    <xs:sequence>
+      <xs:element ref="other:child"/>
+    </xs:sequence>
+    <xs:attribute name="l" use="required" type="ns1:type-2"/>
+  </xs:complexType>
+  
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="ns1:ct1">
+          <xs:sequence>
+            <xs:element ref="ns1:secondChild"/>
+          </xs:sequence>
+          <xs:attribute name="b" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="secondChild">
+    <xs:complexType>
+      <xs:attribute ref="other:yiu" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

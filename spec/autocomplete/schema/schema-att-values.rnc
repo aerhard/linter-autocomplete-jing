@@ -1,0 +1,10 @@
+default namespace = "http://www.example.com"
+namespace other = "http://www.other.com"
+
+start = root
+root =
+  
+  ## root
+  element root {
+    attribute b { xsd:string """&'><""'>@""" }
+  }

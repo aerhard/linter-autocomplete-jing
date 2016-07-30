@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schema/schema.rnc" type="application/relax-ng-compact-syntax"?> 
+<root bi="x" l="o" xmlns="http://www.example.com">
+  <other:child xmlns:other="http://www.other.com" x="a">text</other:child>
+  <secondChild xmlns:other="http://www.other.com">

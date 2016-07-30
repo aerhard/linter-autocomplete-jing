@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar
+    ns="http://www.example.com"
+    xmlns="http://relaxng.org/ns/structure/1.0"
+    xmlns:other="http://www.other.com"
+    datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+ 
+  <start>
+    <ref name="root"/>
+  </start>
+
+  <define name="root">
+    <element name="root">
+      <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">root</documentation>
+      <attribute name="b">
+        <choice>
+          <value type="string">&amp;&apos;&gt;&lt;&quot;"'>&#x40;</value>
+        </choice>
+      </attribute>
+    </element>
+  </define>
+
+</grammar>

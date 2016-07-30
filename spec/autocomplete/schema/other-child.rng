@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element name="other:child" ns="http://www.example.com"
+  xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:other="http://www.other.com"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">other:child1</documentation>
+  <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">other:child2</documentation>
+  
+  <attribute name="x">
+    <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">@x1</documentation>
+    <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">@x2</documentation>
+    <choice>
+      <value type="string">val1</value>
+      <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">val1-1</documentation>
+      <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">val1-2</documentation>            
+      <value type="string">val2</value>
+      <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">val2-1</documentation>
+      <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">val2-2</documentation>            
+    </choice>
+  </attribute>
+  <data type="NCName"/>
+</element>

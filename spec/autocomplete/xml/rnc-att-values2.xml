@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schema/schema-att-values.rnc" type="application/relax-ng-compact-syntax"?> 
+<root b='' xmlns="http://www.example.com">
+    

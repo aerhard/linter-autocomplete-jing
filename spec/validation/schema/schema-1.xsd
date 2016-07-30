@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.example.com" xmlns:ns1="http://www.example.com">
+  <xs:include schemaLocation="aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-r.xsd"/>
+</xs:schema>

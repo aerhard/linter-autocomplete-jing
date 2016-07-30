@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.example.com ../schema/schema-variant5.xsd"
+  b="x"
+  l="o"
+  xmlns="http://www.example.com"
+  xmlns:other="http://www.other.com"
+>

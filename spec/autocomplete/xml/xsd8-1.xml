@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schema/schema8.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<root b="x" l="" xmlns="http://www.example.com" xmlns:ex="http://www.example.com" xmlns:other="http://www.other.com">

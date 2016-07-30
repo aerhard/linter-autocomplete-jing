@@ -1,0 +1,25 @@
+namespace other = "http://www.other.com"
+
+
+## other:child1
+
+## other:child2
+element other:child {
+  
+  ## @x1
+  
+  ## @x2
+  attribute x {
+    
+    ## val1-1
+    
+    ## val1-2
+    xsd:string "val1"
+    | 
+      ## val2-1
+      
+      ## val2-2
+      xsd:string "val2"
+  },
+  xsd:NCName
+}

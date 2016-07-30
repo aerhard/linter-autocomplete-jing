@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <public publicId="abcde" uri="../schema/schema.xsd.dtd"/>
+  <system
+    systemId="aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog.rnc"
+    uri="../schema/schema.rnc"
+  />
+  <system
+    systemId="aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog.xsd"
+    uri="../schema/schema.xsd"
+  />
+  <system
+    systemId="aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-1.xsd"
+    uri="../schema/schema-1.xsd"
+  />
+  <system
+    systemId="aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-r.xsd"
+    uri="../schema/schema-referenced.xsd"
+  />
+  <system
+    systemId="aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-2.xsd"
+    uri="../schema/schema-2.xsd"
+  />
+  <system
+    systemId="aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-r-2.xsd"
+    uri="../schema/schema-referenced-2.xsd"
+  />
+</catalog>
