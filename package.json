@@ -1,7 +1,7 @@
 {
   "name": "linter-autocomplete-jing",
   "main": "./lib/main.js",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "description": "Autocomplete and on-the-fly validation of XML documents against RELAX NG (compact, XML), Schematron (1.5, ISO), W3C Schema (XSD 1.0) and DTD",
   "keywords": [
     "xml",
