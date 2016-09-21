@@ -1,14 +1,12 @@
 [{
-  "description": "RNC-based autocomplete",
-  "catalog": "../catalog/catalog.xml",
+  "description": "Autocomplete",
+  "catalog": "../../validation/catalog/catalog.xml",
   "items": [{
-    "description": "element autocomplete",
     "schemata": [{
       "lang": "rnc",
       "path": "../schema/schema.rnc"
     }],
     "items": [{
-      "expectation": "returns 'root' before the root element",
       "file": "../xml/rnc-before-root.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -21,13 +19,11 @@
         "retrigger": true
       }]
     }, {
-      "expectation": "returns '' after the root element",
       "file": "../xml/rnc-after-root.xml",
       "suggestionType": "E",
       "expectResult": []
     }, {
-      "expectation": "given the 'other' ns prefix maps to the ns uri of 'child', returns 'other:child x' before the first child",
-      "file": "../xml/rnc-root-before-first-child.xml",
+      "file": "../xml/rnc-before-first-child.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
@@ -46,8 +42,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "given the 'other' ns prefix maps to the ns uri of 'child', returns 'other:child x' after the angle bracket of the first child",
-      "file": "../xml/rnc-root-first-child-angle-bracket.xml",
+      "file": "../xml/rnc-first-child-angle-bracket.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
@@ -66,8 +61,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "given the 'other' ns prefix maps to the ns uri of 'child', returns 'other:child x' within the start tag of the first child",
-      "file": "../xml/rnc-root-first-child-tag.xml",
+      "file": "../xml/rnc-first-child-tag.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
@@ -86,8 +80,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "given no ns prefix exists for the ns uri of 'child', returns 'child#http://www.other.com x' before the first child",
-      "file": "../xml/rnc-root-before-first-child-no-child-ns-prefix.xml",
+      "file": "../xml/rnc-before-first-child-no-child-ns-prefix.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
@@ -106,8 +99,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "given no ns prefix exists for the ns uri of 'child', returns 'child#http://www.other.com x' after the angle bracket of the first child",
-      "file": "../xml/rnc-root-first-child-angle-bracket-no-child-ns-prefix.xml",
+      "file": "../xml/rnc-first-child-angle-bracket-no-child-ns-prefix.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
@@ -126,8 +118,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "given no ns prefix exists for the ns uri of 'child', returns 'child#http://www.other.com x' within the start tag of the first child",
-      "file": "../xml/rnc-root-first-child-tag-no-child-ns-prefix.xml",
+      "file": "../xml/rnc-first-child-tag-no-child-ns-prefix.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
@@ -146,8 +137,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "returns 'secondChild other:yiu' after the first child",
-      "file": "../xml/rnc-root-after-first-child.xml",
+      "file": "../xml/rnc-after-first-child.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
@@ -166,8 +156,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "returns '' after the first child",
-      "file": "../xml/rnc-root-after-second-child.xml",
+      "file": "../xml/rnc-after-second-child.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "/root>",
@@ -179,14 +168,12 @@
       }]
     }]
   }, {
-    "description": "attribute name autocomplete",
     "schemata": [{
       "lang": "rnc",
       "path": "../schema/schema.rnc"
     }],
     "items": [{
-      "expectation": "returns 'b' when called after the start tag of the root element",
-      "file": "../xml/rnc-root-before-first-child.xml",
+      "file": "../xml/rnc-before-first-child.xml",
       "suggestionType": "N",
       "expectResult": [{
         "snippet": "b=\"${1}\"",
@@ -198,13 +185,11 @@
         "retrigger": true
       }]
     }, {
-      "expectation": "returns '' when called after the start tag of the root's first child",
-      "file": "../xml/rnc-root-after-first-child.xml",
+      "file": "../xml/rnc-after-first-child.xml",
       "suggestionType": "N",
       "expectResult": []
     }, {
-      "expectation": "given the 'other' ns prefix maps to the ns uri of 'yiu', returns 'other:yiu' when called after the start tag of the root's second child",
-      "file": "../xml/rnc-root-after-second-child.xml",
+      "file": "../xml/rnc-after-second-child.xml",
       "suggestionType": "N",
       "expectResult": [{
         "snippet": "other:yiu=\"${1}\"",
@@ -216,8 +201,7 @@
         "retrigger": true
       }]
     }, {
-      "expectation": "given the 'other' ns prefix maps to the ns uri of 'yiu' on the current element, return 'other:yiu' when called after the start tag of the root's second child",
-      "file": "../xml/rnc-root-after-second-child-ns-prefix-on-element.xml",
+      "file": "../xml/rnc-after-second-child-ns-prefix-on-element.xml",
       "suggestionType": "N",
       "expectResult": [{
         "snippet": "other:yiu=\"${1}\"",
@@ -229,8 +213,7 @@
         "retrigger": true
       }]
     }, {
-      "expectation": "given no ns prefix exists for the ns uri of 'child', returns 'y#http://www.other.com' when called after the start tag of the root's second child",
-      "file": "../xml/rnc-root-after-second-child-no-child-ns-prefix.xml",
+      "file": "../xml/rnc-after-second-child-no-child-ns-prefix.xml",
       "suggestionType": "N",
       "expectResult": [{
         "snippet": "ns${1}:yiu=\"${2}\" xmlns:ns${1}=\"http://www.other.com\"",
@@ -243,14 +226,12 @@
       }]
     }]
   }, {
-    "description": "attribute value autocomplete",
     "schemata": [{
       "lang": "rnc",
       "path": "../schema/schema.rnc"
     }],
     "items": [{
-      "expectation": "returns 'val1 val2' when called on an attribute (without ns prefix) with value list 'val1'/'val2'",
-      "file": "../xml/rnc-root-after-first-child-start-tag.xml",
+      "file": "../xml/rnc-after-first-child-start-tag.xml",
       "suggestionType": "V",
       "fragment": "x",
       "expectResult": [{
@@ -269,20 +250,17 @@
         "description": "val2-1 – val2-2"
       }]
     }, {
-      "expectation": "returns '' when called on a not supported attribute",
-      "file": "../xml/rnc-root-after-first-child.xml",
+      "file": "../xml/rnc-after-first-child.xml",
       "suggestionType": "V",
       "fragment": "notthere",
       "expectResult": []
     }, {
-      "expectation": "returns '' when called on a attribute for which no value list exists",
-      "file": "../xml/rnc-root-before-first-child.xml",
+      "file": "../xml/rnc-before-first-child.xml",
       "suggestionType": "V",
       "fragment": "b",
       "expectResult": []
     }, {
-      "expectation": "returns 'val3 – val4' when called on an attribute (with ns prefix) with value list 'val3'/'val4'",
-      "file": "../xml/rnc-root-after-second-child-with-att-prefix.xml",
+      "file": "../xml/rnc-after-second-child-with-att-prefix.xml",
       "suggestionType": "V",
       "fragment": "other:yiu",
       "expectResult": [{
@@ -301,8 +279,7 @@
         "description": "val4"
       }]
     }, {
-      "expectation": "returns 'val3 – val4' when called on an attribute (with ns prefix declared on the same element) with value list 'val3'/'val4'",
-      "file": "../xml/rnc-root-after-second-child-with-att-prefix-1.xml",
+      "file": "../xml/rnc-after-second-child-with-att-prefix-1.xml",
       "suggestionType": "V",
       "fragment": "other:yiu",
       "expectResult": [{
@@ -321,18 +298,12 @@
         "description": "val4"
       }]
     }]
-  }]
-}, {
-  "description": "RNG-based autocomplete",
-  "catalog": "../catalog/catalog.xml",
-  "items": [{
-    "description": "element autocomplete",
+  }, {
     "schemata": [{
       "lang": "rng",
       "path": "../schema/schema.rng"
     }],
     "items": [{
-      "expectation": "returns 'root' before the root element",
       "file": "../xml/rng-before-root.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -345,13 +316,11 @@
         "retrigger": true
       }]
     }, {
-      "expectation": "returns '' after the root element",
       "file": "../xml/rng-after-root.xml",
       "suggestionType": "E",
       "expectResult": []
     }, {
-      "expectation": "given the 'other' ns prefix maps to the ns uri of 'child', returns 'other:child x' before the first child",
-      "file": "../xml/rng-root-before-first-child.xml",
+      "file": "../xml/rng-before-first-child.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
@@ -370,8 +339,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "given the 'other' ns prefix maps to the ns uri of 'child', returns 'other:child x' after the angle bracket of the first child",
-      "file": "../xml/rng-root-first-child-angle-bracket.xml",
+      "file": "../xml/rng-first-child-angle-bracket.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
@@ -390,8 +358,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "given the 'other' ns prefix maps to the ns uri of 'child', returns 'other:child x' within the start tag of the first child",
-      "file": "../xml/rng-root-first-child-tag.xml",
+      "file": "../xml/rng-first-child-tag.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
@@ -410,8 +377,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "given no ns prefix exists for the ns uri of 'child', returns 'child#http://www.other.com x' before the first child",
-      "file": "../xml/rng-root-before-first-child-no-child-ns-prefix.xml",
+      "file": "../xml/rng-before-first-child-no-child-ns-prefix.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
@@ -430,8 +396,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "given no ns prefix exists for the ns uri of 'child', returns 'child#http://www.other.com x' after the angle bracket of the first child",
-      "file": "../xml/rng-root-first-child-angle-bracket-no-child-ns-prefix.xml",
+      "file": "../xml/rng-first-child-angle-bracket-no-child-ns-prefix.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
@@ -450,8 +415,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "given no ns prefix exists for the ns uri of 'child', returns 'child#http://www.other.com x' within the start tag of the first child",
-      "file": "../xml/rng-root-first-child-tag-no-child-ns-prefix.xml",
+      "file": "../xml/rng-first-child-tag-no-child-ns-prefix.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
@@ -470,8 +434,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "returns 'secondChild other:yiu' after the first child",
-      "file": "../xml/rng-root-after-first-child.xml",
+      "file": "../xml/rng-after-first-child.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
@@ -490,8 +453,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "returns '' after the first child",
-      "file": "../xml/rng-root-after-second-child.xml",
+      "file": "../xml/rng-after-second-child.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "/root>",
@@ -503,13 +465,11 @@
       }]
     }]
   }, {
-    "description": "element autocomplete with schema1.rng",
     "schemata": [{
       "lang": "rng",
       "path": "../schema/schema1.rng"
     }],
     "items": [{
-      "expectation": "returns ''",
       "file": "../xml/rng1-1.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -553,13 +513,11 @@
       }]
     }]
   }, {
-    "description": "element autocomplete with schema2.rng",
     "schemata": [{
       "lang": "rng",
       "path": "../schema/schema2.rng"
     }],
     "items": [{
-      "expectation": "returns ''",
       "file": "../xml/rng2-1.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -587,13 +545,11 @@
       }]
     }]
   }, {
-    "description": "element autocomplete with schema3.rng",
     "schemata": [{
       "lang": "rng",
       "path": "../schema/schema3.rng"
     }],
     "items": [{
-      "expectation": "returns ''",
       "file": "../xml/rng3-1.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -629,7 +585,6 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "returns ''",
       "file": "../xml/rng3-2.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -666,14 +621,12 @@
       }]
     }]
   }, {
-    "description": "attribute name autocomplete",
     "schemata": [{
       "lang": "rng",
       "path": "../schema/schema.rng"
     }],
     "items": [{
-      "expectation": "returns 'b' when called after the start tag of the root element",
-      "file": "../xml/rng-root-before-first-child.xml",
+      "file": "../xml/rng-before-first-child.xml",
       "suggestionType": "N",
       "expectResult": [{
         "snippet": "b=\"${1}\"",
@@ -685,13 +638,11 @@
         "retrigger": true
       }]
     }, {
-      "expectation": "returns '' when called after the start tag of the root's first child",
-      "file": "../xml/rng-root-after-first-child.xml",
+      "file": "../xml/rng-after-first-child.xml",
       "suggestionType": "N",
       "expectResult": []
     }, {
-      "expectation": "given the 'other' ns prefix maps to the ns uri of 'yiu', returns 'other:yiu' when called after the start tag of the root's second child",
-      "file": "../xml/rng-root-after-second-child.xml",
+      "file": "../xml/rng-after-second-child.xml",
       "suggestionType": "N",
       "expectResult": [{
         "snippet": "other:yiu=\"${1}\"",
@@ -703,8 +654,7 @@
         "retrigger": true
       }]
     }, {
-      "expectation": "given the 'other' ns prefix maps to the ns uri of 'yiu' on the current element, return 'other:yiu' when called after the start tag of the root's second child",
-      "file": "../xml/rng-root-after-second-child-ns-prefix-on-element.xml",
+      "file": "../xml/rng-after-second-child-ns-prefix-on-element.xml",
       "suggestionType": "N",
       "expectResult": [{
         "snippet": "other:yiu=\"${1}\"",
@@ -716,8 +666,7 @@
         "retrigger": true
       }]
     }, {
-      "expectation": "given no ns prefix exists for the ns uri of 'child', returns 'y#http://www.other.com' when called after the start tag of the root's second child",
-      "file": "../xml/rng-root-after-second-child-no-child-ns-prefix.xml",
+      "file": "../xml/rng-after-second-child-no-child-ns-prefix.xml",
       "suggestionType": "N",
       "expectResult": [{
         "snippet": "ns${1}:yiu=\"${2}\" xmlns:ns${1}=\"http://www.other.com\"",
@@ -730,13 +679,11 @@
       }]
     }]
   }, {
-    "description": "element autocomplete with schema1a.rng",
     "schemata": [{
       "lang": "rng",
       "path": "../schema/schema1a.rng"
     }],
     "items": [{
-      "expectation": "returns ''",
       "file": "../xml/rng1-2.xml",
       "suggestionType": "N",
       "expectResult": [{
@@ -773,13 +720,11 @@
       }]
     }]
   }, {
-    "description": "attribute name autocomplete with schema2.rng",
     "schemata": [{
       "lang": "rng",
       "path": "../schema/schema2.rng"
     }],
     "items": [{
-      "expectation": "returns 'x and 2 documentation elements'",
       "file": "../xml/rng2-2.xml",
       "suggestionType": "N",
       "expectResult": [{
@@ -793,13 +738,11 @@
       }]
     }]
   }, {
-    "description": "attribute name autocomplete with schema2a.rng",
     "schemata": [{
       "lang": "rng",
       "path": "../schema/schema2a.rng"
     }],
     "items": [{
-      "expectation": "returns 'x and 2 documentation elements'",
       "file": "../xml/rng2-3.xml",
       "suggestionType": "N",
       "expectResult": [{
@@ -820,13 +763,11 @@
       }]
     }]
   }, {
-    "description": "element autocomplete with schema3a.rng",
     "schemata": [{
       "lang": "rng",
       "path": "../schema/schema3a.rng"
     }],
     "items": [{
-      "expectation": "returns ''",
       "file": "../xml/rng3-3.xml",
       "suggestionType": "N",
       "expectResult": [{
@@ -856,14 +797,12 @@
       }]
     }]
   }, {
-    "description": "attribute value autocomplete",
     "schemata": [{
       "lang": "rng",
       "path": "../schema/schema.rng"
     }],
     "items": [{
-      "expectation": "returns 'val1 val2' when called on an attribute (without ns prefix) with value list 'val1'/'val2'",
-      "file": "../xml/rng-root-after-first-child-start-tag.xml",
+      "file": "../xml/rng-after-first-child-start-tag.xml",
       "suggestionType": "V",
       "fragment": "x",
       "expectResult": [{
@@ -882,20 +821,17 @@
         "description": "val2-1 – val2-2"
       }]
     }, {
-      "expectation": "returns '' when called on a not supported attribute",
-      "file": "../xml/rng-root-after-first-child.xml",
+      "file": "../xml/rng-after-first-child.xml",
       "suggestionType": "V",
       "fragment": "notthere",
       "expectResult": []
     }, {
-      "expectation": "returns '' when called on a attribute for which no value list exists",
-      "file": "../xml/rng-root-before-first-child.xml",
+      "file": "../xml/rng-before-first-child.xml",
       "suggestionType": "V",
       "fragment": "b",
       "expectResult": []
     }, {
-      "expectation": "returns 'val3 – val4' when called on an attribute (with ns prefix) with value list 'val3'/'val4'",
-      "file": "../xml/rng-root-after-second-child-with-att-prefix.xml",
+      "file": "../xml/rng-after-second-child-with-att-prefix.xml",
       "suggestionType": "V",
       "fragment": "other:yiu",
       "expectResult": [{
@@ -914,8 +850,7 @@
         "description": "val4"
       }]
     }, {
-      "expectation": "returns 'val3 – val4' when called on an attribute (with ns prefix declared on the same element) with value list 'val3'/'val4'",
-      "file": "../xml/rng-root-after-second-child-with-att-prefix-1.xml",
+      "file": "../xml/rng-after-second-child-with-att-prefix-1.xml",
       "suggestionType": "V",
       "fragment": "other:yiu",
       "expectResult": [{
@@ -934,18 +869,12 @@
         "description": "val4"
       }]
     }]
-  }]
-}, {
-  "description": "XSD-based autocomplete with multiple schemata",
-  "catalog": "../../validation/catalog/catalog.xml",
-  "items": [{
-    "description": "element autocomplete with schemaLocation reference",
+  }, {
     "schemata": [{
       "lang": "xsd",
       "path": "aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-2.xsd ../../validation/schema/schema-multi-2.xsd aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-1.xsd"
     }],
     "items": [{
-      "expectation": "returns ''",
       "file": "../xml/xsd-multi1.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -985,7 +914,6 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "returns ''",
       "file": "../xml/xsd-multi2.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1025,7 +953,6 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "returns ''",
       "file": "../xml/xsd-multi3.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1037,18 +964,12 @@
         "retrigger": false
       }]
     }]
-  }]
-}, {
-  "description": "XSD-based autocomplete",
-  "catalog": "../catalog/catalog.xml",
-  "items": [{
-    "description": "element autocomplete with schemaLocation reference",
+  }, {
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema.xsd"
     }],
     "items": [{
-      "expectation": "1 returns 'other:child x' after the root element",
       "file": "../xml/xsd-schemaLocation1.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1069,13 +990,11 @@
       }]
     }]
   }, {
-    "description": "element autocomplete with schemaLocation reference",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema-variant.xsd"
     }],
     "items": [{
-      "expectation": "2 returns '' after the root element",
       "file": "../xml/xsd-schemaLocation2.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1110,13 +1029,11 @@
       }]
     }]
   }, {
-    "description": "element autocomplete with schemaLocation reference",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema-variant3.xsd"
     }],
     "items": [{
-      "expectation": "3 returns '' after the root element",
       "file": "../xml/xsd-schemaLocation3.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1172,13 +1089,11 @@
       }]
     }]
   }, {
-    "description": "element autocomplete with schemaLocation reference",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema-variant4.xsd"
     }],
     "items": [{
-      "expectation": "4 returns '' after the root element",
       "file": "../xml/xsd-schemaLocation4.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1234,13 +1149,11 @@
       }]
     }]
   }, {
-    "description": "element autocomplete with schemaLocation reference",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema-variant5.xsd"
     }],
     "items": [{
-      "expectation": "5 returns '' after the root element",
       "file": "../xml/xsd-schemaLocation5.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1275,13 +1188,11 @@
       }]
     }]
   }, {
-    "description": "element autocomplete with schemaLocation reference",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema-variant6.xsd"
     }],
     "items": [{
-      "expectation": "6 returns '' after the root element",
       "file": "../xml/xsd-schemaLocation6.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1315,24 +1226,20 @@
       }]
     }]
   }, {
-    "description": "element autocomplete with schemaLocation reference",
     "schemata": [{
       "lang": "xsd"
     }],
     "items": [{
-      "expectation": "returns '' in an empty file",
       "file": "../xml/empty.xml",
       "suggestionType": "E",
       "expectResult": []
     }]
   }, {
-    "description": "element autocomplete with schema.xsd",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema.xsd"
     }],
     "items": [{
-      "expectation": "returns 'child/root/secondchild' before the root element",
       "file": "../xml/xsd-before-root.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1359,13 +1266,11 @@
         "retrigger": true
       }]
     }, {
-      "expectation": "returns '' after the root element",
       "file": "../xml/xsd-after-root.xml",
       "suggestionType": "E",
       "expectResult": []
     }, {
-      "expectation": "given the 'other' ns prefix maps to the ns uri of 'child', returns 'other:child x' before the first child",
-      "file": "../xml/xsd-root-before-first-child.xml",
+      "file": "../xml/xsd-before-first-child.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
@@ -1384,8 +1289,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "given the 'other' ns prefix maps to the ns uri of 'child', returns 'other:child x' after the angle bracket of the first child",
-      "file": "../xml/xsd-root-first-child-angle-bracket.xml",
+      "file": "../xml/xsd-first-child-angle-bracket.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
@@ -1404,8 +1308,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "given the 'other' ns prefix maps to the ns uri of 'child', returns 'other:child x' within the start tag of the first child",
-      "file": "../xml/xsd-root-first-child-tag.xml",
+      "file": "../xml/xsd-first-child-tag.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
@@ -1424,8 +1327,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "given no ns prefix exists for the ns uri of 'child', returns 'child#http://www.other.com x' before the first child",
-      "file": "../xml/xsd-root-before-first-child-no-child-ns-prefix.xml",
+      "file": "../xml/xsd-before-first-child-no-child-ns-prefix.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
@@ -1444,8 +1346,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "given no ns prefix exists for the ns uri of 'child', returns 'child#http://www.other.com x' after the angle bracket of the first child",
-      "file": "../xml/xsd-root-first-child-angle-bracket-no-child-ns-prefix.xml",
+      "file": "../xml/xsd-first-child-angle-bracket-no-child-ns-prefix.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
@@ -1464,8 +1365,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "given no ns prefix exists for the ns uri of 'child', returns 'child#http://www.other.com x' within the start tag of the first child",
-      "file": "../xml/xsd-root-first-child-tag-no-child-ns-prefix.xml",
+      "file": "../xml/xsd-first-child-tag-no-child-ns-prefix.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
@@ -1484,8 +1384,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "returns 'secondChild other:yiu' after the first child",
-      "file": "../xml/xsd-root-after-first-child.xml",
+      "file": "../xml/xsd-after-first-child.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
@@ -1503,8 +1402,7 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "returns '' after the second child",
-      "file": "../xml/xsd-root-after-second-child.xml",
+      "file": "../xml/xsd-after-second-child.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "/root>",
@@ -1516,13 +1414,11 @@
       }]
     }]
   }, {
-    "description": "element autocomplete with schema1.xsd",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema1.xsd"
     }],
     "items": [{
-      "expectation": "returns 'other:child x – secondChild other:yiu'",
       "file": "../xml/xsd1-1.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1549,7 +1445,6 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "returns 'other:child x – secondChild other:yiu'",
       "file": "../xml/xsd1-2.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1577,13 +1472,11 @@
       }]
     }]
   }, {
-    "description": "element autocomplete with schema2.xsd",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema2.xsd"
     }],
     "items": [{
-      "expectation": "returns 'other:child x – secondChild other:yiu'",
       "file": "../xml/xsd2-1.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1610,7 +1503,6 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "returns 'other:child x – secondChild other:yiu'",
       "file": "../xml/xsd2-2.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1630,13 +1522,11 @@
       }]
     }]
   }, {
-    "description": "element autocomplete with schema3.xsd",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema3.xsd"
     }],
     "items": [{
-      "expectation": "returns 'root b l secondChild other:yiu'",
       "file": "../xml/xsd3-1.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1662,7 +1552,6 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "returns 'other:child x'",
       "file": "../xml/xsd3-2.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1683,13 +1572,11 @@
       }]
     }]
   }, {
-    "description": "element autocomplete with schema4.xsd",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema4.xsd"
     }],
     "items": [{
-      "expectation": "returns 'other:child x root b l secondChild other:yiu'",
       "file": "../xml/xsd4-1.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1723,7 +1610,6 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "returns 'other:child x'",
       "file": "../xml/xsd4-2.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1744,13 +1630,11 @@
       }]
     }]
   }, {
-    "description": "element autocomplete with schema5.xsd",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema5.xsd"
     }],
     "items": [{
-      "expectation": "returns 'root b l – secondChild other:yiu'",
       "file": "../xml/xsd5-1.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1777,13 +1661,11 @@
       }]
     }]
   }, {
-    "description": "element autocomplete with schema6.xsd",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema6.xsd"
     }],
     "items": [{
-      "expectation": "returns 'other:child x'",
       "file": "../xml/xsd6-1.xml",
       "suggestionType": "E",
       "expectResult": [{
@@ -1804,14 +1686,12 @@
       }]
     }]
   }, {
-    "description": "attribute name autocomplete",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema.xsd"
     }],
     "items": [{
-      "expectation": "returns 'b' when called after the start tag of the root element",
-      "file": "../xml/xsd-root-before-first-child.xml",
+      "file": "../xml/xsd-before-first-child.xml",
       "suggestionType": "N",
       "expectResult": [{
         "snippet": "b=\"${1}\"",
@@ -1822,13 +1702,11 @@
         "retrigger": true
       }]
     }, {
-      "expectation": "returns '' when called after the start tag of the root's first child",
-      "file": "../xml/xsd-root-after-first-child.xml",
+      "file": "../xml/xsd-after-first-child.xml",
       "suggestionType": "N",
       "expectResult": []
     }, {
-      "expectation": "given the 'other' ns prefix maps to the ns uri of 'yiu', returns 'other:yiu' when called after the start tag of the root's second child",
-      "file": "../xml/xsd-root-after-second-child.xml",
+      "file": "../xml/xsd-after-second-child.xml",
       "suggestionType": "N",
       "expectResult": [{
         "snippet": "other:yiu=\"${1}\"",
@@ -1840,8 +1718,7 @@
         "retrigger": true
       }]
     }, {
-      "expectation": "given the 'other' ns prefix maps to the ns uri of 'yiu' on the current element, return 'other:yiu' when called after the start tag of the root's second child",
-      "file": "../xml/xsd-root-after-second-child-ns-prefix-on-element.xml",
+      "file": "../xml/xsd-after-second-child-ns-prefix-on-element.xml",
       "suggestionType": "N",
       "expectResult": [{
         "snippet": "other:yiu=\"${1}\"",
@@ -1853,8 +1730,7 @@
         "retrigger": true
       }]
     }, {
-      "expectation": "given no ns prefix exists for the ns uri of 'child', returns 'y#http://www.other.com' when called after the start tag of the root's second child",
-      "file": "../xml/xsd-root-after-second-child-no-child-ns-prefix.xml",
+      "file": "../xml/xsd-after-second-child-no-child-ns-prefix.xml",
       "suggestionType": "N",
       "expectResult": [{
         "snippet": "ns${1}:yiu=\"${2}\" xmlns:ns${1}=\"http://www.other.com\"",
@@ -1867,13 +1743,11 @@
       }]
     }]
   }, {
-    "description": "attribute name with schema7.xsd",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema7.xsd"
     }],
     "items": [{
-      "expectation": "returns 'ex:e other:yiu'",
       "file": "../xml/xsd7-1.xml",
       "suggestionType": "N",
       "expectResult": [{
@@ -1908,14 +1782,12 @@
       }]
     }]
   }, {
-    "description": "attribute value autocomplete",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema.xsd"
     }],
     "items": [{
-      "expectation": "returns 'val1 val2' when called on an attribute (without ns prefix) with value list 'val1'/'val2'",
-      "file": "../xml/xsd-root-after-first-child-start-tag.xml",
+      "file": "../xml/xsd-after-first-child-start-tag.xml",
       "suggestionType": "V",
       "fragment": "x",
       "expectResult": [{
@@ -1933,20 +1805,17 @@
         "replacementPrefix": ""
       }]
     }, {
-      "expectation": "returns '' when called on a not supported attribute",
-      "file": "../xml/xsd-root-after-first-child.xml",
+      "file": "../xml/xsd-after-first-child.xml",
       "suggestionType": "V",
       "fragment": "notthere",
       "expectResult": []
     }, {
-      "expectation": "returns '' when called on an attribute for which no value list exists",
-      "file": "../xml/xsd-root-before-first-child.xml",
+      "file": "../xml/xsd-before-first-child.xml",
       "suggestionType": "V",
       "fragment": "b",
       "expectResult": []
     }, {
-      "expectation": "returns 'val3 – val4' when called on an attribute (with ns prefix) with value list 'val3'/'val4'",
-      "file": "../xml/xsd-root-after-second-child-with-att-prefix.xml",
+      "file": "../xml/xsd-after-second-child-with-att-prefix.xml",
       "suggestionType": "V",
       "fragment": "other:yiu",
       "expectResult": [{
@@ -1963,8 +1832,7 @@
         "replacementPrefix": ""
       }]
     }, {
-      "expectation": "returns 'val3 – val4' when called on an attribute (with ns prefix declared on the same element) with value list 'val3'/'val4'",
-      "file": "../xml/xsd-root-after-second-child-with-att-prefix-1.xml",
+      "file": "../xml/xsd-after-second-child-with-att-prefix-1.xml",
       "suggestionType": "V",
       "fragment": "other:yiu",
       "expectResult": [{
@@ -1982,13 +1850,11 @@
       }]
     }]
   }, {
-    "description": "attribute value with schema8.xsd",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema8.xsd"
     }],
     "items": [{
-      "expectation": "returns 'fixed'",
       "file": "../xml/xsd8-1.xml",
       "suggestionType": "V",
       "fragment": "l",
@@ -2001,13 +1867,11 @@
       }]
     }]
   }, {
-    "description": "attribute value with schema9.xsd",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema9.xsd"
     }],
     "items": [{
-      "expectation": "returns '1.11'",
       "file": "../xml/xsd9-1.xml",
       "suggestionType": "V",
       "fragment": "l",
@@ -2020,13 +1884,11 @@
       }]
     }]
   }, {
-    "description": "attribute value with schema10.xsd",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema10.xsd"
     }],
     "items": [{
-      "expectation": "returns '1.11 2.11'",
       "file": "../xml/xsd10-1.xml",
       "suggestionType": "V",
       "fragment": "l",
@@ -2045,13 +1907,11 @@
       }]
     }]
   }, {
-    "description": "attribute value with schema11.xsd",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema11.xsd"
     }],
     "items": [{
-      "expectation": "returns '<1.11 <2.11'",
       "file": "../xml/xsd11-1.xml",
       "suggestionType": "V",
       "fragment": "l",
@@ -2069,18 +1929,12 @@
         "replacementPrefix": ""
       }]
     }]
-  }]
-}, {
-  "description": "Attribute value character escaping",
-  "catalog": "../catalog/catalog.xml",
-  "items": [{
-    "description": "RNC attribute value autocomplete escape characters",
+  }, {
     "schemata": [{
       "lang": "rnc",
       "path": "../schema/schema-att-values.rnc"
     }],
     "items": [{
-      "expectation": "",
       "file": "../xml/rnc-att-values1.xml",
       "suggestionType": "V",
       "fragment": "b",
@@ -2092,7 +1946,6 @@
         "replacementPrefix": ""
       }]
     }, {
-      "expectation": "",
       "file": "../xml/rnc-att-values2.xml",
       "suggestionType": "V",
       "fragment": "b",
@@ -2105,13 +1958,11 @@
       }]
     }]
   }, {
-    "description": "RNG attribute value autocomplete escape characters",
     "schemata": [{
       "lang": "rng",
       "path": "../schema/schema-att-values.rng"
     }],
     "items": [{
-      "expectation": "",
       "file": "../xml/rng-att-values1.xml",
       "suggestionType": "V",
       "fragment": "b",
@@ -2123,7 +1974,6 @@
         "replacementPrefix": ""
       }]
     }, {
-      "expectation": "",
       "file": "../xml/rng-att-values2.xml",
       "suggestionType": "V",
       "fragment": "b",
@@ -2136,13 +1986,11 @@
       }]
     }]
   }, {
-    "description": "XSD attribute value autocomplete escape characters",
     "schemata": [{
       "lang": "xsd",
       "path": "../schema/schema-att-values.xsd"
     }],
     "items": [{
-      "expectation": "",
       "file": "../xml/xsd-att-values1.xml",
       "suggestionType": "V",
       "fragment": "b",
@@ -2154,7 +2002,6 @@
         "replacementPrefix": ""
       }]
     }, {
-      "expectation": "",
       "file": "../xml/xsd-att-values2.xml",
       "suggestionType": "V",
       "fragment": "b",
@@ -2166,29 +2013,21 @@
         "replacementPrefix": ""
       }]
     }]
-  }]
-}, {
-  "description": "Suggestions with schema errors",
-  "catalog": "../catalog/catalog.xml",
-  "items": [{
-    "description": "",
+  }, {
     "schemata": [{
       "lang": "rng",
       "path": "../schema/wrong-schema-path.rng"
     }],
     "items": [{
-      "expectation": "",
       "file": "../xml/failing-schema-after-root.xml",
       "suggestionType": "E",
       "expectResult": []
     }, {
-      "expectation": "",
       "file": "../xml/failing-schema-before-root.xml",
       "suggestionType": "E",
       "expectResult": []
     }, {
-      "expectation": "",
-      "file": "../xml/failing-schema-root-after-first-child-start.xml",
+      "file": "../xml/failing-schema-after-first-child-start.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "/other:child>",
@@ -2199,37 +2038,29 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "",
-      "file": "../xml/failing-schema-root-after-first-child-start.xml",
+      "file": "../xml/failing-schema-after-first-child-start.xml",
       "suggestionType": "N",
       "expectResult": []
     }, {
-      "expectation": "",
-      "file": "../xml/failing-schema-root-after-first-child-start.xml",
+      "file": "../xml/failing-schema-after-first-child-start.xml",
       "suggestionType": "V",
       "fragment": "x",
       "expectResult": []
     }]
-  }]
-}, {
-  "description": "Schemaless suggestions",
-  "catalog": "../catalog/catalog.xml",
-  "items": [{
-    "description": "",
-    "schemata": [{ "lang": "none" }],
+  }, {
+    "schemata": [{
+      "lang": "none"
+    }],
     "items": [{
-      "expectation": "",
       "file": "../xml/schemaless-after-root.xml",
       "suggestionType": "E",
       "expectResult": []
     }, {
-      "expectation": "",
       "file": "../xml/schemaless-before-root.xml",
       "suggestionType": "E",
       "expectResult": []
     }, {
-      "expectation": "",
-      "file": "../xml/schemaless-root-after-first-child-start.xml",
+      "file": "../xml/schemaless-after-first-child-start.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "/other:child>",
@@ -2240,13 +2071,11 @@
         "retrigger": false
       }]
     }, {
-      "expectation": "",
-      "file": "../xml/schemaless-root-after-first-child-start.xml",
+      "file": "../xml/schemaless-after-first-child-start.xml",
       "suggestionType": "N",
       "expectResult": []
     }, {
-      "expectation": "",
-      "file": "../xml/schemaless-root-after-first-child-start.xml",
+      "file": "../xml/schemaless-after-first-child-start.xml",
       "suggestionType": "V",
       "fragment": "x",
       "expectResult": []

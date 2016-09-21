@@ -77,7 +77,7 @@ describe('autocomplete', () => {
       )
     );
 
-  testData.forEach(({ description, catalog, items }) => {
+  testData.forEach(({ description, catalog, items: firstLevelItems }) => {
     describe(description, () => {
       beforeEach(() => {
         waitsForPromise(() =>
@@ -86,10 +86,22 @@ describe('autocomplete', () => {
         atom.config.set('linter-autocomplete-jing.xmlCatalog', resolvePath(catalog));
       });
 
-      items.forEach(({ description, items }) => { // eslint-disable-line
-        describe(description, () => {
-          items.forEach((item) => {
-            const runAssertions = () => it(item.expectation, () => {
+      firstLevelItems.forEach(({ schemata, items: secondLevelItems }) => {
+        const schemaFiles = schemata.map(({ path: schemaPath }) => (
+          schemaPath
+            ? path.basename(schemaPath)
+            : 'none'
+        )).join(', ');
+
+        describe(`given schema "${schemaFiles}", `, () => {
+          secondLevelItems.forEach((item) => {
+            const str = 'suggests ' +
+              '[' + item.expectResult.map(({ displayText }) => displayText).join(', ') + '] ' +
+              'when requesting type "' + item.suggestionType + '" autocomplete ' +
+              'in file "' + path.basename(item.file) + '" ' +
+              (item.fragment ? 'at fragment "' + item.fragment : '');
+
+            const runAssertions = () => it(str, () => {
               testAutocomplete(item, (messages) => {
                 expect(JSON.stringify(messages, 2, null))
                   .toEqual(JSON.stringify(item.expectResult, 2, null));

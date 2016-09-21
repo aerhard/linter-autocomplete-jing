@@ -45,3 +45,6 @@
 * improve linter messages
 * replace 'http' with private URI scheme in tests to prevent failing tests caused by timeouts
 * update dependencies
+
+### 0.5.1
+* auto-generate autocomplete test descriptions
