@@ -7,6 +7,8 @@ import testData from './autocomplete/json/main';
 
 const resolvePath = filename => path.resolve(__dirname, 'autocomplete/json', filename);
 
+const serverProcessInstance = serverProcess.getInstance();
+
 const buildOptions = (editor, suggestionType, fragment) => {
   const endPosition = editor.getBuffer().getEndPosition();
 
@@ -59,8 +61,8 @@ describe('autocomplete', () => {
   let exitServer;
 
   it('%%% pseudo before all %%%', () => {
-    exitServer = serverProcess.exit;
-    serverProcess.exit = function() {};
+    exitServer = serverProcessInstance.exit;
+    serverProcessInstance.exit = function() {};
   });
 
   const testAutocomplete = ({ file, suggestionType, fragment }, cb) =>
@@ -122,6 +124,6 @@ describe('autocomplete', () => {
   });
 
   it('%%% pseudo after all %%%', () => {
-    exitServer.call(serverProcess);
+    exitServer.call(serverProcessInstance);
   });
 });

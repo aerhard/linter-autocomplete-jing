@@ -2,9 +2,19 @@
 import { CompositeDisposable } from 'atom'; // eslint-disable-line
 import serverProcess from './serverProcess';
 
+const serverProcessInstance = serverProcess.getInstance();
+
+if (serverProcessInstance.onError === serverProcess.prototype.onError) {
+  serverProcessInstance.onError = (err) => {
+    atom.notifications.addError(`[linter-autocomplete-jing] ${err.message}`, {
+      detail: err.stack,
+      dismissable: true,
+    });
+  };
+}
+
 let validate;
 let suggest;
-let sendRequest;
 let getSchemaProps;
 let subscriptions;
 
@@ -19,21 +29,19 @@ const addErrorNotification = (err) => {
 };
 
 const setServerConfig = (args) => {
-  if (serverProcess.isReadyPromise) {
-    if (!sendRequest) sendRequest = require('./sendRequest');
-
-    serverProcess.isReadyPromise
-      .then(({ port }) => sendRequest(args, null, port))
+  if (serverProcessInstance.isReadyPromise) {
+    serverProcessInstance.isReadyPromise
+      .then(({ port }) => serverProcessInstance.sendRequest(args, null, port))
       .catch(addErrorNotification);
   }
 };
 
 const setLocalConfig = key => (value) => {
   localConfig[key] = value;
-  if (!serverProcess.isReady) return;
+  if (!serverProcessInstance.isReady) return;
 
   if (['javaExecutablePath', 'jvmArguments'].includes(key)) {
-    serverProcess.exit();
+    serverProcessInstance.exit();
   } else if (key === 'schemaCacheSize') {
     setServerConfig(['S', value]);
   }
@@ -71,14 +79,14 @@ module.exports = {
       'linter-autocomplete-jing:clear-schema-cache': () => setServerConfig(['C']),
     }));
 
-    serverProcess
+    serverProcessInstance
       .ensureIsReady(localConfig)
       .catch(addErrorNotification);
   },
 
   deactivate() {
     subscriptions.dispose();
-    serverProcess.exit();
+    serverProcessInstance.exit();
   },
 
   provideLinter() {
@@ -92,7 +100,7 @@ module.exports = {
       lintOnFly: true,
       lint(textEditor) {
         return Promise.all([
-          serverProcess.ensureIsReady(localConfig),
+          serverProcessInstance.ensureIsReady(localConfig),
           getSchemaProps(textEditor),
         ])
         .then(validate(textEditor, localConfig))
@@ -118,7 +126,7 @@ module.exports = {
         }
 
         return Promise.all([
-          serverProcess.ensureIsReady(localConfig),
+          serverProcessInstance.ensureIsReady(localConfig),
           getSchemaProps(options.editor),
         ])
         .then(suggest(options, localConfig))

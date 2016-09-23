@@ -1,7 +1,9 @@
 
 import { compact, filter, find, flow, join, map } from 'lodash/fp';
 import regex from './regex';
-import sendRequest from './sendRequest';
+import serverProcess from './serverProcess';
+
+const serverProcessInstance = serverProcess.getInstance();
 
 const getEndToken = (str) => {
   const match = str.match(regex.endToken);
@@ -239,7 +241,7 @@ const getSuggestions = (sharedConfig, suggestionOptions) => {
   const headers =
     buildHeaders(editor.getPath(), xmlCatalog, currentSchemaProps, type, fragment);
 
-  return sendRequest(headers, body, port)
+  return serverProcessInstance.sendRequest(headers, body, port)
     .then(flow(
       JSON.parse,
       filter(filterFn),
