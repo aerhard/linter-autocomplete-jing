@@ -10,10 +10,7 @@ const resolvePath = filename => path.resolve(__dirname, 'validation/json', filen
 const serverProcessInstance = serverProcess.getInstance();
 
 describe('validation', () => {
-  let exitServer;
-
   it('%%% pseudo before all %%%', () => {
-    exitServer = serverProcessInstance.exit;
     serverProcessInstance.exit = function() {};
   });
 
@@ -70,6 +67,6 @@ describe('validation', () => {
   });
 
   it('%%% pseudo after all %%%', () => {
-    exitServer.call(serverProcessInstance);
+    serverProcess.prototype.exit.apply(serverProcessInstance);
   });
 });

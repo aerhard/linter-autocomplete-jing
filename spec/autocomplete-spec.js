@@ -58,10 +58,7 @@ const buildOptions = (editor, suggestionType, fragment) => {
 };
 
 describe('autocomplete', () => {
-  let exitServer;
-
   it('%%% pseudo before all %%%', () => {
-    exitServer = serverProcessInstance.exit;
     serverProcessInstance.exit = function() {};
   });
 
@@ -124,6 +121,6 @@ describe('autocomplete', () => {
   });
 
   it('%%% pseudo after all %%%', () => {
-    exitServer.call(serverProcessInstance);
+    serverProcess.prototype.exit.apply(serverProcessInstance);
   });
 });
