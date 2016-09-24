@@ -12,7 +12,7 @@ Supported schema types:
 * *Validation*: RELAX NG (XML and compact syntax), Schematron (1.5, ISO), W3C Schema (XSD 1.0) and DTD
 * *Autocomplete*: RELAX NG (XML and compact syntax), W3C Schema (XSD 1.0)
 
-XML document processing is handled in Java by an extended version of [Jing](https://github.com/aerhard/jing-trang), Saxon HE and Xerces.
+XML document processing is handled in Java by [an extended version of Jing](https://github.com/aerhard/jing-trang), Saxon HE and Xerces.
 
 ## Installation
 
