@@ -12,7 +12,7 @@ Supported schema types:
 * *Validation*: RELAX NG (XML and compact syntax), Schematron (1.5, ISO), W3C Schema (XSD 1.0) and DTD
 * *Autocomplete*: RELAX NG (XML and compact syntax), W3C Schema (XSD 1.0)
 
-XML document processing is handled in Java by an extended version of [Jing](https://github.com/aerhard/jing-trang), Saxon HE and Xerces.
+XML document processing is handled in Java by [an extended version of Jing](https://github.com/aerhard/jing-trang), Saxon HE and Xerces.
 
 ## Installation
 
@@ -63,4 +63,8 @@ If your documents contain references to remote schemata, you can improve perform
 
 ## Development
 
-While developing, run `npm run watch` to transpile the ES6 code in `src` to ES5 in `lib`.
+If you intend to adjust only the Javascript part of the code, checkout https://github.com/aerhard/linter-autocomplete-jing from GitHub and link it to Atom by running `apm link` from the repository root (undo with `apm unlink`). The ES6 source code is in the `src` folder of the project. `npm run build` and `npm run watch` transpile the content of `src` to the ES5 code in `lib` which Atom processes. 
+Press <kbd>Ctrl-Alt-R</kbd> in Atom to reload the updated module.
+
+In order to make adjustments to the Javascript as well as as the Java parts, checkout https://github.com/aerhard/xml-tools (which contains the `linter-autocomplete-jing` package, the source code of the Java server and its `jing-trang` dependency).
+

@@ -3,7 +3,9 @@ import {
   flow, trim, split, map, compact, concat, sortBy,
   filter, identity,
 } from 'lodash/fp';
-import sendRequest from './sendRequest';
+import serverProcess from './serverProcess';
+
+const serverProcessInstance = serverProcess.getInstance();
 
 const helpers = require('atom-linter');
 
@@ -67,7 +69,7 @@ const validate = (textEditor, config) => ([{ port }, { schemaProps, messages }])
   ];
   const body = textEditor.getText();
 
-  return sendRequest(headers, body, port)
+  return serverProcessInstance.sendRequest(headers, body, port)
     .then(
       flow(
         trim,

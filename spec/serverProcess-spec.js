@@ -6,7 +6,8 @@ import serverProcess from '../lib/serverProcess';
 describe('serverProcess', () => {
   describe('given a wrong java path', () => {
     it('should return a rejected promise', () => {
-      const promise = serverProcess.createIsReadyPromise({
+      const serverProcessInstance = serverProcess.getInstance();
+      const promise = serverProcessInstance.createIsReadyPromise({
         javaExecutablePath: path.resolve(__dirname, 'missing-java-executable'),
       });
 

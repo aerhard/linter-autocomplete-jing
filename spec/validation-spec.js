@@ -7,12 +7,11 @@ import testData from './validation/json/main';
 
 const resolvePath = filename => path.resolve(__dirname, 'validation/json', filename);
 
-describe('validation', () => {
-  let exitServer;
+const serverProcessInstance = serverProcess.getInstance();
 
+describe('validation', () => {
   it('%%% pseudo before all %%%', () => {
-    exitServer = serverProcess.exit;
-    serverProcess.exit = function() {};
+    serverProcessInstance.exit = function() {};
   });
 
   const testValidation = (basename, cb) =>
@@ -68,6 +67,6 @@ describe('validation', () => {
   });
 
   it('%%% pseudo after all %%%', () => {
-    exitServer.call(serverProcess);
+    serverProcess.prototype.exit.apply(serverProcessInstance);
   });
 });

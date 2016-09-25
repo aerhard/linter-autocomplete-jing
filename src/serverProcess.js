@@ -1,25 +1,32 @@
 
+import { Socket } from 'net';
+
 let spawn;
 let path;
 
 const portRegex = /XML Tools Server listening on port (\d+)/;
 const jarPath = '../vendor/xml-tools-server-0.4.0.jar';
-const port = 0;
+const initialPort = 0;
 
-function ServerProcessError(message, err) {
-  this.name = 'ServerProcessError';
-  this.message = message;
-  this.stack = err ? err.stack : new Error().stack;
+function ServerProcess() {
+  this.state = this.STOPPED;
+  this.isReadyPromise = null;
+  this.javaProcess = null;
+  this.port = null;
 }
-ServerProcessError.prototype = Object.create(Error.prototype);
 
-module.exports = {
-  ServerProcessError,
+ServerProcess.prototype = {
+  STOPPED: 'STOPPED',
+  INITIALIZING: 'INITIALIZING',
+  READY: 'READY',
 
-  isReady: false,
-  isReadyPromise: null,
-  javaProcess: null,
-  port: null,
+  getState() {
+    return this.state;
+  },
+
+  isReady() {
+    return this.state === this.READY;
+  },
 
   ensureIsReady(config) {
     if (!this.isReadyPromise) {
@@ -32,12 +39,14 @@ module.exports = {
     if (!spawn) spawn = require('cross-spawn');
     if (!path) path = require('path');
 
+    this.state = this.INITIALIZING;
+
     return new Promise((resolve, reject) => {
       const args = [
         ...config.jvmArguments.split(/\s+/),
         '-jar',
         path.resolve(__dirname, jarPath),
-        port,
+        initialPort,
         config.schemaCacheSize,
       ];
       this.javaProcess = spawn(config.javaExecutablePath, args, {});
@@ -51,11 +60,11 @@ module.exports = {
       if (match) {
         this.port = Number(match[1]);
         this.removeListeners();
-        this.setRuntimeListeners();
-        this.isReady = true;
+        this.setExecutionListeners();
+        this.state = this.READY;
         resolve(this);
       } else {
-        reject(new ServerProcessError(`Unexpected server start message "${data}"`));
+        reject(new ServerProcess.Error(`Unexpected server start message "${data}"`));
         this.exit();
       }
     };
@@ -64,23 +73,29 @@ module.exports = {
     this.javaProcess.stderr.on('data', onData);
 
     this.javaProcess.on('error', (err) => {
-      reject(new ServerProcessError(`Failed to execute "${config.javaExecutablePath}".\n` +
+      reject(new ServerProcess.Error(`Failed to execute "${config.javaExecutablePath}".\n` +
         'Please adjust the Java executable path in the "linter-autocomplete-jing" ' +
         'package settings', err));
       this.exit();
     });
   },
 
-  setRuntimeListeners() {
-    this.javaProcess.stderr.on('data', (data) => {
-      console.error(`Server reported error: ${data}`); // eslint-disable-line
-    });
+  onStdOut() {},
+
+  onStdErr(data) {
+    console.error(`Server message on stderr: ${data}`); // eslint-disable-line
+  },
+
+  onError(err) {
+    console.error('Server error:', err); // eslint-disable-line
+  },
+
+  setExecutionListeners() {
+    this.javaProcess.stdout.on('data', data => this.onStdOut(data));
+    this.javaProcess.stderr.on('data', data => this.onStdErr(data));
 
     this.javaProcess.on('error', (err) => {
-      atom.notifications.addError(`[linter-autocomplete-jing] ${err.message}`, {
-        detail: err.stack,
-        dismissable: true,
-      });
+      this.onError(err);
       this.exit();
     });
   },
@@ -92,13 +107,71 @@ module.exports = {
   },
 
   exit() {
-    this.isReady = false;
+    this.state = this.STOPPED;
     if (this.javaProcess) {
       this.removeListeners();
       this.javaProcess.kill();
+      this.javaProcess = null;
     }
-    this.javaProcess = null;
     this.isReadyPromise = null;
     this.port = null;
   },
+
+  sendRequest(headers, body) {
+    const port = this.port;
+    return new Promise((resolve, reject) => {
+      let response = '';
+
+      const socket = new Socket();
+
+      socket.on('connect', () => {
+        socket.write(
+          headers
+            .map(header => `-${header}\n`)
+            .join('')
+        );
+
+        if (body !== null) {
+          socket.write('\n');
+          socket.write(body);
+        }
+
+        socket.end();
+      });
+
+      socket.on('data', (data) => {
+        response += data.toString();
+      });
+
+      socket.on('close', () => {
+        resolve(response);
+      });
+
+      socket.on('error', (err) => {
+        socket.destroy();
+        reject(err);
+      });
+
+      socket.connect({ port });
+    });
+  },
 };
+
+let instance = null;
+
+ServerProcess.getInstance = function() {
+  if (instance === null) {
+    instance = new ServerProcess();
+  }
+  return instance;
+};
+
+ServerProcess.Error = function(message, err) {
+  this.name = 'ServerProcess.Error';
+  this.message = message;
+  this.stack = err ? err.stack : new Error().stack;
+};
+
+ServerProcess.Error.prototype = Object.create(Error.prototype);
+
+module.exports = ServerProcess;
