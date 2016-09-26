@@ -63,6 +63,7 @@ const validate = (textEditor, config) => ([{ port }, { schemaProps, messages }])
   const headers = [
     'V',
     'r',
+    'UTF-8',
     textEditor.getPath(),
     config.xmlCatalog || '',
     ...schemaProps.map(schema => schema.lang + ' ' + (schema.path || '')),

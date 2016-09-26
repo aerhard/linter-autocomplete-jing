@@ -5,7 +5,7 @@ let spawn;
 let path;
 
 const portRegex = /XML Tools Server listening on port (\d+)/;
-const jarPath = '../vendor/xml-tools-server-0.4.0.jar';
+const jarPath = '../vendor/xml-tools-server-0.4.1.jar';
 const initialPort = 0;
 
 function ServerProcess() {
