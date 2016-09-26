@@ -32,7 +32,7 @@ const parseMessage = (textEditor, schemaProps, config) => function(str) {
   if (systemId === filePath) {
     return {
       type: level === 'warning' ? 'Warning' : 'Error',
-      html: lang === 'none' ? html : `${lang.toUpperCase()}: ${html}`,
+      html: lang === 'none' ? html : `<span class="badge badge-flexible">${lang.toUpperCase()}</span> ${html}`,
       filePath,
       range: helpers.rangeFromLineNumber(textEditor, Number(line) - 1),
     };
