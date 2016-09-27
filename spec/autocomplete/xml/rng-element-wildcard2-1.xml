@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schema/schema-element-wildcard2.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<root
+  xmlns="http://www.example.com"
+  xmlns:other="http://www.other.com"
+  xmlns:third="http://www.third.com"
+  xmlns:excluded="http://www.excluded.com"
+  b="a"
+  l="a">

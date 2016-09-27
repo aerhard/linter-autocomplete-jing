@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schema/schema-att-wildcard1.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<root xmlns="http://www.example.com" b="a" l="a">
+    <other:child xmlns:other="http://www.other.com" xmlns:third="http://www.third.com">

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar
+  ns="http://www.example.com"
+  xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:other="http://www.other.com"
+  xmlns:excluded="http://www.excluded.com"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <define name="child">
+    <element>
+      <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">child</documentation>
+      <choice>
+        <choice>
+          <name>other:child</name>
+          <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">other:child</documentation>
+          <name>excluded:el</name>
+          <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">excluded:el</documentation>
+        </choice>
+        <nsName ns="http://www.fourth.com"/>
+        <anyName>
+          <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">anyName</documentation>
+          <except>
+            <nsName ns="http://www.excluded.com"/>
+            <name>secondChild</name>
+          </except>
+        </anyName>
+      </choice>
+
+
+      <oneOrMore>
+       <attribute>
+         <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">child</documentation>
+         <choice>
+           <choice>
+             <name>other:child</name>
+             <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">other:child</documentation>
+             <name>excluded:el</name>
+             <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">excluded:el</documentation>
+           </choice>
+           <nsName ns="http://www.fourth.com"/>
+           <anyName>
+             <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">anyName</documentation>
+             <except>
+               <nsName ns="http://www.excluded.com"/>
+               <name>secondChild</name>
+             </except>
+           </anyName>
+         </choice>
+
+         <choice>
+           <value type="string">val1</value>
+           <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">val1-1</documentation>
+           <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">val1-2</documentation>
+           <value type="string">val2</value>
+           <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">val2-1</documentation>
+           <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">val2-2</documentation>
+         </choice>
+       </attribute>
+      </oneOrMore>
+
+      <data type="NCName"/>
+    </element>
+  </define>
+
+  <start>
+    <element name="root">
+      <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">root</documentation>
+      <attribute name="b">
+        <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">@b</documentation>
+        <data type="NCName"/>
+      </attribute>
+      <attribute name="l">
+        <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">@l</documentation>
+        <data type="NCName"/>
+      </attribute>
+
+      <ref name="child"/>
+
+      <element name="secondChild">
+        <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">secondChild</documentation>
+        <attribute name="other:yiu">
+          <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">other:yiu1</documentation>
+          <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">other:yiu2</documentation>
+          <choice>
+            <value type="string">val3</value>
+            <value type="string">val4</value>
+          </choice>
+        </attribute>
+        <text/>
+      </element>
+    </element>
+  </start>
+</grammar>

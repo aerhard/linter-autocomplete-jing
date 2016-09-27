@@ -50,3 +50,4 @@
 * auto-generate autocomplete test descriptions
 * properly kill server process after tests
 * support encodings other than UTF-8
+* provide additional suggestions for element / attribute wildcards

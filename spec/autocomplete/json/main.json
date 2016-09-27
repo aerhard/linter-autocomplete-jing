@@ -467,12 +467,19 @@
   }, {
     "schemata": [{
       "lang": "rng",
-      "path": "../schema/schema1.rng"
+      "path": "../schema/schema-element-wildcard4.rng"
     }],
     "items": [{
-      "file": "../xml/rng1-1.xml",
+      "file": "../xml/rng-element-wildcard4-1.xml",
       "suggestionType": "E",
       "expectResult": [{
+        "snippet": "${1}>${2}</${1}>",
+        "displayText": "*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
         "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
         "displayText": "* (*)",
         "type": "tag",
@@ -485,7 +492,6 @@
         "type": "tag",
         "rightLabel": "Element",
         "replacementPrefix": "",
-        "description": "child",
         "retrigger": true
       }, {
         "snippet": "el xmlns=\"http://www.excluded.com\" x=\"${1}\">${2}</el>",
@@ -494,6 +500,13 @@
         "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "child – excluded:el",
+        "retrigger": true
+      }, {
+        "snippet": "other:${1}>${2}</other:${1}>",
+        "displayText": "other:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
@@ -515,12 +528,19 @@
   }, {
     "schemata": [{
       "lang": "rng",
-      "path": "../schema/schema2.rng"
+      "path": "../schema/schema-element-wildcard5.rng"
     }],
     "items": [{
-      "file": "../xml/rng2-1.xml",
+      "file": "../xml/rng-element-wildcard5-1.xml",
       "suggestionType": "E",
       "expectResult": [{
+        "snippet": "${1}>${2}</${1}>",
+        "displayText": "*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
         "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
         "displayText": "* (*)",
         "type": "tag",
@@ -547,10 +567,10 @@
   }, {
     "schemata": [{
       "lang": "rng",
-      "path": "../schema/schema3.rng"
+      "path": "../schema/schema-element-wildcard1.rng"
     }],
     "items": [{
-      "file": "../xml/rng3-1.xml",
+      "file": "../xml/rng-element-wildcard1-1.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "${1}>${2}</${1}>",
@@ -558,7 +578,6 @@
         "type": "tag",
         "rightLabel": "Element",
         "replacementPrefix": "",
-        "description": "child – example-ns",
         "retrigger": true
       }, {
         "snippet": "${1} xmlns=\"http://www.third.com\">${2}</${1}>",
@@ -566,7 +585,6 @@
         "type": "tag",
         "rightLabel": "Element",
         "replacementPrefix": "",
-        "description": "child – third-ns",
         "retrigger": true
       }, {
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
@@ -574,7 +592,7 @@
         "type": "tag",
         "rightLabel": "Element",
         "replacementPrefix": "",
-        "description": "child – other:child",
+        "description":"child – other:child",
         "retrigger": true
       }, {
         "snippet": "/root>",
@@ -585,7 +603,7 @@
         "retrigger": false
       }]
     }, {
-      "file": "../xml/rng3-2.xml",
+      "file": "../xml/rng-element-wildcard1-2.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "${1}>${2}</${1}>",
@@ -593,7 +611,6 @@
         "type": "tag",
         "rightLabel": "Element",
         "replacementPrefix": "",
-        "description": "child – example-ns",
         "retrigger": true
       }, {
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
@@ -609,7 +626,105 @@
         "type": "tag",
         "rightLabel": "Element",
         "replacementPrefix": "",
-        "description": "child – third-ns",
+        "retrigger": true
+      }, {
+        "snippet": "/root>",
+        "displayText": "/root>",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "rng",
+      "path": "../schema/schema-element-wildcard2.rng"
+    }],
+    "items": [{
+      "file": "../xml/rng-element-wildcard2-1.xml",
+      "suggestionType": "E",
+      "expectResult": [{
+        "snippet": "${1}>${2}</${1}>",
+        "displayText": "*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
+        "displayText": "* (*)",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "other:${1}>${2}</other:${1}>",
+        "displayText": "other:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "displayText": "other:child",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "description": "child – other:child",
+        "retrigger": true
+      }, {
+        "snippet": "third:${1}>${2}</third:${1}>",
+        "displayText": "third:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "/root>",
+        "displayText": "/root>",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "rng",
+      "path": "../schema/schema-element-wildcard3.rng"
+    }],
+    "items": [{
+      "file": "../xml/rng-element-wildcard3-1.xml",
+      "suggestionType": "E",
+      "expectResult": [{
+        "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
+        "displayText": "* (*)",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "other:${1}>${2}</other:${1}>",
+        "displayText": "other:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "displayText": "other:child",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "description": "child – other:child",
+        "retrigger": true
+      }, {
+        "snippet": "third:${1}>${2}</third:${1}>",
+        "displayText": "third:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "/root>",
@@ -681,12 +796,19 @@
   }, {
     "schemata": [{
       "lang": "rng",
-      "path": "../schema/schema1a.rng"
+      "path": "../schema/schema-att-wildcard3.rng"
     }],
     "items": [{
-      "file": "../xml/rng1-2.xml",
+      "file": "../xml/rng-att-wildcard3-1.xml",
       "suggestionType": "N",
       "expectResult": [{
+        "snippet": "${1}=\"${2}\"",
+        "displayText": "*",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
         "snippet": "ns${1}:${2}=\"${4}\" xmlns:ns${1}=\"${3}\"",
         "displayText": "* (*)",
         "type": "attribute",
@@ -694,20 +816,26 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "ns${1}:${2}=\"${3}\" xmlns:ns${1}=\"http://www.fourth.com\"",
-        "displayText": "* (http://www.fourth.com)",
-        "type": "attribute",
-        "rightLabel": "Attribute",
-        "replacementPrefix": "",
-        "description": "child",
-        "retrigger": true
-      }, {
-        "snippet": "ns${1}:el=\"${2}\" xmlns:ns${1}=\"http://www.excluded.com\"",
-        "displayText": "el (http://www.excluded.com)",
+        "snippet": "excluded:el=\"${1}\"",
+        "displayText": "excluded:el",
         "type": "attribute",
         "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "child – excluded:el",
+        "retrigger": true
+      }, {
+        "snippet": "fourth:${1}=\"${2}\"",
+        "displayText": "fourth:*",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "other:${1}=\"${2}\"",
+        "displayText": "other:*",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "other:child=\"${1}\"",
@@ -716,6 +844,13 @@
         "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "child – other:child",
+        "retrigger": true
+      }, {
+        "snippet": "xml:${1}=\"${2}\"",
+        "displayText": "xml:*",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
         "retrigger": true
       }]
     }]
@@ -740,10 +875,10 @@
   }, {
     "schemata": [{
       "lang": "rng",
-      "path": "../schema/schema2a.rng"
+      "path": "../schema/schema-att-wildcard2.rng"
     }],
     "items": [{
-      "file": "../xml/rng2-3.xml",
+      "file": "../xml/rng-att-wildcard2-1.xml",
       "suggestionType": "N",
       "expectResult": [{
         "snippet": "ns${1}:${2}=\"${4}\" xmlns:ns${1}=\"${3}\"",
@@ -760,15 +895,22 @@
         "replacementPrefix": "",
         "description": "other:child",
         "retrigger": true
+      }, {
+        "snippet": "xml:${1}=\"${2}\"",
+        "displayText": "xml:*",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "retrigger": true
       }]
     }]
   }, {
     "schemata": [{
       "lang": "rng",
-      "path": "../schema/schema3a.rng"
+      "path": "../schema/schema-att-wildcard1.rng"
     }],
     "items": [{
-      "file": "../xml/rng3-3.xml",
+      "file": "../xml/rng-att-wildcard1-1.xml",
       "suggestionType": "N",
       "expectResult": [{
         "snippet": "${1}=\"${2}\"",
@@ -776,7 +918,6 @@
         "type": "attribute",
         "rightLabel": "Attribute",
         "replacementPrefix": "",
-        "description": "att – example-ns",
         "retrigger": true
       }, {
         "snippet": "ns${1}:${2}=\"${3}\" xmlns:ns${1}=\"http://www.third.com\"",
@@ -784,7 +925,6 @@
         "type": "attribute",
         "rightLabel": "Attribute",
         "replacementPrefix": "",
-        "description": "att – third-ns",
         "retrigger": true
       }, {
         "snippet": "ns${1}:child=\"${2}\" xmlns:ns${1}=\"http://www.other.com\"",
@@ -793,6 +933,32 @@
         "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "att – other:child",
+        "retrigger": true
+      }]
+    }, {
+      "file": "../xml/rng-att-wildcard1-2.xml",
+      "suggestionType": "N",
+      "expectResult": [{
+        "snippet": "${1}=\"${2}\"",
+        "displayText": "*",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "other:child=\"${1}\"",
+        "displayText": "other:child",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "description": "att – other:child",
+        "retrigger": true
+      }, {
+        "snippet": "third:${1}=\"${2}\"",
+        "displayText": "third:*",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
         "retrigger": true
       }]
     }]
@@ -878,8 +1044,22 @@
       "file": "../xml/xsd-multi1.xml",
       "suggestionType": "E",
       "expectResult": [{
+        "snippet": "${1} xmlns=\"http://www.example.com\">${2}</${1}>",
+        "displayText": "* (http://www.example.com)",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
         "snippet": "child xmlns=\"http://www.example.com\" x=\"${1}\">${2}</child>",
         "displayText": "child (http://www.example.com)",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "other:${1}>${2}</other:${1}>",
+        "displayText": "other:*",
         "type": "tag",
         "rightLabel": "Element",
         "replacementPrefix": "",
@@ -945,6 +1125,13 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
+        "snippet": "xsi:${1}>${2}</xsi:${1}>",
+        "displayText": "xsi:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
         "snippet": "/other:child>",
         "displayText": "/other:child>",
         "type": "tag",
@@ -998,6 +1185,20 @@
       "file": "../xml/xsd-schemaLocation2.xml",
       "suggestionType": "E",
       "expectResult": [{
+        "snippet": "${1}>${2}</${1}>",
+        "displayText": "*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "other:${1}>${2}</other:${1}>",
+        "displayText": "other:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
@@ -1080,6 +1281,13 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
+        "snippet": "xsi:${1}>${2}</xsi:${1}>",
+        "displayText": "xsi:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
@@ -1140,6 +1348,13 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
+        "snippet": "xsi:${1}>${2}</xsi:${1}>",
+        "displayText": "xsi:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
@@ -1177,6 +1392,13 @@
         "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
+        "retrigger": true
+      }, {
+        "snippet": "xsi:${1}>${2}</xsi:${1}>",
+        "displayText": "xsi:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "/root>",
@@ -1524,68 +1746,17 @@
   }, {
     "schemata": [{
       "lang": "xsd",
-      "path": "../schema/schema3.xsd"
+      "path": "../schema/schema-element-wildcard1.xsd"
     }],
     "items": [{
-      "file": "../xml/xsd3-1.xml",
+      "file": "../xml/xsd-element-wildcard1-1.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "root b=\"${1}\" l=\"${2}\">${3}</root>",
-        "displayText": "root",
+        "snippet": "${1}>${2}</${1}>",
+        "displayText": "*",
         "type": "tag",
         "rightLabel": "Element",
         "replacementPrefix": "",
-        "retrigger": true
-      }, {
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
-        "displayText": "secondChild",
-        "type": "tag",
-        "rightLabel": "Element",
-        "replacementPrefix": "",
-        "retrigger": true
-      }, {
-        "snippet": "/root>",
-        "displayText": "/root>",
-        "type": "tag",
-        "rightLabel": "Element",
-        "replacementPrefix": "",
-        "retrigger": false
-      }]
-    }, {
-      "file": "../xml/xsd3-2.xml",
-      "suggestionType": "E",
-      "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
-        "displayText": "other:child",
-        "type": "tag",
-        "rightLabel": "Element",
-        "replacementPrefix": "",
-        "description": "other:line1 – other:line2",
-        "retrigger": true
-      }, {
-        "snippet": "/root>",
-        "displayText": "/root>",
-        "type": "tag",
-        "rightLabel": "Element",
-        "replacementPrefix": "",
-        "retrigger": false
-      }]
-    }]
-  }, {
-    "schemata": [{
-      "lang": "xsd",
-      "path": "../schema/schema4.xsd"
-    }],
-    "items": [{
-      "file": "../xml/xsd4-1.xml",
-      "suggestionType": "E",
-      "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
-        "displayText": "other:child",
-        "type": "tag",
-        "rightLabel": "Element",
-        "replacementPrefix": "",
-        "description": "other:line1 – other:line2",
         "retrigger": true
       }, {
         "snippet": "root b=\"${1}\" l=\"${2}\">${3}</root>",
@@ -1610,7 +1781,7 @@
         "retrigger": false
       }]
     }, {
-      "file": "../xml/xsd4-2.xml",
+      "file": "../xml/xsd-element-wildcard1-2.xml",
       "suggestionType": "E",
       "expectResult": [{
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
@@ -1632,12 +1803,91 @@
   }, {
     "schemata": [{
       "lang": "xsd",
-      "path": "../schema/schema5.xsd"
+      "path": "../schema/schema-element-wildcard2.xsd"
     }],
     "items": [{
-      "file": "../xml/xsd5-1.xml",
+      "file": "../xml/xsd-element-wildcard2-1.xml",
       "suggestionType": "E",
       "expectResult": [{
+        "snippet": "${1}>${2}</${1}>",
+        "displayText": "*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "other:${1}>${2}</other:${1}>",
+        "displayText": "other:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "displayText": "other:child",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "description": "other:line1 – other:line2",
+        "retrigger": true
+      }, {
+        "snippet": "root b=\"${1}\" l=\"${2}\">${3}</root>",
+        "displayText": "root",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "displayText": "secondChild",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "/root>",
+        "displayText": "/root>",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
+    }, {
+      "file": "../xml/xsd-element-wildcard2-2.xml",
+      "suggestionType": "E",
+      "expectResult": [{
+        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "displayText": "other:child",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "description": "other:line1 – other:line2",
+        "retrigger": true
+      }, {
+        "snippet": "/root>",
+        "displayText": "/root>",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-element-wildcard3.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-element-wildcard3-1.xml",
+      "suggestionType": "E",
+      "expectResult": [{
+        "snippet": "${1}>${2}</${1}>",
+        "displayText": "*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
         "snippet": "root b=\"${1}\" l=\"${2}\">${3}</root>",
         "displayText": "root",
         "type": "tag",
@@ -1663,12 +1913,19 @@
   }, {
     "schemata": [{
       "lang": "xsd",
-      "path": "../schema/schema6.xsd"
+      "path": "../schema/schema-element-wildcard4.xsd"
     }],
     "items": [{
-      "file": "../xml/xsd6-1.xml",
+      "file": "../xml/xsd-element-wildcard4-1.xml",
       "suggestionType": "E",
       "expectResult": [{
+        "snippet": "other:${1}>${2}</other:${1}>",
+        "displayText": "other:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
@@ -1745,10 +2002,10 @@
   }, {
     "schemata": [{
       "lang": "xsd",
-      "path": "../schema/schema7.xsd"
+      "path": "../schema/schema-att-wildcard1.xsd"
     }],
     "items": [{
-      "file": "../xml/xsd7-1.xml",
+      "file": "../xml/xsd-att-wildcard1-1.xml",
       "suggestionType": "N",
       "expectResult": [{
         "snippet": "${1}=\"${2}\"",
@@ -1778,6 +2035,119 @@
         "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "Documentation for yiu – second line",
+        "retrigger": true
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-att-wildcard2.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-att-wildcard2-1.xml",
+      "suggestionType": "N",
+      "expectResult": [{
+        "snippet": "${1}=\"${2}\"",
+        "displayText": "*",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "ex:${1}=\"${2}\"",
+        "displayText": "ex:*",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "ex:e=\"${1}\"",
+        "displayText": "ex:e",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "other:${1}=\"${2}\"",
+        "displayText": "other:*",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "other:yiu=\"${1}\"",
+        "displayText": "other:yiu",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "description": "Documentation for yiu – second line",
+        "retrigger": true
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-att-wildcard3.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-att-wildcard3-1.xml",
+      "suggestionType": "N",
+      "expectResult": [{
+        "snippet": "${1}=\"${2}\"",
+        "displayText": "*",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "ns${1}:${2}=\"${4}\" xmlns:ns${1}=\"${3}\"",
+        "displayText": "* (*)",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "ex:${1}=\"${2}\"",
+        "displayText": "ex:*",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "ex:e=\"${1}\"",
+        "displayText": "ex:e",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "other:${1}=\"${2}\"",
+        "displayText": "other:*",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "other:yiu=\"${1}\"",
+        "displayText": "other:yiu",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "description": "Documentation for yiu – second line",
+        "retrigger": true
+      }, {
+        "snippet": "xml:${1}=\"${2}\"",
+        "displayText": "xml:*",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "xx:${1}=\"${2}\"",
+        "displayText": "xx:*",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
         "retrigger": true
       }]
     }]
