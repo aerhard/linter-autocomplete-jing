@@ -147,7 +147,14 @@ const buildElementSuggestion = (replacementPrefix, addSuffix) =>
     let index = 0;
 
     const tagNameSnippet = tagName.replace(/\*/g, () => `\${${++index}}`);
+
+    // don't retrigger autocomplete when a wildcard end tag snippet gets inserted
+    const retrigger = index > 0
+      ? false
+      : addSuffix;
+
     const nsUriSnippet = nsUri === '*' ? `\${${++index}}` : nsUri;
+
 
     let snippet;
     let displayText;
@@ -183,7 +190,7 @@ const buildElementSuggestion = (replacementPrefix, addSuffix) =>
       rightLabel: 'Element',
       replacementPrefix,
       description: documentation ? buildDescriptionString(documentation) : undefined,
-      retrigger: addSuffix,
+      retrigger,
     };
   };
 
