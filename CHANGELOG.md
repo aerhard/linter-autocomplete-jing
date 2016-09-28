@@ -51,3 +51,6 @@
 * properly kill server process after tests
 * support encodings other than UTF-8
 * provide additional suggestions for element / attribute wildcards
+
+### 0.5.2
+* fix bug in XSD suggestions
