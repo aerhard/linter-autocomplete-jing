@@ -87,7 +87,7 @@
     },
     "autocompletePriority": {
       "type": "integer",
-      "default": 2
+      "default": 1
     },
     "autocompleteScope": {
       "type": "object",
