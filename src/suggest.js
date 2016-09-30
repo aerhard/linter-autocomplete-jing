@@ -54,17 +54,20 @@ const buildDescriptionString = join(' \u2013 ');
 const buildAttributeStrings = (attribute, index, addSuffix) => {
   const [qName, nsUri] = attribute.split('#');
 
-  if (nsUri) {
+  if (typeof nsUri === 'string') {
     const nsPrefix = `ns\${${++index}}`;
     const attNameSnippet = qName.replace(/\*/g, () => `\${${++index}}`);
     const nsUriSnippet = nsUri === '*' ? `\${${++index}}` : nsUri;
     const suffix = addSuffix
       ? `="\${${++index}}"`
       : '';
+    const displayText = nsUri === ''
+      ? `${qName} [no namespace]`
+      : `${qName} (${nsUri})`;
 
     return {
       snippet: `${nsPrefix}:${attNameSnippet}${suffix} xmlns:${nsPrefix}="${nsUriSnippet}"`,
-      displayText: `${qName} (${nsUri})`,
+      displayText,
       index,
     };
   }
@@ -153,17 +156,21 @@ const buildElementSuggestion = (replacementPrefix, addSuffix) =>
       ? false
       : addSuffix;
 
-    const nsUriSnippet = nsUri === '*' ? `\${${++index}}` : nsUri;
-
-
     let snippet;
     let displayText;
     if (addSuffix) {
-      displayText = nsUriSnippet ? `${tagName} (${nsUri})` : tagName;
+      let nsSnippet;
 
-      const nsSnippet = nsUri
-        ? [`xmlns="${nsUriSnippet}"`]
-        : [];
+      if (typeof nsUri === 'string') {
+        const nsUriSnippet = nsUri === '*' ? `\${${++index}}` : nsUri;
+        nsSnippet = [`xmlns="${nsUriSnippet}"`];
+        displayText = nsUri === ''
+          ? `${tagName} [no namespace]`
+          : `${tagName} (${nsUri})`;
+      } else {
+        nsSnippet = [];
+        displayText = tagName;
+      }
 
       const attributeSnippets = attributes.map((attribute) => {
         const { snippet: attributeSnippet, index: newIndex } =

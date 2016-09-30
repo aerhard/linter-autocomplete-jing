@@ -592,7 +592,7 @@
         "type": "tag",
         "rightLabel": "Element",
         "replacementPrefix": "",
-        "description":"child – other:child",
+        "description": "child – other:child",
         "retrigger": true
       }, {
         "snippet": "/root>",
@@ -881,6 +881,13 @@
       "file": "../xml/rng-att-wildcard2-1.xml",
       "suggestionType": "N",
       "expectResult": [{
+        "snippet": "${1}=\"${2}\"",
+        "displayText": "*",
+        "type": "attribute",
+        "rightLabel": "Attribute",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
         "snippet": "ns${1}:${2}=\"${4}\" xmlns:ns${1}=\"${3}\"",
         "displayText": "* (*)",
         "type": "attribute",
@@ -2449,6 +2456,330 @@
       "suggestionType": "V",
       "fragment": "x",
       "expectResult": []
+    }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-noTargetNamespace.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-noTargetNamespace1.xml",
+      "suggestionType": "E",
+      "expectResult": [{
+        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "displayText": "secondChild",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "/root>",
+        "displayText": "/root>",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
+    }, {
+      "file": "../xml/xsd-noTargetNamespace2.xml",
+      "suggestionType": "E",
+      "expectResult": [{
+        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "displayText": "secondChild",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "/root>",
+        "displayText": "/root>",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-noTargetNamespace-import.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-noTargetNamespace-import1.xml",
+      "suggestionType": "E",
+      "expectResult": [{
+        "snippet": "${1}>${2}</${1}>",
+        "displayText": "*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "${1} xmlns=\"\">${2}</${1}>",
+        "displayText": "* [no namespace]",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
+        "displayText": "* (*)",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "child xmlns=\"\" x=\"${1}\">${2}</child>",
+        "displayText": "child [no namespace]",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "description": "line1 – line2",
+        "retrigger": true
+      }, {
+        "snippet": "root b=\"${1}\" l=\"${2}\">${3}</root>",
+        "displayText": "root",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
+        "displayText": "secondChild",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "xsi:${1}>${2}</xsi:${1}>",
+        "displayText": "xsi:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "/root>",
+        "displayText": "/root>",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
+    }, {
+      "file": "../xml/xsd-noTargetNamespace-import2.xml",
+      "suggestionType": "E",
+      "expectResult": [{
+        "snippet": "${1}>${2}</${1}>",
+        "displayText": "*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
+        "displayText": "* (*)",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "child x=\"${1}\">${2}</child>",
+        "displayText": "child",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "description": "line1 – line2",
+        "retrigger": true
+      }, {
+        "snippet": "ex:${1}>${2}</ex:${1}>",
+        "displayText": "ex:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "ex:root b=\"${1}\" l=\"${2}\">${3}</ex:root>",
+        "displayText": "ex:root",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "ex:secondChild yiu=\"${1}\">${2}</ex:secondChild>",
+        "displayText": "ex:secondChild",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "xsi:${1}>${2}</xsi:${1}>",
+        "displayText": "xsi:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "/ex:root>",
+        "displayText": "/ex:root>",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-noTargetNamespace-include.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-noTargetNamespace-include1.xml",
+      "suggestionType": "E",
+      "expectResult": [{
+        "snippet": "${1}>${2}</${1}>",
+        "displayText": "*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
+        "displayText": "* (*)",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "child x=\"${1}\">${2}</child>",
+        "displayText": "child",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "description": "line1 – line2",
+        "retrigger": true
+      }, {
+        "snippet": "root b=\"${1}\" l=\"${2}\">${3}</root>",
+        "displayText": "root",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
+        "displayText": "secondChild",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "xsi:${1}>${2}</xsi:${1}>",
+        "displayText": "xsi:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "/root>",
+        "displayText": "/root>",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
+    }, {
+      "file": "../xml/xsd-noTargetNamespace-include2.xml",
+      "suggestionType": "E",
+      "expectResult": [{
+        "snippet": "${1}>${2}</${1}>",
+        "displayText": "*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
+        "displayText": "* (*)",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "ex:${1}>${2}</ex:${1}>",
+        "displayText": "ex:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "ex:child x=\"${1}\">${2}</ex:child>",
+        "displayText": "ex:child",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "description": "line1 – line2",
+        "retrigger": true
+      }, {
+        "snippet": "ex:root b=\"${1}\" l=\"${2}\">${3}</ex:root>",
+        "displayText": "ex:root",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "ex:secondChild yiu=\"${1}\">${2}</ex:secondChild>",
+        "displayText": "ex:secondChild",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "xsi:${1}>${2}</xsi:${1}>",
+        "displayText": "xsi:*",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "/ex:root>",
+        "displayText": "/ex:root>",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "rng",
+      "path": "../schema/schema-undefined-ns.xsd"
+    }],
+    "items": [{
+      "file": "../xml/rng-undefined-ns.xml",
+      "suggestionType": "E",
+      "expectResult": [{
+        "snippet": "child xmlns=\"\">${1}</child>",
+        "displayText": "child [no namespace]",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "description": "child – child",
+        "retrigger": true
+      }, {
+        "snippet": "secondChild>${1}</secondChild>",
+        "displayText": "secondChild",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "description": "child – child",
+        "retrigger": true
+      }, {
+        "snippet": "/root>",
+        "displayText": "/root>",
+        "type": "tag",
+        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
     }]
   }]
 }]

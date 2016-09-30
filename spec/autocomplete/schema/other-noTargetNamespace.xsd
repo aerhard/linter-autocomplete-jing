@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" xmlns:other="http://www.other.com" xmlns:ns1="http://www.example.com">
+
+  <xs:attributeGroup name="att-grp-1">
+    <xs:attributeGroup ref="att-grp-2"/>
+  </xs:attributeGroup>
+
+  <xs:simpleType name="type-1">
+    <xs:restriction base="xs:NCName">
+      <xs:enumeration value="val1">
+        <xs:annotation>
+          <xs:documentation>doc-val3-line-1</xs:documentation>
+          <xs:documentation>doc-val3-line-2</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="type-2">
+    <xs:restriction base="type-3">
+      <xs:maxLength value="4"></xs:maxLength>
+      <xs:pattern value=".*2"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="type-3">
+    <xs:restriction base="xs:NCName">
+      <xs:enumeration value="val2"/>
+      <xs:enumeration value="valal2"/>
+
+      <xs:enumeration value="val3"/>
+      <xs:enumeration value="val4"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:attributeGroup name="att-grp-2">
+    <xs:attribute name="x" use="required">
+      <xs:annotation>
+        <xs:documentation>Documentation for x</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:union memberTypes="type-1 type-2"/>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+
+  <xs:complexType name="abc">
+    <xs:sequence>
+      <xs:element name="t"/>
+      <xs:element name="s"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="child">
+    <xs:annotation>
+      <xs:documentation>
+        line1
+      </xs:documentation>
+      <xs:documentation>line2</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <!--<xs:sequence>-->
+        <!--<xs:element name="a">-->
+          <!--<xs:simpleType>-->
+            <!--<xs:restriction base="xs:string">-->
+              <!--<xs:enumeration value="a"></xs:enumeration>-->
+            <!--</xs:restriction>-->
+          <!--</xs:simpleType>-->
+        <!--</xs:element>-->
+      <!--</xs:sequence>-->
+      <xs:attributeGroup ref="att-grp-1"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attribute name="yiu">
+    <xs:annotation>
+      <xs:documentation>Documentation for yiu</xs:documentation>
+      <xs:documentation>second line</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:restriction base="type-3">
+        <xs:enumeration value="val3"/>
+        <xs:enumeration value="val4"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:attribute>
+</xs:schema>

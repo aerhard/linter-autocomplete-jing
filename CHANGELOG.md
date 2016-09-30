@@ -54,3 +54,6 @@
 
 ### 0.5.2
 * fix bug in XSD suggestions
+
+### 0.5.3
+* fix bug causing suggestions with xmlns="null" 
