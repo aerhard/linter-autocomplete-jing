@@ -56,4 +56,6 @@
 * fix bug in XSD suggestions
 
 ### 0.5.3
-* fix bug causing suggestions with xmlns="null" 
+* fix bug causing suggestions with xmlns="null"
+* add comment and cdata suggestions
+* prevent autocomplete in cdata sections
