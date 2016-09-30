@@ -108,7 +108,7 @@ const buildAttributeValueSuggestion = (prefix, endToken, hasDblQuotes) =>
     snippet: hasDblQuotes ? escapeWithDblQuotes(value) : escapeWithSingleQuotes(value),
     displayText: value,
     type: 'value',
-    rightLabel: listItem ? 'List Value' : 'Value',
+    rightLabel: listItem ? 'List Item' : undefined,
     replacementPrefix: listItem ? endToken : prefix,
     description: documentation ? buildDescriptionString(documentation) : undefined,
   });
@@ -121,7 +121,6 @@ const buildAttributeNameSuggestion = (replacementPrefix, addSuffix) =>
       snippet,
       displayText,
       type: 'attribute',
-      rightLabel: 'Attribute',
       replacementPrefix,
       description: documentation ? buildDescriptionString(documentation) : undefined,
       retrigger: addSuffix,
@@ -129,7 +128,17 @@ const buildAttributeNameSuggestion = (replacementPrefix, addSuffix) =>
   };
 
 const buildElementSuggestion = (replacementPrefix, addSuffix) =>
-  ({ value, closing, attributes = [], documentation }) => {
+  ({ value, closing, attributes = [], documentation, snippet: preDefinedSnippet }) => {
+    if (preDefinedSnippet) {
+      return {
+        snippet: preDefinedSnippet,
+        displayText: value,
+        type: 'tag',
+        replacementPrefix,
+        retrigger: false,
+      };
+    }
+
     if (closing) {
       const snippet = addSuffix
         ? '/' + value + '>'
@@ -139,7 +148,6 @@ const buildElementSuggestion = (replacementPrefix, addSuffix) =>
         snippet,
         displayText: snippet,
         type: 'tag',
-        rightLabel: 'Element',
         replacementPrefix,
         retrigger: false,
       };
@@ -194,15 +202,14 @@ const buildElementSuggestion = (replacementPrefix, addSuffix) =>
       snippet,
       displayText,
       type: 'tag',
-      rightLabel: 'Element',
       replacementPrefix,
       description: documentation ? buildDescriptionString(documentation) : undefined,
       retrigger,
     };
   };
 
-const getTagNamePrefix = (precedingLineText) => {
-  const match = precedingLineText.match(regex.tagName);
+const getTagNamePIPrefix = (precedingLineText) => {
+  const match = precedingLineText.match(regex.tagNamePI);
   return match ? match[1] || '' : null;
 };
 
@@ -251,7 +258,7 @@ const buildHeaders = (editorPath, catalogPath, { lang, path: schemaPath }, type,
 const getSuggestions = (sharedConfig, suggestionOptions) => {
   const { options, xmlCatalog, port, currentSchemaProps } = sharedConfig;
   const { editor } = options;
-  const { type, fragment, body, filterFn, builderFn } = suggestionOptions;
+  const { type, fragment, body, clientData, filterFn, builderFn } = suggestionOptions;
 
   const headers =
     buildHeaders(editor.getPath(), xmlCatalog, currentSchemaProps, type, fragment);
@@ -259,6 +266,7 @@ const getSuggestions = (sharedConfig, suggestionOptions) => {
   return serverProcessInstance.sendRequest(headers, body, port)
     .then(flow(
       JSON.parse,
+      data => (clientData ? data.concat(clientData) : data),
       filter(filterFn),
       map(builderFn),
       compact
@@ -339,13 +347,21 @@ const getAttributeNameSuggestions = (sharedConfig, precedingLineText) => {
   });
 };
 
-const getElementSuggestions = (sharedConfig, tagNamePrefix) => {
+const piSuggestions = [{
+  value: '!--  -->',
+  snippet: '!-- ${1} -->', // eslint-disable-line no-template-curly-in-string
+}, {
+  value: '![CDATA[]]>',
+  snippet: '![CDATA[${1}]]>', // eslint-disable-line no-template-curly-in-string
+}];
+
+const getElementPISuggestions = (sharedConfig, tagNamePIPrefix) => {
   const { options } = sharedConfig;
   const { editor, bufferPosition } = options;
 
   const body = editor.getTextInBufferRange([
     [0, 0],
-    [bufferPosition.row, bufferPosition.column - tagNamePrefix.length - 1],
+    [bufferPosition.row, bufferPosition.column - tagNamePIPrefix.length - 1],
   ]);
 
   const addSuffix = !getEndBracketPosition(options);
@@ -353,8 +369,9 @@ const getElementSuggestions = (sharedConfig, tagNamePrefix) => {
   return getSuggestions(sharedConfig, {
     type: 'E',
     body,
-    filterFn: elementSuggestionFilter(tagNamePrefix),
-    builderFn: buildElementSuggestion(tagNamePrefix, addSuffix),
+    clientData: piSuggestions,
+    filterFn: elementSuggestionFilter(tagNamePIPrefix),
+    builderFn: buildElementSuggestion(tagNamePIPrefix, addSuffix),
   });
 };
 
@@ -366,10 +383,10 @@ const suggest = (options, { autocompleteScope, xmlCatalog }) => ([{ port }, { sc
   const scopesArray = options.scopeDescriptor.getScopesArray();
   const sharedConfig = { options, xmlCatalog, port, currentSchemaProps };
   const precedingLineText = getPrecedingLineText(options);
-  const tagNamePrefix = getTagNamePrefix(precedingLineText);
+  const tagNamePIPrefix = getTagNamePIPrefix(precedingLineText);
 
-  if (tagNamePrefix !== null) {
-    return getElementSuggestions(sharedConfig, tagNamePrefix);
+  if (tagNamePIPrefix !== null) {
+    return getElementPISuggestions(sharedConfig, tagNamePIPrefix);
   }
 
   if (includesTagScope(scopesArray)) {

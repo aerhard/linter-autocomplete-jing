@@ -13,15 +13,38 @@
         "snippet": "root xmlns=\"http://www.example.com\" b=\"${1}\" l=\"${2}\">${3}</root>",
         "displayText": "root (http://www.example.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "root",
         "retrigger": true
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
       }]
     }, {
       "file": "../xml/rnc-after-root.xml",
       "suggestionType": "E",
-      "expectResult": []
+      "expectResult": [{
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
     }, {
       "file": "../xml/rnc-before-first-child.xml",
       "suggestionType": "E",
@@ -29,7 +52,6 @@
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:child1 – other:child2",
         "retrigger": true
@@ -37,7 +59,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -48,7 +81,6 @@
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:child1 – other:child2",
         "retrigger": true
@@ -56,7 +88,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -67,7 +110,6 @@
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:child1 – other:child2",
         "retrigger": true
@@ -75,7 +117,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -86,7 +139,6 @@
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:child1 – other:child2",
         "retrigger": true
@@ -94,7 +146,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -105,7 +168,6 @@
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:child1 – other:child2",
         "retrigger": true
@@ -113,7 +175,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -124,7 +197,6 @@
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:child1 – other:child2",
         "retrigger": true
@@ -132,7 +204,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -143,7 +226,6 @@
         "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "secondChild",
         "retrigger": true
@@ -151,7 +233,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -162,7 +255,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -179,7 +283,6 @@
         "snippet": "b=\"${1}\"",
         "displayText": "b",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "@b",
         "retrigger": true
@@ -195,7 +298,6 @@
         "snippet": "other:yiu=\"${1}\"",
         "displayText": "other:yiu",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "other:yiu1 – other:yiu2",
         "retrigger": true
@@ -207,7 +309,6 @@
         "snippet": "other:yiu=\"${1}\"",
         "displayText": "other:yiu",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "other:yiu1 – other:yiu2",
         "retrigger": true
@@ -219,7 +320,6 @@
         "snippet": "ns${1}:yiu=\"${2}\" xmlns:ns${1}=\"http://www.other.com\"",
         "displayText": "yiu (http://www.other.com)",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "other:yiu1 – other:yiu2",
         "retrigger": true
@@ -238,14 +338,12 @@
         "snippet": "val1",
         "displayText": "val1",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": "",
         "description": "val1-1 – val1-2"
       }, {
         "snippet": "val2",
         "displayText": "val2",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": "",
         "description": "val2-1 – val2-2"
       }]
@@ -267,14 +365,12 @@
         "snippet": "val3",
         "displayText": "val3",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": "",
         "description": "val3"
       }, {
         "snippet": "val4",
         "displayText": "val4",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": "",
         "description": "val4"
       }]
@@ -286,14 +382,12 @@
         "snippet": "val3",
         "displayText": "val3",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": "",
         "description": "val3"
       }, {
         "snippet": "val4",
         "displayText": "val4",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": "",
         "description": "val4"
       }]
@@ -310,15 +404,38 @@
         "snippet": "root xmlns=\"http://www.example.com\" b=\"${1}\" l=\"${2}\">${3}</root>",
         "displayText": "root (http://www.example.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "root",
         "retrigger": true
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
       }]
     }, {
       "file": "../xml/rng-after-root.xml",
       "suggestionType": "E",
-      "expectResult": []
+      "expectResult": [{
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
     }, {
       "file": "../xml/rng-before-first-child.xml",
       "suggestionType": "E",
@@ -326,7 +443,6 @@
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:child1 – other:child2",
         "retrigger": true
@@ -334,7 +450,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -345,7 +472,6 @@
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:child1 – other:child2",
         "retrigger": true
@@ -353,7 +479,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -364,7 +501,6 @@
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:child1 – other:child2",
         "retrigger": true
@@ -372,7 +508,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -383,7 +530,6 @@
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:child1 – other:child2",
         "retrigger": true
@@ -391,7 +537,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -402,7 +559,6 @@
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:child1 – other:child2",
         "retrigger": true
@@ -410,7 +566,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -421,7 +588,6 @@
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:child1 – other:child2",
         "retrigger": true
@@ -429,7 +595,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -440,7 +617,6 @@
         "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "secondChild",
         "retrigger": true
@@ -448,7 +624,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -459,7 +646,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -476,28 +674,24 @@
         "snippet": "${1}>${2}</${1}>",
         "displayText": "*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
         "displayText": "* (*)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "${1} xmlns=\"http://www.fourth.com\">${2}</${1}>",
         "displayText": "* (http://www.fourth.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "el xmlns=\"http://www.excluded.com\" x=\"${1}\">${2}</el>",
         "displayText": "el (http://www.excluded.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "child – excluded:el",
         "retrigger": true
@@ -505,14 +699,12 @@
         "snippet": "other:${1}>${2}</other:${1}>",
         "displayText": "other:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "child – other:child",
         "retrigger": true
@@ -520,7 +712,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -537,21 +740,18 @@
         "snippet": "${1}>${2}</${1}>",
         "displayText": "*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
         "displayText": "* (*)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "child – other:child",
         "retrigger": true
@@ -559,7 +759,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -576,21 +787,18 @@
         "snippet": "${1}>${2}</${1}>",
         "displayText": "*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "${1} xmlns=\"http://www.third.com\">${2}</${1}>",
         "displayText": "* (http://www.third.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "child – other:child",
         "retrigger": true
@@ -598,7 +806,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -609,14 +828,12 @@
         "snippet": "${1}>${2}</${1}>",
         "displayText": "*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "child – other:child",
         "retrigger": true
@@ -624,14 +841,24 @@
         "snippet": "third:${1}>${2}</third:${1}>",
         "displayText": "third:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -648,28 +875,24 @@
         "snippet": "${1}>${2}</${1}>",
         "displayText": "*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
         "displayText": "* (*)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "other:${1}>${2}</other:${1}>",
         "displayText": "other:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "child – other:child",
         "retrigger": true
@@ -677,14 +900,24 @@
         "snippet": "third:${1}>${2}</third:${1}>",
         "displayText": "third:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -701,21 +934,18 @@
         "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
         "displayText": "* (*)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "other:${1}>${2}</other:${1}>",
         "displayText": "other:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "child – other:child",
         "retrigger": true
@@ -723,14 +953,24 @@
         "snippet": "third:${1}>${2}</third:${1}>",
         "displayText": "third:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -747,7 +987,6 @@
         "snippet": "b=\"${1}\"",
         "displayText": "b",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "@b",
         "retrigger": true
@@ -763,7 +1002,6 @@
         "snippet": "other:yiu=\"${1}\"",
         "displayText": "other:yiu",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "other:yiu1 – other:yiu2",
         "retrigger": true
@@ -775,7 +1013,6 @@
         "snippet": "other:yiu=\"${1}\"",
         "displayText": "other:yiu",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "other:yiu1 – other:yiu2",
         "retrigger": true
@@ -787,7 +1024,6 @@
         "snippet": "ns${1}:yiu=\"${2}\" xmlns:ns${1}=\"http://www.other.com\"",
         "displayText": "yiu (http://www.other.com)",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "other:yiu1 – other:yiu2",
         "retrigger": true
@@ -805,21 +1041,18 @@
         "snippet": "${1}=\"${2}\"",
         "displayText": "*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "ns${1}:${2}=\"${4}\" xmlns:ns${1}=\"${3}\"",
         "displayText": "* (*)",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "excluded:el=\"${1}\"",
         "displayText": "excluded:el",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "child – excluded:el",
         "retrigger": true
@@ -827,21 +1060,18 @@
         "snippet": "fourth:${1}=\"${2}\"",
         "displayText": "fourth:*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "other:${1}=\"${2}\"",
         "displayText": "other:*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "other:child=\"${1}\"",
         "displayText": "other:child",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "child – other:child",
         "retrigger": true
@@ -849,7 +1079,6 @@
         "snippet": "xml:${1}=\"${2}\"",
         "displayText": "xml:*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }]
@@ -866,7 +1095,6 @@
         "snippet": "x=\"${1}\"",
         "displayText": "x",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "@x1 – @x2",
         "retrigger": true
@@ -884,21 +1112,18 @@
         "snippet": "${1}=\"${2}\"",
         "displayText": "*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "ns${1}:${2}=\"${4}\" xmlns:ns${1}=\"${3}\"",
         "displayText": "* (*)",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "ns${1}:child=\"${2}\" xmlns:ns${1}=\"http://www.other.com\"",
         "displayText": "child (http://www.other.com)",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "other:child",
         "retrigger": true
@@ -906,7 +1131,6 @@
         "snippet": "xml:${1}=\"${2}\"",
         "displayText": "xml:*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }]
@@ -923,21 +1147,18 @@
         "snippet": "${1}=\"${2}\"",
         "displayText": "*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "ns${1}:${2}=\"${3}\" xmlns:ns${1}=\"http://www.third.com\"",
         "displayText": "* (http://www.third.com)",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "ns${1}:child=\"${2}\" xmlns:ns${1}=\"http://www.other.com\"",
         "displayText": "child (http://www.other.com)",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "att – other:child",
         "retrigger": true
@@ -949,14 +1170,12 @@
         "snippet": "${1}=\"${2}\"",
         "displayText": "*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "other:child=\"${1}\"",
         "displayText": "other:child",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "att – other:child",
         "retrigger": true
@@ -964,7 +1183,6 @@
         "snippet": "third:${1}=\"${2}\"",
         "displayText": "third:*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }]
@@ -982,14 +1200,12 @@
         "snippet": "val1",
         "displayText": "val1",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": "",
         "description": "val1-1 – val1-2"
       }, {
         "snippet": "val2",
         "displayText": "val2",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": "",
         "description": "val2-1 – val2-2"
       }]
@@ -1011,14 +1227,12 @@
         "snippet": "val3",
         "displayText": "val3",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": "",
         "description": "val3"
       }, {
         "snippet": "val4",
         "displayText": "val4",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": "",
         "description": "val4"
       }]
@@ -1030,14 +1244,12 @@
         "snippet": "val3",
         "displayText": "val3",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": "",
         "description": "val3"
       }, {
         "snippet": "val4",
         "displayText": "val4",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": "",
         "description": "val4"
       }]
@@ -1054,49 +1266,54 @@
         "snippet": "${1} xmlns=\"http://www.example.com\">${2}</${1}>",
         "displayText": "* (http://www.example.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "child xmlns=\"http://www.example.com\" x=\"${1}\">${2}</child>",
         "displayText": "child (http://www.example.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "other:${1}>${2}</other:${1}>",
         "displayText": "other:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "other:root>${1}</other:root>",
         "displayText": "other:root",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "root xmlns=\"http://www.example.com\">${1}</root>",
         "displayText": "root (http://www.example.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1107,42 +1324,48 @@
         "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
         "displayText": "* (*)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "${1} xmlns=\"http://www.example.com\">${2}</${1}>",
         "displayText": "* (http://www.example.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "child xmlns=\"http://www.example.com\" x=\"${1}\">${2}</child>",
         "displayText": "child (http://www.example.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "root xmlns=\"http://www.example.com\">${1}</root>",
         "displayText": "root (http://www.example.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "xsi:${1}>${2}</xsi:${1}>",
         "displayText": "xsi:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "/other:child>",
         "displayText": "/other:child>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1153,7 +1376,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1170,7 +1404,6 @@
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1178,7 +1411,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1195,21 +1439,18 @@
         "snippet": "${1}>${2}</${1}>",
         "displayText": "*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "other:${1}>${2}</other:${1}>",
         "displayText": "other:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1217,21 +1458,30 @@
         "snippet": "root b=\"${1}\" l=\"${2}\">${3}</root>",
         "displayText": "root",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1248,28 +1498,24 @@
         "snippet": "${1}>${2}</${1}>",
         "displayText": "*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
         "displayText": "* (*)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "other:${1}>${2}</other:${1}>",
         "displayText": "other:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1277,28 +1523,36 @@
         "snippet": "root b=\"${1}\" l=\"${2}\">${3}</root>",
         "displayText": "root",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "xsi:${1}>${2}</xsi:${1}>",
         "displayText": "xsi:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1315,28 +1569,24 @@
         "snippet": "${1}>${2}</${1}>",
         "displayText": "*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
         "displayText": "* (*)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "other:${1}>${2}</other:${1}>",
         "displayText": "other:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1344,28 +1594,36 @@
         "snippet": "root b=\"${1}\" l=\"${2}\">${3}</root>",
         "displayText": "root",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "xsi:${1}>${2}</xsi:${1}>",
         "displayText": "xsi:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1382,21 +1640,18 @@
         "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
         "displayText": "* (*)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "other:${1}>${2}</other:${1}>",
         "displayText": "other:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1404,14 +1659,24 @@
         "snippet": "xsi:${1}>${2}</xsi:${1}>",
         "displayText": "xsi:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1428,28 +1693,36 @@
         "snippet": "${1}>${2}</${1}>",
         "displayText": "*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "root b=\"${1}\" l=\"${2}\">${3}</root>",
         "displayText": "root",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1461,7 +1734,19 @@
     "items": [{
       "file": "../xml/empty.xml",
       "suggestionType": "E",
-      "expectResult": []
+      "expectResult": [{
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
     }]
   }, {
     "schemata": [{
@@ -1475,7 +1760,6 @@
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1483,21 +1767,43 @@
         "snippet": "root xmlns=\"http://www.example.com\" b=\"${1}\" l=\"${2}\">${3}</root>",
         "displayText": "root (http://www.example.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "secondChild xmlns=\"http://www.example.com\" ns${1}:yiu=\"${2}\" xmlns:ns${1}=\"http://www.other.com\">${3}</secondChild>",
         "displayText": "secondChild (http://www.example.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
       }]
     }, {
       "file": "../xml/xsd-after-root.xml",
       "suggestionType": "E",
-      "expectResult": []
+      "expectResult": [{
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
     }, {
       "file": "../xml/xsd-before-first-child.xml",
       "suggestionType": "E",
@@ -1505,7 +1811,6 @@
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1513,7 +1818,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1524,7 +1840,6 @@
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1532,7 +1847,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1543,7 +1869,6 @@
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1551,7 +1876,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1562,7 +1898,6 @@
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1570,7 +1905,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1581,7 +1927,6 @@
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1589,7 +1934,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1600,7 +1956,6 @@
         "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1608,7 +1963,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1619,14 +1985,24 @@
         "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1637,7 +2013,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1654,7 +2041,6 @@
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1662,14 +2048,24 @@
         "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1680,7 +2076,6 @@
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1688,14 +2083,24 @@
         "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1712,7 +2117,6 @@
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1720,14 +2124,24 @@
         "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1738,14 +2152,24 @@
         "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1762,28 +2186,36 @@
         "snippet": "${1}>${2}</${1}>",
         "displayText": "*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "root b=\"${1}\" l=\"${2}\">${3}</root>",
         "displayText": "root",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1794,7 +2226,6 @@
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1802,7 +2233,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1819,21 +2261,18 @@
         "snippet": "${1}>${2}</${1}>",
         "displayText": "*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "other:${1}>${2}</other:${1}>",
         "displayText": "other:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1841,21 +2280,30 @@
         "snippet": "root b=\"${1}\" l=\"${2}\">${3}</root>",
         "displayText": "root",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1866,7 +2314,6 @@
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1874,7 +2321,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1891,28 +2349,36 @@
         "snippet": "${1}>${2}</${1}>",
         "displayText": "*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "root b=\"${1}\" l=\"${2}\">${3}</root>",
         "displayText": "root",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1929,14 +2395,12 @@
         "snippet": "other:${1}>${2}</other:${1}>",
         "displayText": "other:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "other:child x=\"${1}\">${2}</other:child>",
         "displayText": "other:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
@@ -1944,7 +2408,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -1961,7 +2436,6 @@
         "snippet": "b=\"${1}\"",
         "displayText": "b",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }]
@@ -1976,7 +2450,6 @@
         "snippet": "other:yiu=\"${1}\"",
         "displayText": "other:yiu",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "Documentation for yiu – second line",
         "retrigger": true
@@ -1988,7 +2461,6 @@
         "snippet": "other:yiu=\"${1}\"",
         "displayText": "other:yiu",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "Documentation for yiu – second line",
         "retrigger": true
@@ -2000,7 +2472,6 @@
         "snippet": "ns${1}:yiu=\"${2}\" xmlns:ns${1}=\"http://www.other.com\"",
         "displayText": "yiu (http://www.other.com)",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "Documentation for yiu – second line",
         "retrigger": true
@@ -2018,28 +2489,24 @@
         "snippet": "${1}=\"${2}\"",
         "displayText": "*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "ex:${1}=\"${2}\"",
         "displayText": "ex:*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "ex:e=\"${1}\"",
         "displayText": "ex:e",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "other:yiu=\"${1}\"",
         "displayText": "other:yiu",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "Documentation for yiu – second line",
         "retrigger": true
@@ -2057,35 +2524,30 @@
         "snippet": "${1}=\"${2}\"",
         "displayText": "*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "ex:${1}=\"${2}\"",
         "displayText": "ex:*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "ex:e=\"${1}\"",
         "displayText": "ex:e",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "other:${1}=\"${2}\"",
         "displayText": "other:*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "other:yiu=\"${1}\"",
         "displayText": "other:yiu",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "Documentation for yiu – second line",
         "retrigger": true
@@ -2103,42 +2565,36 @@
         "snippet": "${1}=\"${2}\"",
         "displayText": "*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "ns${1}:${2}=\"${4}\" xmlns:ns${1}=\"${3}\"",
         "displayText": "* (*)",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "ex:${1}=\"${2}\"",
         "displayText": "ex:*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "ex:e=\"${1}\"",
         "displayText": "ex:e",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "other:${1}=\"${2}\"",
         "displayText": "other:*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "other:yiu=\"${1}\"",
         "displayText": "other:yiu",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "description": "Documentation for yiu – second line",
         "retrigger": true
@@ -2146,14 +2602,12 @@
         "snippet": "xml:${1}=\"${2}\"",
         "displayText": "xml:*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "xx:${1}=\"${2}\"",
         "displayText": "xx:*",
         "type": "attribute",
-        "rightLabel": "Attribute",
         "replacementPrefix": "",
         "retrigger": true
       }]
@@ -2171,14 +2625,12 @@
         "snippet": "val1",
         "displayText": "val1",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": "",
         "description": "doc-val3-line-1 – doc-val3-line-2"
       }, {
         "snippet": "val2",
         "displayText": "val2",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": ""
       }]
     }, {
@@ -2199,13 +2651,11 @@
         "snippet": "val3",
         "displayText": "val3",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": ""
       }, {
         "snippet": "val4",
         "displayText": "val4",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": ""
       }]
     }, {
@@ -2216,13 +2666,11 @@
         "snippet": "val3",
         "displayText": "val3",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": ""
       }, {
         "snippet": "val4",
         "displayText": "val4",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": ""
       }]
     }]
@@ -2239,7 +2687,6 @@
         "snippet": "fixed",
         "displayText": "fixed",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": ""
       }]
     }]
@@ -2256,7 +2703,6 @@
         "snippet": "1.11",
         "displayText": "1.11",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": ""
       }]
     }]
@@ -2273,13 +2719,11 @@
         "snippet": "1.11",
         "displayText": "1.11",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": ""
       }, {
         "snippet": "2.11",
         "displayText": "2.11",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": ""
       }]
     }]
@@ -2296,13 +2740,13 @@
         "snippet": "1.11",
         "displayText": "1.11",
         "type": "value",
-        "rightLabel": "List Value",
+        "rightLabel": "List Item",
         "replacementPrefix": ""
       }, {
         "snippet": "2.11",
         "displayText": "2.11",
         "type": "value",
-        "rightLabel": "List Value",
+        "rightLabel": "List Item",
         "replacementPrefix": ""
       }]
     }]
@@ -2319,7 +2763,6 @@
         "snippet": "&amp;'>&lt;&quot;&quot;'>@",
         "displayText": "&'><\"\"'>@",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": ""
       }]
     }, {
@@ -2330,7 +2773,6 @@
         "snippet": "&amp;&apos;>&lt;\"\"&apos;>@",
         "displayText": "&'><\"\"'>@",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": ""
       }]
     }]
@@ -2347,7 +2789,6 @@
         "snippet": "&amp;'>&lt;&quot;&quot;'>@",
         "displayText": "&'><\"\"'>@",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": ""
       }]
     }, {
@@ -2358,7 +2799,6 @@
         "snippet": "&amp;&apos;>&lt;\"\"&apos;>@",
         "displayText": "&'><\"\"'>@",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": ""
       }]
     }]
@@ -2375,7 +2815,6 @@
         "snippet": "&amp;'>&lt;&quot;&quot;'>@",
         "displayText": "&'><\"\"'>@",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": ""
       }]
     }, {
@@ -2386,7 +2825,6 @@
         "snippet": "&amp;&apos;>&lt;\"\"&apos;>@",
         "displayText": "&'><\"\"'>@",
         "type": "value",
-        "rightLabel": "Value",
         "replacementPrefix": ""
       }]
     }]
@@ -2398,11 +2836,35 @@
     "items": [{
       "file": "../xml/failing-schema-after-root.xml",
       "suggestionType": "E",
-      "expectResult": []
+      "expectResult": [{
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
     }, {
       "file": "../xml/failing-schema-before-root.xml",
       "suggestionType": "E",
-      "expectResult": []
+      "expectResult": [{
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
     }, {
       "file": "../xml/failing-schema-after-first-child-start.xml",
       "suggestionType": "E",
@@ -2410,7 +2872,18 @@
         "snippet": "/other:child>",
         "displayText": "/other:child>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -2431,11 +2904,35 @@
     "items": [{
       "file": "../xml/schemaless-after-root.xml",
       "suggestionType": "E",
-      "expectResult": []
+      "expectResult": [{
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
     }, {
       "file": "../xml/schemaless-before-root.xml",
       "suggestionType": "E",
-      "expectResult": []
+      "expectResult": [{
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
     }, {
       "file": "../xml/schemaless-after-first-child-start.xml",
       "suggestionType": "E",
@@ -2443,7 +2940,18 @@
         "snippet": "/other:child>",
         "displayText": "/other:child>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -2469,14 +2977,24 @@
         "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -2487,14 +3005,24 @@
         "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -2511,28 +3039,24 @@
         "snippet": "${1}>${2}</${1}>",
         "displayText": "*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "${1} xmlns=\"\">${2}</${1}>",
         "displayText": "* [no namespace]",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
         "displayText": "* (*)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "child xmlns=\"\" x=\"${1}\">${2}</child>",
         "displayText": "child [no namespace]",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "line1 – line2",
         "retrigger": true
@@ -2540,28 +3064,36 @@
         "snippet": "root b=\"${1}\" l=\"${2}\">${3}</root>",
         "displayText": "root",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "xsi:${1}>${2}</xsi:${1}>",
         "displayText": "xsi:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -2572,21 +3104,18 @@
         "snippet": "${1}>${2}</${1}>",
         "displayText": "*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
         "displayText": "* (*)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "child x=\"${1}\">${2}</child>",
         "displayText": "child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "line1 – line2",
         "retrigger": true
@@ -2594,35 +3123,42 @@
         "snippet": "ex:${1}>${2}</ex:${1}>",
         "displayText": "ex:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "ex:root b=\"${1}\" l=\"${2}\">${3}</ex:root>",
         "displayText": "ex:root",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "ex:secondChild yiu=\"${1}\">${2}</ex:secondChild>",
         "displayText": "ex:secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "xsi:${1}>${2}</xsi:${1}>",
         "displayText": "xsi:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "/ex:root>",
         "displayText": "/ex:root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -2639,21 +3175,18 @@
         "snippet": "${1}>${2}</${1}>",
         "displayText": "*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
         "displayText": "* (*)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "child x=\"${1}\">${2}</child>",
         "displayText": "child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "line1 – line2",
         "retrigger": true
@@ -2661,28 +3194,36 @@
         "snippet": "root b=\"${1}\" l=\"${2}\">${3}</root>",
         "displayText": "root",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "xsi:${1}>${2}</xsi:${1}>",
         "displayText": "xsi:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -2693,28 +3234,24 @@
         "snippet": "${1}>${2}</${1}>",
         "displayText": "*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "${1} xmlns=\"${2}\">${3}</${1}>",
         "displayText": "* (*)",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "ex:${1}>${2}</ex:${1}>",
         "displayText": "ex:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "ex:child x=\"${1}\">${2}</ex:child>",
         "displayText": "ex:child",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "line1 – line2",
         "retrigger": true
@@ -2722,28 +3259,36 @@
         "snippet": "ex:root b=\"${1}\" l=\"${2}\">${3}</ex:root>",
         "displayText": "ex:root",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "ex:secondChild yiu=\"${1}\">${2}</ex:secondChild>",
         "displayText": "ex:secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "xsi:${1}>${2}</xsi:${1}>",
         "displayText": "xsi:*",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "retrigger": false
       }, {
         "snippet": "/ex:root>",
         "displayText": "/ex:root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]
@@ -2760,7 +3305,6 @@
         "snippet": "child xmlns=\"\">${1}</child>",
         "displayText": "child [no namespace]",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "child – child",
         "retrigger": true
@@ -2768,7 +3312,6 @@
         "snippet": "secondChild>${1}</secondChild>",
         "displayText": "secondChild",
         "type": "tag",
-        "rightLabel": "Element",
         "replacementPrefix": "",
         "description": "child – child",
         "retrigger": true
@@ -2776,7 +3319,18 @@
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
-        "rightLabel": "Element",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
         "replacementPrefix": "",
         "retrigger": false
       }]

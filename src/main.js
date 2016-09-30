@@ -115,7 +115,7 @@ module.exports = {
 
     return {
       selector: '.text.xml, .text.mei',
-      disableForSelector: '.comment',
+      disableForSelector: '.comment, .string.unquoted.cdata.xml',
       inclusionPriority: localConfig.autocompletePriority,
       excludeLowerPriority: true,
       getSuggestions(options) {
