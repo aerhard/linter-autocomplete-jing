@@ -3296,7 +3296,7 @@
   }, {
     "schemata": [{
       "lang": "rng",
-      "path": "../schema/schema-undefined-ns.xsd"
+      "path": "../schema/schema-undefined-ns.rng"
     }],
     "items": [{
       "file": "../xml/rng-undefined-ns.xml",
