@@ -59,3 +59,6 @@
 * fix bug causing suggestions with xmlns="null"
 * add comment and cdata suggestions
 * prevent autocomplete in cdata sections
+
+### 0.5.4
+* insert self-closing tags when element content can only be empty
