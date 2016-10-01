@@ -33,6 +33,7 @@ describe('validation', () => {
         waitsForPromise(() =>
           atom.packages.activatePackage('linter-autocomplete-jing')
         );
+        atom.config.set('linter-autocomplete-jing.dtdValidation', 'always');
         atom.config.set('linter-autocomplete-jing.xmlCatalog', resolvePath(catalog));
       });
 

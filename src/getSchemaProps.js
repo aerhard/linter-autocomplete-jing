@@ -1,6 +1,7 @@
 
 import path from 'path';
 import sax from 'sax';
+
 import regex from './regex';
 
 const helpers = require('atom-linter');
@@ -26,7 +27,12 @@ const getXsiNamespacePrefixes = (attributes) => {
 
 const hasEvenIndex = (unused, index) => index % 2;
 
-const getSchemaProps = textEditor =>
+const splitQName = (qName) => {
+  const colonIndex = qName.indexOf(':');
+  return [qName.substr(0, colonIndex), qName.substr(colonIndex + 1)];
+};
+
+const getSchemaProps = (textEditor, parsedRules, config) =>
   new Promise((resolve) => {
     const messages = [];
     const schemaProps = [];
@@ -36,6 +42,9 @@ const getSchemaProps = textEditor =>
     let row = 0;
     let done = false;
     let hasDoctype = false;
+    let rootNs = null;
+    let rootLocalName = null;
+    let rootAttributes = {};
 
     const addXsdSchemaPath = href => href && xsdSchemaPaths.push(
       regex.url.test(href)
@@ -83,6 +92,13 @@ const getSchemaProps = textEditor =>
 
     const onOpenTag = (node) => {
       if (done) return;
+
+      const [rootNsPrefix, localName] = splitQName(node.name);
+      rootNs = rootNsPrefix
+        ? node.attributes['xmlns:' + rootNsPrefix]
+        : node.attributes.xmlns;
+      rootLocalName = localName;
+      rootAttributes = node.attributes;
 
       getXsiNamespacePrefixes(node.attributes)
         .forEach((prefix) => {
@@ -134,20 +150,46 @@ const getSchemaProps = textEditor =>
       });
     }
 
-    if (hasDoctype) {
+    const docProps = {
+      rootScopes: textEditor.getRootScopeDescriptor().scopes,
+      filePath: textEditor.getPath(),
+      rootNs,
+      rootLocalName,
+      rootAttributes,
+    };
+
+    const rule = parsedRules.find(r => r.test(docProps));
+
+    const xmlCatalog = rule && 'xmlCatalog' in rule.outcome
+      ? rule.outcome.xmlCatalog
+      : config.xmlCatalog;
+
+    const dtdValidation = rule && 'dtdValidation' in rule.outcome
+      ? rule.outcome.dtdValidation
+      : config.dtdValidation;
+
+    if (rule && !schemaProps.length) {
+      schemaProps.push(...rule.outcome.schemaProps);
+    }
+
+    if (hasDoctype &&
+      (dtdValidation === 'always' || (dtdValidation === 'fallback' && !schemaProps.length))
+    ) {
       schemaProps.push({
         lang: 'dtd',
         line: saxParser.line,
         path: null,
       });
-    } else if (!schemaProps.length) {
+    }
+
+    if (!schemaProps.length) {
       schemaProps.push({
         lang: 'none',
         path: null,
       });
     }
 
-    resolve({ schemaProps, messages });
+    resolve({ schemaProps, messages, xmlCatalog });
   });
 
 module.exports = getSchemaProps;

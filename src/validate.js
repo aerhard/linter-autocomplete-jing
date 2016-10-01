@@ -1,8 +1,6 @@
 
-import {
-  flow, trim, split, map, compact, concat, sortBy,
-  filter, identity,
-} from 'lodash/fp';
+import { flow, trim, split, map, compact, concat, sortBy, filter, identity } from 'lodash/fp';
+
 import serverProcess from './serverProcess';
 
 const serverProcessInstance = serverProcess.getInstance();
@@ -59,18 +57,18 @@ const parseMessage = (textEditor, schemaProps, config) => function(str) {
   };
 };
 
-const validate = (textEditor, config) => ([{ port }, { schemaProps, messages }]) => {
+const validate = (textEditor, config) => ([, { schemaProps, messages, xmlCatalog }]) => {
   const headers = [
     'V',
     'r',
     'UTF-8',
     textEditor.getPath(),
-    config.xmlCatalog || '',
+    xmlCatalog || '',
     ...schemaProps.map(schema => schema.lang + ' ' + (schema.path || '')),
   ];
   const body = textEditor.getText();
 
-  return serverProcessInstance.sendRequest(headers, body, port)
+  return serverProcessInstance.sendRequest(headers, body)
     .then(
       flow(
         trim,

@@ -135,6 +135,7 @@ const buildElementSuggestion = (replacementPrefix, addSuffix) =>
         displayText: value,
         type: 'tag',
         replacementPrefix,
+        description: documentation,
         retrigger: false,
       };
     }
@@ -149,6 +150,7 @@ const buildElementSuggestion = (replacementPrefix, addSuffix) =>
         displayText: snippet,
         type: 'tag',
         replacementPrefix,
+        description: 'Closing Tag',
         retrigger: false,
       };
     }
@@ -248,26 +250,26 @@ const getQuotedScope = find(
 const includesTagScope = scopesArray =>
   scopesArray.some(item => item === 'meta.tag.xml' || item === 'meta.tag.no-content.xml');
 
-const buildHeaders = (editorPath, catalogPath, { lang, path: schemaPath }, type, fragment) => [
+const buildHeaders = (editorPath, xmlCatalog, { lang, path: schemaPath }, type, fragment) => [
   'A',
   type,
   fragment || '',
   'r',
   'UTF-8',
   editorPath,
-  catalogPath || '',
+  xmlCatalog || '',
   lang + ' ' + (schemaPath || ''),
 ];
 
 const getSuggestions = (sharedConfig, suggestionOptions) => {
-  const { options, xmlCatalog, port, currentSchemaProps } = sharedConfig;
+  const { options, xmlCatalog, currentSchemaProps } = sharedConfig;
   const { editor } = options;
   const { type, fragment, body, clientData, filterFn, builderFn } = suggestionOptions;
 
   const headers =
     buildHeaders(editor.getPath(), xmlCatalog, currentSchemaProps, type, fragment);
 
-  return serverProcessInstance.sendRequest(headers, body, port)
+  return serverProcessInstance.sendRequest(headers, body)
     .then(flow(
       JSON.parse,
       data => (clientData ? data.concat(clientData) : data),
@@ -354,9 +356,11 @@ const getAttributeNameSuggestions = (sharedConfig, precedingLineText) => {
 const piSuggestions = [{
   value: '!--  -->',
   snippet: '!-- ${1} -->', // eslint-disable-line no-template-curly-in-string
+  documentation: 'Comment',
 }, {
   value: '![CDATA[]]>',
   snippet: '![CDATA[${1}]]>', // eslint-disable-line no-template-curly-in-string
+  documentation: 'CDATA Section',
 }];
 
 const getElementPISuggestions = (sharedConfig, tagNamePIPrefix) => {
@@ -379,13 +383,13 @@ const getElementPISuggestions = (sharedConfig, tagNamePIPrefix) => {
   });
 };
 
-const suggest = (options, { autocompleteScope, xmlCatalog }) => ([{ port }, { schemaProps }]) => {
+const suggest = (options, { autocompleteScope }) => ([, { schemaProps, xmlCatalog }]) => {
   const currentSchemaProps =
     find(({ lang }) => !!autocompleteScope[lang], schemaProps) ||
     { type: 'none' };
 
   const scopesArray = options.scopeDescriptor.getScopesArray();
-  const sharedConfig = { options, xmlCatalog, port, currentSchemaProps };
+  const sharedConfig = { options, xmlCatalog, currentSchemaProps };
   const precedingLineText = getPrecedingLineText(options);
   const tagNamePIPrefix = getTagNamePIPrefix(precedingLineText);
 

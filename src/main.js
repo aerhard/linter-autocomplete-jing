@@ -1,6 +1,7 @@
 
 import { CompositeDisposable } from 'atom'; // eslint-disable-line
 import serverProcess from './serverProcess';
+import ruleProcessor from './ruleProcessor';
 
 const serverProcessInstance = serverProcess.getInstance();
 
@@ -13,10 +14,15 @@ if (serverProcessInstance.onError === serverProcess.prototype.onError) {
   };
 }
 
+// TODO
+const rules = [];
+
+
 let validate;
 let suggest;
 let getSchemaProps;
 let subscriptions;
+let parsedRules;
 
 const localConfig = {};
 
@@ -31,13 +37,14 @@ const addErrorNotification = (err) => {
 const setServerConfig = (args) => {
   if (serverProcessInstance.isReadyPromise) {
     serverProcessInstance.isReadyPromise
-      .then(({ port }) => serverProcessInstance.sendRequest(args, null, port))
+      .then(() => serverProcessInstance.sendRequest(args, null))
       .catch(addErrorNotification);
   }
 };
 
 const setLocalConfig = key => (value) => {
   localConfig[key] = value;
+
   if (!serverProcessInstance.isReady) return;
 
   if (['javaExecutablePath', 'jvmArguments'].includes(key)) {
@@ -66,6 +73,9 @@ module.exports = {
     require('atom-package-deps').install();
 
     subscriptions = new CompositeDisposable();
+
+    // TODO
+    parsedRules = ruleProcessor.parse(rules);
 
     Object
       .keys(atom.config.get('linter-autocomplete-jing'))
@@ -101,7 +111,7 @@ module.exports = {
       lint(textEditor) {
         return Promise.all([
           serverProcessInstance.ensureIsReady(localConfig),
-          getSchemaProps(textEditor),
+          getSchemaProps(textEditor, parsedRules, localConfig),
         ])
         .then(validate(textEditor, localConfig))
         .catch(addErrorNotification);
@@ -127,7 +137,7 @@ module.exports = {
 
         return Promise.all([
           serverProcessInstance.ensureIsReady(localConfig),
-          getSchemaProps(options.editor),
+          getSchemaProps(options.editor, parsedRules, localConfig),
         ])
         .then(suggest(options, localConfig))
         .catch(addErrorNotification);
