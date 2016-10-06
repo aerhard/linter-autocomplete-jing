@@ -101,7 +101,7 @@ module.exports = {
       lint(textEditor) {
         return Promise.all([
           serverProcessInstance.ensureIsReady(localConfig),
-          getSchemaProps(textEditor),
+          getSchemaProps(textEditor, localConfig),
         ])
         .then(validate(textEditor, localConfig))
         .catch(addErrorNotification);
@@ -127,7 +127,7 @@ module.exports = {
 
         return Promise.all([
           serverProcessInstance.ensureIsReady(localConfig),
-          getSchemaProps(options.editor),
+          getSchemaProps(options.editor, localConfig),
         ])
         .then(suggest(options, localConfig))
         .catch(addErrorNotification);
