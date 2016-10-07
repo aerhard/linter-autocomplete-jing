@@ -26,10 +26,27 @@ const getXsiNamespacePrefixes = (attributes) => {
 
 const hasEvenIndex = (unused, index) => index % 2;
 
-const getSchemaProps = textEditor =>
+const getSchemaPropsFromConfig = (config, fileName) => {
+  if (config.rules) {
+    return config.rules
+    .filter(({testPathRegex}) => {
+      if (testPathRegex) {
+        const re = new RegExp(testPathRegex);
+        return re.test(fileName);
+      } else {
+        return false;
+      }
+    })
+    .map(({outcomeSchemaProps}) => outcomeSchemaProps);
+  } else {
+    return [];
+  }
+};
+
+const getSchemaProps = (textEditor, config) =>
   new Promise((resolve) => {
     const messages = [];
-    const schemaProps = [];
+    const schemaProps = getSchemaPropsFromConfig(config, textEditor.getFileName());
     const xsdSchemaPaths = [];
     const saxParser = sax.parser(true);
 
