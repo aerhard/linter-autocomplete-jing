@@ -614,7 +614,7 @@
       "file": "../xml/rng-after-first-child.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -1401,7 +1401,7 @@
       "file": "../xml/xsd-schemaLocation1.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -1448,7 +1448,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -1461,7 +1461,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -1513,7 +1513,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -1526,7 +1526,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -1584,7 +1584,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -1597,7 +1597,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -1649,7 +1649,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -1702,7 +1702,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -1757,7 +1757,7 @@
       "file": "../xml/xsd-before-root.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
+        "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\"/>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
         "replacementPrefix": "",
@@ -1770,7 +1770,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild xmlns=\"http://www.example.com\" ns${1}:yiu=\"${2}\" xmlns:ns${1}=\"http://www.other.com\">${3}</secondChild>",
+        "snippet": "secondChild xmlns=\"http://www.example.com\" ns${1}:yiu=\"${2}\" xmlns:ns${1}=\"http://www.other.com\"/>",
         "displayText": "secondChild (http://www.example.com)",
         "type": "tag",
         "replacementPrefix": "",
@@ -1808,7 +1808,7 @@
       "file": "../xml/xsd-before-first-child.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -1837,7 +1837,7 @@
       "file": "../xml/xsd-first-child-angle-bracket.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -1866,7 +1866,7 @@
       "file": "../xml/xsd-first-child-tag.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -1895,7 +1895,7 @@
       "file": "../xml/xsd-before-first-child-no-child-ns-prefix.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
+        "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\"/>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
         "replacementPrefix": "",
@@ -1924,7 +1924,7 @@
       "file": "../xml/xsd-first-child-angle-bracket-no-child-ns-prefix.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
+        "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\"/>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
         "replacementPrefix": "",
@@ -1953,7 +1953,7 @@
       "file": "../xml/xsd-first-child-tag-no-child-ns-prefix.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
+        "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\"/>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
         "replacementPrefix": "",
@@ -1982,7 +1982,7 @@
       "file": "../xml/xsd-after-first-child.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -2038,14 +2038,14 @@
       "file": "../xml/xsd1-1.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
       }, {
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -2073,14 +2073,14 @@
       "file": "../xml/xsd1-2.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
       }, {
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -2114,14 +2114,14 @@
       "file": "../xml/xsd2-1.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
       }, {
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -2149,7 +2149,7 @@
       "file": "../xml/xsd2-2.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -2195,7 +2195,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -2223,7 +2223,7 @@
       "file": "../xml/xsd-element-wildcard1-2.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -2270,7 +2270,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -2283,7 +2283,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -2311,7 +2311,7 @@
       "file": "../xml/xsd-element-wildcard2-2.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -2358,7 +2358,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -2398,7 +2398,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -2974,7 +2974,7 @@
       "file": "../xml/xsd-noTargetNamespace1.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -3002,7 +3002,7 @@
       "file": "../xml/xsd-noTargetNamespace2.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -3054,7 +3054,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "child xmlns=\"\" x=\"${1}\">${2}</child>",
+        "snippet": "child xmlns=\"\" x=\"${1}\"/>",
         "displayText": "child [no namespace]",
         "type": "tag",
         "replacementPrefix": "",
@@ -3067,7 +3067,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -3113,7 +3113,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "child x=\"${1}\">${2}</child>",
+        "snippet": "child x=\"${1}\"/>",
         "displayText": "child",
         "type": "tag",
         "replacementPrefix": "",
@@ -3132,7 +3132,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "ex:secondChild yiu=\"${1}\">${2}</ex:secondChild>",
+        "snippet": "ex:secondChild yiu=\"${1}\"/>",
         "displayText": "ex:secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -3184,7 +3184,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "child x=\"${1}\">${2}</child>",
+        "snippet": "child x=\"${1}\"/>",
         "displayText": "child",
         "type": "tag",
         "replacementPrefix": "",
@@ -3197,7 +3197,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -3249,7 +3249,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "ex:child x=\"${1}\">${2}</ex:child>",
+        "snippet": "ex:child x=\"${1}\"/>",
         "displayText": "ex:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -3262,7 +3262,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "ex:secondChild yiu=\"${1}\">${2}</ex:secondChild>",
+        "snippet": "ex:secondChild yiu=\"${1}\"/>",
         "displayText": "ex:secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -3302,18 +3302,70 @@
       "file": "../xml/rng-undefined-ns.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "child xmlns=\"\">${1}</child>",
+        "snippet": "child xmlns=\"\"/>",
         "displayText": "child [no namespace]",
         "type": "tag",
         "replacementPrefix": "",
         "description": "child – child",
-        "retrigger": true
+        "retrigger": false
       }, {
-        "snippet": "secondChild>${1}</secondChild>",
+        "snippet": "secondChild/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
         "description": "child – child",
+        "retrigger": false
+      }, {
+        "snippet": "/root>",
+        "displayText": "/root>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "rng",
+      "path": "../schema/schema-empty-content.rng"
+    }],
+    "items": [{
+      "file": "../xml/rng-empty-content.xml",
+      "suggestionType": "E",
+      "expectResult": [{
+        "snippet": "child1/>",
+        "displayText": "child1",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "child2/>",
+        "displayText": "child2",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "child3>${1}</child3>",
+        "displayText": "child3",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "child4>${1}</child4>",
+        "displayText": "child4",
+        "type": "tag",
+        "replacementPrefix": "",
         "retrigger": true
       }, {
         "snippet": "/root>",

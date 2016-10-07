@@ -128,7 +128,7 @@ const buildAttributeNameSuggestion = (replacementPrefix, addSuffix) =>
   };
 
 const buildElementSuggestion = (replacementPrefix, addSuffix) =>
-  ({ value, closing, attributes = [], documentation, snippet: preDefinedSnippet }) => {
+  ({ value, empty, closing, attributes = [], documentation, snippet: preDefinedSnippet }) => {
     if (preDefinedSnippet) {
       return {
         snippet: preDefinedSnippet,
@@ -160,10 +160,9 @@ const buildElementSuggestion = (replacementPrefix, addSuffix) =>
     const tagNameSnippet = tagName.replace(/\*/g, () => `\${${++index}}`);
 
     // don't retrigger autocomplete when a wildcard end tag snippet gets inserted
-    const retrigger = index > 0
-      ? false
-      : addSuffix;
+    const hasEndTagSnippet = index > 0;
 
+    let retrigger;
     let snippet;
     let displayText;
     if (addSuffix) {
@@ -192,10 +191,15 @@ const buildElementSuggestion = (replacementPrefix, addSuffix) =>
         .concat(attributeSnippets)
         .join(' ');
 
-      snippet = `${startTagContent}>\${${++index}}</${tagNameSnippet}>`;
+      snippet = empty
+        ? startTagContent + '/>'
+        : `${startTagContent}>\${${++index}}</${tagNameSnippet}>`;
+
+      retrigger = !hasEndTagSnippet && index > 0;
     } else {
       displayText = tagName;
       snippet = tagNameSnippet;
+      retrigger = false;
     }
 
     return {
