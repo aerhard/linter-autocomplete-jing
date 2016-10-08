@@ -1,7 +1,7 @@
 
-import { allPass, mapValues, map, update, flow } from 'lodash/fp';
+import { allPass, map, update, flow } from 'lodash/fp';
 
-const mapValuesWithKey = mapValues.convert({ cap: false });
+const mapWithKey = map.convert({ cap: false });
 
 const createGrammarScopeMatcher = value =>
   ({ rootScopes }) => rootScopes.includes(value);
@@ -24,7 +24,7 @@ const createRootLocalNameMatcher = value =>
   ({ rootLocalName }) => value === rootLocalName;
 
 const createRootAttributeMatcher = (value, name) =>
-  ({ attributes }) => attributes[name] === value;
+  ({ rootAttributes }) => rootAttributes[name] === value;
 
 const sortByPriority = arr => arr.sort((a, b) => b.priority - a.priority);
 
@@ -45,12 +45,13 @@ const parse = flow(
         matchers.push(createRootLocalNameMatcher(rootLocalName));
       }
       if (rootAttributes) {
-        const attributeMatchers = mapValuesWithKey(
+        const attributeMatchers = mapWithKey(
           createRootAttributeMatcher,
           rootAttributes
         );
         matchers.push(...attributeMatchers);
       }
+
       return allPass(matchers);
     })
   ),
