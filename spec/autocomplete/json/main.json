@@ -21,12 +21,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -37,12 +39,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -60,18 +64,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -89,18 +96,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -118,18 +128,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -147,18 +160,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -176,18 +192,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -205,18 +224,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -234,18 +256,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -256,18 +281,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -412,12 +440,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -428,12 +458,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -451,18 +483,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -480,18 +515,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -509,18 +547,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -538,18 +579,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -567,18 +611,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -596,18 +643,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -625,18 +675,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -647,18 +700,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -713,18 +769,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -760,18 +819,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -807,18 +869,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -848,18 +913,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -907,18 +975,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -960,18 +1031,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1303,18 +1377,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -1355,18 +1432,21 @@
         "displayText": "/other:child>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -1377,18 +1457,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1412,18 +1495,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1471,18 +1557,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1542,18 +1631,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1613,18 +1705,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1666,18 +1761,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1712,18 +1810,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1739,12 +1840,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1780,12 +1883,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -1796,12 +1901,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -1819,18 +1926,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -1848,18 +1958,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -1877,18 +1990,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -1906,18 +2022,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -1935,18 +2054,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -1964,18 +2086,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -1992,18 +2117,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2014,18 +2142,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -2055,18 +2186,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2090,18 +2224,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -2131,18 +2268,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2159,18 +2299,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -2205,18 +2348,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2234,18 +2380,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -2293,18 +2442,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2322,18 +2474,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -2368,18 +2523,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -2409,18 +2567,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -2841,12 +3002,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2857,12 +3020,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2873,18 +3038,21 @@
         "displayText": "/other:child>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2909,12 +3077,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2925,12 +3095,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2941,18 +3113,21 @@
         "displayText": "/other:child>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2984,18 +3159,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -3012,18 +3190,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -3083,18 +3264,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -3148,18 +3332,21 @@
         "displayText": "/ex:root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -3213,18 +3400,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -3278,18 +3468,21 @@
         "displayText": "/ex:root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -3320,18 +3513,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -3372,18 +3568,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]

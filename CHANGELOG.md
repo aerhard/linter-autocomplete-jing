@@ -60,5 +60,7 @@
 * add comment and cdata suggestions
 * prevent autocomplete in cdata sections
 
-### 0.5.4
+### 0.6.0
 * insert self-closing tags when element content can only be empty
+* make validation on basis of DTDs optional
+* implement validation rule processing

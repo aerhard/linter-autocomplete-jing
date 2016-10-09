@@ -45,6 +45,7 @@
   "scripts": {
     "eslint": "eslint .",
     "test": "apm test",
+    "lint": "eslint src",
     "build": "babel src --out-dir lib --presets es2015-loose",
     "watch": "babel src --watch --out-dir lib --presets es2015-loose"
   },
@@ -84,6 +85,12 @@
       "title": "XML Catalog",
       "type": "string",
       "default": ""
+    },
+    "dtdValidation": {
+      "title": "DTD Validation",
+      "type": "string",
+      "default": "fallback",
+      "enum": ["never", "always", { "value": "fallback", "description": "only as fallback" }]
     },
     "autocompletePriority": {
       "type": "integer",
