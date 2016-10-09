@@ -52,7 +52,9 @@ const parse = flow(
         matchers.push(...attributeMatchers);
       }
 
-      return allPass(matchers);
+      return matchers.length
+        ? allPass(matchers)
+        : () => false;
     })
   ),
   sortByPriority
