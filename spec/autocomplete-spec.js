@@ -1,7 +1,7 @@
 'use babel';
 
 import path from 'path';
-import main from '../lib/main';
+import main from '../lib/main.coffee';
 import testData from './autocomplete/json/main';
 
 const resolvePath = filename => path.resolve(__dirname, 'autocomplete/json', filename);

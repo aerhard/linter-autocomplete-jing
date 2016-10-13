@@ -1,7 +1,7 @@
 'use babel';
 
 import path from 'path';
-import main from '../lib/main';
+import main from '../lib/main.coffee';
 
 const serverProcess = main.serverProcess;
 
