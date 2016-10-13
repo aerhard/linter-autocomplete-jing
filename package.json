@@ -1,6 +1,6 @@
 {
   "name": "linter-autocomplete-jing",
-  "main": "./lib/main.js",
+  "main": "./lib/main.coffee",
   "version": "0.5.3",
   "description": "Autocomplete and on-the-fly validation of XML documents against RELAX NG (compact, XML), Schematron (1.5, ISO), W3C Schema (XSD 1.0) and DTD",
   "keywords": [
@@ -32,12 +32,13 @@
     "babel-cli": "^6.14.0",
     "babel-core": "^6.14.0",
     "babel-eslint": "^6.1.2",
-    "babel-preset-es2015": "^6.14.0",
-    "babel-preset-es2015-loose": "^8.0.0",
+    "babel-preset-es2015-rollup": "^1.2.0",
     "eslint": "^3.5.0",
     "eslint-config-airbnb-base": "^7.1.0",
     "eslint-plugin-import": "^1.15.0",
-    "eslint-plugin-jasmine": "^1.8.1"
+    "eslint-plugin-jasmine": "^1.8.1",
+    "rollup-plugin-babel": "^2.6.1",
+    "rollup-watch": "^2.5.0"
   },
   "package-deps": [
     "linter"
@@ -46,8 +47,8 @@
     "eslint": "eslint .",
     "test": "apm test",
     "lint": "eslint src",
-    "build": "babel src --out-dir lib --presets es2015-loose",
-    "watch": "babel src --watch --out-dir lib --presets es2015-loose"
+    "build": "rollup -c",
+    "watch": "rollup -c --watch"
   },
   "providedServices": {
     "linter": {

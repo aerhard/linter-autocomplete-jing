@@ -2,11 +2,11 @@
 
 import path from 'path';
 import main from '../lib/main';
-import serverProcess from '../lib/serverProcess';
 import testData from './autocomplete/json/main';
 
 const resolvePath = filename => path.resolve(__dirname, 'autocomplete/json', filename);
 
+const serverProcess = main.serverProcess;
 const serverProcessInstance = serverProcess.getInstance();
 
 const buildOptions = (editor, suggestionType, fragment) => {

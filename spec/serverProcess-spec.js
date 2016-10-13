@@ -1,7 +1,9 @@
 'use babel';
 
 import path from 'path';
-import serverProcess from '../lib/serverProcess';
+import main from '../lib/main';
+
+const serverProcess = main.serverProcess;
 
 describe('serverProcess', () => {
   describe('given a wrong java path', () => {

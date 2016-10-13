@@ -412,4 +412,4 @@ const suggest = (options, { autocompleteScope }) => ([, { schemaProps, xmlCatalo
   return [];
 };
 
-module.exports = suggest;
+export default suggest;
