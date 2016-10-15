@@ -510,5 +510,17 @@
       "expectArray": true,
       "expectMessageLength": 10
     }]
+  }, {
+    "description": "given a valid xsd schema",
+    "schemata": [
+      { "lang": "xsd", "path": "../schema/schema.xsd" }
+    ],
+    "items": [{
+      "condition": "when the end tag of the root element is missing",
+      "expectation": "returns an array of length 1",
+      "file": "../xml/xsd-parser-exception.xml",
+      "expectArray": true,
+      "expectMessageLength": 1
+    }]
   }]
 }]

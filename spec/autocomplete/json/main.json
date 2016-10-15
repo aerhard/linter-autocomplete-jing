@@ -3586,5 +3586,144 @@
         "retrigger": false
       }]
     }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-subst-element.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-subst-element.xml",
+      "suggestionType": "E",
+      "expectResult": [{
+        "snippet": "base1 other:yiu=\"${1}\"/>",
+        "displayText": "base1",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "base2 other:yiu=\"${1}\"/>",
+        "displayText": "base2",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "base3 other:yiu=\"${1}\"/>",
+        "displayText": "base3",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "subst1 other:yiu=\"${1}\"/>",
+        "displayText": "subst1",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "subst2 other:yiu=\"${1}\"/>",
+        "displayText": "subst2",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "subst3 other:yiu=\"${1}\"/>",
+        "displayText": "subst3",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "subst4 other:yiu=\"${1}\"/>",
+        "displayText": "subst4",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "subst5 other:yiu=\"${1}\"/>",
+        "displayText": "subst5",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "subst6 other:yiu=\"${1}\"/>",
+        "displayText": "subst6",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "/root>",
+        "displayText": "/root>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "description": "Closing Tag",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "description": "Comment",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "description": "CDATA Section",
+        "retrigger": false
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-nillable.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-nillable.xml",
+      "suggestionType": "N",
+      "expectResult": [{
+        "snippet": "other:yiu=\"${1}\"",
+        "displayText": "other:yiu",
+        "type": "attribute",
+        "replacementPrefix": "",
+        "description": "Documentation for yiu – second line",
+        "retrigger": true
+      }, {
+        "snippet": "xsi:nil=\"${1}\"",
+        "displayText": "xsi:nil",
+        "type": "attribute",
+        "replacementPrefix": "",
+        "retrigger": true
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-types.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-types.xml",
+      "suggestionType": "V",
+      "fragment": "a",
+      "expectResult": [{
+        "snippet": "0",
+        "displayText": "0",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "1",
+        "displayText": "1",
+        "type": "value",
+        "replacementPrefix": ""
+      }]
+    }, {
+      "file": "../xml/xsd-types.xml",
+      "suggestionType": "N",
+      "expectResult": [{
+        "snippet": "c=\"${1}\"",
+        "displayText": "c",
+        "type": "attribute",
+        "replacementPrefix": "",
+        "retrigger": true
+      }]
+    }]
   }]
 }]
