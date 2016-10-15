@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.example.com" xmlns:other="http://www.other.com" xmlns:ns1="http://www.example.com">
+  <xs:import namespace="http://www.other.com" schemaLocation="other.xsd"/>
+  
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="ns1:abstract"/>
+        <xs:element ref="ns1:base1"/>
+        <xs:element ref="ns1:base2"/>
+        <xs:element ref="ns1:base3"/>
+        <xs:element ref="ns1:subst4"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="abstract" abstract="true"/>
+  
+  <xs:element name="base1">
+    <xs:complexType>
+      <xs:attribute ref="other:yiu" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="base2" block="substitution">
+    <xs:complexType>
+      <xs:attribute ref="other:yiu" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="base3" block="#all">
+    <xs:complexType>
+      <xs:attribute ref="other:yiu" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="base-not-included">
+    <xs:complexType>
+      <xs:attribute ref="other:yiu" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  
+  
+  <xs:element name="subst1" substitutionGroup="ns1:abstract">
+    <xs:complexType>
+      <xs:attribute ref="other:yiu" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="subst2" substitutionGroup="ns1:abstract">
+    <xs:complexType>
+      <xs:attribute ref="other:yiu" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="subst3" substitutionGroup="ns1:base1" block="substitution"/>
+  
+  <xs:element name="subst4" substitutionGroup="ns1:base3"/>
+  
+  <xs:element name="subst5" substitutionGroup="ns1:subst4"/>
+  
+  <xs:element name="subst6" substitutionGroup="ns1:subst3"/>
+  
+  <xs:element name="subst-blocked1" substitutionGroup="ns1:base2"/>
+  
+  <xs:element name="subst-blocked2" substitutionGroup="ns1:base3"/>
+  
+</xs:schema>

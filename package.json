@@ -32,7 +32,10 @@
     "babel-cli": "^6.14.0",
     "babel-core": "^6.14.0",
     "babel-eslint": "^6.1.2",
+    "babel-plugin-external-helpers": "^6.8.0",
+    "babel-preset-es2015": "^6.16.0",
     "babel-preset-es2015-rollup": "^1.2.0",
+    "babelrc-rollup": "^3.0.0",
     "eslint": "^3.5.0",
     "eslint-config-airbnb-base": "^7.1.0",
     "eslint-plugin-import": "^1.15.0",
@@ -91,7 +94,14 @@
       "title": "DTD Validation",
       "type": "string",
       "default": "fallback",
-      "enum": ["never", "always", { "value": "fallback", "description": "only as fallback" }]
+      "enum": [
+        "never",
+        "always",
+        {
+          "value": "fallback",
+          "description": "only as fallback"
+        }
+      ]
     },
     "autocompletePriority": {
       "type": "integer",

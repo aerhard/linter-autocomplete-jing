@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schema/schema-nillable.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<root bi="x" l="o" xmlns="http://www.example.com" 
+    xmlns:other="http://www.other.com"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<child1>

@@ -36,7 +36,7 @@ const spaceChar = [
 ].join('');
 
 export default {
-  tagNamePI: new RegExp(`<(\!|\/|\/?[${nameStartChar}][${nameChar}]*)?$`),
+  tagNamePI: new RegExp(`<(!|/|/?[${nameStartChar}][${nameChar}]*)?$`),
   attStartFromAttName: new RegExp(`(?:^|[${spaceChar}])([${nameStartChar}][${nameChar}]*)?$`),
   attStartFromAttValueDouble: new RegExp(`([${nameStartChar}][${nameChar}]*)="([^"]*)?`),
   attStartFromAttValueSingle: new RegExp(`([${nameStartChar}][${nameChar}]*)='([^']*)?`),

@@ -60,15 +60,6 @@
       <xs:documentation>other:line2</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <!--<xs:sequence>-->
-        <!--<xs:element name="a">-->
-          <!--<xs:simpleType>-->
-            <!--<xs:restriction base="xs:string">-->
-              <!--<xs:enumeration value="a"></xs:enumeration>-->
-            <!--</xs:restriction>-->
-          <!--</xs:simpleType>-->
-        <!--</xs:element>-->
-      <!--</xs:sequence>-->
       <xs:attributeGroup ref="other:att-grp-1"/>
     </xs:complexType>
   </xs:element>
