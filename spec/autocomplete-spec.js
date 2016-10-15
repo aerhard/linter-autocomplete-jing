@@ -82,6 +82,7 @@ describe('autocomplete', () => {
         waitsForPromise(() =>
           atom.packages.activatePackage('linter-autocomplete-jing')
         );
+        atom.config.set('linter-autocomplete-jing.wildcardSuggestions', 'all');
         atom.config.set('linter-autocomplete-jing.xmlCatalog', resolvePath(catalog));
       });
 

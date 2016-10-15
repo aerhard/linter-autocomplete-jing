@@ -1099,16 +1099,23 @@ var includesTagScope = function includesTagScope(scopesArray) {
   });
 };
 
-var buildHeaders = function buildHeaders(editorPath, xmlCatalog, _ref10, type, fragment) {
+var wildcardOptions = {
+  none: '',
+  localparts: 'w',
+  all: 'wn'
+};
+
+var buildHeaders = function buildHeaders(editorPath, xmlCatalog, wildcardSuggestions, _ref10, type, fragment) {
   var lang = _ref10.lang;
   var schemaPath = _ref10.path;
-  return ['A', type, fragment || '', 'r', 'UTF-8', editorPath, xmlCatalog || '', lang + ' ' + (schemaPath || '')];
+  return ['A', type, fragment || '', 'r' + wildcardOptions[wildcardSuggestions], 'UTF-8', editorPath, xmlCatalog || '', lang + ' ' + (schemaPath || '')];
 };
 
 var getSuggestions$1 = function getSuggestions$1(sharedConfig, suggestionOptions) {
   var options = sharedConfig.options;
   var xmlCatalog = sharedConfig.xmlCatalog;
   var currentSchemaProps = sharedConfig.currentSchemaProps;
+  var wildcardSuggestions = sharedConfig.wildcardSuggestions;
   var editor = options.editor;
   var type = suggestionOptions.type;
   var fragment = suggestionOptions.fragment;
@@ -1118,7 +1125,7 @@ var getSuggestions$1 = function getSuggestions$1(sharedConfig, suggestionOptions
   var builderFn = suggestionOptions.builderFn;
 
 
-  var headers = buildHeaders(editor.getPath(), xmlCatalog, currentSchemaProps, type, fragment);
+  var headers = buildHeaders(editor.getPath(), xmlCatalog, wildcardSuggestions, currentSchemaProps, type, fragment);
 
   return serverProcessInstance$2.sendRequest(headers, body).then(lodash_fp.flow(JSON.parse, function (data) {
     return clientData ? data.concat(clientData) : data;
@@ -1247,6 +1254,7 @@ var getElementPISuggestions = function getElementPISuggestions(sharedConfig, tag
 
 var suggest = function suggest(options, _ref15) {
   var autocompleteScope = _ref15.autocompleteScope;
+  var wildcardSuggestions = _ref15.wildcardSuggestions;
   return function (_ref16) {
     var _ref17 = slicedToArray(_ref16, 2);
 
@@ -1260,7 +1268,7 @@ var suggest = function suggest(options, _ref15) {
     }, schemaProps) || { type: 'none' };
 
     var scopesArray = options.scopeDescriptor.getScopesArray();
-    var sharedConfig = { options: options, xmlCatalog: xmlCatalog, currentSchemaProps: currentSchemaProps };
+    var sharedConfig = { options: options, xmlCatalog: xmlCatalog, currentSchemaProps: currentSchemaProps, wildcardSuggestions: wildcardSuggestions };
     var precedingLineText = getPrecedingLineText(options);
     var tagNamePIPrefix = getTagNamePIPrefix(precedingLineText);
 

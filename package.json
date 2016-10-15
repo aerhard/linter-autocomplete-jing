@@ -103,6 +103,15 @@
         }
       ]
     },
+    "wildcardSuggestions": {
+      "type": "string",
+      "default": "none",
+      "enum": [
+        "none",
+        "localparts",
+        "all"
+      ]
+    },
     "autocompletePriority": {
       "type": "integer",
       "default": 2

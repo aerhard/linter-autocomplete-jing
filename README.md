@@ -30,6 +30,7 @@ The package depends on a Java Runtime Environment (JRE) v1.6 or above. If runnin
 * *DTD Validation:* Determines under which circumstances DTDs should be used in validation. Possible values: 'always', 'never' or 'only as fallback'. When 'only as fallback' is selected, documents get validated against DTDs only if no other schemata are available for validation.
 * *Autocomplete Priority*: The inclusion priority of the Autocomplete Plus provider. In order to exclude other autocomplete providers, the number must be larger than the other providers' priorities. Defaults to 2, which suppresses the default tag snippets provided by the `language-xml` package. (In order to re-enable them, set autocomplete priority to 1.)
 * *Autocomplete Scope*: The schema types which should be used for autocomplete.
+* *Wildcard Suggestions*: Inclusion of wildcards in autocomplete suggestions. Possible values: 'all', 'localparts', 'none'.
 
 (In order to edit the settings, open Atom's settings view by pressing <kbd>Ctrl-,</kbd> or by selecting "Packages" / "Settings View" / "Open" in the main menu). In the "Packages" tab, search for "linter-autocomplete-jing" and click the "Settings" button.)
 
