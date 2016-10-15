@@ -35,8 +35,8 @@ const spaceChar = [
   '\\u000A',
 ].join('');
 
-module.exports = {
-  tagNamePI: new RegExp(`<(\!|\/|\/?[${nameStartChar}][${nameChar}]*)?$`),
+export default {
+  tagNamePI: new RegExp(`<(!|/|/?[${nameStartChar}][${nameChar}]*)?$`),
   attStartFromAttName: new RegExp(`(?:^|[${spaceChar}])([${nameStartChar}][${nameChar}]*)?$`),
   attStartFromAttValueDouble: new RegExp(`([${nameStartChar}][${nameChar}]*)="([^"]*)?`),
   attStartFromAttValueSingle: new RegExp(`([${nameStartChar}][${nameChar}]*)='([^']*)?`),

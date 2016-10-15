@@ -78,6 +78,6 @@ const parse = flow(
   sortByPriority
 );
 
-module.exports = {
+export default {
   parse,
 };

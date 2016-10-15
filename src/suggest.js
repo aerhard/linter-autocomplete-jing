@@ -250,24 +250,31 @@ const getQuotedScope = find(
 const includesTagScope = scopesArray =>
   scopesArray.some(item => item === 'meta.tag.xml' || item === 'meta.tag.no-content.xml');
 
-const buildHeaders = (editorPath, xmlCatalog, { lang, path: schemaPath }, type, fragment) => [
-  'A',
-  type,
-  fragment || '',
-  'r',
-  'UTF-8',
-  editorPath,
-  xmlCatalog || '',
-  lang + ' ' + (schemaPath || ''),
-];
+const wildcardOptions = {
+  none: '',
+  localparts: 'w',
+  all: 'wn',
+};
+
+const buildHeaders =
+  (editorPath, xmlCatalog, wildcardSuggestions, { lang, path: schemaPath }, type, fragment) => [
+    'A',
+    type,
+    fragment || '',
+    'r' + wildcardOptions[wildcardSuggestions],
+    'UTF-8',
+    editorPath,
+    xmlCatalog || '',
+    lang + ' ' + (schemaPath || ''),
+  ];
 
 const getSuggestions = (sharedConfig, suggestionOptions) => {
-  const { options, xmlCatalog, currentSchemaProps } = sharedConfig;
+  const { options, xmlCatalog, currentSchemaProps, wildcardSuggestions } = sharedConfig;
   const { editor } = options;
   const { type, fragment, body, clientData, filterFn, builderFn } = suggestionOptions;
 
-  const headers =
-    buildHeaders(editor.getPath(), xmlCatalog, currentSchemaProps, type, fragment);
+  const headers = buildHeaders(editor.getPath(), xmlCatalog, wildcardSuggestions,
+    currentSchemaProps, type, fragment);
 
   return serverProcessInstance.sendRequest(headers, body)
     .then(flow(
@@ -383,33 +390,34 @@ const getElementPISuggestions = (sharedConfig, tagNamePIPrefix) => {
   });
 };
 
-const suggest = (options, { autocompleteScope }) => ([, { schemaProps, xmlCatalog }]) => {
-  const currentSchemaProps =
-    find(({ lang }) => !!autocompleteScope[lang], schemaProps) ||
-    { type: 'none' };
+const suggest = (options, { autocompleteScope, wildcardSuggestions }) =>
+  ([, { schemaProps, xmlCatalog }]) => {
+    const currentSchemaProps =
+      find(({ lang }) => !!autocompleteScope[lang], schemaProps) ||
+      { type: 'none' };
 
-  const scopesArray = options.scopeDescriptor.getScopesArray();
-  const sharedConfig = { options, xmlCatalog, currentSchemaProps };
-  const precedingLineText = getPrecedingLineText(options);
-  const tagNamePIPrefix = getTagNamePIPrefix(precedingLineText);
+    const scopesArray = options.scopeDescriptor.getScopesArray();
+    const sharedConfig = { options, xmlCatalog, currentSchemaProps, wildcardSuggestions };
+    const precedingLineText = getPrecedingLineText(options);
+    const tagNamePIPrefix = getTagNamePIPrefix(precedingLineText);
 
-  if (tagNamePIPrefix !== null) {
-    return getElementPISuggestions(sharedConfig, tagNamePIPrefix);
-  }
-
-  if (includesTagScope(scopesArray)) {
-    const quotedScope = getQuotedScope(scopesArray);
-
-    if (quotedScope) {
-      return getAttributeValueSuggestions(sharedConfig, precedingLineText, quotedScope);
+    if (tagNamePIPrefix !== null) {
+      return getElementPISuggestions(sharedConfig, tagNamePIPrefix);
     }
 
-    if (getPreviousTagBracket(options) === '<') {
-      return getAttributeNameSuggestions(sharedConfig, precedingLineText);
+    if (includesTagScope(scopesArray)) {
+      const quotedScope = getQuotedScope(scopesArray);
+
+      if (quotedScope) {
+        return getAttributeValueSuggestions(sharedConfig, precedingLineText, quotedScope);
+      }
+
+      if (getPreviousTagBracket(options) === '<') {
+        return getAttributeNameSuggestions(sharedConfig, precedingLineText);
+      }
     }
-  }
 
-  return [];
-};
+    return [];
+  };
 
-module.exports = suggest;
+export default suggest;

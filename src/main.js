@@ -5,6 +5,9 @@ import {
 import { CompositeDisposable } from 'atom'; // eslint-disable-line
 import serverProcess from './serverProcess';
 import ruleProcessor from './ruleProcessor';
+import getSchemaProps from './getSchemaProps';
+import validate from './validate';
+import suggest from './suggest';
 
 const serverProcessInstance = serverProcess.getInstance();
 
@@ -17,9 +20,6 @@ if (serverProcessInstance.onError === serverProcess.prototype.onError) {
   };
 }
 
-let validate;
-let suggest;
-let getSchemaProps;
 let subscriptions;
 let parsedRules = [];
 let initialPackagesActivated = false;
@@ -100,7 +100,8 @@ const handlePackageChanges = () => {
   updateRules();
 };
 
-module.exports = {
+export default {
+  serverProcess,
   activate() {
     require('atom-package-deps').install();
 
@@ -144,9 +145,6 @@ module.exports = {
   },
 
   provideLinter() {
-    if (!validate) validate = require('./validate');
-    if (!getSchemaProps) getSchemaProps = require('./getSchemaProps');
-
     return {
       name: 'Jing',
       grammarScopes,
@@ -164,9 +162,6 @@ module.exports = {
   },
 
   provideAutocomplete() {
-    if (!suggest) suggest = require('./suggest');
-    if (!getSchemaProps) getSchemaProps = require('./getSchemaProps');
-
     return {
       selector: '.text.xml',
       disableForSelector: '.comment, .string.unquoted.cdata.xml',

@@ -30,6 +30,7 @@ The package depends on a Java Runtime Environment (JRE) v1.6 or above. If runnin
 * *DTD Validation:* Determines under which circumstances DTDs should be used in validation. Possible values: 'always', 'never' or 'only as fallback'. When 'only as fallback' is selected, documents get validated against DTDs only if no other schemata are available for validation.
 * *Autocomplete Priority*: The inclusion priority of the Autocomplete Plus provider. In order to exclude other autocomplete providers, the number must be larger than the other providers' priorities. Defaults to 2, which suppresses the default tag snippets provided by the `language-xml` package. (In order to re-enable them, set autocomplete priority to 1.)
 * *Autocomplete Scope*: The schema types which should be used for autocomplete.
+* *Wildcard Suggestions*: Inclusion of wildcards in autocomplete suggestions. Possible values: 'all', 'localparts', 'none'.
 
 (In order to edit the settings, open Atom's settings view by pressing <kbd>Ctrl-,</kbd> or by selecting "Packages" / "Settings View" / "Open" in the main menu). In the "Packages" tab, search for "linter-autocomplete-jing" and click the "Settings" button.)
 
@@ -68,7 +69,7 @@ If your documents contain references to remote schemata, you can improve perform
 
 ## Development
 
-If you intend to adjust only the Javascript part of the code, checkout https://github.com/aerhard/linter-autocomplete-jing from GitHub and link it to Atom by running `apm link` from the repository root (undo with `apm unlink`). The ES6 source code is in the `src` folder of the project. `npm run build` and `npm run watch` transpile the content of `src` to the ES5 code in `lib` which Atom processes.
+If you intend to adjust only the Javascript part of the code, checkout https://github.com/aerhard/linter-autocomplete-jing from GitHub and link it to Atom by running `apm link` from the repository root (undo with `apm unlink`). The ES6 source code is in the `src` folder of the project. `npm run build` and `npm run watch` transpile the content of `src` to a single CoffeeScript file in `lib` which Atom processes. Both commands depend on Rollup (`npm i rollup -g`).
 Press <kbd>Ctrl-Alt-R</kbd> in Atom to reload the updated module.
 
 In order to make adjustments to the Javascript as well as as the Java parts, checkout https://github.com/aerhard/xml-tools (which contains the `linter-autocomplete-jing` package, the source code of the Java server and its `jing-trang` dependency).

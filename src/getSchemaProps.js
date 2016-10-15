@@ -192,4 +192,4 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
     resolve({ schemaProps, messages, xmlCatalog });
   });
 
-module.exports = getSchemaProps;
+export default getSchemaProps;
