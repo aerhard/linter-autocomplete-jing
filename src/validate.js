@@ -82,4 +82,4 @@ const validate = (textEditor, config) => ([, { schemaProps, messages, xmlCatalog
     );
 };
 
-module.exports = validate;
+export default validate;

@@ -64,7 +64,7 @@ If your documents contain references to remote schemata, you can improve perform
 
 ## Development
 
-If you intend to adjust only the Javascript part of the code, checkout https://github.com/aerhard/linter-autocomplete-jing from GitHub and link it to Atom by running `apm link` from the repository root (undo with `apm unlink`). The ES6 source code is in the `src` folder of the project. `npm run build` and `npm run watch` transpile the content of `src` to the ES5 code in `lib` which Atom processes.
+If you intend to adjust only the Javascript part of the code, checkout https://github.com/aerhard/linter-autocomplete-jing from GitHub and link it to Atom by running `apm link` from the repository root (undo with `apm unlink`). The ES6 source code is in the `src` folder of the project. `npm run build` and `npm run watch` transpile the content of `src` to a single CoffeeScript file in `lib` which Atom processes. Both commands depend on Rollup (`npm i rollup -g`).
 Press <kbd>Ctrl-Alt-R</kbd> in Atom to reload the updated module.
 
 In order to make adjustments to the Javascript as well as as the Java parts, checkout https://github.com/aerhard/xml-tools (which contains the `linter-autocomplete-jing` package, the source code of the Java server and its `jing-trang` dependency).

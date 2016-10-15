@@ -1,12 +1,12 @@
 'use babel';
 
 import path from 'path';
-import main from '../lib/main';
-import serverProcess from '../lib/serverProcess';
+import main from '../lib/main.coffee';
 import testData from './validation/json/main';
 
 const resolvePath = filename => path.resolve(__dirname, 'validation/json', filename);
 
+const serverProcess = main.serverProcess;
 const serverProcessInstance = serverProcess.getInstance();
 
 describe('validation', () => {
