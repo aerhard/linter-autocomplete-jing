@@ -1,10 +1,11 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
+
 import babel from 'rollup-plugin-babel';
+import babelrc from 'babelrc-rollup';
 
 export default {
   entry: 'src/main.js',
   format: 'cjs',
-  plugins: [babel()],
+  plugins: [babel(babelrc())],
   banner: '`',
   footer: '`',
   dest: 'lib/main.coffee',
