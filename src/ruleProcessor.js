@@ -1,5 +1,6 @@
 
-import { allPass, map, update, flow } from 'lodash/fp';
+import { allPass, map, update, flow, merge } from 'lodash/fp';
+import path from 'path';
 
 const mapWithKey = map.convert({ cap: false });
 
@@ -30,32 +31,49 @@ const sortByPriority = arr => arr.sort((a, b) => b.priority - a.priority);
 
 const parse = flow(
   map(
-    update('test', ({ grammarScope, pathRegex, rootNs, rootLocalName, rootAttributes }) => {
-      const matchers = [];
-      if (grammarScope) {
-        matchers.push(createGrammarScopeMatcher(grammarScope));
-      }
-      if (pathRegex) {
-        matchers.push(createPathRegexMatcher(pathRegex));
-      }
-      if (rootNs) {
-        matchers.push(createRootNsMatcher(rootNs));
-      }
-      if (rootLocalName) {
-        matchers.push(createRootLocalNameMatcher(rootLocalName));
-      }
-      if (rootAttributes) {
-        const attributeMatchers = mapWithKey(
-          createRootAttributeMatcher,
-          rootAttributes
-        );
-        matchers.push(...attributeMatchers);
-      }
+    flow(
+      update('test', ({ grammarScope, pathRegex, rootNs, rootLocalName, rootAttributes }) => {
+        const matchers = [];
+        if (grammarScope) {
+          matchers.push(createGrammarScopeMatcher(grammarScope));
+        }
+        if (pathRegex) {
+          matchers.push(createPathRegexMatcher(pathRegex));
+        }
+        if (rootNs) {
+          matchers.push(createRootNsMatcher(rootNs));
+        }
+        if (rootLocalName) {
+          matchers.push(createRootLocalNameMatcher(rootLocalName));
+        }
+        if (rootAttributes) {
+          const attributeMatchers = mapWithKey(
+            createRootAttributeMatcher,
+            rootAttributes
+          );
+          matchers.push(...attributeMatchers);
+        }
 
-      return matchers.length
-        ? allPass(matchers)
-        : () => false;
-    })
+        return matchers.length
+          ? allPass(matchers)
+          : () => false;
+      }),
+      (rule) => {
+        const newOutcome = {};
+        const { outcome, settingsPath } = rule;
+        const basePath = path.dirname(settingsPath);
+
+        if (outcome.xmlCatalog) {
+          newOutcome.xmlCatalog = path.resolve(basePath, outcome.xmlCatalog);
+        }
+        if (outcome.schemaProps) {
+          newOutcome.schemaProps = outcome.schemaProps.map(({ path: schemaPath }) => ({
+            path: path.resolve(basePath, schemaPath),
+          }));
+        }
+        return merge(rule, { outcome: newOutcome });
+      }
+    )
   ),
   sortByPriority
 );

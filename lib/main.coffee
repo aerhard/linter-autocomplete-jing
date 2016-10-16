@@ -3,11 +3,11 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
+var lodash_fp = require('lodash/fp');
 var atom$1 = require('atom');
 var net = require('net');
 var spawn = _interopDefault(require('cross-spawn'));
 var path = _interopDefault(require('path'));
-var lodash_fp = require('lodash/fp');
 var sax = _interopDefault(require('sax'));
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
@@ -160,7 +160,7 @@ var defineProperty = function (obj, key, value) {
   return obj;
 };
 
-var get = function get(object, property, receiver) {
+var get$1 = function get$1(object, property, receiver) {
   if (object === null) object = Function.prototype;
   var desc = Object.getOwnPropertyDescriptor(object, property);
 
@@ -170,7 +170,7 @@ var get = function get(object, property, receiver) {
     if (parent === null) {
       return undefined;
     } else {
-      return get(parent, property, receiver);
+      return get$1(parent, property, receiver);
     }
   } else if ("value" in desc) {
     return desc.value;
@@ -201,14 +201,14 @@ var get = function get(object, property, receiver) {
 
 
 
-var set = function set(object, property, value, receiver) {
+var set$1 = function set$1(object, property, value, receiver) {
   var desc = Object.getOwnPropertyDescriptor(object, property);
 
   if (desc === undefined) {
     var parent = Object.getPrototypeOf(object);
 
     if (parent !== null) {
-      set(parent, property, value, receiver);
+      set$1(parent, property, value, receiver);
     }
   } else if ("value" in desc && desc.writable) {
     desc.value = value;
@@ -497,7 +497,7 @@ var sortByPriority = function sortByPriority(arr) {
   });
 };
 
-var parse = lodash_fp.flow(lodash_fp.map(lodash_fp.update('test', function (_ref6) {
+var parse = lodash_fp.flow(lodash_fp.map(lodash_fp.flow(lodash_fp.update('test', function (_ref6) {
   var grammarScope = _ref6.grammarScope;
   var pathRegex = _ref6.pathRegex;
   var rootNs = _ref6.rootNs;
@@ -525,6 +525,25 @@ var parse = lodash_fp.flow(lodash_fp.map(lodash_fp.update('test', function (_ref
   return matchers.length ? lodash_fp.allPass(matchers) : function () {
     return false;
   };
+}), function (rule) {
+  var newOutcome = {};
+  var outcome = rule.outcome;
+  var settingsPath = rule.settingsPath;
+
+  var basePath = path.dirname(settingsPath);
+
+  if (outcome.xmlCatalog) {
+    newOutcome.xmlCatalog = path.resolve(basePath, outcome.xmlCatalog);
+  }
+  if (outcome.schemaProps) {
+    newOutcome.schemaProps = outcome.schemaProps.map(function (_ref7) {
+      var schemaPath = _ref7.path;
+      return {
+        path: path.resolve(basePath, schemaPath)
+      };
+    });
+  }
+  return lodash_fp.merge(rule, { outcome: newOutcome });
 })), sortByPriority);
 
 var ruleProcessor = {
@@ -1303,11 +1322,11 @@ if (serverProcessInstance.onError === ServerProcess.prototype.onError) {
   };
 }
 
-// TODO
-var rules = [];
-
 var subscriptions = void 0;
-var parsedRules = void 0;
+var parsedRules = [];
+var initialPackagesActivated = false;
+var shouldSuppressAutocomplete = false;
+var grammarScopes = [];
 
 var localConfig = {};
 
@@ -1341,8 +1360,6 @@ var setLocalConfig = function setLocalConfig(key) {
   };
 };
 
-var shouldSuppressAutocomplete = false;
-
 var triggerAutocomplete = function triggerAutocomplete(editor) {
   atom.commands.dispatch(atom.views.getView(editor), 'autocomplete-plus:activate', {
     activatedManually: false
@@ -1355,15 +1372,36 @@ var cancelAutocomplete = function cancelAutocomplete(editor) {
   });
 };
 
+var updateGrammarScopes = function updateGrammarScopes() {
+  var grammars = atom.grammars.getGrammars();
+  var newGrammarScopes = lodash_fp.flow(lodash_fp.map('scopeName'), lodash_fp.filter(lodash_fp.startsWith('text.xml')))(grammars);
+
+  grammarScopes.splice.apply(grammarScopes, [0, grammarScopes.length].concat(toConsumableArray(newGrammarScopes)));
+};
+
+var updateRules = function updateRules() {
+  var activePackages = atom.packages.getActivePackages();
+
+  var rules = lodash_fp.flow(lodash_fp.flatMap('settings'), lodash_fp.flatMap(function (_ref) {
+    var settingsPath = _ref.path;
+    var scopedProperties = _ref.scopedProperties;
+    return lodash_fp.flow(lodash_fp.get(['.text.xml', 'validation', 'rules']), lodash_fp.map(lodash_fp.set('settingsPath', settingsPath)))(scopedProperties);
+  }), lodash_fp.compact)(activePackages);
+
+  parsedRules = ruleProcessor.parse(rules);
+};
+
+var handlePackageChanges = function handlePackageChanges() {
+  updateGrammarScopes();
+  updateRules();
+};
+
 var main = {
   serverProcess: ServerProcess,
   activate: function activate() {
     require('atom-package-deps').install();
 
     subscriptions = new atom$1.CompositeDisposable();
-
-    // TODO
-    parsedRules = ruleProcessor.parse(rules);
 
     Object.keys(atom.config.get('linter-autocomplete-jing')).forEach(function (key) {
       return subscriptions.add(atom.config.observe('linter-autocomplete-jing.' + key, setLocalConfig(key)));
@@ -1375,6 +1413,21 @@ var main = {
       }
     }));
 
+    var setPackageListeners = function setPackageListeners() {
+      subscriptions.add(atom.packages.onDidActivatePackage(handlePackageChanges));
+      subscriptions.add(atom.packages.onDidDeactivatePackage(handlePackageChanges));
+    };
+
+    if (initialPackagesActivated) {
+      setPackageListeners();
+    } else {
+      subscriptions.add(atom.packages.onDidActivateInitialPackages(function () {
+        initialPackagesActivated = true;
+        handlePackageChanges();
+        setPackageListeners();
+      }));
+    }
+
     serverProcessInstance.ensureIsReady(localConfig).catch(addErrorNotification);
   },
   deactivate: function deactivate() {
@@ -1384,7 +1437,7 @@ var main = {
   provideLinter: function provideLinter() {
     return {
       name: 'Jing',
-      grammarScopes: ['text.xml', 'text.xml.plist', 'text.xml.xsl', 'text.mei'],
+      grammarScopes: grammarScopes,
       scope: 'file',
       lintOnFly: true,
       lint: function lint(textEditor) {
@@ -1394,7 +1447,7 @@ var main = {
   },
   provideAutocomplete: function provideAutocomplete() {
     return {
-      selector: '.text.xml, .text.mei',
+      selector: '.text.xml',
       disableForSelector: '.comment, .string.unquoted.cdata.xml',
       inclusionPriority: localConfig.autocompletePriority,
       excludeLowerPriority: true,
