@@ -35,10 +35,6 @@ The package depends on a Java Runtime Environment (JRE) v1.6 or above. If runnin
 
 (In order to edit the settings, open Atom's settings view by pressing <kbd>Ctrl-,</kbd> or by selecting "Packages" / "Settings View" / "Open" in the main menu). In the "Packages" tab, search for "linter-autocomplete-jing" and click the "Settings" button.)
 
-## Commands
-
-* *linter-autocomplete-jing:clear-schema-cache*: Removes all schema and catalog data from the in-memory cache so it will get read from disk in the next validation run.
-
 ## File types
 
 Validation and autocomplete get activated when the current file's grammar scope includes an item starting with `text.xml`. The Atom core package [language-xml](https://atom.io/packages/language-xml) (installed by default) assigns a large set of common XML file extensions to `text.xml` and `text.xml.xsl`. XML property lists (`text.xml.plist`) are supported by another core package, [language-property-list](https://atom.io/packages/language-property-list).
@@ -62,10 +58,71 @@ The following example assigns the `.tei`, `.mei` and `.odd` extensions to `text.
 
 A second way of supporting custom file extensions is creating a new grammar package based on `text.xml` and specifying the extensions in the grammar definition. An example can be found in the [demo package](https://github.com/aerhard/xml-demo-package).
 
+
 ## Specifying Schemata
+
+### Schema References in Source Documents
 
 You can specify schemata by providing a DOCTYPE declaration, XSI schema instance attributes or xml-model processing instructions; see https://github.com/aerhard/linter-autocomplete-jing/tree/master/spec/validation/xml for a collection of examples).   
 If your documents contain references to remote schemata, you can improve performance and reduce network traffic by using an XML catalog file to map remote resources to local files. Projects like the Text Encoding Initiative (TEI) provide [packages](https://sourceforge.net/projects/tei/files/TEI-P5-all/) which include catalog files that can be added to the linter settings.
+
+### Schema Rules
+
+If you'd like to avoid providing schema hints in each individual source document you can specify 'validation rules' in Atom's `config.cson` or in a separate Atom package.
+
+Here are two demo rules, the first of which associates files ending with `.rng` with an RNG schema at `/path/to/relaxng.rng`, the second associating the root element namespace `urn:oasis:names:tc:entity:xmlns:xml:catalog` with the RNC schema at `/path/to/catalog.rnc`:
+
+```
+"linter-autocomplete-jing":
+  rules: [
+    {
+      priority: 1
+      test:
+        pathRegex: "\\.rng$"
+      outcome:
+        schemaProps: [
+          {
+            lang: "rng"
+            path: "/path/to/relaxng.rng"
+          }
+        ]
+    }
+    {
+      priority: 1
+      test:
+        rootNs: "urn:oasis:names:tc:entity:xmlns:xml:catalog"
+      outcome:
+        schemaProps: [
+          {
+            lang: "rnc"
+            path: "/path/to/catalog.rnc"
+          }
+        ]
+    }
+  ]
+```
+
+Generally, each rule must contain a `test`, an `outcome` and a `priority` property. `test` contains the criteria which need to be fulfilled for that rule to apply. `outcome` contains the schema / catalog information to be used when the rule is matched. When there are multiple rules, the `outcome` of the first matched rule gets applied (order is significant). Rules with higher `priority` get evaluated first, rules with the same priority get evaluated in the order in which they are specified. Rules in `config.cson` always take precedence over rules from packages.
+
+Possible properties of `test`:
+
+* `pathRegex`: a regular expression string matching the full path of the current file
+* `rootNs`: the namespace of the root element (string)
+* `rootLocalName`: the localname of the root element (string)
+* `rootAttributes`: the required attributes of the root element (object with attribute names as keys and expected attribute values as values)
+
+Possible properties of `outcome`:
+
+* `dtdValidation`: (see above for possible values)
+* `xmlCatalog`: (see above for possible values)
+* `schemaProps`: the schemata to be used in validation (array of objects with the properties `lang` and `path`. `path` specifies the file path of the schema, `lang` the schema language which must be one of 'rng', 'rnc', 'sch.iso', 'sch.15', 'xsd' or 'none')
+
+For an example of an Atom package containing a schema and schema association rules see [demo package](https://github.com/aerhard/xml-demo-package).  
+
+## Commands
+
+* *linter-autocomplete-jing:clear-schema-cache*: Removes all schema and catalog data from the in-memory cache so it will get read from disk in the next validation run.
+
 
 ## Development
 
