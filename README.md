@@ -4,6 +4,7 @@
 [![Appveyor CI Status](https://ci.appveyor.com/api/projects/status/github/aerhard/linter-autocomplete-jing?branch=master&svg=true)](https://ci.appveyor.com/project/aerhard/linter-autocomplete-jing)
 [![Circle CI Status](https://circleci.com/gh/aerhard/linter-autocomplete-jing/tree/master.svg?style=shield&circle-token=93c48cdbcad41ba1b7cd08f231286b94b195de53)](https://circleci.com/gh/aerhard/linter-autocomplete-jing)
 [![Dependencies](https://david-dm.org/aerhard/linter-autocomplete-jing.svg)](https://david-dm.org/aerhard/linter-autocomplete-jing)
+[![devDependencies Status](https://david-dm.org/aerhard/linter-autocomplete-jing/dev-status.svg)](https://david-dm.org/aerhard/linter-autocomplete-jing?type=dev)
 
 Autocomplete and on-the-fly validation of XML documents in Atom.
 
