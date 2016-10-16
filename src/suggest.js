@@ -128,13 +128,14 @@ const buildAttributeNameSuggestion = (replacementPrefix, addSuffix) =>
   };
 
 const buildElementSuggestion = (replacementPrefix, addSuffix) =>
-  ({ value, closing, attributes = [], documentation, snippet: preDefinedSnippet }) => {
+  ({ value, empty, closing, attributes = [], documentation, snippet: preDefinedSnippet }) => {
     if (preDefinedSnippet) {
       return {
         snippet: preDefinedSnippet,
         displayText: value,
         type: 'tag',
         replacementPrefix,
+        description: documentation,
         retrigger: false,
       };
     }
@@ -149,6 +150,7 @@ const buildElementSuggestion = (replacementPrefix, addSuffix) =>
         displayText: snippet,
         type: 'tag',
         replacementPrefix,
+        description: 'Closing Tag',
         retrigger: false,
       };
     }
@@ -160,10 +162,9 @@ const buildElementSuggestion = (replacementPrefix, addSuffix) =>
     const tagNameSnippet = tagName.replace(/\*/g, () => `\${${++index}}`);
 
     // don't retrigger autocomplete when a wildcard end tag snippet gets inserted
-    const retrigger = index > 0
-      ? false
-      : addSuffix;
+    const hasEndTagSnippet = index > 0;
 
+    let retrigger;
     let snippet;
     let displayText;
     if (addSuffix) {
@@ -192,10 +193,15 @@ const buildElementSuggestion = (replacementPrefix, addSuffix) =>
         .concat(attributeSnippets)
         .join(' ');
 
-      snippet = `${startTagContent}>\${${++index}}</${tagNameSnippet}>`;
+      snippet = empty
+        ? startTagContent + '/>'
+        : `${startTagContent}>\${${++index}}</${tagNameSnippet}>`;
+
+      retrigger = !hasEndTagSnippet && index > 0;
     } else {
       displayText = tagName;
       snippet = tagNameSnippet;
+      retrigger = false;
     }
 
     return {
@@ -244,26 +250,33 @@ const getQuotedScope = find(
 const includesTagScope = scopesArray =>
   scopesArray.some(item => item === 'meta.tag.xml' || item === 'meta.tag.no-content.xml');
 
-const buildHeaders = (editorPath, catalogPath, { lang, path: schemaPath }, type, fragment) => [
-  'A',
-  type,
-  fragment || '',
-  'r',
-  'UTF-8',
-  editorPath,
-  catalogPath || '',
-  lang + ' ' + (schemaPath || ''),
-];
+const wildcardOptions = {
+  none: '',
+  localparts: 'w',
+  all: 'wn',
+};
+
+const buildHeaders =
+  (editorPath, xmlCatalog, wildcardSuggestions, { lang, path: schemaPath }, type, fragment) => [
+    'A',
+    type,
+    fragment || '',
+    'r' + wildcardOptions[wildcardSuggestions],
+    'UTF-8',
+    editorPath,
+    xmlCatalog || '',
+    lang + ' ' + (schemaPath || ''),
+  ];
 
 const getSuggestions = (sharedConfig, suggestionOptions) => {
-  const { options, xmlCatalog, port, currentSchemaProps } = sharedConfig;
+  const { options, xmlCatalog, currentSchemaProps, wildcardSuggestions } = sharedConfig;
   const { editor } = options;
   const { type, fragment, body, clientData, filterFn, builderFn } = suggestionOptions;
 
-  const headers =
-    buildHeaders(editor.getPath(), xmlCatalog, currentSchemaProps, type, fragment);
+  const headers = buildHeaders(editor.getPath(), xmlCatalog, wildcardSuggestions,
+    currentSchemaProps, type, fragment);
 
-  return serverProcessInstance.sendRequest(headers, body, port)
+  return serverProcessInstance.sendRequest(headers, body)
     .then(flow(
       JSON.parse,
       data => (clientData ? data.concat(clientData) : data),
@@ -350,9 +363,11 @@ const getAttributeNameSuggestions = (sharedConfig, precedingLineText) => {
 const piSuggestions = [{
   value: '!--  -->',
   snippet: '!-- ${1} -->', // eslint-disable-line no-template-curly-in-string
+  documentation: 'Comment',
 }, {
   value: '![CDATA[]]>',
   snippet: '![CDATA[${1}]]>', // eslint-disable-line no-template-curly-in-string
+  documentation: 'CDATA Section',
 }];
 
 const getElementPISuggestions = (sharedConfig, tagNamePIPrefix) => {
@@ -375,33 +390,34 @@ const getElementPISuggestions = (sharedConfig, tagNamePIPrefix) => {
   });
 };
 
-const suggest = (options, { autocompleteScope, xmlCatalog }) => ([{ port }, { schemaProps }]) => {
-  const currentSchemaProps =
-    find(({ lang }) => !!autocompleteScope[lang], schemaProps) ||
-    { type: 'none' };
+const suggest = (options, { autocompleteScope, wildcardSuggestions }) =>
+  ([, { schemaProps, xmlCatalog }]) => {
+    const currentSchemaProps =
+      find(({ lang }) => !!autocompleteScope[lang], schemaProps) ||
+      { type: 'none' };
 
-  const scopesArray = options.scopeDescriptor.getScopesArray();
-  const sharedConfig = { options, xmlCatalog, port, currentSchemaProps };
-  const precedingLineText = getPrecedingLineText(options);
-  const tagNamePIPrefix = getTagNamePIPrefix(precedingLineText);
+    const scopesArray = options.scopeDescriptor.getScopesArray();
+    const sharedConfig = { options, xmlCatalog, currentSchemaProps, wildcardSuggestions };
+    const precedingLineText = getPrecedingLineText(options);
+    const tagNamePIPrefix = getTagNamePIPrefix(precedingLineText);
 
-  if (tagNamePIPrefix !== null) {
-    return getElementPISuggestions(sharedConfig, tagNamePIPrefix);
-  }
-
-  if (includesTagScope(scopesArray)) {
-    const quotedScope = getQuotedScope(scopesArray);
-
-    if (quotedScope) {
-      return getAttributeValueSuggestions(sharedConfig, precedingLineText, quotedScope);
+    if (tagNamePIPrefix !== null) {
+      return getElementPISuggestions(sharedConfig, tagNamePIPrefix);
     }
 
-    if (getPreviousTagBracket(options) === '<') {
-      return getAttributeNameSuggestions(sharedConfig, precedingLineText);
+    if (includesTagScope(scopesArray)) {
+      const quotedScope = getQuotedScope(scopesArray);
+
+      if (quotedScope) {
+        return getAttributeValueSuggestions(sharedConfig, precedingLineText, quotedScope);
+      }
+
+      if (getPreviousTagBracket(options) === '<') {
+        return getAttributeNameSuggestions(sharedConfig, precedingLineText);
+      }
     }
-  }
 
-  return [];
-};
+    return [];
+  };
 
-module.exports = suggest;
+export default suggest;

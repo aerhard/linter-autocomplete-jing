@@ -59,3 +59,11 @@
 * fix bug causing suggestions with xmlns="null"
 * add comment and cdata suggestions
 * prevent autocomplete in cdata sections
+
+### 0.6.0
+* insert self-closing tags when element content can only be empty
+* make validation on basis of DTDs optional
+* implement validation rule processing
+* support hot-reloading of code after updates
+* XSD-based suggestions: support substitution groups, take abstract elements into account, suggest xsi:nil
+* fix parser exceptions not being reported in schema validation

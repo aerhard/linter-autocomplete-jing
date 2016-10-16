@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.example.com" xmlns:other="http://www.other.com" xmlns:ns1="http://www.example.com">
+  <xs:import namespace="http://www.other.com" schemaLocation="other.xsd"/>
+
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="ns1:child1"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="child1" nillable="true">
+    <xs:complexType>
+      <xs:attribute ref="other:yiu" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

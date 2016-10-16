@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar
+  ns="http://www.example.com"
+  xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  
+  <define name="child1">
+    <element name="child1">
+      <empty/>
+    </element>
+  </define>
+  
+  <define name="child4">
+    <element name="child4">
+      <choice>
+        <ref name="child1"/>
+        <empty/>
+      </choice>
+    </element>
+  </define>
+  
+  <start>
+    <element name="root">
+      <choice>
+        <ref name="child1"/>
+        <element name="child2">
+          <choice>
+            <empty/>
+          </choice>
+        </element>
+        <element name="child3">
+          <choice>
+            <ref name="child1"/>
+            <empty/>
+          </choice>
+        </element>
+        <ref name="child4"/>
+        <empty/>
+      </choice>
+    </element>
+  </start>
+</grammar>

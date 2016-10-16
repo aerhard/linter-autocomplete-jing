@@ -36,7 +36,7 @@
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"><empty/>other:yiu2</a:documentation>
       <ref name="data.vals"/>
     </attribute>
-    <text/>
+    <empty/>
   </define>
 
   <define name="another-second-element">

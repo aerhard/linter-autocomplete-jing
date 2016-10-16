@@ -21,12 +21,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -37,12 +39,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -60,18 +64,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -89,18 +96,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -118,18 +128,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -147,18 +160,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -176,18 +192,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -205,18 +224,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -234,18 +256,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -256,18 +281,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -412,12 +440,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -428,12 +458,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -451,18 +483,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -480,18 +515,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -509,18 +547,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -538,18 +579,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -567,18 +611,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -596,25 +643,28 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
       "file": "../xml/rng-after-first-child.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -625,18 +675,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -647,18 +700,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -713,18 +769,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -760,18 +819,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -807,18 +869,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -848,18 +913,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -907,18 +975,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -960,18 +1031,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1303,18 +1377,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -1355,18 +1432,21 @@
         "displayText": "/other:child>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -1377,18 +1457,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1401,7 +1484,7 @@
       "file": "../xml/xsd-schemaLocation1.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -1412,18 +1495,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1448,7 +1534,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -1461,7 +1547,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -1471,18 +1557,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1513,7 +1602,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -1526,7 +1615,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -1542,18 +1631,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1584,7 +1676,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -1597,7 +1689,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -1613,18 +1705,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1649,7 +1744,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -1666,18 +1761,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1702,7 +1800,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -1712,18 +1810,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1739,12 +1840,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -1757,7 +1860,7 @@
       "file": "../xml/xsd-before-root.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
+        "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\"/>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
         "replacementPrefix": "",
@@ -1770,7 +1873,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild xmlns=\"http://www.example.com\" ns${1}:yiu=\"${2}\" xmlns:ns${1}=\"http://www.other.com\">${3}</secondChild>",
+        "snippet": "secondChild xmlns=\"http://www.example.com\" ns${1}:yiu=\"${2}\" xmlns:ns${1}=\"http://www.other.com\"/>",
         "displayText": "secondChild (http://www.example.com)",
         "type": "tag",
         "replacementPrefix": "",
@@ -1780,12 +1883,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -1796,19 +1901,21 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
       "file": "../xml/xsd-before-first-child.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -1819,25 +1926,28 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
       "file": "../xml/xsd-first-child-angle-bracket.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -1848,25 +1958,28 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
       "file": "../xml/xsd-first-child-tag.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -1877,25 +1990,28 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
       "file": "../xml/xsd-before-first-child-no-child-ns-prefix.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
+        "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\"/>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
         "replacementPrefix": "",
@@ -1906,25 +2022,28 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
       "file": "../xml/xsd-first-child-angle-bracket-no-child-ns-prefix.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
+        "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\"/>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
         "replacementPrefix": "",
@@ -1935,25 +2054,28 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
       "file": "../xml/xsd-first-child-tag-no-child-ns-prefix.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\">${2}</child>",
+        "snippet": "child xmlns=\"http://www.other.com\" x=\"${1}\"/>",
         "displayText": "child (http://www.other.com)",
         "type": "tag",
         "replacementPrefix": "",
@@ -1964,25 +2086,28 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
       "file": "../xml/xsd-after-first-child.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -1992,18 +2117,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2014,18 +2142,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -2038,14 +2169,14 @@
       "file": "../xml/xsd1-1.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
       }, {
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -2055,32 +2186,35 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
       "file": "../xml/xsd1-2.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
       }, {
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -2090,18 +2224,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -2114,14 +2251,14 @@
       "file": "../xml/xsd2-1.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
         "description": "other:line1 – other:line2",
         "retrigger": true
       }, {
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -2131,25 +2268,28 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
       "file": "../xml/xsd2-2.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -2159,18 +2299,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -2195,7 +2338,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -2205,25 +2348,28 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
       "file": "../xml/xsd-element-wildcard1-2.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -2234,18 +2380,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -2270,7 +2419,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -2283,7 +2432,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -2293,25 +2442,28 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
       "file": "../xml/xsd-element-wildcard2-2.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -2322,18 +2474,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -2358,7 +2513,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -2368,18 +2523,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -2398,7 +2556,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "other:child x=\"${1}\">${2}</other:child>",
+        "snippet": "other:child x=\"${1}\"/>",
         "displayText": "other:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -2409,18 +2567,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -2841,12 +3002,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2857,12 +3020,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2873,18 +3038,21 @@
         "displayText": "/other:child>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2909,12 +3077,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2925,12 +3095,14 @@
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2941,18 +3113,21 @@
         "displayText": "/other:child>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -2974,7 +3149,7 @@
       "file": "../xml/xsd-noTargetNamespace1.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -2984,25 +3159,28 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
       "file": "../xml/xsd-noTargetNamespace2.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "secondChild other:yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild other:yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -3012,18 +3190,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -3054,7 +3235,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "child xmlns=\"\" x=\"${1}\">${2}</child>",
+        "snippet": "child xmlns=\"\" x=\"${1}\"/>",
         "displayText": "child [no namespace]",
         "type": "tag",
         "replacementPrefix": "",
@@ -3067,7 +3248,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -3083,18 +3264,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -3113,7 +3297,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "child x=\"${1}\">${2}</child>",
+        "snippet": "child x=\"${1}\"/>",
         "displayText": "child",
         "type": "tag",
         "replacementPrefix": "",
@@ -3132,7 +3316,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "ex:secondChild yiu=\"${1}\">${2}</ex:secondChild>",
+        "snippet": "ex:secondChild yiu=\"${1}\"/>",
         "displayText": "ex:secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -3148,18 +3332,21 @@
         "displayText": "/ex:root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -3184,7 +3371,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "child x=\"${1}\">${2}</child>",
+        "snippet": "child x=\"${1}\"/>",
         "displayText": "child",
         "type": "tag",
         "replacementPrefix": "",
@@ -3197,7 +3384,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "secondChild yiu=\"${1}\">${2}</secondChild>",
+        "snippet": "secondChild yiu=\"${1}\"/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -3213,18 +3400,21 @@
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }, {
@@ -3249,7 +3439,7 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
-        "snippet": "ex:child x=\"${1}\">${2}</ex:child>",
+        "snippet": "ex:child x=\"${1}\"/>",
         "displayText": "ex:child",
         "type": "tag",
         "replacementPrefix": "",
@@ -3262,7 +3452,7 @@
         "replacementPrefix": "",
         "retrigger": true
       }, {
-        "snippet": "ex:secondChild yiu=\"${1}\">${2}</ex:secondChild>",
+        "snippet": "ex:secondChild yiu=\"${1}\"/>",
         "displayText": "ex:secondChild",
         "type": "tag",
         "replacementPrefix": "",
@@ -3278,18 +3468,21 @@
         "displayText": "/ex:root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
       }]
     }]
@@ -3302,37 +3495,234 @@
       "file": "../xml/rng-undefined-ns.xml",
       "suggestionType": "E",
       "expectResult": [{
-        "snippet": "child xmlns=\"\">${1}</child>",
+        "snippet": "child xmlns=\"\"/>",
         "displayText": "child [no namespace]",
         "type": "tag",
         "replacementPrefix": "",
         "description": "child – child",
-        "retrigger": true
+        "retrigger": false
       }, {
-        "snippet": "secondChild>${1}</secondChild>",
+        "snippet": "secondChild/>",
         "displayText": "secondChild",
         "type": "tag",
         "replacementPrefix": "",
         "description": "child – child",
-        "retrigger": true
+        "retrigger": false
       }, {
         "snippet": "/root>",
         "displayText": "/root>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Closing Tag",
         "retrigger": false
       }, {
         "snippet": "!-- ${1} -->",
         "displayText": "!--  -->",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "Comment",
         "retrigger": false
       }, {
         "snippet": "![CDATA[${1}]]>",
         "displayText": "![CDATA[]]>",
         "type": "tag",
         "replacementPrefix": "",
+        "description": "CDATA Section",
         "retrigger": false
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "rng",
+      "path": "../schema/schema-empty-content.rng"
+    }],
+    "items": [{
+      "file": "../xml/rng-empty-content.xml",
+      "suggestionType": "E",
+      "expectResult": [{
+        "snippet": "child1/>",
+        "displayText": "child1",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "child2/>",
+        "displayText": "child2",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "child3>${1}</child3>",
+        "displayText": "child3",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "child4>${1}</child4>",
+        "displayText": "child4",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "/root>",
+        "displayText": "/root>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "description": "Closing Tag",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "description": "Comment",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "description": "CDATA Section",
+        "retrigger": false
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-subst-element.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-subst-element.xml",
+      "suggestionType": "E",
+      "expectResult": [{
+        "snippet": "base1 other:yiu=\"${1}\"/>",
+        "displayText": "base1",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "base2 other:yiu=\"${1}\"/>",
+        "displayText": "base2",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "base3 other:yiu=\"${1}\"/>",
+        "displayText": "base3",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "subst1 other:yiu=\"${1}\"/>",
+        "displayText": "subst1",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "subst2 other:yiu=\"${1}\"/>",
+        "displayText": "subst2",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "subst3 other:yiu=\"${1}\"/>",
+        "displayText": "subst3",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "subst4 other:yiu=\"${1}\"/>",
+        "displayText": "subst4",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "subst5 other:yiu=\"${1}\"/>",
+        "displayText": "subst5",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "subst6 other:yiu=\"${1}\"/>",
+        "displayText": "subst6",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": true
+      }, {
+        "snippet": "/root>",
+        "displayText": "/root>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "description": "Closing Tag",
+        "retrigger": false
+      }, {
+        "snippet": "!-- ${1} -->",
+        "displayText": "!--  -->",
+        "type": "tag",
+        "replacementPrefix": "",
+        "description": "Comment",
+        "retrigger": false
+      }, {
+        "snippet": "![CDATA[${1}]]>",
+        "displayText": "![CDATA[]]>",
+        "type": "tag",
+        "replacementPrefix": "",
+        "description": "CDATA Section",
+        "retrigger": false
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-nillable.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-nillable.xml",
+      "suggestionType": "N",
+      "expectResult": [{
+        "snippet": "other:yiu=\"${1}\"",
+        "displayText": "other:yiu",
+        "type": "attribute",
+        "replacementPrefix": "",
+        "description": "Documentation for yiu – second line",
+        "retrigger": true
+      }, {
+        "snippet": "xsi:nil=\"${1}\"",
+        "displayText": "xsi:nil",
+        "type": "attribute",
+        "replacementPrefix": "",
+        "retrigger": true
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-types.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-types.xml",
+      "suggestionType": "V",
+      "fragment": "a",
+      "expectResult": [{
+        "snippet": "0",
+        "displayText": "0",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "1",
+        "displayText": "1",
+        "type": "value",
+        "replacementPrefix": ""
+      }]
+    }, {
+      "file": "../xml/xsd-types.xml",
+      "suggestionType": "N",
+      "expectResult": [{
+        "snippet": "c=\"${1}\"",
+        "displayText": "c",
+        "type": "attribute",
+        "replacementPrefix": "",
+        "retrigger": true
       }]
     }]
   }]

@@ -1,8 +1,7 @@
 
 import { Socket } from 'net';
-
-let spawn;
-let path;
+import spawn from 'cross-spawn';
+import path from 'path';
 
 const portRegex = /XML Tools Server listening on port (\d+)/;
 const jarPath = '../vendor/xml-tools-server-0.4.4.jar';
@@ -36,9 +35,6 @@ ServerProcess.prototype = {
   },
 
   createIsReadyPromise(config) {
-    if (!spawn) spawn = require('cross-spawn');
-    if (!path) path = require('path');
-
     this.state = this.INITIALIZING;
 
     return new Promise((resolve, reject) => {
@@ -174,4 +170,4 @@ ServerProcess.Error = function(message, err) {
 
 ServerProcess.Error.prototype = Object.create(Error.prototype);
 
-module.exports = ServerProcess;
+export default ServerProcess;

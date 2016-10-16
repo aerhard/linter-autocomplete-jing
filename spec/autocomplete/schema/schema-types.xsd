@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.example.com" xmlns:other="http://www.other.com" xmlns:ns1="http://www.example.com">
+  <xs:import namespace="http://www.other.com" schemaLocation="other.xsd"/>
+
+  <xs:element name="root" type="ns1:t1"/>
+
+  <xs:simpleType name="vals">
+    <xs:union memberTypes="xs:nonNegativeInteger">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="2"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  
+  <xs:complexType name="t1">
+    <xs:complexContent>
+      <xs:restriction base="ns1:localElement">
+        <xs:attribute name="a" use="optional" default="1">
+          <xs:simpleType>
+            <xs:restriction base="ns1:vals">
+              <xs:enumeration value="0"/>
+              <xs:enumeration value="1"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:complexType name="localElement">
+    <xs:complexContent>
+      <xs:restriction base="ns1:element">
+        <xs:attribute name="b" use="prohibited"/>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="element" abstract="true">
+    <xs:attribute name="a" type="ns1:vals" use="optional" default="1"/>
+    <xs:attribute name="b" type="xs:boolean" use="optional" default="false"/>
+    <xs:attribute name="c" type="xs:boolean" use="optional" default="false"/>    
+  </xs:complexType>
+  
+</xs:schema>

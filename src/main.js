@@ -1,6 +1,13 @@
 
+import {
+  flow, flatMap, compact, get, filter, startsWith, map, set,
+} from 'lodash/fp';
 import { CompositeDisposable } from 'atom'; // eslint-disable-line
 import serverProcess from './serverProcess';
+import ruleProcessor from './ruleProcessor';
+import getSchemaProps from './getSchemaProps';
+import validate from './validate';
+import suggest from './suggest';
 
 const serverProcessInstance = serverProcess.getInstance();
 
@@ -13,10 +20,13 @@ if (serverProcessInstance.onError === serverProcess.prototype.onError) {
   };
 }
 
-let validate;
-let suggest;
-let getSchemaProps;
 let subscriptions;
+let parsedConfigRules = [];
+let parsedPackageRules = [];
+let parsedRules = [];
+let initialPackagesActivated = false;
+let shouldSuppressAutocomplete = false;
+const grammarScopes = [];
 
 const localConfig = {};
 
@@ -31,13 +41,20 @@ const addErrorNotification = (err) => {
 const setServerConfig = (args) => {
   if (serverProcessInstance.isReadyPromise) {
     serverProcessInstance.isReadyPromise
-      .then(({ port }) => serverProcessInstance.sendRequest(args, null, port))
+      .then(() => serverProcessInstance.sendRequest(args, null))
       .catch(addErrorNotification);
   }
 };
 
 const setLocalConfig = key => (value) => {
+  if (key === 'rules') {
+    parsedConfigRules = ruleProcessor.parse(value);
+    parsedRules = parsedConfigRules.concat(parsedPackageRules);
+    return;
+  }
+
   localConfig[key] = value;
+
   if (!serverProcessInstance.isReady) return;
 
   if (['javaExecutablePath', 'jvmArguments'].includes(key)) {
@@ -46,8 +63,6 @@ const setLocalConfig = key => (value) => {
     setServerConfig(['S', value]);
   }
 };
-
-let shouldSuppressAutocomplete = false;
 
 const triggerAutocomplete = (editor) => {
   atom.commands.dispatch(atom.views.getView(editor), 'autocomplete-plus:activate', {
@@ -61,7 +76,41 @@ const cancelAutocomplete = (editor) => {
   });
 };
 
-module.exports = {
+const updateGrammarScopes = () => {
+  const grammars = atom.grammars.getGrammars();
+  const newGrammarScopes = flow(
+    map('scopeName'),
+    filter(startsWith('text.xml'))
+  )(grammars);
+
+  grammarScopes.splice(0, grammarScopes.length, ...newGrammarScopes);
+};
+
+const updateRules = () => {
+  const activePackages = atom.packages.getActivePackages();
+
+  const rules = flow(
+    flatMap('settings'),
+    flatMap(({ path: settingsPath, scopedProperties }) =>
+      flow(
+        get(['.text.xml', 'validation', 'rules']),
+        map(set('settingsPath', settingsPath))
+      )(scopedProperties)
+    ),
+    compact,
+  )(activePackages);
+
+  parsedPackageRules = ruleProcessor.parse(rules);
+  parsedRules = parsedConfigRules.concat(parsedPackageRules);
+};
+
+const handlePackageChanges = () => {
+  updateGrammarScopes();
+  updateRules();
+};
+
+export default {
+  serverProcess,
   activate() {
     require('atom-package-deps').install();
 
@@ -79,6 +128,21 @@ module.exports = {
       'linter-autocomplete-jing:clear-schema-cache': () => setServerConfig(['C']),
     }));
 
+    const setPackageListeners = () => {
+      subscriptions.add(atom.packages.onDidActivatePackage(handlePackageChanges));
+      subscriptions.add(atom.packages.onDidDeactivatePackage(handlePackageChanges));
+    };
+
+    if (initialPackagesActivated) {
+      setPackageListeners();
+    } else {
+      subscriptions.add(atom.packages.onDidActivateInitialPackages(() => {
+        initialPackagesActivated = true;
+        handlePackageChanges();
+        setPackageListeners();
+      }));
+    }
+
     serverProcessInstance
       .ensureIsReady(localConfig)
       .catch(addErrorNotification);
@@ -90,18 +154,15 @@ module.exports = {
   },
 
   provideLinter() {
-    if (!validate) validate = require('./validate');
-    if (!getSchemaProps) getSchemaProps = require('./getSchemaProps');
-
     return {
       name: 'Jing',
-      grammarScopes: ['text.xml', 'text.xml.plist', 'text.xml.xsl', 'text.mei'],
+      grammarScopes,
       scope: 'file',
       lintOnFly: true,
       lint(textEditor) {
         return Promise.all([
           serverProcessInstance.ensureIsReady(localConfig),
-          getSchemaProps(textEditor, localConfig),
+          getSchemaProps(textEditor, parsedRules, localConfig),
         ])
         .then(validate(textEditor, localConfig))
         .catch(addErrorNotification);
@@ -110,11 +171,8 @@ module.exports = {
   },
 
   provideAutocomplete() {
-    if (!suggest) suggest = require('./suggest');
-    if (!getSchemaProps) getSchemaProps = require('./getSchemaProps');
-
     return {
-      selector: '.text.xml, .text.mei',
+      selector: '.text.xml',
       disableForSelector: '.comment, .string.unquoted.cdata.xml',
       inclusionPriority: localConfig.autocompletePriority,
       excludeLowerPriority: true,
@@ -127,7 +185,7 @@ module.exports = {
 
         return Promise.all([
           serverProcessInstance.ensureIsReady(localConfig),
-          getSchemaProps(options.editor, localConfig),
+          getSchemaProps(options.editor, parsedRules, localConfig),
         ])
         .then(suggest(options, localConfig))
         .catch(addErrorNotification);
