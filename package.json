@@ -135,6 +135,47 @@
           "default": true
         }
       }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "priority": { "type": "number" },
+          "test": {
+            "type": "object",
+            "properties": {
+              "grammarScope": { "type": "string" },
+              "pathRegex": { "type": "string" },
+              "rootNs": { "type": "string" },
+              "rootLocalName": { "type": "string" },
+              "rootAttributes": { "type": "object" }
+            }
+          },
+          "outcome": {
+            "type": "object",
+            "properties": {
+              "xmlCatalog": { "type": "string" },
+              "schemaProps": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "lang": { "type": "string" },
+                    "path": { "type": "string" }
+                  }
+                }
+              },
+              "dtdValidation": {
+                "type": "string",
+                "default": "fallback",
+                "enum": ["never", "always", "fallback"]
+              }
+            }
+          }
+        }
+      },
+      "default": []
     }
   }
 }
