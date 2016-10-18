@@ -1,7 +1,7 @@
 {
   "name": "linter-autocomplete-jing",
   "main": "./lib/main.coffee",
-  "version": "0.5.3",
+  "version": "0.6.0",
   "description": "Autocomplete and on-the-fly validation of XML documents against RELAX NG (compact, XML), Schematron (1.5, ISO), W3C Schema (XSD 1.0) and DTD",
   "keywords": [
     "xml",
@@ -141,35 +141,57 @@
       "items": {
         "type": "object",
         "properties": {
-          "priority": { "type": "number" },
+          "priority": {
+            "type": "number"
+          },
           "test": {
             "type": "object",
             "properties": {
-              "grammarScope": { "type": "string" },
-              "pathRegex": { "type": "string" },
-              "rootNs": { "type": "string" },
-              "rootLocalName": { "type": "string" },
-              "rootAttributes": { "type": "object" }
+              "grammarScope": {
+                "type": "string"
+              },
+              "pathRegex": {
+                "type": "string"
+              },
+              "rootNs": {
+                "type": "string"
+              },
+              "rootLocalName": {
+                "type": "string"
+              },
+              "rootAttributes": {
+                "type": "object"
+              }
             }
           },
           "outcome": {
             "type": "object",
             "properties": {
-              "xmlCatalog": { "type": "string" },
+              "xmlCatalog": {
+                "type": "string"
+              },
               "schemaProps": {
                 "type": "array",
                 "items": {
                   "type": "object",
                   "properties": {
-                    "lang": { "type": "string" },
-                    "path": { "type": "string" }
+                    "lang": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    }
                   }
                 }
               },
               "dtdValidation": {
                 "type": "string",
                 "default": "fallback",
-                "enum": ["never", "always", "fallback"]
+                "enum": [
+                  "never",
+                  "always",
+                  "fallback"
+                ]
               }
             }
           }
