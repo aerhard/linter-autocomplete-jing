@@ -21,6 +21,8 @@ if (serverProcessInstance.onError === serverProcess.prototype.onError) {
 }
 
 let subscriptions;
+let parsedConfigRules = [];
+let parsedPackageRules = [];
 let parsedRules = [];
 let initialPackagesActivated = false;
 let shouldSuppressAutocomplete = false;
@@ -45,6 +47,12 @@ const setServerConfig = (args) => {
 };
 
 const setLocalConfig = key => (value) => {
+  if (key === 'rules') {
+    parsedConfigRules = ruleProcessor.parse(value);
+    parsedRules = parsedConfigRules.concat(parsedPackageRules);
+    return;
+  }
+
   localConfig[key] = value;
 
   if (!serverProcessInstance.isReady) return;
@@ -92,7 +100,8 @@ const updateRules = () => {
     compact,
   )(activePackages);
 
-  parsedRules = ruleProcessor.parse(rules);
+  parsedPackageRules = ruleProcessor.parse(rules);
+  parsedRules = parsedConfigRules.concat(parsedPackageRules);
 };
 
 const handlePackageChanges = () => {

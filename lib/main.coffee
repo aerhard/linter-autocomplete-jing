@@ -1323,6 +1323,8 @@ if (serverProcessInstance.onError === ServerProcess.prototype.onError) {
 }
 
 var subscriptions = void 0;
+var parsedConfigRules = [];
+var parsedPackageRules = [];
 var parsedRules = [];
 var initialPackagesActivated = false;
 var shouldSuppressAutocomplete = false;
@@ -1348,6 +1350,12 @@ var setServerConfig = function setServerConfig(args) {
 
 var setLocalConfig = function setLocalConfig(key) {
   return function (value) {
+    if (key === 'rules') {
+      parsedConfigRules = ruleProcessor.parse(value);
+      parsedRules = parsedConfigRules.concat(parsedPackageRules);
+      return;
+    }
+
     localConfig[key] = value;
 
     if (!serverProcessInstance.isReady) return;
@@ -1388,7 +1396,8 @@ var updateRules = function updateRules() {
     return lodash_fp.flow(lodash_fp.get(['.text.xml', 'validation', 'rules']), lodash_fp.map(lodash_fp.set('settingsPath', settingsPath)))(scopedProperties);
   }), lodash_fp.compact)(activePackages);
 
-  parsedRules = ruleProcessor.parse(rules);
+  parsedPackageRules = ruleProcessor.parse(rules);
+  parsedRules = parsedConfigRules.concat(parsedPackageRules);
 };
 
 var handlePackageChanges = function handlePackageChanges() {
