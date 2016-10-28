@@ -1,9 +1,9 @@
 
 import { compact, filter, find, flow, join, map } from 'lodash/fp';
 import regex from './regex';
-import serverProcess from './serverProcess';
+import ServerProcess from './ServerProcess';
 
-const serverProcessInstance = serverProcess.getInstance();
+const serverProcessInstance = ServerProcess.getInstance();
 
 const getEndToken = (str) => {
   const match = str.match(regex.endToken);

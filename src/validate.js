@@ -1,9 +1,9 @@
 
 import { flow, trim, split, map, compact, concat, sortBy, filter, identity } from 'lodash/fp';
 
-import serverProcess from './serverProcess';
+import ServerProcess from './ServerProcess';
 
-const serverProcessInstance = serverProcess.getInstance();
+const serverProcessInstance = ServerProcess.getInstance();
 
 const helpers = require('atom-linter');
 

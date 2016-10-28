@@ -3,15 +3,15 @@ import {
   flow, flatMap, compact, get, filter, startsWith, map, set,
 } from 'lodash/fp';
 import { CompositeDisposable } from 'atom'; // eslint-disable-line
-import serverProcess from './serverProcess';
-import ruleProcessor from './ruleProcessor';
+import ServerProcess from './ServerProcess';
 import getSchemaProps from './getSchemaProps';
 import validate from './validate';
 import suggest from './suggest';
+import RuleManager from './RuleManager';
 
-const serverProcessInstance = serverProcess.getInstance();
+const serverProcessInstance = ServerProcess.getInstance();
 
-if (serverProcessInstance.onError === serverProcess.prototype.onError) {
+if (serverProcessInstance.onError === ServerProcess.prototype.onError) {
   serverProcessInstance.onError = (err) => {
     atom.notifications.addError(`[linter-autocomplete-jing] ${err.message}`, {
       detail: err.stack,
@@ -21,11 +21,9 @@ if (serverProcessInstance.onError === serverProcess.prototype.onError) {
 }
 
 let subscriptions;
-let parsedConfigRules = [];
-let parsedPackageRules = [];
-let parsedRules = [];
 let initialPackagesActivated = false;
 let shouldSuppressAutocomplete = false;
+const ruleManager = new RuleManager();
 const grammarScopes = [];
 
 const localConfig = {};
@@ -48,8 +46,7 @@ const setServerConfig = (args) => {
 
 const setLocalConfig = key => (value) => {
   if (key === 'rules') {
-    parsedConfigRules = ruleProcessor.parse(value);
-    parsedRules = parsedConfigRules.concat(parsedPackageRules);
+    ruleManager.updateConfigRules(value);
     return;
   }
 
@@ -100,8 +97,7 @@ const updateRules = () => {
     compact,
   )(activePackages);
 
-  parsedPackageRules = ruleProcessor.parse(rules);
-  parsedRules = parsedConfigRules.concat(parsedPackageRules);
+  ruleManager.updatePackageRules(rules);
 };
 
 const handlePackageChanges = () => {
@@ -110,7 +106,7 @@ const handlePackageChanges = () => {
 };
 
 export default {
-  serverProcess,
+  ServerProcess,
   activate() {
     require('atom-package-deps').install();
 
@@ -162,7 +158,7 @@ export default {
       lint(textEditor) {
         return Promise.all([
           serverProcessInstance.ensureIsReady(localConfig),
-          getSchemaProps(textEditor, parsedRules, localConfig),
+          getSchemaProps(textEditor, ruleManager.getParsedRules(), localConfig),
         ])
         .then(validate(textEditor, localConfig))
         .catch(addErrorNotification);
@@ -185,7 +181,7 @@ export default {
 
         return Promise.all([
           serverProcessInstance.ensureIsReady(localConfig),
-          getSchemaProps(options.editor, parsedRules, localConfig),
+          getSchemaProps(options.editor, ruleManager.getParsedRules(), localConfig),
         ])
         .then(suggest(options, localConfig))
         .catch(addErrorNotification);

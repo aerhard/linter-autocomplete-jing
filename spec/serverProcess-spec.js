@@ -3,12 +3,12 @@
 import path from 'path';
 import main from '../lib/main.coffee';
 
-const serverProcess = main.serverProcess;
+const ServerProcess = main.ServerProcess;
 
-describe('serverProcess', () => {
+describe('ServerProcess', () => {
   describe('given a wrong java path', () => {
     it('should return a rejected promise', () => {
-      const serverProcessInstance = serverProcess.getInstance();
+      const serverProcessInstance = ServerProcess.getInstance();
       const promise = serverProcessInstance.createIsReadyPromise({
         javaExecutablePath: path.resolve(__dirname, 'missing-java-executable'),
       });

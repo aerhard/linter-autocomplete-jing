@@ -6,8 +6,8 @@ import testData from './autocomplete/json/main.json';
 
 const resolvePath = filename => path.resolve(__dirname, 'autocomplete/json', filename);
 
-const serverProcess = main.serverProcess;
-const serverProcessInstance = serverProcess.getInstance();
+const ServerProcess = main.ServerProcess;
+const serverProcessInstance = ServerProcess.getInstance();
 
 const buildOptions = (editor, suggestionType, fragment) => {
   const endPosition = editor.getBuffer().getEndPosition();
@@ -122,6 +122,6 @@ describe('autocomplete', () => {
   });
 
   it('%%% pseudo after all %%%', () => {
-    serverProcess.prototype.exit.apply(serverProcessInstance);
+    ServerProcess.prototype.exit.apply(serverProcessInstance);
   });
 });

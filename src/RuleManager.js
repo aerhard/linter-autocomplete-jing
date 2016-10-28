@@ -78,6 +78,26 @@ const parse = flow(
   sortByPriority,
 );
 
-export default {
-  parse,
-};
+export default class RuleManager {
+
+  constructor() {
+    this.parsedConfigRules = [];
+    this.parsedPackageRules = [];
+    this.parsedRules = [];
+  }
+
+  updateConfigRules(rules) {
+    this.parsedConfigRules = parse(rules);
+    this.parsedRules = this.parsedConfigRules.concat(this.parsedPackageRules);
+  }
+
+  updatePackageRules(rules) {
+    this.parsedPackageRules = parse(rules);
+    this.parsedRules = this.parsedConfigRules.concat(this.parsedPackageRules);
+  }
+
+  getParsedRules() {
+    return this.parsedRules;
+  }
+
+}
