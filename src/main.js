@@ -1,6 +1,6 @@
 
 import {
-  flow, flatMap, compact, get, filter, startsWith, map, set,
+  flow, flatMap, compact, get, filter, startsWith, map,
 } from './fp';
 import { CompositeDisposable } from 'atom'; // eslint-disable-line
 import ServerProcess from './ServerProcess';
@@ -91,7 +91,7 @@ const updateRules = () => {
     flatMap(({ path: settingsPath, scopedProperties }) =>
       flow(
         get(['.text.xml', 'validation', 'rules']),
-        map(set('settingsPath', settingsPath)),
+        map(({ test, outcome }) => ({ test, outcome, settingsPath })),
       )(scopedProperties),
     ),
     compact,
@@ -107,6 +107,7 @@ const handlePackageChanges = () => {
 
 export default {
   ServerProcess,
+  ruleManager,
   activate() {
     require('atom-package-deps').install();
 

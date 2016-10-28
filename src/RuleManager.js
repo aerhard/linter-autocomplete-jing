@@ -1,6 +1,6 @@
 
 import path from 'path';
-import { allPass, map, update, flow, merge } from './fp';
+import { allPass, map, flow } from './fp';
 
 const createGrammarScopeMatcher = value =>
   ({ rootScopes }) => rootScopes.includes(value);
@@ -27,52 +27,57 @@ const createRootAttributeMatcher = (value, name) =>
 
 const sortByPriority = arr => arr.sort((a, b) => b.priority - a.priority);
 
-const parse = flow(
-  map(
-    flow(
-      update('test', ({ grammarScope, pathRegex, rootNs, rootLocalName, rootAttributes }) => {
-        const matchers = [];
-        if (grammarScope) {
-          matchers.push(createGrammarScopeMatcher(grammarScope));
-        }
-        if (pathRegex) {
-          matchers.push(createPathRegexMatcher(pathRegex));
-        }
-        if (rootNs) {
-          matchers.push(createRootNsMatcher(rootNs));
-        }
-        if (rootLocalName) {
-          matchers.push(createRootLocalNameMatcher(rootLocalName));
-        }
-        if (rootAttributes) {
-          const attributeMatchers = map(
-            createRootAttributeMatcher,
-            rootAttributes,
-          );
-          matchers.push(...attributeMatchers);
-        }
+const createTestFn = ({ grammarScope, pathRegex, rootNs, rootLocalName, rootAttributes }) => {
+  const matchers = [];
+  if (grammarScope) {
+    matchers.push(createGrammarScopeMatcher(grammarScope));
+  }
+  if (pathRegex) {
+    matchers.push(createPathRegexMatcher(pathRegex));
+  }
+  if (rootNs) {
+    matchers.push(createRootNsMatcher(rootNs));
+  }
+  if (rootLocalName) {
+    matchers.push(createRootLocalNameMatcher(rootLocalName));
+  }
+  if (rootAttributes) {
+    const attributeMatchers = map(
+      createRootAttributeMatcher,
+      rootAttributes,
+    );
+    matchers.push(...attributeMatchers);
+  }
 
-        return matchers.length
-          ? allPass(matchers)
-          : () => false;
-      }),
-      (rule) => {
-        const newOutcome = {};
-        const { outcome, settingsPath } = rule;
-        const basePath = path.dirname(settingsPath);
+  return matchers.length
+    ? allPass(matchers)
+    : () => false;
+};
 
-        if (outcome.xmlCatalog) {
-          newOutcome.xmlCatalog = path.resolve(basePath, outcome.xmlCatalog);
-        }
-        if (outcome.schemaProps) {
-          newOutcome.schemaProps = outcome.schemaProps.map(({ path: schemaPath }) => ({
-            path: path.resolve(basePath, schemaPath),
-          }));
-        }
-        return merge(rule, { outcome: newOutcome });
-      },
-    ),
-  ),
+const parseRule = ({ test, outcome, settingsPath }) => {
+  const testFn = createTestFn(test);
+
+  const newOutcome = {};
+  const basePath = path.dirname(settingsPath);
+
+  if (outcome.xmlCatalog) {
+    newOutcome.xmlCatalog = path.resolve(basePath, outcome.xmlCatalog);
+  }
+  if (outcome.schemaProps) {
+    newOutcome.schemaProps = outcome.schemaProps.map(({ path: schemaPath, lang }) => ({
+      path: path.resolve(basePath, schemaPath),
+      lang,
+    }));
+  }
+
+  return {
+    test: testFn,
+    outcome: Object.assign({}, outcome, newOutcome),
+  };
+};
+
+const parseRules = flow(
+  map(parseRule),
   sortByPriority,
 );
 
@@ -85,12 +90,12 @@ export default class RuleManager {
   }
 
   updateConfigRules(rules) {
-    this.parsedConfigRules = parse(rules);
+    this.parsedConfigRules = parseRules(rules);
     this.parsedRules = this.parsedConfigRules.concat(this.parsedPackageRules);
   }
 
   updatePackageRules(rules) {
-    this.parsedPackageRules = parse(rules);
+    this.parsedPackageRules = parseRules(rules);
     this.parsedRules = this.parsedConfigRules.concat(this.parsedPackageRules);
   }
 

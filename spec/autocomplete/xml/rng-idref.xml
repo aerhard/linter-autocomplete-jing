@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schema/schema-idref.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<root ref="ad" refs="ee" uri="#ee" uris="#ad #ee" plus="asdf" xmlns="http://www.example.com" xmlns:other="http://www.other.com">
+  <secondChild id="ad"/>
+  <secondChild id="ee"/>
+</root>

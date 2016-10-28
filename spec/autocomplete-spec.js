@@ -96,7 +96,7 @@ describe('autocomplete', () => {
         describe(`given schema "${schemaFiles}", `, () => {
           secondLevelItems.forEach((item) => {
             const str = 'suggests ' +
-              '[' + item.expectResult.map(({ displayText }) => displayText).join(', ') + '] ' +
+              '[' + item.expectResult.map(({ displayText }) => displayText.replace('#', '[hash]')).join(', ') + '] ' +
               'when requesting type "' + item.suggestionType + '" autocomplete ' +
               'in file "' + path.basename(item.file) + '" ' +
               (item.fragment ? 'at fragment "' + item.fragment : '');

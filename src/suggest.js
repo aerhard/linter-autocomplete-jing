@@ -36,7 +36,7 @@ const getEndBracketPosition = ({ editor, bufferPosition }) => {
     ({ matchText, range, stop }) => {
       if (!matchText.startsWith('\'') && !matchText.startsWith('"')) {
         if (matchText !== '<') {
-          position = range.start;
+          position = [range.start.row, range.start.column + matchText.length];
         }
         stop();
       }
@@ -256,11 +256,12 @@ const wildcardOptions = {
   all: 'wn',
 };
 
-const buildHeaders =
-  (editorPath, xmlCatalog, wildcardSuggestions, { lang, path: schemaPath }, type, fragment) => [
+const buildHeaders = (editorPath, xmlCatalog, wildcardSuggestions,
+  { lang, path: schemaPath }, type, fragment, splitPoint) => [
     'A',
     type,
     fragment || '',
+    splitPoint || '',
     'r' + wildcardOptions[wildcardSuggestions],
     'UTF-8',
     editorPath,
@@ -271,10 +272,10 @@ const buildHeaders =
 const getSuggestions = (sharedConfig, suggestionOptions) => {
   const { options, xmlCatalog, currentSchemaProps, wildcardSuggestions } = sharedConfig;
   const { editor } = options;
-  const { type, fragment, body, clientData, filterFn, builderFn } = suggestionOptions;
+  const { type, fragment, body, splitPoint, clientData, filterFn, builderFn } = suggestionOptions;
 
   const headers = buildHeaders(editor.getPath(), xmlCatalog, wildcardSuggestions,
-    currentSchemaProps, type, fragment);
+    currentSchemaProps, type, fragment, splitPoint);
 
   return serverProcessInstance.sendRequest(headers, body)
     .then(flow(
@@ -319,10 +320,14 @@ const getAttributeValueSuggestions = (sharedConfig, precedingLineText, quotedSco
 
   const endToken = getEndToken(prefix);
 
+  const head = editor.getTextInBufferRange([[0, 0], endBracketPosition]);
+  const splitPoint = Buffer.byteLength(head);
+
   return getSuggestions(sharedConfig, {
     type: 'V',
-    body: editor.getTextInBufferRange([[0, 0], endBracketPosition]) + '>',
+    body: editor.getText(),
     fragment,
+    splitPoint,
     filterFn: attributeValueFilter(prefix, endToken),
     builderFn: buildAttributeValueSuggestion(prefix, endToken, hasDblQuotes),
   });
@@ -343,8 +348,7 @@ const getAttributeNameSuggestions = (sharedConfig, precedingLineText) => {
   const textBeforeAttribute =
     editor.getTextInBufferRange([[0, 0], [bufferPosition.row, prefixStartColumn]]);
 
-  const followingText =
-    editor.getTextInBufferRange([bufferPosition, endBracketPosition]) + '>';
+  const followingText = editor.getTextInBufferRange([bufferPosition, endBracketPosition]);
 
   const match = followingText.match(regex.attEndFromAttName);
   const textAfterAttribute = match

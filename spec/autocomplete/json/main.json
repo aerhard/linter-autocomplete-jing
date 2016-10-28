@@ -3725,5 +3725,100 @@
         "retrigger": true
       }]
     }]
+  }, {
+    "schemata": [{
+      "lang": "rng",
+      "path": "../schema/schema-idref.rng"
+    }],
+    "items": [{
+      "file": "../xml/rng-idref.xml",
+      "suggestionType": "V",
+      "fragment": "ref",
+      "splitPoint": 290,
+      "expectResult": [{
+        "snippet": "ad",
+        "displayText": "ad",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "ee",
+        "displayText": "ee",
+        "type": "value",
+        "replacementPrefix": ""
+      }]
+    }, {
+      "file": "../xml/rng-idref.xml",
+      "suggestionType": "V",
+      "fragment": "refs",
+      "splitPoint": 290,
+      "expectResult": [{
+        "snippet": "ad",
+        "displayText": "ad",
+        "type": "value",
+        "rightLabel": "List Item",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "ee",
+        "displayText": "ee",
+        "type": "value",
+        "rightLabel": "List Item",
+        "replacementPrefix": ""
+      }]
+    }, {
+      "file": "../xml/rng-idref.xml",
+      "suggestionType": "V",
+      "fragment": "uri",
+      "splitPoint": 290,
+      "expectResult": [{
+        "snippet": "#ad",
+        "displayText": "#ad",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "#ee",
+        "displayText": "#ee",
+        "type": "value",
+        "replacementPrefix": ""
+      }]
+    }, {
+      "file": "../xml/rng-idref.xml",
+      "suggestionType": "V",
+      "fragment": "uris",
+      "splitPoint": 290,
+      "expectResult": [{
+        "snippet": "#ad",
+        "displayText": "#ad",
+        "type": "value",
+        "rightLabel": "List Item",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "#ee",
+        "displayText": "#ee",
+        "type": "value",
+        "rightLabel": "List Item",
+        "replacementPrefix": ""
+      }]
+    }, {
+      "file": "../xml/rng-idref.xml",
+      "suggestionType": "V",
+      "fragment": "plus",
+      "splitPoint": 290,
+      "expectResult": [{
+        "snippet": "#ad",
+        "displayText": "#ad",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "#ee",
+        "displayText": "#ee",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "asdf",
+        "displayText": "asdf",
+        "type": "value",
+        "replacementPrefix": ""
+      }]
+    }]
   }]
 }]
