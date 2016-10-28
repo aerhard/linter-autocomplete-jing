@@ -1,5 +1,5 @@
 
-import { compact, filter, find, flow, join, map } from 'lodash/fp';
+import { compact, filter, flow, join, map } from './fp';
 import regex from './regex';
 import ServerProcess from './ServerProcess';
 
@@ -243,7 +243,7 @@ const getAttributeValueProps = ({ editor, bufferPosition }, hasDblQuotes) => {
   return result ? { name: result[1], prefix: result[2] || '' } : null;
 };
 
-const getQuotedScope = find(
+const getQuotedScope = scopes => scopes.find(
   scope => scope === 'string.quoted.double.xml' || scope === 'string.quoted.single.xml',
 );
 
@@ -393,7 +393,7 @@ const getElementPISuggestions = (sharedConfig, tagNamePIPrefix) => {
 const suggest = (options, { autocompleteScope, wildcardSuggestions }) =>
   ([, { schemaProps, xmlCatalog }]) => {
     const currentSchemaProps =
-      find(({ lang }) => !!autocompleteScope[lang], schemaProps) ||
+      schemaProps.find(({ lang }) => !!autocompleteScope[lang]) ||
       { type: 'none' };
 
     const scopesArray = options.scopeDescriptor.getScopesArray();

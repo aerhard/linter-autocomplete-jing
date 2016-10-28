@@ -1,5 +1,5 @@
 
-import { flow, trim, split, map, compact, concat, sortBy, filter, identity } from 'lodash/fp';
+import { flow, trim, split, map, compact, concat, sortBy, filter, identity } from './fp';
 
 import ServerProcess from './ServerProcess';
 

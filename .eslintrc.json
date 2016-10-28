@@ -3,12 +3,13 @@
   "parser": "babel-eslint",
   "plugins": ["jasmine"],
   "rules": {
-    "no-param-reassign": [0],
     "func-names": [0],
-    "space-before-function-paren": [2, "never"],
-    "prefer-template": [0],
     "global-require": [0],
-    "no-plusplus": [0]
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "no-param-reassign": [0],
+    "no-plusplus": [0],
+    "prefer-template": [0],
+    "space-before-function-paren": [2, "never"]
   },
   "globals": {
     "atom": true,

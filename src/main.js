@@ -1,7 +1,7 @@
 
 import {
   flow, flatMap, compact, get, filter, startsWith, map, set,
-} from 'lodash/fp';
+} from './fp';
 import { CompositeDisposable } from 'atom'; // eslint-disable-line
 import ServerProcess from './ServerProcess';
 import getSchemaProps from './getSchemaProps';

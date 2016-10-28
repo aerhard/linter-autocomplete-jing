@@ -1,8 +1,6 @@
 
-import { allPass, map, update, flow, merge } from 'lodash/fp';
 import path from 'path';
-
-const mapWithKey = map.convert({ cap: false });
+import { allPass, map, update, flow, merge } from './fp';
 
 const createGrammarScopeMatcher = value =>
   ({ rootScopes }) => rootScopes.includes(value);
@@ -47,7 +45,7 @@ const parse = flow(
           matchers.push(createRootLocalNameMatcher(rootLocalName));
         }
         if (rootAttributes) {
-          const attributeMatchers = mapWithKey(
+          const attributeMatchers = map(
             createRootAttributeMatcher,
             rootAttributes,
           );
