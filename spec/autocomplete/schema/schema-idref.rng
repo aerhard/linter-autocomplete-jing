@@ -2,9 +2,7 @@
 <grammar
     ns="http://www.example.com"
     xmlns="http://relaxng.org/ns/structure/1.0"
-    xmlns:other="http://www.other.com"
     datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
-  <include href="other.rng"/>
 
   <start>
     <ref name="root"/>
@@ -24,74 +22,6 @@
 
   <define name="data.anyUri">
     <data type="anyURI"/>
-  </define>
-
-  <define name="another-b-attribute">
-    <attribute name="b">
-      <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">another-@b</documentation>
-      <data type="NCName"/>
-    </attribute>
-  </define>
-
-  <define name="secondChild-content">
-    <attribute name="other:yiu">
-      <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-        id="tei_all-att.datable.w3c-att-datable-w3c-when-constraint-1">
-        <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-          xmlns="http://www.tei-c.org/ns/1.0"
-          xmlns:rng="http://relaxng.org/ns/structure/1.0"
-          context="tei:*[@when]">
-          <sch:report test="@notBefore|@notAfter|@from|@to" role="nonfatal">The @when attribute cannot be used with any other att.datable.w3c attributes.</sch:report>
-        </sch:rule>
-      </pattern>
-      <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">other:yiu1</documentation>
-      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"><empty/>other:yiu2</a:documentation>
-      <ref name="data.vals"/>
-    </attribute>
-    <text/>
-  </define>
-
-  <define name="another-second-element">
-    <element name="secondChild">
-      <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">another-secondChild</documentation>
-      <ref name="secondChild-content"/>
-    </element>
-  </define>
-
-  <define name="data.vals">
-    <choice>
-      <value type="string">val3</value>
-      <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">val3</documentation>
-      <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-        id="tei_all-att.datable.w3c-att-datable-w3c-when-constraint-1-copy">
-        <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-          xmlns="http://www.tei-c.org/ns/1.0"
-          xmlns:rng="http://relaxng.org/ns/structure/1.0"
-          context="tei:*[@when]">
-          <sch:report test="@notBefore|@notAfter|@from|@to" role="nonfatal">The @when attribute cannot be used with any other att.datable.w3c attributes.</sch:report>
-        </sch:rule>
-      </pattern>
-      <value type="string">val4</value>
-      <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">val4</documentation>
-    </choice>
-  </define>
-
-  <define name="data.other-vals">
-    <choice>
-      <value type="string">val3</value>
-      <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">other-val3</documentation>
-      <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-        id="tei_all-att.datable.w3c-att-datable-w3c-when-constraint-1-copy">
-        <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-          xmlns="http://www.tei-c.org/ns/1.0"
-          xmlns:rng="http://relaxng.org/ns/structure/1.0"
-          context="tei:*[@when]">
-          <sch:report test="@notBefore|@notAfter|@from|@to" role="nonfatal">The @when attribute cannot be used with any other att.datable.w3c attributes.</sch:report>
-        </sch:rule>
-      </pattern>
-      <value type="string">val4</value>
-      <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">other-val4</documentation>
-    </choice>
   </define>
 
   <define name="root">

@@ -3734,7 +3734,7 @@
       "file": "../xml/rng-idref.xml",
       "suggestionType": "V",
       "fragment": "ref",
-      "splitPoint": 290,
+      "splitPoint": 254,
       "expectResult": [{
         "snippet": "ad",
         "displayText": "ad",
@@ -3750,7 +3750,7 @@
       "file": "../xml/rng-idref.xml",
       "suggestionType": "V",
       "fragment": "refs",
-      "splitPoint": 290,
+      "splitPoint": 254,
       "expectResult": [{
         "snippet": "ad",
         "displayText": "ad",
@@ -3768,7 +3768,7 @@
       "file": "../xml/rng-idref.xml",
       "suggestionType": "V",
       "fragment": "uri",
-      "splitPoint": 290,
+      "splitPoint": 254,
       "expectResult": [{
         "snippet": "#ad",
         "displayText": "#ad",
@@ -3784,7 +3784,7 @@
       "file": "../xml/rng-idref.xml",
       "suggestionType": "V",
       "fragment": "uris",
-      "splitPoint": 290,
+      "splitPoint": 254,
       "expectResult": [{
         "snippet": "#ad",
         "displayText": "#ad",
@@ -3802,7 +3802,7 @@
       "file": "../xml/rng-idref.xml",
       "suggestionType": "V",
       "fragment": "plus",
-      "splitPoint": 290,
+      "splitPoint": 254,
       "expectResult": [{
         "snippet": "#ad",
         "displayText": "#ad",
@@ -3817,6 +3817,113 @@
         "snippet": "asdf",
         "displayText": "asdf",
         "type": "value",
+        "replacementPrefix": ""
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-idref.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-idref.xml",
+      "suggestionType": "V",
+      "fragment": "ref",
+      "splitPoint": 260,
+      "expectResult": [{
+        "snippet": "ad",
+        "displayText": "ad",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "ee",
+        "displayText": "ee",
+        "type": "value",
+        "replacementPrefix": ""
+      }]
+    }, {
+      "file": "../xml/xsd-idref.xml",
+      "suggestionType": "V",
+      "fragment": "refs",
+      "splitPoint": 260,
+      "expectResult": [{
+        "snippet": "ad",
+        "displayText": "ad",
+        "type": "value",
+        "rightLabel": "List Item",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "ee",
+        "displayText": "ee",
+        "type": "value",
+        "rightLabel": "List Item",
+        "replacementPrefix": ""
+      }]
+    }, {
+      "file": "../xml/xsd-idref.xml",
+      "suggestionType": "V",
+      "fragment": "uri",
+      "splitPoint": 260,
+      "expectResult": [{
+        "snippet": "#ad",
+        "displayText": "#ad",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "#ee",
+        "displayText": "#ee",
+        "type": "value",
+        "replacementPrefix": ""
+      }]
+    }, {
+      "file": "../xml/xsd-idref.xml",
+      "suggestionType": "V",
+      "fragment": "uris",
+      "splitPoint": 260,
+      "expectResult": [{
+        "snippet": "#ad",
+        "displayText": "#ad",
+        "type": "value",
+        "rightLabel": "List Item",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "#ee",
+        "displayText": "#ee",
+        "type": "value",
+        "rightLabel": "List Item",
+        "replacementPrefix": ""
+      }]
+    }, {
+      "file": "../xml/xsd-idref.xml",
+      "suggestionType": "V",
+      "fragment": "plus",
+      "splitPoint": 260,
+      "expectResult": [{
+        "snippet": "#ad",
+        "displayText": "#ad",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "#ee",
+        "displayText": "#ee",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "ad",
+        "displayText": "ad",
+        "type": "value",
+        "rightLabel": "List Item",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "asdf",
+        "displayText": "asdf",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "ee",
+        "displayText": "ee",
+        "type": "value",
+        "rightLabel": "List Item",
         "replacementPrefix": ""
       }]
     }]

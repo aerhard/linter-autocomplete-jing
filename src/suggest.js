@@ -248,7 +248,7 @@ const getQuotedScope = scopes => scopes.find(
 );
 
 const includesTagScope = scopesArray =>
-  scopesArray.some(item => item === 'meta.tag.xml' || item === 'meta.tag.no-content.xml');
+  scopesArray.some(item => item.startsWith('meta.tag.xml') || item === 'meta.tag.no-content.xml');
 
 const wildcardOptions = {
   none: '',

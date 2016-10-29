@@ -3,12 +3,21 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var lodash_fp = require('lodash/fp');
 var atom$1 = require('atom');
 var net = require('net');
 var spawn = _interopDefault(require('cross-spawn'));
 var path = _interopDefault(require('path'));
 var sax = _interopDefault(require('sax'));
+
+function arrayPush(array, values) {
+  var index = -1,
+      length = values.length,
+      offset = array.length;
+  while (++index < length) {
+    array[offset + index] = values[index];
+  }
+  return array;
+}
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
@@ -137,9 +146,29 @@ var asyncGenerator = function () {
 
 
 
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
 
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
 
-
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
 
 
 
@@ -283,125 +312,166 @@ var toConsumableArray = function (arr) {
   }
 };
 
-var portRegex = /XML Tools Server listening on port (\d+)/;
-var jarPath = '../vendor/xml-tools-server-0.4.5.jar';
-var initialPort = 0;
+var freeGlobal = (typeof global === 'undefined' ? 'undefined' : _typeof(global)) == 'object' && global && global.Object === Object && global;
 
-function ServerProcess() {
-  this.state = this.STOPPED;
-  this.isReadyPromise = null;
-  this.javaProcess = null;
-  this.port = null;
+var freeSelf = (typeof self === 'undefined' ? 'undefined' : _typeof(self)) == 'object' && self && self.Object === Object && self;
+var root = freeGlobal || freeSelf || Function('return this')();
+
+var _Symbol = root.Symbol;
+
+var objectProto$1 = Object.prototype;
+var hasOwnProperty$1 = objectProto$1.hasOwnProperty;
+var nativeObjectToString = objectProto$1.toString;
+var symToStringTag$1 = _Symbol ? _Symbol.toStringTag : undefined;
+function getRawTag(value) {
+  var isOwn = hasOwnProperty$1.call(value, symToStringTag$1),
+      tag = value[symToStringTag$1];
+  try {
+    value[symToStringTag$1] = undefined;
+    var unmasked = true;
+  } catch (e) {}
+  var result = nativeObjectToString.call(value);
+  if (unmasked) {
+    if (isOwn) {
+      value[symToStringTag$1] = tag;
+    } else {
+      delete value[symToStringTag$1];
+    }
+  }
+  return result;
 }
 
-ServerProcess.prototype = {
-  STOPPED: 'STOPPED',
-  INITIALIZING: 'INITIALIZING',
-  READY: 'READY',
+var objectProto$2 = Object.prototype;
+var nativeObjectToString$1 = objectProto$2.toString;
+function objectToString(value) {
+  return nativeObjectToString$1.call(value);
+}
 
-  getState: function getState() {
-    return this.state;
-  },
-  isReady: function isReady() {
-    return this.state === this.READY;
-  },
-  ensureIsReady: function ensureIsReady(config) {
-    if (!this.isReadyPromise) {
-      this.isReadyPromise = this.createIsReadyPromise(config);
-    }
-    return this.isReadyPromise;
-  },
-  createIsReadyPromise: function createIsReadyPromise(config) {
-    var _this = this;
+var nullTag = '[object Null]';
+var undefinedTag = '[object Undefined]';
+var symToStringTag = _Symbol ? _Symbol.toStringTag : undefined;
+function baseGetTag(value) {
+  if (value == null) {
+    return value === undefined ? undefinedTag : nullTag;
+  }
+  value = Object(value);
+  return symToStringTag && symToStringTag in value ? getRawTag(value) : objectToString(value);
+}
 
-    this.state = this.INITIALIZING;
+function isObjectLike(value) {
+  return value != null && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object';
+}
 
-    return new Promise(function (resolve, reject) {
-      var args = [].concat(toConsumableArray(config.jvmArguments.split(/\s+/)), ['-jar', path.resolve(__dirname, jarPath), initialPort, config.schemaCacheSize]);
-      _this.javaProcess = spawn(config.javaExecutablePath, args, {});
-      _this.setStartupListeners(config, resolve, reject);
-    });
-  },
-  setStartupListeners: function setStartupListeners(config, resolve, reject) {
-    var _this2 = this;
+var argsTag = '[object Arguments]';
+function baseIsArguments(value) {
+  return isObjectLike(value) && baseGetTag(value) == argsTag;
+}
 
-    var onData = function onData(data) {
-      var match = data.toString().match(portRegex);
-      if (match) {
-        _this2.port = Number(match[1]);
-        _this2.removeListeners();
-        _this2.setExecutionListeners();
-        _this2.state = _this2.READY;
-        resolve(_this2);
+var objectProto = Object.prototype;
+var hasOwnProperty = objectProto.hasOwnProperty;
+var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+var isArguments = baseIsArguments(function () {
+  return arguments;
+}()) ? baseIsArguments : function (value) {
+  return isObjectLike(value) && hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee');
+};
+
+var isArray = Array.isArray;
+
+var spreadableSymbol = _Symbol ? _Symbol.isConcatSpreadable : undefined;
+function isFlattenable(value) {
+  return isArray(value) || isArguments(value) || !!(spreadableSymbol && value && value[spreadableSymbol]);
+}
+
+function baseFlatten(array, depth, predicate, isStrict, result) {
+  var index = -1,
+      length = array.length;
+  predicate || (predicate = isFlattenable);
+  result || (result = []);
+  while (++index < length) {
+    var value = array[index];
+    if (depth > 0 && predicate(value)) {
+      if (depth > 1) {
+        baseFlatten(value, depth - 1, predicate, isStrict, result);
       } else {
-        reject(new ServerProcess.Error('Unexpected server start message "' + data + '"'));
-        _this2.exit();
+        arrayPush(result, value);
       }
-    };
-
-    this.javaProcess.stdout.on('data', onData);
-    this.javaProcess.stderr.on('data', onData);
-
-    this.javaProcess.on('error', function (err) {
-      reject(new ServerProcess.Error('Failed to execute "' + config.javaExecutablePath + '".\n' + 'Please adjust the Java executable path in the "linter-autocomplete-jing" ' + 'package settings', err));
-      _this2.exit();
-    });
-  },
-  onStdOut: function onStdOut() {},
-  onStdErr: function onStdErr(data) {
-    console.error('Server message on stderr: ' + data); // eslint-disable-line
-  },
-  onError: function onError(err) {
-    console.error('Server error:', err); // eslint-disable-line
-  },
-  setExecutionListeners: function setExecutionListeners() {
-    var _this3 = this;
-
-    this.javaProcess.stdout.on('data', function (data) {
-      return _this3.onStdOut(data);
-    });
-    this.javaProcess.stderr.on('data', function (data) {
-      return _this3.onStdErr(data);
-    });
-
-    this.javaProcess.on('error', function (err) {
-      _this3.onError(err);
-      _this3.exit();
-    });
-  },
-  removeListeners: function removeListeners() {
-    this.javaProcess.stdout.removeAllListeners('data');
-    this.javaProcess.stderr.removeAllListeners('data');
-    this.javaProcess.removeAllListeners('error');
-  },
-  exit: function exit() {
-    this.state = this.STOPPED;
-    if (this.javaProcess) {
-      this.removeListeners();
-      this.javaProcess.kill();
-      this.javaProcess = null;
+    } else if (!isStrict) {
+      result[result.length] = value;
     }
-    this.isReadyPromise = null;
-    this.port = null;
-  },
-  sendRequest: function sendRequest(headers, body) {
-    var port = this.port;
-    return new Promise(function (resolve, reject) {
-      var response = '';
+  }
+  return result;
+}
 
-      var socket = new net.Socket();
+function copyArray(source, array) {
+  var index = -1,
+      length = source.length;
+  array || (array = Array(length));
+  while (++index < length) {
+    array[index] = source[index];
+  }
+  return array;
+}
 
-      socket.on('connect', function () {
-        socket.write(headers.map(function (header) {
-          return '-' + header + '\n';
-        }).join(''));
+function concat$1() {
+  var length = arguments.length;
+  if (!length) {
+    return [];
+  }
+  var args = Array(length - 1),
+      array = arguments[0],
+      index = length;
+  while (index--) {
+    args[index - 1] = arguments[index];
+  }
+  return arrayPush(isArray(array) ? copyArray(array) : [array], baseFlatten(args, 1));
+}
 
-<<<<<<< bcd5f1debff7289da3777edc8e0dabdcc0427c5a
-        if (body !== null) {
-          socket.write('\n');
-          socket.write(body);
-        }
-=======
+function arrayFilter(array, predicate) {
+  var index = -1,
+      length = array == null ? 0 : array.length,
+      resIndex = 0,
+      result = [];
+  while (++index < length) {
+    var value = array[index];
+    if (predicate(value, index, array)) {
+      result[resIndex++] = value;
+    }
+  }
+  return result;
+}
+
+function createBaseFor(fromRight) {
+  return function (object, iteratee, keysFunc) {
+    var index = -1,
+        iterable = Object(object),
+        props = keysFunc(object),
+        length = props.length;
+    while (length--) {
+      var key = props[fromRight ? length : ++index];
+      if (iteratee(iterable[key], key, iterable) === false) {
+        break;
+      }
+    }
+    return object;
+  };
+}
+
+var baseFor = createBaseFor();
+
+function baseTimes(n, iteratee) {
+  var index = -1,
+      result = Array(n);
+  while (++index < n) {
+    result[index] = iteratee(index);
+  }
+  return result;
+}
+
+function stubFalse() {
+  return false;
+}
+
 var freeExports = (typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) == 'object' && exports && !exports.nodeType && exports;
 var freeModule = freeExports && (typeof module === 'undefined' ? 'undefined' : _typeof(module)) == 'object' && module && !module.nodeType && module;
 var moduleExports = freeModule && freeModule.exports === freeExports;
@@ -415,138 +485,212 @@ function isIndex(value, length) {
   length = length == null ? MAX_SAFE_INTEGER : length;
   return !!length && (typeof value == 'number' || reIsUint.test(value)) && value > -1 && value % 1 == 0 && value < length;
 }
->>>>>>> suggest ids in rng autocomplete
 
-        socket.end();
-      });
+var MAX_SAFE_INTEGER$1 = 9007199254740991;
+function isLength(value) {
+  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER$1;
+}
 
-      socket.on('data', function (data) {
-        response += data.toString();
-      });
+var argsTag$1 = '[object Arguments]';
+var arrayTag = '[object Array]';
+var boolTag = '[object Boolean]';
+var dateTag = '[object Date]';
+var errorTag = '[object Error]';
+var funcTag = '[object Function]';
+var mapTag = '[object Map]';
+var numberTag = '[object Number]';
+var objectTag = '[object Object]';
+var regexpTag = '[object RegExp]';
+var setTag = '[object Set]';
+var stringTag = '[object String]';
+var weakMapTag = '[object WeakMap]';
+var arrayBufferTag = '[object ArrayBuffer]';
+var dataViewTag = '[object DataView]';
+var float32Tag = '[object Float32Array]';
+var float64Tag = '[object Float64Array]';
+var int8Tag = '[object Int8Array]';
+var int16Tag = '[object Int16Array]';
+var int32Tag = '[object Int32Array]';
+var uint8Tag = '[object Uint8Array]';
+var uint8ClampedTag = '[object Uint8ClampedArray]';
+var uint16Tag = '[object Uint16Array]';
+var uint32Tag = '[object Uint32Array]';
+var typedArrayTags = {};
+typedArrayTags[float32Tag] = typedArrayTags[float64Tag] = typedArrayTags[int8Tag] = typedArrayTags[int16Tag] = typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] = typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] = typedArrayTags[uint32Tag] = true;
+typedArrayTags[argsTag$1] = typedArrayTags[arrayTag] = typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] = typedArrayTags[dataViewTag] = typedArrayTags[dateTag] = typedArrayTags[errorTag] = typedArrayTags[funcTag] = typedArrayTags[mapTag] = typedArrayTags[numberTag] = typedArrayTags[objectTag] = typedArrayTags[regexpTag] = typedArrayTags[setTag] = typedArrayTags[stringTag] = typedArrayTags[weakMapTag] = false;
+function baseIsTypedArray(value) {
+    return isObjectLike(value) && isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
+}
 
-      socket.on('close', function () {
-        resolve(response);
-      });
-
-      socket.on('error', function (err) {
-        socket.destroy();
-        reject(err);
-      });
-
-      socket.connect({ port: port });
-    });
-  }
-};
-
-var instance = null;
-
-ServerProcess.getInstance = function () {
-  if (instance === null) {
-    instance = new ServerProcess();
-  }
-  return instance;
-};
-
-ServerProcess.Error = function (message, err) {
-  this.name = 'ServerProcess.Error';
-  this.message = message;
-  this.stack = err ? err.stack : new Error().stack;
-};
-
-ServerProcess.Error.prototype = Object.create(Error.prototype);
-
-var mapWithKey = lodash_fp.map.convert({ cap: false });
-
-var createGrammarScopeMatcher = function createGrammarScopeMatcher(value) {
-  return function (_ref) {
-    var rootScopes = _ref.rootScopes;
-    return rootScopes.includes(value);
+function baseUnary(func) {
+  return function (value) {
+    return func(value);
   };
-};
+}
 
-var createPathRegexMatcher = function createPathRegexMatcher(pathRegexStr) {
+var freeExports$1 = (typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) == 'object' && exports && !exports.nodeType && exports;
+var freeModule$1 = freeExports$1 && (typeof module === 'undefined' ? 'undefined' : _typeof(module)) == 'object' && module && !module.nodeType && module;
+var moduleExports$1 = freeModule$1 && freeModule$1.exports === freeExports$1;
+var freeProcess = moduleExports$1 && freeGlobal.process;
+var nodeUtil = function () {
   try {
-    var _ret = function () {
-      var pathRegex = new RegExp(pathRegexStr);
+    return freeProcess && freeProcess.binding('util');
+  } catch (e) {}
+}();
 
-      return {
-        v: function v(_ref2) {
-          var filePath = _ref2.filePath;
-          return pathRegex.test(filePath);
-        }
-      };
-    }();
+var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
+var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
 
-    if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
-  } catch (err) {
-    console.error('Could not parse RegExp "' + pathRegexStr + '"', err); // eslint-disable-line no-console
-    return function () {
-      return false;
-    };
+var objectProto$3 = Object.prototype;
+var hasOwnProperty$2 = objectProto$3.hasOwnProperty;
+function arrayLikeKeys(value, inherited) {
+  var isArr = isArray(value),
+      isArg = !isArr && isArguments(value),
+      isBuff = !isArr && !isArg && isBuffer(value),
+      isType = !isArr && !isArg && !isBuff && isTypedArray(value),
+      skipIndexes = isArr || isArg || isBuff || isType,
+      result = skipIndexes ? baseTimes(value.length, String) : [],
+      length = result.length;
+  for (var key in value) {
+    if ((inherited || hasOwnProperty$2.call(value, key)) && !(skipIndexes && (
+    key == 'length' ||
+    isBuff && (key == 'offset' || key == 'parent') ||
+    isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset') ||
+    isIndex(key, length)))) {
+      result.push(key);
+    }
   }
-};
+  return result;
+}
 
-var createRootNsMatcher = function createRootNsMatcher(value) {
-  return function (_ref3) {
-    var rootNs = _ref3.rootNs;
-    return value === rootNs;
+var objectProto$5 = Object.prototype;
+function isPrototype(value) {
+  var Ctor = value && value.constructor,
+      proto = typeof Ctor == 'function' && Ctor.prototype || objectProto$5;
+  return value === proto;
+}
+
+function overArg(func, transform) {
+  return function (arg) {
+    return func(transform(arg));
   };
-};
+}
 
-var createRootLocalNameMatcher = function createRootLocalNameMatcher(value) {
-  return function (_ref4) {
-    var rootLocalName = _ref4.rootLocalName;
-    return value === rootLocalName;
-  };
-};
+var nativeKeys = overArg(Object.keys, Object);
 
-var createRootAttributeMatcher = function createRootAttributeMatcher(value, name) {
-  return function (_ref5) {
-    var rootAttributes = _ref5.rootAttributes;
-    return rootAttributes[name] === value;
-  };
-};
-
-var sortByPriority = function sortByPriority(arr) {
-  return arr.sort(function (a, b) {
-    return b.priority - a.priority;
-  });
-};
-
-var parse = lodash_fp.flow(lodash_fp.map(lodash_fp.flow(lodash_fp.update('test', function (_ref6) {
-  var grammarScope = _ref6.grammarScope,
-      pathRegex = _ref6.pathRegex,
-      rootNs = _ref6.rootNs,
-      rootLocalName = _ref6.rootLocalName,
-      rootAttributes = _ref6.rootAttributes;
-
-  var matchers = [];
-  if (grammarScope) {
-    matchers.push(createGrammarScopeMatcher(grammarScope));
+var objectProto$4 = Object.prototype;
+var hasOwnProperty$3 = objectProto$4.hasOwnProperty;
+function baseKeys(object) {
+  if (!isPrototype(object)) {
+    return nativeKeys(object);
   }
-  if (pathRegex) {
-    matchers.push(createPathRegexMatcher(pathRegex));
+  var result = [];
+  for (var key in Object(object)) {
+    if (hasOwnProperty$3.call(object, key) && key != 'constructor') {
+      result.push(key);
+    }
   }
-  if (rootNs) {
-    matchers.push(createRootNsMatcher(rootNs));
-  }
-  if (rootLocalName) {
-    matchers.push(createRootLocalNameMatcher(rootLocalName));
-  }
-  if (rootAttributes) {
-    var attributeMatchers = mapWithKey(createRootAttributeMatcher, rootAttributes);
-    matchers.push.apply(matchers, toConsumableArray(attributeMatchers));
-  }
+  return result;
+}
 
-<<<<<<< bcd5f1debff7289da3777edc8e0dabdcc0427c5a
-  return matchers.length ? lodash_fp.allPass(matchers) : function () {
+function isObject(value) {
+  var type = typeof value === 'undefined' ? 'undefined' : _typeof(value);
+  return value != null && (type == 'object' || type == 'function');
+}
+
+var asyncTag = '[object AsyncFunction]';
+var funcTag$1 = '[object Function]';
+var genTag = '[object GeneratorFunction]';
+var proxyTag = '[object Proxy]';
+function isFunction(value) {
+  if (!isObject(value)) {
     return false;
+  }
+  var tag = baseGetTag(value);
+  return tag == funcTag$1 || tag == genTag || tag == asyncTag || tag == proxyTag;
+}
+
+function isArrayLike(value) {
+  return value != null && isLength(value.length) && !isFunction(value);
+}
+
+function keys(object) {
+  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
+}
+
+function baseForOwn(object, iteratee) {
+  return object && baseFor(object, iteratee, keys);
+}
+
+function createBaseEach(eachFunc, fromRight) {
+  return function (collection, iteratee) {
+    if (collection == null) {
+      return collection;
+    }
+    if (!isArrayLike(collection)) {
+      return eachFunc(collection, iteratee);
+    }
+    var length = collection.length,
+        index = fromRight ? length : -1,
+        iterable = Object(collection);
+    while (fromRight ? index-- : ++index < length) {
+      if (iteratee(iterable[index], index, iterable) === false) {
+        break;
+      }
+    }
+    return collection;
   };
-}), function (rule) {
-  var newOutcome = {};
-  var outcome = rule.outcome,
-      settingsPath = rule.settingsPath;
-=======
+}
+
+var baseEach = createBaseEach(baseForOwn);
+
+function baseFilter(collection, predicate) {
+  var result = [];
+  baseEach(collection, function (value, index, collection) {
+    if (predicate(value, index, collection)) {
+      result.push(value);
+    }
+  });
+  return result;
+}
+
+function listCacheClear() {
+  this.__data__ = [];
+  this.size = 0;
+}
+
+function eq(value, other) {
+  return value === other || value !== value && other !== other;
+}
+
+function assocIndexOf(array, key) {
+  var length = array.length;
+  while (length--) {
+    if (eq(array[length][0], key)) {
+      return length;
+    }
+  }
+  return -1;
+}
+
+var arrayProto = Array.prototype;
+var splice = arrayProto.splice;
+function listCacheDelete(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+  if (index < 0) {
+    return false;
+  }
+  var lastIndex = data.length - 1;
+  if (index == lastIndex) {
+    data.pop();
+  } else {
+    splice.call(data, index, 1);
+  }
+  --this.size;
+  return true;
+}
+
 function listCacheGet(key) {
   var data = this.__data__,
       index = assocIndexOf(data, key);
@@ -571,7 +715,7 @@ function listCacheSet(key, value) {
 
 function ListCache(entries) {
   var index = -1,
-      length = entries ? entries.length : 0;
+      length = entries == null ? 0 : entries.length;
   this.clear();
   while (++index < length) {
     var entry = entries[index];
@@ -631,10 +775,10 @@ function toSource(func) {
 var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
 var reIsHostCtor = /^\[object .+?Constructor\]$/;
 var funcProto = Function.prototype;
-var objectProto$7 = Object.prototype;
+var objectProto$6 = Object.prototype;
 var funcToString = funcProto.toString;
-var hasOwnProperty$3 = objectProto$7.hasOwnProperty;
-var reIsNative = RegExp('^' + funcToString.call(hasOwnProperty$3).replace(reRegExpChar, '\\$&').replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
+var hasOwnProperty$4 = objectProto$6.hasOwnProperty;
+var reIsNative = RegExp('^' + funcToString.call(hasOwnProperty$4).replace(reRegExpChar, '\\$&').replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
 function baseIsNative(value) {
   if (!isObject(value) || isMasked(value)) {
     return false;
@@ -668,22 +812,22 @@ function hashDelete(key) {
 }
 
 var HASH_UNDEFINED = '__lodash_hash_undefined__';
-var objectProto$8 = Object.prototype;
-var hasOwnProperty$4 = objectProto$8.hasOwnProperty;
+var objectProto$7 = Object.prototype;
+var hasOwnProperty$5 = objectProto$7.hasOwnProperty;
 function hashGet(key) {
   var data = this.__data__;
   if (nativeCreate) {
     var result = data[key];
     return result === HASH_UNDEFINED ? undefined : result;
   }
-  return hasOwnProperty$4.call(data, key) ? data[key] : undefined;
+  return hasOwnProperty$5.call(data, key) ? data[key] : undefined;
 }
 
-var objectProto$9 = Object.prototype;
-var hasOwnProperty$5 = objectProto$9.hasOwnProperty;
+var objectProto$8 = Object.prototype;
+var hasOwnProperty$6 = objectProto$8.hasOwnProperty;
 function hashHas(key) {
   var data = this.__data__;
-  return nativeCreate ? data[key] !== undefined : hasOwnProperty$5.call(data, key);
+  return nativeCreate ? data[key] !== undefined : hasOwnProperty$6.call(data, key);
 }
 
 var HASH_UNDEFINED$1 = '__lodash_hash_undefined__';
@@ -696,7 +840,7 @@ function hashSet(key, value) {
 
 function Hash(entries) {
   var index = -1,
-      length = entries ? entries.length : 0;
+      length = entries == null ? 0 : entries.length;
   this.clear();
   while (++index < length) {
     var entry = entries[index];
@@ -752,7 +896,7 @@ function mapCacheSet(key, value) {
 
 function MapCache(entries) {
   var index = -1,
-      length = entries ? entries.length : 0;
+      length = entries == null ? 0 : entries.length;
   this.clear();
   while (++index < length) {
     var entry = entries[index];
@@ -804,7 +948,7 @@ function setCacheHas(value) {
 
 function SetCache(values) {
   var index = -1,
-      length = values ? values.length : 0;
+      length = values == null ? 0 : values.length;
   this.__data__ = new MapCache();
   while (++index < length) {
     this.add(values[index]);
@@ -815,7 +959,7 @@ SetCache.prototype.has = setCacheHas;
 
 function arraySome(array, predicate) {
   var index = -1,
-      length = array ? array.length : 0;
+      length = array == null ? 0 : array.length;
   while (++index < length) {
     if (predicate(array[index], index, array)) {
       return true;
@@ -961,8 +1105,8 @@ function equalByTag(object, other, tag, equalFunc, customizer, bitmask, stack) {
 }
 
 var PARTIAL_COMPARE_FLAG$4 = 2;
-var objectProto$11 = Object.prototype;
-var hasOwnProperty$7 = objectProto$11.hasOwnProperty;
+var objectProto$10 = Object.prototype;
+var hasOwnProperty$8 = objectProto$10.hasOwnProperty;
 function equalObjects(object, other, equalFunc, customizer, bitmask, stack) {
   var isPartial = bitmask & PARTIAL_COMPARE_FLAG$4,
       objProps = keys(object),
@@ -975,7 +1119,7 @@ function equalObjects(object, other, equalFunc, customizer, bitmask, stack) {
   var index = objLength;
   while (index--) {
     var key = objProps[index];
-    if (!(isPartial ? key in other : hasOwnProperty$7.call(other, key))) {
+    if (!(isPartial ? key in other : hasOwnProperty$8.call(other, key))) {
       return false;
     }
   }
@@ -1020,20 +1164,12 @@ var Set = getNative(root, 'Set');
 
 var WeakMap = getNative(root, 'WeakMap');
 
-var objectProto$13 = Object.prototype;
-var objectToString$4 = objectProto$13.toString;
-function baseGetTag(value) {
-  return objectToString$4.call(value);
-}
-
 var mapTag$2 = '[object Map]';
 var objectTag$2 = '[object Object]';
 var promiseTag = '[object Promise]';
 var setTag$2 = '[object Set]';
 var weakMapTag$1 = '[object WeakMap]';
 var dataViewTag$2 = '[object DataView]';
-var objectProto$12 = Object.prototype;
-var objectToString$3 = objectProto$12.toString;
 var dataViewCtorString = toSource(DataView);
 var mapCtorString = toSource(Map);
 var promiseCtorString = toSource(Promise$1);
@@ -1042,9 +1178,9 @@ var weakMapCtorString = toSource(WeakMap);
 var getTag = baseGetTag;
 if (DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag$2 || Map && getTag(new Map()) != mapTag$2 || Promise$1 && getTag(Promise$1.resolve()) != promiseTag || Set && getTag(new Set()) != setTag$2 || WeakMap && getTag(new WeakMap()) != weakMapTag$1) {
     getTag = function getTag(value) {
-        var result = objectToString$3.call(value),
+        var result = baseGetTag(value),
             Ctor = result == objectTag$2 ? value.constructor : undefined,
-            ctorString = Ctor ? toSource(Ctor) : undefined;
+            ctorString = Ctor ? toSource(Ctor) : '';
         if (ctorString) {
             switch (ctorString) {
                 case dataViewCtorString:
@@ -1068,8 +1204,8 @@ var PARTIAL_COMPARE_FLAG$1 = 2;
 var argsTag$2 = '[object Arguments]';
 var arrayTag$1 = '[object Array]';
 var objectTag$1 = '[object Object]';
-var objectProto$10 = Object.prototype;
-var hasOwnProperty$6 = objectProto$10.hasOwnProperty;
+var objectProto$9 = Object.prototype;
+var hasOwnProperty$7 = objectProto$9.hasOwnProperty;
 function baseIsEqualDeep(object, other, equalFunc, customizer, bitmask, stack) {
   var objIsArr = isArray(object),
       othIsArr = isArray(other),
@@ -1098,8 +1234,8 @@ function baseIsEqualDeep(object, other, equalFunc, customizer, bitmask, stack) {
     return objIsArr || isTypedArray(object) ? equalArrays(object, other, equalFunc, customizer, bitmask, stack) : equalByTag(object, other, objTag, equalFunc, customizer, bitmask, stack);
   }
   if (!(bitmask & PARTIAL_COMPARE_FLAG$1)) {
-    var objIsWrapped = objIsObj && hasOwnProperty$6.call(object, '__wrapped__'),
-        othIsWrapped = othIsObj && hasOwnProperty$6.call(other, '__wrapped__');
+    var objIsWrapped = objIsObj && hasOwnProperty$7.call(object, '__wrapped__'),
+        othIsWrapped = othIsObj && hasOwnProperty$7.call(other, '__wrapped__');
     if (objIsWrapped || othIsWrapped) {
       var objUnwrapped = objIsWrapped ? object.value() : object,
           othUnwrapped = othIsWrapped ? other.value() : other;
@@ -1198,7 +1334,7 @@ function baseMatches(source) {
 
 var FUNC_ERROR_TEXT = 'Expected a function';
 function memoize(func, resolver) {
-  if (typeof func != 'function' || resolver && typeof resolver != 'function') {
+  if (typeof func != 'function' || resolver != null && typeof resolver != 'function') {
     throw new TypeError(FUNC_ERROR_TEXT);
   }
   var memoized = function memoized() {
@@ -1231,7 +1367,7 @@ function memoizeCapped(func) {
 
 function arrayMap(array, iteratee) {
   var index = -1,
-      length = array ? array.length : 0,
+      length = array == null ? 0 : array.length,
       result = Array(length);
   while (++index < length) {
     result[index] = iteratee(array[index], index, array);
@@ -1240,10 +1376,8 @@ function arrayMap(array, iteratee) {
 }
 
 var symbolTag$1 = '[object Symbol]';
-var objectProto$14 = Object.prototype;
-var objectToString$5 = objectProto$14.toString;
 function isSymbol(value) {
-  return (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'symbol' || isObjectLike(value) && objectToString$5.call(value) == symbolTag$1;
+  return (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'symbol' || isObjectLike(value) && baseGetTag(value) == symbolTag$1;
 }
 
 var INFINITY = 1 / 0;
@@ -1342,7 +1476,7 @@ function hasPath(object, path$$1, hasFunc) {
   if (result || ++index != length) {
     return result;
   }
-  length = object ? object.length : 0;
+  length = object == null ? 0 : object.length;
   return !!length && isLength(length) && isIndex(key, length) && (isArray(object) || isArguments(object));
 }
 
@@ -1421,7 +1555,7 @@ function flatMap$1(collection, iteratee) {
 var arrayProto$1 = Array.prototype;
 var nativeJoin = arrayProto$1.join;
 function join$1(array, separator) {
-  return array ? nativeJoin.call(array, separator) : '';
+  return array == null ? '' : nativeJoin.call(array, separator);
 }
 
 function baseSortBy(array, comparer) {
@@ -1544,7 +1678,7 @@ var baseSetToString = !defineProperty$1 ? identity : function (func, string) {
   });
 };
 
-var HOT_COUNT = 500;
+var HOT_COUNT = 800;
 var HOT_SPAN = 16;
 var nativeNow = Date.now;
 function shortOut(func) {
@@ -1631,10 +1765,8 @@ function hasUnicode(string) {
 }
 
 var regexpTag$2 = '[object RegExp]';
-var objectProto$15 = Object.prototype;
-var objectToString$6 = objectProto$15.toString;
 function baseIsRegExp(value) {
-  return isObject(value) && objectToString$6.call(value) == regexpTag$2;
+  return isObjectLike(value) && baseGetTag(value) == regexpTag$2;
 }
 
 var nodeIsRegExp = nodeUtil && nodeUtil.isRegExp;
@@ -1755,7 +1887,7 @@ function startsWith$1(string, target, position) {
 
 function arrayEvery(array, predicate) {
   var index = -1,
-      length = array ? array.length : 0;
+      length = array == null ? 0 : array.length;
   while (++index < length) {
     if (!predicate(array[index], index, array)) {
       return false;
@@ -1765,7 +1897,7 @@ function arrayEvery(array, predicate) {
 }
 
 function flatten(array) {
-  var length = array ? array.length : 0;
+  var length = array == null ? 0 : array.length;
   return length ? baseFlatten(array, 1) : [];
 }
 
@@ -1789,7 +1921,7 @@ var overEvery = createOver(arrayEvery);
 
 function compact(array) {
   var index = -1,
-      length = array ? array.length : 0,
+      length = array == null ? 0 : array.length,
       resIndex = 0,
       result = [];
   while (++index < length) {
@@ -1842,12 +1974,12 @@ var getData = !metaMap ? noop : function (func) {
 
 var realNames = {};
 
-var objectProto$16 = Object.prototype;
-var hasOwnProperty$8 = objectProto$16.hasOwnProperty;
+var objectProto$11 = Object.prototype;
+var hasOwnProperty$9 = objectProto$11.hasOwnProperty;
 function getFuncName(func) {
   var result = func.name + '',
       array = realNames[result],
-      length = hasOwnProperty$8.call(realNames, result) ? array.length : 0;
+      length = hasOwnProperty$9.call(realNames, result) ? array.length : 0;
   while (length--) {
     var data = array[length],
         otherFunc = data.func;
@@ -1882,14 +2014,14 @@ function wrapperClone(wrapper) {
   return result;
 }
 
-var objectProto$17 = Object.prototype;
-var hasOwnProperty$9 = objectProto$17.hasOwnProperty;
+var objectProto$12 = Object.prototype;
+var hasOwnProperty$10 = objectProto$12.hasOwnProperty;
 function lodash(value) {
   if (isObjectLike(value) && !isArray(value) && !(value instanceof LazyWrapper)) {
     if (value instanceof LodashWrapper) {
       return value;
     }
-    if (hasOwnProperty$9.call(value, '__wrapped__')) {
+    if (hasOwnProperty$10.call(value, '__wrapped__')) {
       return wrapperClone(value);
     }
   }
@@ -1998,21 +2130,23 @@ function charsEndIndex(strSymbols, chrSymbols) {
   while (index-- && baseIndexOf(chrSymbols, strSymbols[index], 0) > -1) {}
   return index;
 }
->>>>>>> suggest ids in rng autocomplete
 
-  var basePath = path.dirname(settingsPath);
+function charsStartIndex(strSymbols, chrSymbols) {
+  var index = -1,
+      length = strSymbols.length;
+  while (++index < length && baseIndexOf(chrSymbols, strSymbols[index], 0) > -1) {}
+  return index;
+}
 
-  if (outcome.xmlCatalog) {
-    newOutcome.xmlCatalog = path.resolve(basePath, outcome.xmlCatalog);
+var reTrim$1 = /^\s+|\s+$/g;
+function trim(string, chars, guard) {
+  string = toString(string);
+  if (string && (guard || chars === undefined)) {
+    return string.replace(reTrim$1, '');
   }
-<<<<<<< bcd5f1debff7289da3777edc8e0dabdcc0427c5a
-  if (outcome.schemaProps) {
-    newOutcome.schemaProps = outcome.schemaProps.map(function (_ref7) {
-      var schemaPath = _ref7.path;
-      return {
-        path: path.resolve(basePath, schemaPath)
-      };
-=======
+  if (!string || !(chars = baseToString(chars))) {
+    return string;
+  }
   var strSymbols = stringToArray(string),
       chrSymbols = stringToArray(chars),
       start = charsStartIndex(strSymbols, chrSymbols),
@@ -2183,22 +2317,26 @@ ServerProcess.prototype = {
         reject(err);
       });
       socket.connect({ port: port });
->>>>>>> suggest ids in rng autocomplete
     });
   }
-  return lodash_fp.merge(rule, { outcome: newOutcome });
-})), sortByPriority);
-
-var ruleProcessor = {
-  parse: parse
 };
+var instance = null;
+ServerProcess.getInstance = function () {
+  if (instance === null) {
+    instance = new ServerProcess();
+  }
+  return instance;
+};
+ServerProcess.Error = function (message, err) {
+  this.name = 'ServerProcess.Error';
+  this.message = message;
+  this.stack = err ? err.stack : new Error().stack;
+};
+ServerProcess.Error.prototype = Object.create(Error.prototype);
 
 var nameStartChar = [':', 'A-Z', '_', 'a-z', '\\xC0-\\xD6', '\\xD8-\\xF6', '\\u00F8-\\u02FF', '\\u0370-\\u037D', '\\u037F-\\u1FFF', '\\u200C-\\u200D', '\\u2070-\\u218F', '\\u2C00-\\u2FEF', '\\u3001-\\uD7FF', '\\uF900-\\uFDCF', '\\uFDF0-\\uFFFD'].join('');
-
 var nameChar = [nameStartChar, '\\-', '\\.', '0-9', '\\u00B7', '\\u0300-\\u036F', '\\u203F-\\u2040'].join('');
-
 var spaceChar = ['\\u0020', '\\u0009', '\\u000D', '\\u000A'].join('');
-
 var regex = {
   tagNamePI: new RegExp('<(!|/|/?[' + nameStartChar + '][' + nameChar + ']*)?$'),
   attStartFromAttName: new RegExp('(?:^|[' + spaceChar + '])([' + nameStartChar + '][' + nameChar + ']*)?$'),
@@ -2213,7 +2351,6 @@ var regex = {
 };
 
 var helpers = require('atom-linter');
-
 var getPseudoAtts = function getPseudoAtts(body) {
   var pseudoAtts = {};
   body.replace(/(\w+)="(.+?)"/g, function (unused, key, value) {
@@ -2221,7 +2358,6 @@ var getPseudoAtts = function getPseudoAtts(body) {
   });
   return pseudoAtts;
 };
-
 var getXsiNamespacePrefixes = function getXsiNamespacePrefixes(attributes) {
   var prefixes = [];
   Object.keys(attributes).forEach(function (key) {
@@ -2232,42 +2368,34 @@ var getXsiNamespacePrefixes = function getXsiNamespacePrefixes(attributes) {
   });
   return prefixes;
 };
-
 var hasEvenIndex = function hasEvenIndex(unused, index) {
   return index % 2;
 };
-
 var splitQName = function splitQName(qName) {
   var colonIndex = qName.indexOf(':');
   return [qName.substr(0, colonIndex), qName.substr(colonIndex + 1)];
 };
-
 var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
   return new Promise(function (resolve) {
     var messages = [];
     var schemaProps = [];
     var xsdSchemaPaths = [];
     var saxParser = sax.parser(true);
-
     var row = 0;
     var done = false;
     var hasDoctype = false;
     var rootNs = null;
     var rootLocalName = null;
     var rootAttributes = {};
-
     var addXsdSchemaPath = function addXsdSchemaPath(href) {
       return href && xsdSchemaPaths.push(regex.url.test(href) ? href : path.resolve(path.dirname(textEditor.getPath()), href));
     };
-
     var onProcessingInstruction = function onProcessingInstruction(node) {
       if (node.name !== 'xml-model') return;
-
       var _getPseudoAtts = getPseudoAtts(node.body),
           href = _getPseudoAtts.href,
           type = _getPseudoAtts.type,
           schematypens = _getPseudoAtts.schematypens;
-
       var lang = void 0;
       if (href) {
         if (type === 'application/relax-ng-compact-syntax') {
@@ -2289,7 +2417,6 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
           });
         }
       }
-
       if (lang) {
         schemaProps.push({
           lang: lang,
@@ -2298,34 +2425,27 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
         });
       }
     };
-
     var onOpenTag = function onOpenTag(node) {
       if (done) return;
-
       var _splitQName = splitQName(node.name),
           _splitQName2 = slicedToArray(_splitQName, 2),
           rootNsPrefix = _splitQName2[0],
           localName = _splitQName2[1];
-
       rootNs = rootNsPrefix ? node.attributes['xmlns:' + rootNsPrefix] : node.attributes.xmlns;
       rootLocalName = localName;
       rootAttributes = node.attributes;
-
       getXsiNamespacePrefixes(node.attributes).forEach(function (prefix) {
         var noNamespaceSchemaLocation = node.attributes[prefix + ':noNamespaceSchemaLocation'];
         if (noNamespaceSchemaLocation) {
           addXsdSchemaPath(noNamespaceSchemaLocation.trim());
         }
-
         var schemaLocation = node.attributes[prefix + ':schemaLocation'];
         if (schemaLocation) {
           schemaLocation.trim().split(regex.spaces).filter(hasEvenIndex).forEach(addXsdSchemaPath);
         }
       });
-
       done = true;
     };
-
     saxParser.onerror = function () {
       return done = true;
     };
@@ -2334,11 +2454,9 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
     };
     saxParser.onprocessinginstruction = onProcessingInstruction;
     saxParser.onopentag = onOpenTag;
-
     var textBuffer = textEditor.getBuffer();
     var lineCount = textBuffer.getLineCount();
     var chunkSize = 64;
-
     while (!done && row < lineCount) {
       var line = textBuffer.lineForRow(row);
       var lineLength = line.length;
@@ -2349,14 +2467,12 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
       }
       row++;
     }
-
     if (xsdSchemaPaths.length) {
       schemaProps.push({
         lang: 'xsd',
         path: xsdSchemaPaths.join('*')
       });
     }
-
     var docProps = {
       rootScopes: textEditor.getRootScopeDescriptor().scopes,
       filePath: textEditor.getPath(),
@@ -2364,19 +2480,14 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
       rootLocalName: rootLocalName,
       rootAttributes: rootAttributes
     };
-
     var rule = parsedRules.find(function (r) {
       return r.test(docProps);
     });
-
     var xmlCatalog = rule && 'xmlCatalog' in rule.outcome ? rule.outcome.xmlCatalog : config.xmlCatalog;
-
     var dtdValidation = rule && 'dtdValidation' in rule.outcome ? rule.outcome.dtdValidation : config.dtdValidation;
-
     if (rule && !schemaProps.length) {
       schemaProps.push.apply(schemaProps, toConsumableArray(rule.outcome.schemaProps));
     }
-
     if (hasDoctype && (dtdValidation === 'always' || dtdValidation === 'fallback' && !schemaProps.length)) {
       schemaProps.push({
         lang: 'dtd',
@@ -2384,43 +2495,34 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
         path: null
       });
     }
-
     if (!schemaProps.length) {
       schemaProps.push({
         lang: 'none',
         path: null
       });
     }
-
     resolve({ schemaProps: schemaProps, messages: messages, xmlCatalog: xmlCatalog });
   });
 };
 
 var serverProcessInstance$1 = ServerProcess.getInstance();
-
 var helpers$1 = require('atom-linter');
-
 var messageRegex = /^([a-z0-9.]+?):((.*?):\s?)?((\d+):)?(?:\d+:\s)?(error|fatal|warning):\s(.*)$/;
-
 var parseMessage = function parseMessage(textEditor, schemaProps, config) {
   return function (str) {
     var match = messageRegex.exec(str);
     if (!match) {
-      console.error('Could not parse message "' + str + '"'); // eslint-disable-line
+      console.error('Could not parse message "' + str + '"');
       return null;
     }
-
     var _match = slicedToArray(match, 8),
         lang = _match[1],
         systemId = _match[3],
         line = _match[5],
         level = _match[6],
         text = _match[7];
-
     var filePath = textEditor.getPath();
-
     var html = document.createElement('div').appendChild(document.createTextNode(text)).parentNode.innerHTML;
-
     if (systemId === filePath) {
       return {
         type: level === 'warning' ? 'Warning' : 'Error',
@@ -2429,18 +2531,14 @@ var parseMessage = function parseMessage(textEditor, schemaProps, config) {
         range: helpers$1.rangeFromLineNumber(textEditor, Number(line) - 1)
       };
     }
-
     if (!config.displaySchemaWarnings && level === 'warning') {
       return null;
     }
-
     var label = level === 'warning' ? 'Schema parser warning: ' : 'Could not process schema or catalog: ';
-
     var schema = schemaProps.find(function (sch) {
       return sch.path === systemId && sch.lang === lang;
     });
     var range = schema ? helpers$1.rangeFromLineNumber(textEditor, schema.line) : [[0, 0], [0, 0]];
-
     return {
       type: 'Warning',
       html: label + html,
@@ -2449,7 +2547,6 @@ var parseMessage = function parseMessage(textEditor, schemaProps, config) {
     };
   };
 };
-
 var validate = function validate(textEditor, config) {
   return function (_ref) {
     var _ref2 = slicedToArray(_ref, 2),
@@ -2457,53 +2554,41 @@ var validate = function validate(textEditor, config) {
         schemaProps = _ref2$.schemaProps,
         messages = _ref2$.messages,
         xmlCatalog = _ref2$.xmlCatalog;
-
     var headers = ['V', 'r', 'UTF-8', textEditor.getPath(), xmlCatalog || ''].concat(toConsumableArray(schemaProps.map(function (schema) {
       return schema.lang + ' ' + (schema.path || '');
     })));
     var body = textEditor.getText();
-
-    return serverProcessInstance$1.sendRequest(headers, body).then(lodash_fp.flow(lodash_fp.trim, lodash_fp.split(/\r?\n/), lodash_fp.filter(lodash_fp.identity), lodash_fp.map(parseMessage(textEditor, schemaProps, config)), lodash_fp.compact, lodash_fp.concat(messages), lodash_fp.sortBy('range[0][0]')));
+    return serverProcessInstance$1.sendRequest(headers, body).then(flow(trim, split(/\r?\n/), filter(identity), map(parseMessage(textEditor, schemaProps, config)), compact, concat(messages), sortBy('range[0][0]')));
   };
 };
 
 var serverProcessInstance$2 = ServerProcess.getInstance();
-
 var getEndToken = function getEndToken(str) {
   var match = str.match(regex.endToken);
   return match ? match[1] : '';
 };
-
 var getPreviousTagBracket = function getPreviousTagBracket(_ref) {
   var editor = _ref.editor,
       bufferPosition = _ref.bufferPosition;
-
   var bracket = null;
-
   editor.backwardsScanInBufferRange(regex.previousTagBracket, [bufferPosition, [0, 0]], function (_ref2) {
     var matchText = _ref2.matchText,
         stop = _ref2.stop;
-
     if (!matchText.startsWith('\'') && !matchText.startsWith('"')) {
       bracket = matchText;
       stop();
     }
   });
-
   return bracket;
 };
-
 var getEndBracketPosition = function getEndBracketPosition(_ref3) {
   var editor = _ref3.editor,
       bufferPosition = _ref3.bufferPosition;
-
   var position = null;
-
   editor.scanInBufferRange(regex.nextTagBracket, [bufferPosition, editor.getBuffer().getEndPosition()], function (_ref4) {
     var matchText = _ref4.matchText,
         range = _ref4.range,
         stop = _ref4.stop;
-
     if (!matchText.startsWith('\'') && !matchText.startsWith('"')) {
       if (matchText !== '<') {
         position = [range.start.row, range.start.column + matchText.length];
@@ -2511,21 +2596,14 @@ var getEndBracketPosition = function getEndBracketPosition(_ref3) {
       stop();
     }
   });
-
   return position;
 };
-
-// linebreaks are not (yet?) supported in descriptions of autocomplete-plus
-// suggestions, see https://github.com/atom/autocomplete-plus/pull/598;
-// for now, this autocomplete provider uses n-dashs as a separator
-var buildDescriptionString = lodash_fp.join(' \u2013 ');
-
+var buildDescriptionString = join(' \u2013 ');
 var buildAttributeStrings = function buildAttributeStrings(attribute, index, addSuffix) {
   var _attribute$split = attribute.split('#'),
       _attribute$split2 = slicedToArray(_attribute$split, 2),
       qName = _attribute$split2[0],
       nsUri = _attribute$split2[1];
-
   if (typeof nsUri === 'string') {
     var nsPrefix = 'ns${' + ++index + '}';
     var _attNameSnippet = qName.replace(/\*/g, function () {
@@ -2534,26 +2612,22 @@ var buildAttributeStrings = function buildAttributeStrings(attribute, index, add
     var nsUriSnippet = nsUri === '*' ? '${' + ++index + '}' : nsUri;
     var _suffix = addSuffix ? '="${' + ++index + '}"' : '';
     var displayText = nsUri === '' ? qName + ' [no namespace]' : qName + ' (' + nsUri + ')';
-
     return {
       snippet: nsPrefix + ':' + _attNameSnippet + _suffix + ' xmlns:' + nsPrefix + '="' + nsUriSnippet + '"',
       displayText: displayText,
       index: index
     };
   }
-
   var attNameSnippet = qName.replace(/\*/g, function () {
     return '${' + ++index + '}';
   });
   var suffix = addSuffix ? '="${' + ++index + '}"' : '';
-
   return {
     snippet: '' + attNameSnippet + suffix,
     displayText: qName,
     index: index
   };
 };
-
 var escape = function escape(quoteChar) {
   var quoteReplacements = {
     '"': '&quot;',
@@ -2563,19 +2637,15 @@ var escape = function escape(quoteChar) {
     '&': '&amp;',
     '<': '&lt;'
   }, quoteChar, quoteReplacements[quoteChar]);
-
   var reg = new RegExp(Object.keys(replacements).join('|'), 'g');
-
   return function (str) {
     return str.replace(reg, function (match) {
       return replacements[match];
     });
   };
 };
-
 var escapeWithDblQuotes = escape('"');
 var escapeWithSingleQuotes = escape('\'');
-
 var buildAttributeValueSuggestion = function buildAttributeValueSuggestion(prefix, endToken, hasDblQuotes) {
   return function (_ref5) {
     var listItem = _ref5.listItem,
@@ -2591,16 +2661,13 @@ var buildAttributeValueSuggestion = function buildAttributeValueSuggestion(prefi
     };
   };
 };
-
 var buildAttributeNameSuggestion = function buildAttributeNameSuggestion(replacementPrefix, addSuffix) {
   return function (_ref6) {
     var value = _ref6.value,
         documentation = _ref6.documentation;
-
     var _buildAttributeString = buildAttributeStrings(value, 0, addSuffix),
         snippet = _buildAttributeString.snippet,
         displayText = _buildAttributeString.displayText;
-
     return {
       snippet: snippet,
       displayText: displayText,
@@ -2611,7 +2678,6 @@ var buildAttributeNameSuggestion = function buildAttributeNameSuggestion(replace
     };
   };
 };
-
 var buildElementSuggestion = function buildElementSuggestion(replacementPrefix, addSuffix) {
   return function (_ref7) {
     var value = _ref7.value,
@@ -2621,7 +2687,6 @@ var buildElementSuggestion = function buildElementSuggestion(replacementPrefix, 
         attributes = _ref7$attributes === undefined ? [] : _ref7$attributes,
         documentation = _ref7.documentation,
         preDefinedSnippet = _ref7.snippet;
-
     if (preDefinedSnippet) {
       return {
         snippet: preDefinedSnippet,
@@ -2632,10 +2697,8 @@ var buildElementSuggestion = function buildElementSuggestion(replacementPrefix, 
         retrigger: false
       };
     }
-
     if (closing) {
       var _snippet = addSuffix ? '/' + value + '>' : '/' + value;
-
       return {
         snippet: _snippet,
         displayText: _snippet,
@@ -2645,27 +2708,20 @@ var buildElementSuggestion = function buildElementSuggestion(replacementPrefix, 
         retrigger: false
       };
     }
-
     var _value$split = value.split('#'),
         _value$split2 = slicedToArray(_value$split, 2),
         tagName = _value$split2[0],
         nsUri = _value$split2[1];
-
     var index = 0;
-
     var tagNameSnippet = tagName.replace(/\*/g, function () {
       return '${' + ++index + '}';
     });
-
-    // don't retrigger autocomplete when a wildcard end tag snippet gets inserted
     var hasEndTagSnippet = index > 0;
-
     var retrigger = void 0;
     var snippet = void 0;
     var displayText = void 0;
     if (addSuffix) {
       var nsSnippet = void 0;
-
       if (typeof nsUri === 'string') {
         var nsUriSnippet = nsUri === '*' ? '${' + ++index + '}' : nsUri;
         nsSnippet = ['xmlns="' + nsUriSnippet + '"'];
@@ -2674,27 +2730,21 @@ var buildElementSuggestion = function buildElementSuggestion(replacementPrefix, 
         nsSnippet = [];
         displayText = tagName;
       }
-
       var attributeSnippets = attributes.map(function (attribute) {
         var _buildAttributeString2 = buildAttributeStrings(attribute, index, true),
             attributeSnippet = _buildAttributeString2.snippet,
             newIndex = _buildAttributeString2.index;
-
         index = newIndex;
         return attributeSnippet;
       });
-
       var startTagContent = [tagNameSnippet].concat(nsSnippet).concat(attributeSnippets).join(' ');
-
       snippet = empty ? startTagContent + '/>' : startTagContent + '>${' + ++index + '}</' + tagNameSnippet + '>';
-
       retrigger = !hasEndTagSnippet && index > 0;
     } else {
       displayText = tagName;
       snippet = tagNameSnippet;
       retrigger = false;
     }
-
     return {
       snippet: snippet,
       displayText: displayText,
@@ -2705,100 +2755,67 @@ var buildElementSuggestion = function buildElementSuggestion(replacementPrefix, 
     };
   };
 };
-
 var getTagNamePIPrefix = function getTagNamePIPrefix(precedingLineText) {
   var match = precedingLineText.match(regex.tagNamePI);
   return match ? match[1] || '' : null;
 };
-
 var getAttributeNameProps = function getAttributeNameProps(precedingLineText) {
   var match = precedingLineText.match(regex.attStartFromAttName);
   return match ? { prefix: match[1] || '', column: match.index } : null;
 };
-
 var getAttributeValueProps = function getAttributeValueProps(_ref8, hasDblQuotes) {
   var editor = _ref8.editor,
       bufferPosition = _ref8.bufferPosition;
-
   var attStartRegex = hasDblQuotes ? regex.attStartFromAttValueDouble : regex.attStartFromAttValueSingle;
-
   var result = void 0;
-
   editor.backwardsScanInBufferRange(attStartRegex, [bufferPosition, [0, 0]], function (_ref9) {
     var match = _ref9.match,
         stop = _ref9.stop;
-
     result = match;
     stop();
   });
-
   return result ? { name: result[1], prefix: result[2] || '' } : null;
 };
-
-var getQuotedScope = lodash_fp.find(function (scope) {
-  return scope === 'string.quoted.double.xml' || scope === 'string.quoted.single.xml';
-});
-
-var includesTagScope = function includesTagScope(scopesArray) {
-  return scopesArray.some(function (item) {
-    return item === 'meta.tag.xml' || item === 'meta.tag.no-content.xml';
+var getQuotedScope = function getQuotedScope(scopes) {
+  return scopes.find(function (scope) {
+    return scope === 'string.quoted.double.xml' || scope === 'string.quoted.single.xml';
   });
 };
-
+var includesTagScope = function includesTagScope(scopesArray) {
+  return scopesArray.some(function (item) {
+    return item.startsWith('meta.tag.xml') || item === 'meta.tag.no-content.xml';
+  });
+};
 var wildcardOptions = {
   none: '',
   localparts: 'w',
   all: 'wn'
 };
-<<<<<<< bcd5f1debff7289da3777edc8e0dabdcc0427c5a
-
-var buildHeaders = function buildHeaders(editorPath, xmlCatalog, wildcardSuggestions, _ref10, type, fragment) {
+var buildHeaders = function buildHeaders(editorPath, xmlCatalog, wildcardSuggestions, _ref10, type, fragment, splitPoint) {
   var lang = _ref10.lang,
       schemaPath = _ref10.path;
-  return ['A', type, fragment || '', 'r' + wildcardOptions[wildcardSuggestions], 'UTF-8', editorPath, xmlCatalog || '', lang + ' ' + (schemaPath || '')];
-=======
-var buildHeaders = function buildHeaders(editorPath, xmlCatalog, wildcardSuggestions, _ref10, type, fragment, splitPoint) {
-  var lang = _ref10.lang;
-  var schemaPath = _ref10.path;
   return ['A', type, fragment || '', splitPoint || '', 'r' + wildcardOptions[wildcardSuggestions], 'UTF-8', editorPath, xmlCatalog || '', lang + ' ' + (schemaPath || '')];
->>>>>>> suggest ids in rng autocomplete
 };
-
 var getSuggestions$1 = function getSuggestions$1(sharedConfig, suggestionOptions) {
   var options = sharedConfig.options,
       xmlCatalog = sharedConfig.xmlCatalog,
       currentSchemaProps = sharedConfig.currentSchemaProps,
       wildcardSuggestions = sharedConfig.wildcardSuggestions;
   var editor = options.editor;
-<<<<<<< bcd5f1debff7289da3777edc8e0dabdcc0427c5a
   var type = suggestionOptions.type,
       fragment = suggestionOptions.fragment,
       body = suggestionOptions.body,
+      splitPoint = suggestionOptions.splitPoint,
       clientData = suggestionOptions.clientData,
       filterFn = suggestionOptions.filterFn,
       builderFn = suggestionOptions.builderFn;
-
-
-  var headers = buildHeaders(editor.getPath(), xmlCatalog, wildcardSuggestions, currentSchemaProps, type, fragment);
-
-  return serverProcessInstance$2.sendRequest(headers, body).then(lodash_fp.flow(JSON.parse, function (data) {
-=======
-  var type = suggestionOptions.type;
-  var fragment = suggestionOptions.fragment;
-  var body = suggestionOptions.body;
-  var splitPoint = suggestionOptions.splitPoint;
-  var clientData = suggestionOptions.clientData;
-  var filterFn = suggestionOptions.filterFn;
-  var builderFn = suggestionOptions.builderFn;
   var headers = buildHeaders(editor.getPath(), xmlCatalog, wildcardSuggestions, currentSchemaProps, type, fragment, splitPoint);
   return serverProcessInstance$2.sendRequest(headers, body).then(flow(JSON.parse, function (data) {
->>>>>>> suggest ids in rng autocomplete
     return clientData ? data.concat(clientData) : data;
-  }, lodash_fp.filter(filterFn), lodash_fp.map(builderFn), lodash_fp.compact)).catch(function () {
+  }, filter(filterFn), map(builderFn), compact)).catch(function () {
     return [];
   });
 };
-
 var elementSuggestionFilter = function elementSuggestionFilter(prefix) {
   return function (_ref11) {
     var value = _ref11.value,
@@ -2806,7 +2823,6 @@ var elementSuggestionFilter = function elementSuggestionFilter(prefix) {
     return closing ? ('/' + value).startsWith(prefix) : value.startsWith(prefix);
   };
 };
-
 var attributeValueFilter = function attributeValueFilter(prefix, endToken) {
   return function (_ref12) {
     var value = _ref12.value,
@@ -2814,44 +2830,30 @@ var attributeValueFilter = function attributeValueFilter(prefix, endToken) {
     return value.startsWith(listItem ? endToken : prefix);
   };
 };
-
 var attributeNameFilter = function attributeNameFilter(prefix) {
   return function (_ref13) {
     var value = _ref13.value;
     return value.startsWith(prefix);
   };
 };
-
 var getPrecedingLineText = function getPrecedingLineText(_ref14) {
   var editor = _ref14.editor,
       bufferPosition = _ref14.bufferPosition;
   return editor.getTextInBufferRange([[bufferPosition.row, 0], bufferPosition]);
 };
-
 var getAttributeValueSuggestions = function getAttributeValueSuggestions(sharedConfig, precedingLineText, quotedScope) {
   var options = sharedConfig.options;
   var editor = options.editor;
-
-
   var hasDblQuotes = quotedScope === 'string.quoted.double.xml';
   var attributeValueProps = getAttributeValueProps(options, hasDblQuotes);
-
   if (!attributeValueProps) return [];
-
   var endBracketPosition = getEndBracketPosition(options);
   if (!endBracketPosition) return [];
-
   var fragment = attributeValueProps.name,
       prefix = attributeValueProps.prefix;
-
-
   var endToken = getEndToken(prefix);
-<<<<<<< bcd5f1debff7289da3777edc8e0dabdcc0427c5a
-
-=======
   var head = editor.getTextInBufferRange([[0, 0], endBracketPosition]);
   var splitPoint = Buffer.byteLength(head);
->>>>>>> suggest ids in rng autocomplete
   return getSuggestions$1(sharedConfig, {
     type: 'V',
     body: editor.getText(),
@@ -2861,35 +2863,21 @@ var getAttributeValueSuggestions = function getAttributeValueSuggestions(sharedC
     builderFn: buildAttributeValueSuggestion(prefix, endToken, hasDblQuotes)
   });
 };
-
 var getAttributeNameSuggestions = function getAttributeNameSuggestions(sharedConfig, precedingLineText) {
   var options = sharedConfig.options;
   var editor = options.editor,
       bufferPosition = options.bufferPosition;
-
-
   var attributeNameProps = getAttributeNameProps(precedingLineText);
   if (!attributeNameProps) return [];
-
   var endBracketPosition = getEndBracketPosition(options);
   if (!endBracketPosition) return [];
-
   var prefix = attributeNameProps.prefix,
       prefixStartColumn = attributeNameProps.column;
-
-
   var textBeforeAttribute = editor.getTextInBufferRange([[0, 0], [bufferPosition.row, prefixStartColumn]]);
-<<<<<<< bcd5f1debff7289da3777edc8e0dabdcc0427c5a
-
-  var followingText = editor.getTextInBufferRange([bufferPosition, endBracketPosition]) + '>';
-
-=======
   var followingText = editor.getTextInBufferRange([bufferPosition, endBracketPosition]);
->>>>>>> suggest ids in rng autocomplete
   var match = followingText.match(regex.attEndFromAttName);
   var textAfterAttribute = match ? followingText.substr(match[0].length) : followingText;
   var addSuffix = !match;
-
   return getSuggestions$1(sharedConfig, {
     type: 'N',
     body: textBeforeAttribute + textAfterAttribute,
@@ -2897,27 +2885,21 @@ var getAttributeNameSuggestions = function getAttributeNameSuggestions(sharedCon
     builderFn: buildAttributeNameSuggestion(prefix, addSuffix)
   });
 };
-
 var piSuggestions = [{
   value: '!--  -->',
-  snippet: '!-- ${1} -->', // eslint-disable-line no-template-curly-in-string
+  snippet: '!-- ${1} -->',
   documentation: 'Comment'
 }, {
   value: '![CDATA[]]>',
-  snippet: '![CDATA[${1}]]>', // eslint-disable-line no-template-curly-in-string
+  snippet: '![CDATA[${1}]]>',
   documentation: 'CDATA Section'
 }];
-
 var getElementPISuggestions = function getElementPISuggestions(sharedConfig, tagNamePIPrefix) {
   var options = sharedConfig.options;
   var editor = options.editor,
       bufferPosition = options.bufferPosition;
-
-
   var body = editor.getTextInBufferRange([[0, 0], [bufferPosition.row, bufferPosition.column - tagNamePIPrefix.length - 1]]);
-
   var addSuffix = !getEndBracketPosition(options);
-
   return getSuggestions$1(sharedConfig, {
     type: 'E',
     body: body,
@@ -2926,7 +2908,6 @@ var getElementPISuggestions = function getElementPISuggestions(sharedConfig, tag
     builderFn: buildElementSuggestion(tagNamePIPrefix, addSuffix)
   });
 };
-
 var suggest = function suggest(options, _ref15) {
   var autocompleteScope = _ref15.autocompleteScope,
       wildcardSuggestions = _ref15.wildcardSuggestions;
@@ -2935,49 +2916,84 @@ var suggest = function suggest(options, _ref15) {
         _ref17$ = _ref17[1],
         schemaProps = _ref17$.schemaProps,
         xmlCatalog = _ref17$.xmlCatalog;
-
-    var currentSchemaProps = lodash_fp.find(function (_ref18) {
+    var currentSchemaProps = schemaProps.find(function (_ref18) {
       var lang = _ref18.lang;
       return !!autocompleteScope[lang];
-    }, schemaProps) || { type: 'none' };
-
+    }) || { type: 'none' };
     var scopesArray = options.scopeDescriptor.getScopesArray();
     var sharedConfig = { options: options, xmlCatalog: xmlCatalog, currentSchemaProps: currentSchemaProps, wildcardSuggestions: wildcardSuggestions };
     var precedingLineText = getPrecedingLineText(options);
     var tagNamePIPrefix = getTagNamePIPrefix(precedingLineText);
-
     if (tagNamePIPrefix !== null) {
       return getElementPISuggestions(sharedConfig, tagNamePIPrefix);
     }
-
     if (includesTagScope(scopesArray)) {
       var quotedScope = getQuotedScope(scopesArray);
-
       if (quotedScope) {
         return getAttributeValueSuggestions(sharedConfig, precedingLineText, quotedScope);
       }
-
       if (getPreviousTagBracket(options) === '<') {
         return getAttributeNameSuggestions(sharedConfig, precedingLineText);
       }
     }
-
     return [];
   };
 };
-<<<<<<< bcd5f1debff7289da3777edc8e0dabdcc0427c5a
-=======
+
+var createGrammarScopeMatcher = function createGrammarScopeMatcher(value) {
+  return function (_ref) {
+    var rootScopes = _ref.rootScopes;
+    return rootScopes.includes(value);
+  };
+};
+var createPathRegexMatcher = function createPathRegexMatcher(pathRegexStr) {
+  try {
+    var _ret = function () {
+      var pathRegex = new RegExp(pathRegexStr);
+      return {
+        v: function v(_ref2) {
+          var filePath = _ref2.filePath;
+          return pathRegex.test(filePath);
+        }
+      };
+    }();
+    if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+  } catch (err) {
+    console.error('Could not parse RegExp "' + pathRegexStr + '"', err);
+    return function () {
+      return false;
+    };
+  }
+};
+var createRootNsMatcher = function createRootNsMatcher(value) {
+  return function (_ref3) {
+    var rootNs = _ref3.rootNs;
+    return value === rootNs;
+  };
+};
+var createRootLocalNameMatcher = function createRootLocalNameMatcher(value) {
+  return function (_ref4) {
+    var rootLocalName = _ref4.rootLocalName;
+    return value === rootLocalName;
+  };
+};
+var createRootAttributeMatcher = function createRootAttributeMatcher(value, name) {
+  return function (_ref5) {
+    var rootAttributes = _ref5.rootAttributes;
+    return rootAttributes[name] === value;
+  };
+};
 var sortByPriority = function sortByPriority(arr) {
   return arr.sort(function (a, b) {
     return b.priority - a.priority;
   });
 };
 var createTestFn = function createTestFn(_ref6) {
-  var grammarScope = _ref6.grammarScope;
-  var pathRegex = _ref6.pathRegex;
-  var rootNs = _ref6.rootNs;
-  var rootLocalName = _ref6.rootLocalName;
-  var rootAttributes = _ref6.rootAttributes;
+  var grammarScope = _ref6.grammarScope,
+      pathRegex = _ref6.pathRegex,
+      rootNs = _ref6.rootNs,
+      rootLocalName = _ref6.rootLocalName,
+      rootAttributes = _ref6.rootAttributes;
   var matchers = [];
   if (grammarScope) {
     matchers.push(createGrammarScopeMatcher(grammarScope));
@@ -3000,9 +3016,9 @@ var createTestFn = function createTestFn(_ref6) {
   };
 };
 var parseRule = function parseRule(_ref7) {
-  var test = _ref7.test;
-  var outcome = _ref7.outcome;
-  var settingsPath = _ref7.settingsPath;
+  var test = _ref7.test,
+      outcome = _ref7.outcome,
+      settingsPath = _ref7.settingsPath;
   var testFn = createTestFn(test);
   var newOutcome = {};
   var basePath = path.dirname(settingsPath);
@@ -3011,8 +3027,8 @@ var parseRule = function parseRule(_ref7) {
   }
   if (outcome.schemaProps) {
     newOutcome.schemaProps = outcome.schemaProps.map(function (_ref8) {
-      var schemaPath = _ref8.path;
-      var lang = _ref8.lang;
+      var schemaPath = _ref8.path,
+          lang = _ref8.lang;
       return {
         path: path.resolve(basePath, schemaPath),
         lang: lang
@@ -3052,10 +3068,8 @@ var RuleManager = function () {
   }]);
   return RuleManager;
 }();
->>>>>>> suggest ids in rng autocomplete
 
 var serverProcessInstance = ServerProcess.getInstance();
-
 if (serverProcessInstance.onError === ServerProcess.prototype.onError) {
   serverProcessInstance.onError = function (err) {
     atom.notifications.addError('[linter-autocomplete-jing] ' + err.message, {
@@ -3064,17 +3078,12 @@ if (serverProcessInstance.onError === ServerProcess.prototype.onError) {
     });
   };
 }
-
 var subscriptions = void 0;
-var parsedConfigRules = [];
-var parsedPackageRules = [];
-var parsedRules = [];
 var initialPackagesActivated = false;
 var shouldSuppressAutocomplete = false;
+var ruleManager = new RuleManager();
 var grammarScopes = [];
-
 var localConfig = {};
-
 var addErrorNotification = function addErrorNotification(err) {
   atom.notifications.addError('[linter-autocomplete-jing] ' + err.message, {
     detail: err.stack,
@@ -3082,7 +3091,6 @@ var addErrorNotification = function addErrorNotification(err) {
   });
   return [];
 };
-
 var setServerConfig = function setServerConfig(args) {
   if (serverProcessInstance.isReadyPromise) {
     serverProcessInstance.isReadyPromise.then(function () {
@@ -3090,19 +3098,14 @@ var setServerConfig = function setServerConfig(args) {
     }).catch(addErrorNotification);
   }
 };
-
 var setLocalConfig = function setLocalConfig(key) {
   return function (value) {
     if (key === 'rules') {
-      parsedConfigRules = ruleProcessor.parse(value);
-      parsedRules = parsedConfigRules.concat(parsedPackageRules);
+      ruleManager.updateConfigRules(value);
       return;
     }
-
     localConfig[key] = value;
-
     if (!serverProcessInstance.isReady) return;
-
     if (['javaExecutablePath', 'jvmArguments'].includes(key)) {
       serverProcessInstance.exit();
     } else if (key === 'schemaCacheSize') {
@@ -3110,84 +3113,56 @@ var setLocalConfig = function setLocalConfig(key) {
     }
   };
 };
-
 var triggerAutocomplete = function triggerAutocomplete(editor) {
   atom.commands.dispatch(atom.views.getView(editor), 'autocomplete-plus:activate', {
     activatedManually: false
   });
 };
-
 var cancelAutocomplete = function cancelAutocomplete(editor) {
   atom.commands.dispatch(atom.views.getView(editor), 'autocomplete-plus:cancel', {
     activatedManually: false
   });
 };
-
 var updateGrammarScopes = function updateGrammarScopes() {
   var grammars = atom.grammars.getGrammars();
-  var newGrammarScopes = lodash_fp.flow(lodash_fp.map('scopeName'), lodash_fp.filter(lodash_fp.startsWith('text.xml')))(grammars);
-
+  var newGrammarScopes = flow(map('scopeName'), filter(startsWith('text.xml')))(grammars);
   grammarScopes.splice.apply(grammarScopes, [0, grammarScopes.length].concat(toConsumableArray(newGrammarScopes)));
 };
-
 var updateRules = function updateRules() {
   var activePackages = atom.packages.getActivePackages();
-<<<<<<< bcd5f1debff7289da3777edc8e0dabdcc0427c5a
-
-  var rules = lodash_fp.flow(lodash_fp.flatMap('settings'), lodash_fp.flatMap(function (_ref) {
+  var rules = flow(flatMap('settings'), flatMap(function (_ref) {
     var settingsPath = _ref.path,
         scopedProperties = _ref.scopedProperties;
-    return lodash_fp.flow(lodash_fp.get(['.text.xml', 'validation', 'rules']), lodash_fp.map(lodash_fp.set('settingsPath', settingsPath)))(scopedProperties);
-  }), lodash_fp.compact)(activePackages);
-
-  parsedPackageRules = ruleProcessor.parse(rules);
-  parsedRules = parsedConfigRules.concat(parsedPackageRules);
-=======
-  var rules = flow(flatMap('settings'), flatMap(function (_ref) {
-    var settingsPath = _ref.path;
-    var scopedProperties = _ref.scopedProperties;
     return flow(get(['.text.xml', 'validation', 'rules']), map(function (_ref2) {
-      var test = _ref2.test;
-      var outcome = _ref2.outcome;
+      var test = _ref2.test,
+          outcome = _ref2.outcome;
       return { test: test, outcome: outcome, settingsPath: settingsPath };
     }))(scopedProperties);
   }), compact)(activePackages);
   ruleManager.updatePackageRules(rules);
->>>>>>> suggest ids in rng autocomplete
 };
-
 var handlePackageChanges = function handlePackageChanges() {
   updateGrammarScopes();
   updateRules();
 };
-
 var main = {
-<<<<<<< bcd5f1debff7289da3777edc8e0dabdcc0427c5a
-  serverProcess: ServerProcess,
-=======
   ServerProcess: ServerProcess,
   ruleManager: ruleManager,
->>>>>>> suggest ids in rng autocomplete
   activate: function activate() {
     require('atom-package-deps').install();
-
     subscriptions = new atom$1.CompositeDisposable();
-
     Object.keys(atom.config.get('linter-autocomplete-jing')).forEach(function (key) {
       return subscriptions.add(atom.config.observe('linter-autocomplete-jing.' + key, setLocalConfig(key)));
     });
-
     subscriptions.add(atom.commands.add('atom-workspace', {
       'linter-autocomplete-jing:clear-schema-cache': function linterAutocompleteJingClearSchemaCache() {
         return setServerConfig(['C']);
       }
     }));
-
     var setPackageListeners = function setPackageListeners() {
       subscriptions.add(atom.packages.onDidActivatePackage(handlePackageChanges));
       subscriptions.add(atom.packages.onDidDeactivatePackage(handlePackageChanges));
     };
-
     if (initialPackagesActivated) {
       setPackageListeners();
     } else {
@@ -3197,7 +3172,6 @@ var main = {
         setPackageListeners();
       }));
     }
-
     serverProcessInstance.ensureIsReady(localConfig).catch(addErrorNotification);
   },
   deactivate: function deactivate() {
@@ -3211,7 +3185,7 @@ var main = {
       scope: 'file',
       lintOnFly: true,
       lint: function lint(textEditor) {
-        return Promise.all([serverProcessInstance.ensureIsReady(localConfig), getSchemaProps(textEditor, parsedRules, localConfig)]).then(validate(textEditor, localConfig)).catch(addErrorNotification);
+        return Promise.all([serverProcessInstance.ensureIsReady(localConfig), getSchemaProps(textEditor, ruleManager.getParsedRules(), localConfig)]).then(validate(textEditor, localConfig)).catch(addErrorNotification);
       }
     };
   },
@@ -3227,13 +3201,11 @@ var main = {
           shouldSuppressAutocomplete = false;
           return null;
         }
-
-        return Promise.all([serverProcessInstance.ensureIsReady(localConfig), getSchemaProps(options.editor, parsedRules, localConfig)]).then(suggest(options, localConfig)).catch(addErrorNotification);
+        return Promise.all([serverProcessInstance.ensureIsReady(localConfig), getSchemaProps(options.editor, ruleManager.getParsedRules(), localConfig)]).then(suggest(options, localConfig)).catch(addErrorNotification);
       },
       onDidInsertSuggestion: function onDidInsertSuggestion(data) {
         var editor = data.editor,
             suggestion = data.suggestion;
-
         if (suggestion.retrigger) {
           setTimeout(function () {
             return triggerAutocomplete(editor);
