@@ -49,7 +49,7 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
     const addXsdSchemaPath = href => href && xsdSchemaPaths.push(
       regex.url.test(href)
         ? href
-        : path.resolve(path.dirname(textEditor.getPath()), href)
+        : path.resolve(path.dirname(textEditor.getPath()), href),
     );
 
     const onProcessingInstruction = (node) => {
@@ -105,7 +105,7 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
           const noNamespaceSchemaLocation = node.attributes[prefix + ':noNamespaceSchemaLocation'];
           if (noNamespaceSchemaLocation) {
             addXsdSchemaPath(
-              noNamespaceSchemaLocation.trim()
+              noNamespaceSchemaLocation.trim(),
             );
           }
 

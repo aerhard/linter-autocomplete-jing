@@ -21,7 +21,7 @@ const getPreviousTagBracket = ({ editor, bufferPosition }) => {
         bracket = matchText;
         stop();
       }
-    }
+    },
   );
 
   return bracket;
@@ -40,7 +40,7 @@ const getEndBracketPosition = ({ editor, bufferPosition }) => {
         }
         stop();
       }
-    }
+    },
   );
 
   return position;
@@ -237,14 +237,14 @@ const getAttributeValueProps = ({ editor, bufferPosition }, hasDblQuotes) => {
     ({ match, stop }) => {
       result = match;
       stop();
-    }
+    },
   );
 
   return result ? { name: result[1], prefix: result[2] || '' } : null;
 };
 
 const getQuotedScope = find(
-  scope => scope === 'string.quoted.double.xml' || scope === 'string.quoted.single.xml'
+  scope => scope === 'string.quoted.double.xml' || scope === 'string.quoted.single.xml',
 );
 
 const includesTagScope = scopesArray =>
@@ -282,7 +282,7 @@ const getSuggestions = (sharedConfig, suggestionOptions) => {
       data => (clientData ? data.concat(clientData) : data),
       filter(filterFn),
       map(builderFn),
-      compact
+      compact,
     ))
     .catch(() => []);
 };

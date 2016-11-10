@@ -124,7 +124,7 @@ ServerProcess.prototype = {
         socket.write(
           headers
             .map(header => `-${header}\n`)
-            .join('')
+            .join(''),
         );
 
         if (body !== null) {

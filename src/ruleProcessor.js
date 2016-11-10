@@ -49,7 +49,7 @@ const parse = flow(
         if (rootAttributes) {
           const attributeMatchers = mapWithKey(
             createRootAttributeMatcher,
-            rootAttributes
+            rootAttributes,
           );
           matchers.push(...attributeMatchers);
         }
@@ -72,10 +72,10 @@ const parse = flow(
           }));
         }
         return merge(rule, { outcome: newOutcome });
-      }
-    )
+      },
+    ),
   ),
-  sortByPriority
+  sortByPriority,
 );
 
 export default {

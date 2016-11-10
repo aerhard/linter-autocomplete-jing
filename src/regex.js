@@ -43,7 +43,7 @@ export default {
   attEndFromAttName: new RegExp('^[' + nameChar + ']*=(".*?"|\'.*?\')'),
   endToken: new RegExp(`(?:^|["${spaceChar}])([^${spaceChar}]+)$`),
   spaces: new RegExp(`[${spaceChar}]+`),
-  url: /^(?:[a-z][a-z0-9\+\-\.]*:)?\/\//i,
+  url: /^(?:[a-z][a-z0-9+\-.]*:)?\/\//i,
   previousTagBracket: /"[^<]*?"|'[^<]*?'|<\/|<|>/g,
   nextTagBracket: /"[^<]*?"|'[^<]*?'|<|\/>|>/g,
 };

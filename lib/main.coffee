@@ -564,7 +564,7 @@ var regex = {
   attEndFromAttName: new RegExp('^[' + nameChar + ']*=(".*?"|\'.*?\')'),
   endToken: new RegExp('(?:^|["' + spaceChar + '])([^' + spaceChar + ']+)$'),
   spaces: new RegExp('[' + spaceChar + ']+'),
-  url: /^(?:[a-z][a-z0-9\+\-\.]*:)?\/\//i,
+  url: /^(?:[a-z][a-z0-9+\-.]*:)?\/\//i,
   previousTagBracket: /"[^<]*?"|'[^<]*?'|<\/|<|>/g,
   nextTagBracket: /"[^<]*?"|'[^<]*?'|<|\/>|>/g
 };
@@ -757,7 +757,7 @@ var serverProcessInstance$1 = ServerProcess.getInstance();
 
 var helpers$1 = require('atom-linter');
 
-var messageRegex = /^([a-z0-9\.]+?):((.*?):\s?)?((\d+):)?(?:\d+:\s)?(error|fatal|warning):\s(.*)$/;
+var messageRegex = /^([a-z0-9.]+?):((.*?):\s?)?((\d+):)?(?:\d+:\s)?(error|fatal|warning):\s(.*)$/;
 
 var parseMessage = function parseMessage(textEditor, schemaProps, config) {
   return function (str) {

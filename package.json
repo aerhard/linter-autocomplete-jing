@@ -24,8 +24,8 @@
   "dependencies": {
     "atom-linter": "^8.0.0",
     "atom-package-deps": "^4.3.1",
-    "cross-spawn": "^4.0.0",
-    "lodash": "^4.16.0",
+    "cross-spawn": "^5.0.1",
+    "lodash": "^4.16.6",
     "sax": "^1.2.1"
   },
   "devDependencies": {
@@ -38,7 +38,7 @@
     "babelrc-rollup": "^3.0.0",
     "eslint": "^3.9.1",
     "eslint-config-airbnb-base": "^10.0.1",
-    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-import": "^2.1.0",
     "eslint-plugin-jasmine": "^2.1.0",
     "rollup-plugin-babel": "^2.6.1",
     "rollup-watch": "^2.5.0"
