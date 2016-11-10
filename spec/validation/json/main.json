@@ -117,7 +117,7 @@
   }, {
     "description": "given a well-formed xml document with correct references to three XSD schemata",
     "schemata": [
-      { "lang": "xsd", "path": "aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-2.xsd ../schema/schema-multi-2.xsd aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-1.xsd" }
+      { "lang": "xsd", "path": "aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-2.xsd*../schema/schema-multi-2.xsd*aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-1.xsd" }
     ],
     "items": [{
       "condition": "when the document is valid",

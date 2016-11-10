@@ -49,7 +49,7 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
     const addXsdSchemaPath = href => href && xsdSchemaPaths.push(
       regex.url.test(href)
         ? href
-        : path.resolve(path.dirname(textEditor.getPath()), href)
+        : path.resolve(path.dirname(textEditor.getPath()), href),
     );
 
     const onProcessingInstruction = (node) => {
@@ -104,10 +104,9 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
         .forEach((prefix) => {
           const noNamespaceSchemaLocation = node.attributes[prefix + ':noNamespaceSchemaLocation'];
           if (noNamespaceSchemaLocation) {
-            noNamespaceSchemaLocation
-              .trim()
-              .split(regex.spaces)
-              .forEach(addXsdSchemaPath);
+            addXsdSchemaPath(
+              noNamespaceSchemaLocation.trim(),
+            );
           }
 
           const schemaLocation = node.attributes[prefix + ':schemaLocation'];
@@ -146,7 +145,7 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
     if (xsdSchemaPaths.length) {
       schemaProps.push({
         lang: 'xsd',
-        path: xsdSchemaPaths.join(' '),
+        path: xsdSchemaPaths.join('*'),
       });
     }
 

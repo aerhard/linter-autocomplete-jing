@@ -80,7 +80,7 @@ const updateGrammarScopes = () => {
   const grammars = atom.grammars.getGrammars();
   const newGrammarScopes = flow(
     map('scopeName'),
-    filter(startsWith('text.xml'))
+    filter(startsWith('text.xml')),
   )(grammars);
 
   grammarScopes.splice(0, grammarScopes.length, ...newGrammarScopes);
@@ -94,8 +94,8 @@ const updateRules = () => {
     flatMap(({ path: settingsPath, scopedProperties }) =>
       flow(
         get(['.text.xml', 'validation', 'rules']),
-        map(set('settingsPath', settingsPath))
-      )(scopedProperties)
+        map(set('settingsPath', settingsPath)),
+      )(scopedProperties),
     ),
     compact,
   )(activePackages);
@@ -120,8 +120,8 @@ export default {
       .keys(atom.config.get('linter-autocomplete-jing'))
       .forEach(key =>
         subscriptions.add(
-          atom.config.observe(`linter-autocomplete-jing.${key}`, setLocalConfig(key))
-        )
+          atom.config.observe(`linter-autocomplete-jing.${key}`, setLocalConfig(key)),
+        ),
       );
 
     subscriptions.add(atom.commands.add('atom-workspace', {

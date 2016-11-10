@@ -8,7 +8,7 @@ const serverProcessInstance = serverProcess.getInstance();
 const helpers = require('atom-linter');
 
 const messageRegex =
-  /^([a-z0-9\.]+?):((.*?):\s?)?((\d+):)?(?:\d+:\s)?(error|fatal|warning):\s(.*)$/;
+  /^([a-z0-9.]+?):((.*?):\s?)?((\d+):)?(?:\d+:\s)?(error|fatal|warning):\s(.*)$/;
 
 const parseMessage = (textEditor, schemaProps, config) => function(str) {
   const match = messageRegex.exec(str);
@@ -77,8 +77,8 @@ const validate = (textEditor, config) => ([, { schemaProps, messages, xmlCatalog
         map(parseMessage(textEditor, schemaProps, config)),
         compact,
         concat(messages),
-        sortBy('range[0][0]')
-      )
+        sortBy('range[0][0]'),
+      ),
     );
 };
 

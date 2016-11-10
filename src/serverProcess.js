@@ -4,7 +4,7 @@ import spawn from 'cross-spawn';
 import path from 'path';
 
 const portRegex = /XML Tools Server listening on port (\d+)/;
-const jarPath = '../vendor/xml-tools-server-0.4.4.jar';
+const jarPath = '../vendor/xml-tools-server-0.4.5.jar';
 const initialPort = 0;
 
 function ServerProcess() {
@@ -124,7 +124,7 @@ ServerProcess.prototype = {
         socket.write(
           headers
             .map(header => `-${header}\n`)
-            .join('')
+            .join(''),
         );
 
         if (body !== null) {
