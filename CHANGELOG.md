@@ -67,3 +67,6 @@
 * support hot-reloading of code after updates
 * XSD-based suggestions: support substitution groups, take abstract elements into account, suggest xsi:nil
 * fix parser exceptions not being reported in schema validation
+
+## 0.6.1
+* fix: support spaces in XSD schema references

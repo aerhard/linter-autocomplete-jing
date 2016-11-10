@@ -284,7 +284,7 @@ var toConsumableArray = function (arr) {
 };
 
 var portRegex = /XML Tools Server listening on port (\d+)/;
-var jarPath = '../vendor/xml-tools-server-0.4.4.jar';
+var jarPath = '../vendor/xml-tools-server-0.4.5.jar';
 var initialPort = 0;
 
 function ServerProcess() {
@@ -675,7 +675,7 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
       getXsiNamespacePrefixes(node.attributes).forEach(function (prefix) {
         var noNamespaceSchemaLocation = node.attributes[prefix + ':noNamespaceSchemaLocation'];
         if (noNamespaceSchemaLocation) {
-          noNamespaceSchemaLocation.trim().split(regex.spaces).forEach(addXsdSchemaPath);
+          addXsdSchemaPath(noNamespaceSchemaLocation.trim());
         }
 
         var schemaLocation = node.attributes[prefix + ':schemaLocation'];
@@ -714,7 +714,7 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
     if (xsdSchemaPaths.length) {
       schemaProps.push({
         lang: 'xsd',
-        path: xsdSchemaPaths.join(' ')
+        path: xsdSchemaPaths.join('*')
       });
     }
 

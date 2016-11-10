@@ -1331,7 +1331,7 @@
   }, {
     "schemata": [{
       "lang": "xsd",
-      "path": "aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-2.xsd ../../validation/schema/schema-multi-2.xsd aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-1.xsd"
+      "path": "aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-2.xsd*../../validation/schema/schema-multi-2.xsd*aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-1.xsd"
     }],
     "items": [{
       "file": "../xml/xsd-multi1.xml",
