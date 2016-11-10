@@ -2,7 +2,7 @@
 
 import path from 'path';
 import main from '../lib/main.coffee';
-import testData from './autocomplete/json/main';
+import testData from './autocomplete/json/main.json';
 
 const resolvePath = filename => path.resolve(__dirname, 'autocomplete/json', filename);
 
@@ -72,15 +72,15 @@ describe('autocomplete', () => {
         .then(() => {
           const pane = atom.workspace.paneForItem(editor);
           pane.destroyItem(editor);
-        })
-      )
+        }),
+      ),
     );
 
   testData.forEach(({ description, catalog, items: firstLevelItems }) => {
     describe(description, () => {
       beforeEach(() => {
         waitsForPromise(() =>
-          atom.packages.activatePackage('linter-autocomplete-jing')
+          atom.packages.activatePackage('linter-autocomplete-jing'),
         );
         atom.config.set('linter-autocomplete-jing.wildcardSuggestions', 'all');
         atom.config.set('linter-autocomplete-jing.xmlCatalog', resolvePath(catalog));

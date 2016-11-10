@@ -20,7 +20,7 @@ describe('serverProcess', () => {
         })
         .catch((err) => {
           expect(err instanceof Error).toBe(true);
-        })
+        }),
       );
     });
   });
