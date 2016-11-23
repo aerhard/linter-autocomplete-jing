@@ -9,8 +9,10 @@ const resolvePath = filename => path.resolve(__dirname, 'autocomplete/json', fil
 const ServerProcess = main.ServerProcess;
 const serverProcessInstance = ServerProcess.getInstance();
 
-const buildOptions = (editor, suggestionType, fragment) => {
-  const endPosition = editor.getBuffer().getEndPosition();
+const buildOptions = (editor, suggestionType, fragment, splitPoint) => {
+  const endPosition = splitPoint
+    ? editor.getBuffer().positionForCharacterIndex(splitPoint)
+    : editor.getBuffer().getEndPosition();
 
   let bufferPosition;
   let scopeDescriptor;
@@ -62,12 +64,14 @@ describe('autocomplete', () => {
     serverProcessInstance.exit = function() {};
   });
 
-  const testAutocomplete = ({ file, suggestionType, fragment }, cb) =>
+  const testAutocomplete = ({ file, suggestionType, fragment, splitPoint }, cb) =>
     waitsForPromise(() =>
       atom.packages.activatePackage('language-xml')
       .then(() => atom.workspace.open(resolvePath(file)))
       .then(editor =>
-        main.provideAutocomplete().getSuggestions(buildOptions(editor, suggestionType, fragment))
+        main.provideAutocomplete().getSuggestions(
+          buildOptions(editor, suggestionType, fragment, splitPoint),
+        )
         .then(cb)
         .then(() => {
           const pane = atom.workspace.paneForItem(editor);

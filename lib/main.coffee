@@ -2201,7 +2201,7 @@ var startsWith = function startsWith(a) {
 };
 
 var portRegex = /XML Tools Server listening on port (\d+)/;
-var jarPath = '../vendor/xml-tools-server-0.4.5.jar';
+var jarPath = '../vendor/xml-tools-server-0.4.6.jar';
 var initialPort = 0;
 function ServerProcess() {
   this.state = this.STOPPED;

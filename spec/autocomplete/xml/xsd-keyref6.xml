@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.example.com ../schema/schema-keyref6.xsd"
+ xmlns="http://www.example.com" ref="ee" refs="ee" uri="#ad"
+ uris="#ad #ee" plus="asdf">
+  <secondChild id="ad" key="1">
+   <subChild keyRef="11"/>
+  </secondChild>
+  <secondChild id="ee" key="55">
+   <subChild keyRef="aa"></subChild>
+  </secondChild>
+  <secondChild id="ads" key="3">
+   <subChild keyRef="3"/>
+  </secondChild>
+</root>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.example.com" xmlns:ns1="http://www.example.com">
+  <xs:element name="root">
+    <xs:annotation>
+      <xs:documentation>root</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ns1:secondChild" maxOccurs="unbounded">
+
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="ref" use="required" type="xs:IDREF"/>
+      <xs:attribute name="refs" use="required" type="xs:IDREFS"/>
+      <xs:attribute name="uri" use="required" type="xs:anyURI"/>
+      <xs:attribute name="uris" use="required">
+        <xs:simpleType>
+          <xs:restriction>
+            <xs:simpleType>
+              <xs:list itemType="xs:anyURI"/>
+            </xs:simpleType>
+            <xs:minLength value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="plus" use="required">
+        <xs:simpleType>
+          <xs:union memberTypes="xs:anyURI">
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="asdf"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:union>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>  
+  </xs:element>
+  
+  <xs:element name="secondChild" type="ns1:secondChild">
+    <xs:key name="subChildKey">
+      <xs:selector xpath="."/>
+      <xs:field xpath="@key"/>
+    </xs:key>
+    <xs:keyref name="key-ref-constraint" refer="ns1:subChildKey">
+      <xs:selector xpath="."/>
+      <xs:field xpath="ns1:subChild/@keyRef"/>
+    </xs:keyref>  
+  </xs:element>
+  
+
+
+  <xs:complexType name="secondChild">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="ns1:subChild"/>
+    </xs:sequence>
+    <xs:attribute name="id" use="required" type="xs:ID"/>
+    <xs:attribute name="key" use="required" type="xs:integer"/>
+  </xs:complexType>
+  <xs:element name="subChild">
+    <xs:annotation>
+      <xs:documentation>subChild</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="keyRef" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+ 
+</xs:schema>

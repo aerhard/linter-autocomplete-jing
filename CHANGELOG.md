@@ -72,4 +72,4 @@
 * fix: support spaces in XSD schema references
 
 ## 0.7.0
-* suggest IDs in RNG autocomplete
+* suggest IDs and KEYs in RNG and XSD autocomplete

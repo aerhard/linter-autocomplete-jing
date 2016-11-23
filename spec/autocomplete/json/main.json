@@ -3927,5 +3927,152 @@
         "replacementPrefix": ""
       }]
     }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-keyref1.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-keyref1.xml",
+      "suggestionType": "V",
+      "fragment": "keyRef",
+      "splitPoint": 397,
+      "expectResult": [{
+        "snippet": "55",
+        "displayText": "55",
+        "type": "value",
+        "replacementPrefix": ""
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-keyref2.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-keyref2.xml",
+      "suggestionType": "V",
+      "fragment": "keyRef",
+      "splitPoint": 398,
+      "expectResult": [{
+        "snippet": "1",
+        "displayText": "1",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "2",
+        "displayText": "2",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "55",
+        "displayText": "55",
+        "type": "value",
+        "replacementPrefix": ""
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-keyref3.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-keyref3.xml",
+      "suggestionType": "V",
+      "fragment": "keyRef",
+      "splitPoint": 403,
+      "expectResult": [{
+        "snippet": "1",
+        "displayText": "1",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "2",
+        "displayText": "2",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "55 12",
+        "displayText": "55 12",
+        "type": "value",
+        "replacementPrefix": ""
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-keyref4.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-keyref4.xml",
+      "suggestionType": "V",
+      "fragment": "otherKeyRef",
+      "splitPoint": 469,
+      "expectResult": [{
+        "snippet": "100",
+        "displayText": "100",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "200",
+        "displayText": "200",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "300",
+        "displayText": "300",
+        "type": "value",
+        "replacementPrefix": ""
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-keyref5.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-keyref5.xml",
+      "suggestionType": "V",
+      "fragment": "keyRef",
+      "splitPoint": 431,
+      "expectResult": [{
+        "snippet": "1",
+        "displayText": "1",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "2",
+        "displayText": "2",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "200",
+        "displayText": "200",
+        "type": "value",
+        "replacementPrefix": ""
+      }, {
+        "snippet": "55 12",
+        "displayText": "55 12",
+        "type": "value",
+        "replacementPrefix": ""
+      }]
+    }]
+  }, {
+    "schemata": [{
+      "lang": "xsd",
+      "path": "../schema/schema-keyref6.xsd"
+    }],
+    "items": [{
+      "file": "../xml/xsd-keyref6.xml",
+      "suggestionType": "V",
+      "fragment": "keyRef",
+      "splitPoint": 397,
+      "expectResult": [{
+        "snippet": "55",
+        "displayText": "55",
+        "type": "value",
+        "replacementPrefix": ""
+      }]
+    }]
   }]
 }]
