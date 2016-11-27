@@ -534,7 +534,7 @@ var moduleExports$1 = freeModule$1 && freeModule$1.exports === freeExports$1;
 var freeProcess = moduleExports$1 && freeGlobal.process;
 var nodeUtil = function () {
   try {
-    return freeProcess && freeProcess.binding('util');
+    return freeProcess && freeProcess.binding && freeProcess.binding('util');
   } catch (e) {}
 }();
 
@@ -972,10 +972,10 @@ function cacheHas(cache, key) {
   return cache.has(key);
 }
 
-var UNORDERED_COMPARE_FLAG$1 = 1;
-var PARTIAL_COMPARE_FLAG$2 = 2;
-function equalArrays(array, other, equalFunc, customizer, bitmask, stack) {
-  var isPartial = bitmask & PARTIAL_COMPARE_FLAG$2,
+var COMPARE_PARTIAL_FLAG$2 = 1;
+var COMPARE_UNORDERED_FLAG$1 = 2;
+function equalArrays(array, other, bitmask, customizer, equalFunc, stack) {
+  var isPartial = bitmask & COMPARE_PARTIAL_FLAG$2,
       arrLength = array.length,
       othLength = other.length;
   if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
@@ -987,7 +987,7 @@ function equalArrays(array, other, equalFunc, customizer, bitmask, stack) {
   }
   var index = -1,
       result = true,
-      seen = bitmask & UNORDERED_COMPARE_FLAG$1 ? new SetCache() : undefined;
+      seen = bitmask & COMPARE_UNORDERED_FLAG$1 ? new SetCache() : undefined;
   stack.set(array, other);
   stack.set(other, array);
   while (++index < arrLength) {
@@ -1005,14 +1005,14 @@ function equalArrays(array, other, equalFunc, customizer, bitmask, stack) {
     }
     if (seen) {
       if (!arraySome(other, function (othValue, othIndex) {
-        if (!cacheHas(seen, othIndex) && (arrValue === othValue || equalFunc(arrValue, othValue, customizer, bitmask, stack))) {
+        if (!cacheHas(seen, othIndex) && (arrValue === othValue || equalFunc(arrValue, othValue, bitmask, customizer, stack))) {
           return seen.push(othIndex);
         }
       })) {
         result = false;
         break;
       }
-    } else if (!(arrValue === othValue || equalFunc(arrValue, othValue, customizer, bitmask, stack))) {
+    } else if (!(arrValue === othValue || equalFunc(arrValue, othValue, bitmask, customizer, stack))) {
       result = false;
       break;
     }
@@ -1042,8 +1042,8 @@ function setToArray(set) {
   return result;
 }
 
-var UNORDERED_COMPARE_FLAG$2 = 1;
-var PARTIAL_COMPARE_FLAG$3 = 2;
+var COMPARE_PARTIAL_FLAG$3 = 1;
+var COMPARE_UNORDERED_FLAG$2 = 2;
 var boolTag$1 = '[object Boolean]';
 var dateTag$1 = '[object Date]';
 var errorTag$1 = '[object Error]';
@@ -1057,7 +1057,7 @@ var arrayBufferTag$1 = '[object ArrayBuffer]';
 var dataViewTag$1 = '[object DataView]';
 var symbolProto = _Symbol ? _Symbol.prototype : undefined;
 var symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
-function equalByTag(object, other, tag, equalFunc, customizer, bitmask, stack) {
+function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
   switch (tag) {
     case dataViewTag$1:
       if (object.byteLength != other.byteLength || object.byteOffset != other.byteOffset) {
@@ -1082,7 +1082,7 @@ function equalByTag(object, other, tag, equalFunc, customizer, bitmask, stack) {
     case mapTag$1:
       var convert = mapToArray;
     case setTag$1:
-      var isPartial = bitmask & PARTIAL_COMPARE_FLAG$3;
+      var isPartial = bitmask & COMPARE_PARTIAL_FLAG$3;
       convert || (convert = setToArray);
       if (object.size != other.size && !isPartial) {
         return false;
@@ -1091,9 +1091,9 @@ function equalByTag(object, other, tag, equalFunc, customizer, bitmask, stack) {
       if (stacked) {
         return stacked == other;
       }
-      bitmask |= UNORDERED_COMPARE_FLAG$2;
+      bitmask |= COMPARE_UNORDERED_FLAG$2;
       stack.set(object, other);
-      var result = equalArrays(convert(object), convert(other), equalFunc, customizer, bitmask, stack);
+      var result = equalArrays(convert(object), convert(other), bitmask, customizer, equalFunc, stack);
       stack['delete'](object);
       return result;
     case symbolTag:
@@ -1104,11 +1104,11 @@ function equalByTag(object, other, tag, equalFunc, customizer, bitmask, stack) {
   return false;
 }
 
-var PARTIAL_COMPARE_FLAG$4 = 2;
+var COMPARE_PARTIAL_FLAG$4 = 1;
 var objectProto$10 = Object.prototype;
 var hasOwnProperty$8 = objectProto$10.hasOwnProperty;
-function equalObjects(object, other, equalFunc, customizer, bitmask, stack) {
-  var isPartial = bitmask & PARTIAL_COMPARE_FLAG$4,
+function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
+  var isPartial = bitmask & COMPARE_PARTIAL_FLAG$4,
       objProps = keys(object),
       objLength = objProps.length,
       othProps = keys(other),
@@ -1138,7 +1138,7 @@ function equalObjects(object, other, equalFunc, customizer, bitmask, stack) {
     if (customizer) {
       var compared = isPartial ? customizer(othValue, objValue, key, other, object, stack) : customizer(objValue, othValue, key, object, other, stack);
     }
-    if (!(compared === undefined ? objValue === othValue || equalFunc(objValue, othValue, customizer, bitmask, stack) : compared)) {
+    if (!(compared === undefined ? objValue === othValue || equalFunc(objValue, othValue, bitmask, customizer, stack) : compared)) {
       result = false;
       break;
     }
@@ -1200,13 +1200,13 @@ if (DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag$2 || Map
 }
 var getTag$1 = getTag;
 
-var PARTIAL_COMPARE_FLAG$1 = 2;
+var COMPARE_PARTIAL_FLAG$1 = 1;
 var argsTag$2 = '[object Arguments]';
 var arrayTag$1 = '[object Array]';
 var objectTag$1 = '[object Object]';
 var objectProto$9 = Object.prototype;
 var hasOwnProperty$7 = objectProto$9.hasOwnProperty;
-function baseIsEqualDeep(object, other, equalFunc, customizer, bitmask, stack) {
+function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
   var objIsArr = isArray(object),
       othIsArr = isArray(other),
       objTag = arrayTag$1,
@@ -1231,37 +1231,37 @@ function baseIsEqualDeep(object, other, equalFunc, customizer, bitmask, stack) {
   }
   if (isSameTag && !objIsObj) {
     stack || (stack = new Stack());
-    return objIsArr || isTypedArray(object) ? equalArrays(object, other, equalFunc, customizer, bitmask, stack) : equalByTag(object, other, objTag, equalFunc, customizer, bitmask, stack);
+    return objIsArr || isTypedArray(object) ? equalArrays(object, other, bitmask, customizer, equalFunc, stack) : equalByTag(object, other, objTag, bitmask, customizer, equalFunc, stack);
   }
-  if (!(bitmask & PARTIAL_COMPARE_FLAG$1)) {
+  if (!(bitmask & COMPARE_PARTIAL_FLAG$1)) {
     var objIsWrapped = objIsObj && hasOwnProperty$7.call(object, '__wrapped__'),
         othIsWrapped = othIsObj && hasOwnProperty$7.call(other, '__wrapped__');
     if (objIsWrapped || othIsWrapped) {
       var objUnwrapped = objIsWrapped ? object.value() : object,
           othUnwrapped = othIsWrapped ? other.value() : other;
       stack || (stack = new Stack());
-      return equalFunc(objUnwrapped, othUnwrapped, customizer, bitmask, stack);
+      return equalFunc(objUnwrapped, othUnwrapped, bitmask, customizer, stack);
     }
   }
   if (!isSameTag) {
     return false;
   }
   stack || (stack = new Stack());
-  return equalObjects(object, other, equalFunc, customizer, bitmask, stack);
+  return equalObjects(object, other, bitmask, customizer, equalFunc, stack);
 }
 
-function baseIsEqual(value, other, customizer, bitmask, stack) {
+function baseIsEqual(value, other, bitmask, customizer, stack) {
   if (value === other) {
     return true;
   }
   if (value == null || other == null || !isObject(value) && !isObjectLike(other)) {
     return value !== value && other !== other;
   }
-  return baseIsEqualDeep(value, other, baseIsEqual, customizer, bitmask, stack);
+  return baseIsEqualDeep(value, other, bitmask, customizer, baseIsEqual, stack);
 }
 
-var UNORDERED_COMPARE_FLAG = 1;
-var PARTIAL_COMPARE_FLAG = 2;
+var COMPARE_PARTIAL_FLAG = 1;
+var COMPARE_UNORDERED_FLAG = 2;
 function baseIsMatch(object, source, matchData, customizer) {
   var index = matchData.length,
       length = index,
@@ -1290,7 +1290,7 @@ function baseIsMatch(object, source, matchData, customizer) {
       if (customizer) {
         var result = customizer(objValue, srcValue, key, object, source, stack);
       }
-      if (!(result === undefined ? baseIsEqual(srcValue, objValue, customizer, UNORDERED_COMPARE_FLAG | PARTIAL_COMPARE_FLAG, stack) : result)) {
+      if (!(result === undefined ? baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG | COMPARE_UNORDERED_FLAG, customizer, stack) : result)) {
         return false;
       }
     }
@@ -1332,6 +1332,24 @@ function baseMatches(source) {
   };
 }
 
+var symbolTag$1 = '[object Symbol]';
+function isSymbol(value) {
+  return (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'symbol' || isObjectLike(value) && baseGetTag(value) == symbolTag$1;
+}
+
+var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/;
+var reIsPlainProp = /^\w*$/;
+function isKey(value, object) {
+  if (isArray(value)) {
+    return false;
+  }
+  var type = typeof value === 'undefined' ? 'undefined' : _typeof(value);
+  if (type == 'number' || type == 'symbol' || type == 'boolean' || value == null || isSymbol(value)) {
+    return true;
+  }
+  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) || object != null && value in Object(object);
+}
+
 var FUNC_ERROR_TEXT = 'Expected a function';
 function memoize(func, resolver) {
   if (typeof func != 'function' || resolver != null && typeof resolver != 'function') {
@@ -1365,6 +1383,20 @@ function memoizeCapped(func) {
   return result;
 }
 
+var reLeadingDot = /^\./;
+var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
+var reEscapeChar = /\\(\\)?/g;
+var stringToPath = memoizeCapped(function (string) {
+  var result = [];
+  if (reLeadingDot.test(string)) {
+    result.push('');
+  }
+  string.replace(rePropName, function (match, number, quote, string) {
+    result.push(quote ? string.replace(reEscapeChar, '$1') : number || match);
+  });
+  return result;
+});
+
 function arrayMap(array, iteratee) {
   var index = -1,
       length = array == null ? 0 : array.length,
@@ -1373,11 +1405,6 @@ function arrayMap(array, iteratee) {
     result[index] = iteratee(array[index], index, array);
   }
   return result;
-}
-
-var symbolTag$1 = '[object Symbol]';
-function isSymbol(value) {
-  return (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'symbol' || isObjectLike(value) && baseGetTag(value) == symbolTag$1;
 }
 
 var INFINITY = 1 / 0;
@@ -1401,36 +1428,11 @@ function toString(value) {
   return value == null ? '' : baseToString(value);
 }
 
-var reLeadingDot = /^\./;
-var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
-var reEscapeChar = /\\(\\)?/g;
-var stringToPath = memoizeCapped(function (string) {
-  string = toString(string);
-  var result = [];
-  if (reLeadingDot.test(string)) {
-    result.push('');
-  }
-  string.replace(rePropName, function (match, number, quote, string) {
-    result.push(quote ? string.replace(reEscapeChar, '$1') : number || match);
-  });
-  return result;
-});
-
-function castPath(value) {
-  return isArray(value) ? value : stringToPath(value);
-}
-
-var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/;
-var reIsPlainProp = /^\w*$/;
-function isKey(value, object) {
+function castPath(value, object) {
   if (isArray(value)) {
-    return false;
+    return value;
   }
-  var type = typeof value === 'undefined' ? 'undefined' : _typeof(value);
-  if (type == 'number' || type == 'symbol' || type == 'boolean' || value == null || isSymbol(value)) {
-    return true;
-  }
-  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) || object != null && value in Object(object);
+  return isKey(value, object) ? [value] : stringToPath(toString(value));
 }
 
 var INFINITY$1 = 1 / 0;
@@ -1443,7 +1445,7 @@ function toKey(value) {
 }
 
 function baseGet(object, path$$1) {
-  path$$1 = isKey(path$$1, object) ? [path$$1] : castPath(path$$1);
+  path$$1 = castPath(path$$1, object);
   var index = 0,
       length = path$$1.length;
   while (object != null && index < length) {
@@ -1462,7 +1464,7 @@ function baseHasIn(object, key) {
 }
 
 function hasPath(object, path$$1, hasFunc) {
-  path$$1 = isKey(path$$1, object) ? [path$$1] : castPath(path$$1);
+  path$$1 = castPath(path$$1, object);
   var index = -1,
       length = path$$1.length,
       result = false;
@@ -1484,15 +1486,15 @@ function hasIn(object, path$$1) {
   return object != null && hasPath(object, path$$1, baseHasIn);
 }
 
-var UNORDERED_COMPARE_FLAG$3 = 1;
-var PARTIAL_COMPARE_FLAG$5 = 2;
+var COMPARE_PARTIAL_FLAG$5 = 1;
+var COMPARE_UNORDERED_FLAG$3 = 2;
 function baseMatchesProperty(path$$1, srcValue) {
   if (isKey(path$$1) && isStrictComparable(srcValue)) {
     return matchesStrictComparable(toKey(path$$1), srcValue);
   }
   return function (object) {
     var objValue = get$2(object, path$$1);
-    return objValue === undefined && objValue === srcValue ? hasIn(object, path$$1) : baseIsEqual(srcValue, objValue, undefined, UNORDERED_COMPARE_FLAG$3 | PARTIAL_COMPARE_FLAG$5);
+    return objValue === undefined && objValue === srcValue ? hasIn(object, path$$1) : baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG$5 | COMPARE_UNORDERED_FLAG$3);
   };
 }
 
@@ -1755,11 +1757,13 @@ function castSlice(array, start, end) {
 }
 
 var rsAstralRange = '\\ud800-\\udfff';
-var rsComboMarksRange = '\\u0300-\\u036f\\ufe20-\\ufe23';
-var rsComboSymbolsRange = '\\u20d0-\\u20f0';
+var rsComboMarksRange = '\\u0300-\\u036f';
+var reComboHalfMarksRange = '\\ufe20-\\ufe2f';
+var rsComboSymbolsRange = '\\u20d0-\\u20ff';
+var rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange;
 var rsVarRange = '\\ufe0e\\ufe0f';
 var rsZWJ = '\\u200d';
-var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange + rsComboMarksRange + rsComboSymbolsRange + rsVarRange + ']');
+var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange + rsComboRange + rsVarRange + ']');
 function hasUnicode(string) {
   return reHasUnicode.test(string);
 }
@@ -1777,11 +1781,13 @@ function asciiToArray(string) {
 }
 
 var rsAstralRange$1 = '\\ud800-\\udfff';
-var rsComboMarksRange$1 = '\\u0300-\\u036f\\ufe20-\\ufe23';
-var rsComboSymbolsRange$1 = '\\u20d0-\\u20f0';
+var rsComboMarksRange$1 = '\\u0300-\\u036f';
+var reComboHalfMarksRange$1 = '\\ufe20-\\ufe2f';
+var rsComboSymbolsRange$1 = '\\u20d0-\\u20ff';
+var rsComboRange$1 = rsComboMarksRange$1 + reComboHalfMarksRange$1 + rsComboSymbolsRange$1;
 var rsVarRange$1 = '\\ufe0e\\ufe0f';
 var rsAstral = '[' + rsAstralRange$1 + ']';
-var rsCombo = '[' + rsComboMarksRange$1 + rsComboSymbolsRange$1 + ']';
+var rsCombo = '[' + rsComboRange$1 + ']';
 var rsFitz = '\\ud83c[\\udffb-\\udfff]';
 var rsModifier = '(?:' + rsCombo + '|' + rsFitz + ')';
 var rsNonAstral = '[^' + rsAstralRange$1 + ']';
@@ -2045,10 +2051,10 @@ function isLaziable(func) {
 
 var LARGE_ARRAY_SIZE$1 = 200;
 var FUNC_ERROR_TEXT$1 = 'Expected a function';
-var CURRY_FLAG = 8;
-var PARTIAL_FLAG = 32;
-var ARY_FLAG = 128;
-var REARG_FLAG = 256;
+var WRAP_CURRY_FLAG = 8;
+var WRAP_PARTIAL_FLAG = 32;
+var WRAP_ARY_FLAG = 128;
+var WRAP_REARG_FLAG = 256;
 function createFlow(fromRight) {
   return flatRest(function (funcs) {
     var length = funcs.length,
@@ -2071,7 +2077,7 @@ function createFlow(fromRight) {
       func = funcs[index];
       var funcName = getFuncName(func),
           data = funcName == 'wrapper' ? getData(func) : undefined;
-      if (data && isLaziable(data[0]) && data[1] == (ARY_FLAG | CURRY_FLAG | PARTIAL_FLAG | REARG_FLAG) && !data[4].length && data[9] == 1) {
+      if (data && isLaziable(data[0]) && data[1] == (WRAP_ARY_FLAG | WRAP_CURRY_FLAG | WRAP_PARTIAL_FLAG | WRAP_REARG_FLAG) && !data[4].length && data[9] == 1) {
         wrapper = wrapper[getFuncName(data[0])].apply(wrapper, data[3]);
       } else {
         wrapper = func.length == 1 && isLaziable(func) ? wrapper[funcName]() : wrapper.thru(func);
