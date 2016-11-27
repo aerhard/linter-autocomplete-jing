@@ -427,6 +427,143 @@ function concat$1() {
   return arrayPush(isArray(array) ? copyArray(array) : [array], baseFlatten(args, 1));
 }
 
+function isObject(value) {
+  var type = typeof value === 'undefined' ? 'undefined' : _typeof(value);
+  return value != null && (type == 'object' || type == 'function');
+}
+
+var now = function now() {
+  return root.Date.now();
+};
+
+var symbolTag = '[object Symbol]';
+function isSymbol(value) {
+  return (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'symbol' || isObjectLike(value) && baseGetTag(value) == symbolTag;
+}
+
+var NAN = 0 / 0;
+var reTrim = /^\s+|\s+$/g;
+var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+var reIsBinary = /^0b[01]+$/i;
+var reIsOctal = /^0o[0-7]+$/i;
+var freeParseInt = parseInt;
+function toNumber(value) {
+  if (typeof value == 'number') {
+    return value;
+  }
+  if (isSymbol(value)) {
+    return NAN;
+  }
+  if (isObject(value)) {
+    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+    value = isObject(other) ? other + '' : other;
+  }
+  if (typeof value != 'string') {
+    return value === 0 ? value : +value;
+  }
+  value = value.replace(reTrim, '');
+  var isBinary = reIsBinary.test(value);
+  return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
+}
+
+var FUNC_ERROR_TEXT = 'Expected a function';
+var nativeMax = Math.max;
+var nativeMin = Math.min;
+function debounce$1(func, wait, options) {
+  var lastArgs,
+      lastThis,
+      maxWait,
+      result,
+      timerId,
+      lastCallTime,
+      lastInvokeTime = 0,
+      leading = false,
+      maxing = false,
+      trailing = true;
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  wait = toNumber(wait) || 0;
+  if (isObject(options)) {
+    leading = !!options.leading;
+    maxing = 'maxWait' in options;
+    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+  function invokeFunc(time) {
+    var args = lastArgs,
+        thisArg = lastThis;
+    lastArgs = lastThis = undefined;
+    lastInvokeTime = time;
+    result = func.apply(thisArg, args);
+    return result;
+  }
+  function leadingEdge(time) {
+    lastInvokeTime = time;
+    timerId = setTimeout(timerExpired, wait);
+    return leading ? invokeFunc(time) : result;
+  }
+  function remainingWait(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime,
+        result = wait - timeSinceLastCall;
+    return maxing ? nativeMin(result, maxWait - timeSinceLastInvoke) : result;
+  }
+  function shouldInvoke(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime;
+    return lastCallTime === undefined || timeSinceLastCall >= wait || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
+  }
+  function timerExpired() {
+    var time = now();
+    if (shouldInvoke(time)) {
+      return trailingEdge(time);
+    }
+    timerId = setTimeout(timerExpired, remainingWait(time));
+  }
+  function trailingEdge(time) {
+    timerId = undefined;
+    if (trailing && lastArgs) {
+      return invokeFunc(time);
+    }
+    lastArgs = lastThis = undefined;
+    return result;
+  }
+  function cancel() {
+    if (timerId !== undefined) {
+      clearTimeout(timerId);
+    }
+    lastInvokeTime = 0;
+    lastArgs = lastCallTime = lastThis = timerId = undefined;
+  }
+  function flush() {
+    return timerId === undefined ? result : trailingEdge(now());
+  }
+  function debounced() {
+    var time = now(),
+        isInvoking = shouldInvoke(time);
+    lastArgs = arguments;
+    lastThis = this;
+    lastCallTime = time;
+    if (isInvoking) {
+      if (timerId === undefined) {
+        return leadingEdge(lastCallTime);
+      }
+      if (maxing) {
+        timerId = setTimeout(timerExpired, wait);
+        return invokeFunc(lastCallTime);
+      }
+    }
+    if (timerId === undefined) {
+      timerId = setTimeout(timerExpired, wait);
+    }
+    return result;
+  }
+  debounced.cancel = cancel;
+  debounced.flush = flush;
+  return debounced;
+}
+
 function arrayFilter(array, predicate) {
   var index = -1,
       length = array == null ? 0 : array.length,
@@ -591,11 +728,6 @@ function baseKeys(object) {
     }
   }
   return result;
-}
-
-function isObject(value) {
-  var type = typeof value === 'undefined' ? 'undefined' : _typeof(value);
-  return value != null && (type == 'object' || type == 'function');
 }
 
 var asyncTag = '[object AsyncFunction]';
@@ -1052,7 +1184,7 @@ var numberTag$1 = '[object Number]';
 var regexpTag$1 = '[object RegExp]';
 var setTag$1 = '[object Set]';
 var stringTag$1 = '[object String]';
-var symbolTag = '[object Symbol]';
+var symbolTag$1 = '[object Symbol]';
 var arrayBufferTag$1 = '[object ArrayBuffer]';
 var dataViewTag$1 = '[object DataView]';
 var symbolProto = _Symbol ? _Symbol.prototype : undefined;
@@ -1096,7 +1228,7 @@ function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
       var result = equalArrays(convert(object), convert(other), bitmask, customizer, equalFunc, stack);
       stack['delete'](object);
       return result;
-    case symbolTag:
+    case symbolTag$1:
       if (symbolValueOf) {
         return symbolValueOf.call(object) == symbolValueOf.call(other);
       }
@@ -1332,11 +1464,6 @@ function baseMatches(source) {
   };
 }
 
-var symbolTag$1 = '[object Symbol]';
-function isSymbol(value) {
-  return (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'symbol' || isObjectLike(value) && baseGetTag(value) == symbolTag$1;
-}
-
 var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/;
 var reIsPlainProp = /^\w*$/;
 function isKey(value, object) {
@@ -1350,10 +1477,10 @@ function isKey(value, object) {
   return reIsPlainProp.test(value) || !reIsDeepProp.test(value) || object != null && value in Object(object);
 }
 
-var FUNC_ERROR_TEXT = 'Expected a function';
+var FUNC_ERROR_TEXT$1 = 'Expected a function';
 function memoize(func, resolver) {
   if (typeof func != 'function' || resolver != null && typeof resolver != 'function') {
-    throw new TypeError(FUNC_ERROR_TEXT);
+    throw new TypeError(FUNC_ERROR_TEXT$1);
   }
   var memoized = function memoized() {
     var args = arguments,
@@ -1636,13 +1763,13 @@ function apply(func, thisArg, args) {
   return func.apply(thisArg, args);
 }
 
-var nativeMax = Math.max;
+var nativeMax$1 = Math.max;
 function overRest(func, start, transform) {
-  start = nativeMax(start === undefined ? func.length - 1 : start, 0);
+  start = nativeMax$1(start === undefined ? func.length - 1 : start, 0);
   return function () {
     var args = arguments,
         index = -1,
-        length = nativeMax(args.length - start, 0),
+        length = nativeMax$1(args.length - start, 0),
         array = Array(length);
     while (++index < length) {
       array[index] = args[start + index];
@@ -1839,31 +1966,6 @@ function baseClamp(number, lower, upper) {
   return number;
 }
 
-var NAN = 0 / 0;
-var reTrim = /^\s+|\s+$/g;
-var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
-var reIsBinary = /^0b[01]+$/i;
-var reIsOctal = /^0o[0-7]+$/i;
-var freeParseInt = parseInt;
-function toNumber(value) {
-  if (typeof value == 'number') {
-    return value;
-  }
-  if (isSymbol(value)) {
-    return NAN;
-  }
-  if (isObject(value)) {
-    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
-    value = isObject(other) ? other + '' : other;
-  }
-  if (typeof value != 'string') {
-    return value === 0 ? value : +value;
-  }
-  value = value.replace(reTrim, '');
-  var isBinary = reIsBinary.test(value);
-  return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
-}
-
 var INFINITY$2 = 1 / 0;
 var MAX_INTEGER = 1.7976931348623157e+308;
 function toFinite(value) {
@@ -2050,7 +2152,7 @@ function isLaziable(func) {
 }
 
 var LARGE_ARRAY_SIZE$1 = 200;
-var FUNC_ERROR_TEXT$1 = 'Expected a function';
+var FUNC_ERROR_TEXT$2 = 'Expected a function';
 var WRAP_CURRY_FLAG = 8;
 var WRAP_PARTIAL_FLAG = 32;
 var WRAP_ARY_FLAG = 128;
@@ -2066,7 +2168,7 @@ function createFlow(fromRight) {
     while (index--) {
       var func = funcs[index];
       if (typeof func != 'function') {
-        throw new TypeError(FUNC_ERROR_TEXT$1);
+        throw new TypeError(FUNC_ERROR_TEXT$2);
       }
       if (prereq && !wrapper && getFuncName(func) == 'wrapper') {
         var wrapper = new LodashWrapper([], true);
@@ -2164,6 +2266,9 @@ var concat = function concat(a) {
   return function (b) {
     return concat$1(a, b);
   };
+};
+var debounce = function debounce(a, b) {
+  return debounce$1(b, a);
 };
 var filter = function filter(a) {
   return function (b) {
@@ -3147,10 +3252,10 @@ var updateRules = function updateRules() {
   }), compact)(activePackages);
   ruleManager.updatePackageRules(rules);
 };
-var handlePackageChanges = function handlePackageChanges() {
+var handlePackageChanges = debounce(500, function () {
   updateGrammarScopes();
   updateRules();
-};
+});
 var main = {
   ServerProcess: ServerProcess,
   ruleManager: ruleManager,

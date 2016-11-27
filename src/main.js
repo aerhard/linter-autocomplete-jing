@@ -1,6 +1,6 @@
 
 import {
-  flow, flatMap, compact, get, filter, startsWith, map,
+  debounce, flow, flatMap, compact, get, filter, startsWith, map,
 } from './fp';
 import { CompositeDisposable } from 'atom'; // eslint-disable-line
 import ServerProcess from './ServerProcess';
@@ -100,10 +100,10 @@ const updateRules = () => {
   ruleManager.updatePackageRules(rules);
 };
 
-const handlePackageChanges = () => {
+const handlePackageChanges = debounce(500, () => {
   updateGrammarScopes();
   updateRules();
-};
+});
 
 export default {
   ServerProcess,

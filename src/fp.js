@@ -1,5 +1,6 @@
 
 import _concat from 'lodash-es/concat';
+import _debounce from 'lodash-es/debounce';
 import _filter from 'lodash-es/filter';
 import _flatMap from 'lodash-es/flatMap';
 import _get from 'lodash-es/get';
@@ -10,6 +11,7 @@ import _split from 'lodash-es/split';
 import _startsWith from 'lodash-es/startsWith';
 
 export const concat = a => b => _concat(a, b);
+export const debounce = (a, b) => _debounce(b, a);
 export const filter = a => b => _filter(b, a);
 export const flatMap = a => b => _flatMap(b, a);
 export const get = a => b => _get(b, a);
