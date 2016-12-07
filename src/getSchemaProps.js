@@ -167,7 +167,7 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
       ? rule.outcome.dtdValidation
       : config.dtdValidation;
 
-    if (rule && !schemaProps.length) {
+    if (rule && 'schemaProps' in rule.outcome && !schemaProps.length) {
       schemaProps.push(...rule.outcome.schemaProps);
     }
 

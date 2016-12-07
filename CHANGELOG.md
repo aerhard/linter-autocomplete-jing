@@ -68,8 +68,11 @@
 * XSD-based suggestions: support substitution groups, take abstract elements into account, suggest xsi:nil
 * fix parser exceptions not being reported in schema validation
 
-## 0.6.1
+### 0.6.1
 * fix: support spaces in XSD schema references
 
 ## 0.7.0
 * suggest IDs and KEYs in RNG and XSD autocomplete
+
+### 0.7.1
+* make schemaProps in rule outcome optional

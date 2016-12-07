@@ -2596,7 +2596,7 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
     });
     var xmlCatalog = rule && 'xmlCatalog' in rule.outcome ? rule.outcome.xmlCatalog : config.xmlCatalog;
     var dtdValidation = rule && 'dtdValidation' in rule.outcome ? rule.outcome.dtdValidation : config.dtdValidation;
-    if (rule && !schemaProps.length) {
+    if (rule && 'schemaProps' in rule.outcome && !schemaProps.length) {
       schemaProps.push.apply(schemaProps, toConsumableArray(rule.outcome.schemaProps));
     }
     if (hasDoctype && (dtdValidation === 'always' || dtdValidation === 'fallback' && !schemaProps.length)) {

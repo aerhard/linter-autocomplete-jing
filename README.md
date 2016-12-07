@@ -104,7 +104,7 @@ Here are two demo rules, the first of which associates files ending with `.rng` 
   ]
 ```
 
-Generally, each rule must contain a `test`, an `outcome` and a `priority` property. `test` contains the criteria which need to be fulfilled for that rule to apply. `outcome` contains the schema / catalog information to be used when the rule is matched. When there are multiple rules, the `outcome` of the first matched rule gets applied (order is significant). Rules with higher `priority` get evaluated first, rules with the same priority get evaluated in the order in which they are specified. Rules in `config.cson` always take precedence over rules from packages.
+Each rule must contain a `test`, an `outcome` and a `priority` property. `test` contains the criteria which need to be fulfilled for that rule to apply. `outcome` contains the schema / catalog information to be used when the rule is matched. When there are multiple rules, the `outcome` of the first matched rule gets applied (order is significant). Rules with higher `priority` get evaluated first, rules with the same priority get evaluated in the order in which they are specified. Rules in `config.cson` always take precedence over rules from packages.
 
 Possible properties of `test`:
 
