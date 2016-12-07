@@ -23,17 +23,19 @@ The package depends on a Java Runtime Environment (JRE) v1.6 or above. If runnin
 
 ## Package Settings
 
-* *Java Executable Path:* The path to the Java executable (`java`).
-* *JVM Arguments:* Space-separated list of arguments to get passed to the Java Virtual Machine on which the validation server is run.
-* *Schema Cache Size:* The maximum number of schemata retained simultaneously in memory. (There is a -- now fixed -- bug in a recent version of Atom's Settings View preventing users from setting 0 as a value in numeric fields, see the discussion at https://github.com/atom/settings-view/issues/783).
-* *Display Schema Parser Warnings:* Whether or not to display warning messages from the schema parser.
-* *XML Catalog:* The path to the XML Catalog file to be used in validation.
-* *DTD Validation:* Determines under which circumstances DTDs should be used in validation. Possible values: 'always', 'never' or 'only as fallback'. When 'only as fallback' is selected, documents get validated against DTDs only if no other schemata are available for validation.
-* *Autocomplete Priority*: The inclusion priority of the Autocomplete Plus provider. In order to exclude other autocomplete providers, the number must be larger than the other providers' priorities. Defaults to 1 (In order to suppresses the default tag snippets provided by the `language-xml` package, set autocomplete priority to 2.)
-* *Autocomplete Scope*: The schema types which should be used for autocomplete.
-* *Wildcard Suggestions*: Inclusion of wildcards in autocomplete suggestions. Possible values: 'all', 'localparts', 'none'.
+| Settings Form                  | Atom Config Property  | Description  |
+|--------------------------------|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Java Executable Path           | javaExecutablePath    | The path to the Java executable (`java`). |
+| JVM Arguments                  | jvmArguments          | Space-separated list of arguments to get passed to the Java Virtual Machine on which the validation server is run. |
+| Schema Cache Size              | schemaCacheSize       | The maximum number of schemata retained simultaneously in memory. |
+| Display Schema Parser Warnings | displaySchemaWarnings | Whether or not to display warning messages from the schema parser. |
+| XML Catalog                    | xmlCatalog            | The path to the XML Catalog file to be used in validation. |
+| DTD Validation                 | dtdValidation         | Determines under which circumstances DTDs should be used in validation. Possible values: 'always', 'never' or 'only as fallback'. When 'only as fallback' is selected, documents get validated against DTDs only if no other schemata are available for validation. |
+| Autocomplete Priority          | autocompletePriority  | The inclusion priority of the Autocomplete Plus provider. In order to exclude other autocomplete providers, the number must be larger than the other providers' priorities. Defaults to 1 (In order to suppresses the default tag snippets provided by the `language-xml` package, set autocomplete priority to 2.) |
+| Autocomplete Scope             | autocompleteScope     | The schema types which should be used for autocomplete. |
+| Wildcard Suggestions           | wildcardSuggestions   | Inclusion of wildcards in autocomplete suggestions. Possible values: 'all', 'localparts', 'none'. |
 
-(In order to edit the settings, open Atom's settings view by pressing <kbd>Ctrl-,</kbd> or by selecting "Packages" / "Settings View" / "Open" in the main menu). In the "Packages" tab, search for "linter-autocomplete-jing" and click the "Settings" button.)
+(In order to edit the settings, press <kbd>Ctrl-,</kbd> or select "Packages" / "Settings View" / "Open" in the main menu. Then either navigate to the settings form ("Packages" tab, search for "linter-autocomplete-jing" and click the "Settings" button) or click the link to Atom's config file.
 
 ## File types
 
