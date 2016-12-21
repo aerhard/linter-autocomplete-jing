@@ -45,6 +45,7 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
     let rootNs = null;
     let rootLocalName = null;
     let rootAttributes = {};
+    let publicId = null;
 
     const addXsdSchemaPath = href => href && xsdSchemaPaths.push(
       regex.url.test(href)
@@ -123,7 +124,13 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
     };
 
     saxParser.onerror = () => (done = true);
-    saxParser.ondoctype = () => (hasDoctype = true);
+    saxParser.ondoctype = (str) => {
+      hasDoctype = true;
+      const match = str.match(regex.publicId);
+      if (match) {
+        publicId = match[2] || match[3];
+      }
+    };
     saxParser.onprocessinginstruction = onProcessingInstruction;
     saxParser.onopentag = onOpenTag;
 
@@ -155,6 +162,7 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
       rootNs,
       rootLocalName,
       rootAttributes,
+      publicId,
     };
 
     const rule = parsedRules.find(r => r.test(docProps));

@@ -112,6 +112,7 @@ Possible properties of `test`:
 * `rootNs`: the namespace of the root element (string)
 * `rootLocalName`: the localname of the root element (string)
 * `rootAttributes`: the required attributes of the root element (object with attribute names as keys and expected attribute values as values)
+* `publicId`: the Public ID specified in the DOCTYPE declaration
 
 Possible properties of `outcome`:
 

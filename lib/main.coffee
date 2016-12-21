@@ -2458,7 +2458,8 @@ var regex = {
   spaces: new RegExp('[' + spaceChar + ']+'),
   url: /^(?:[a-z][a-z0-9+\-.]*:)?\/\//i,
   previousTagBracket: /"[^<]*?"|'[^<]*?'|<\/|<|>/g,
-  nextTagBracket: /"[^<]*?"|'[^<]*?'|<|\/>|>/g
+  nextTagBracket: /"[^<]*?"|'[^<]*?'|<|\/>|>/g,
+  publicId: /\s*[^\s]+\s*PUBLIC\s*("([^"]+)"|'([^']+)')/
 };
 
 var helpers = require('atom-linter');
@@ -2498,6 +2499,7 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
     var rootNs = null;
     var rootLocalName = null;
     var rootAttributes = {};
+    var publicId = null;
     var addXsdSchemaPath = function addXsdSchemaPath(href) {
       return href && xsdSchemaPaths.push(regex.url.test(href) ? href : path.resolve(path.dirname(textEditor.getPath()), href));
     };
@@ -2560,8 +2562,12 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
     saxParser.onerror = function () {
       return done = true;
     };
-    saxParser.ondoctype = function () {
-      return hasDoctype = true;
+    saxParser.ondoctype = function (str) {
+      hasDoctype = true;
+      var match = str.match(regex.publicId);
+      if (match) {
+        publicId = match[2] || match[3];
+      }
     };
     saxParser.onprocessinginstruction = onProcessingInstruction;
     saxParser.onopentag = onOpenTag;
@@ -2589,7 +2595,8 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
       filePath: textEditor.getPath(),
       rootNs: rootNs,
       rootLocalName: rootLocalName,
-      rootAttributes: rootAttributes
+      rootAttributes: rootAttributes,
+      publicId: publicId
     };
     var rule = parsedRules.find(function (r) {
       return r.test(docProps);
@@ -3094,17 +3101,24 @@ var createRootAttributeMatcher = function createRootAttributeMatcher(value, name
     return rootAttributes[name] === value;
   };
 };
+var createPublicIdMatcher = function createPublicIdMatcher(value) {
+  return function (_ref6) {
+    var publicId = _ref6.publicId;
+    return value === publicId;
+  };
+};
 var sortByPriority = function sortByPriority(arr) {
   return arr.sort(function (a, b) {
     return b.priority - a.priority;
   });
 };
-var createTestFn = function createTestFn(_ref6) {
-  var grammarScope = _ref6.grammarScope,
-      pathRegex = _ref6.pathRegex,
-      rootNs = _ref6.rootNs,
-      rootLocalName = _ref6.rootLocalName,
-      rootAttributes = _ref6.rootAttributes;
+var createTestFn = function createTestFn(_ref7) {
+  var grammarScope = _ref7.grammarScope,
+      pathRegex = _ref7.pathRegex,
+      rootNs = _ref7.rootNs,
+      rootLocalName = _ref7.rootLocalName,
+      rootAttributes = _ref7.rootAttributes,
+      publicId = _ref7.publicId;
   var matchers = [];
   if (grammarScope) {
     matchers.push(createGrammarScopeMatcher(grammarScope));
@@ -3122,14 +3136,17 @@ var createTestFn = function createTestFn(_ref6) {
     var attributeMatchers = map(createRootAttributeMatcher, rootAttributes);
     matchers.push.apply(matchers, toConsumableArray(attributeMatchers));
   }
+  if (publicId) {
+    matchers.push(createPublicIdMatcher(grammarScope));
+  }
   return matchers.length ? overEvery(matchers) : function () {
     return false;
   };
 };
-var parseRule = function parseRule(_ref7) {
-  var test = _ref7.test,
-      outcome = _ref7.outcome,
-      settingsPath = _ref7.settingsPath;
+var parseRule = function parseRule(_ref8) {
+  var test = _ref8.test,
+      outcome = _ref8.outcome,
+      settingsPath = _ref8.settingsPath;
   var testFn = createTestFn(test);
   var newOutcome = {};
   var basePath = path.dirname(settingsPath);
@@ -3137,9 +3154,9 @@ var parseRule = function parseRule(_ref7) {
     newOutcome.xmlCatalog = path.resolve(basePath, outcome.xmlCatalog);
   }
   if (outcome.schemaProps) {
-    newOutcome.schemaProps = outcome.schemaProps.map(function (_ref8) {
-      var schemaPath = _ref8.path,
-          lang = _ref8.lang;
+    newOutcome.schemaProps = outcome.schemaProps.map(function (_ref9) {
+      var schemaPath = _ref9.path,
+          lang = _ref9.lang;
       return {
         path: path.resolve(basePath, schemaPath),
         lang: lang

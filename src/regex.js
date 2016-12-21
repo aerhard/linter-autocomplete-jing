@@ -46,4 +46,7 @@ export default {
   url: /^(?:[a-z][a-z0-9+\-.]*:)?\/\//i,
   previousTagBracket: /"[^<]*?"|'[^<]*?'|<\/|<|>/g,
   nextTagBracket: /"[^<]*?"|'[^<]*?'|<|\/>|>/g,
+  // the sax module doesn't preserve linebreak characters in DOCTYPE
+  // -> use \s* instead of \s+
+  publicId: /\s*[^\s]+\s*PUBLIC\s*("([^"]+)"|'([^']+)')/,
 };

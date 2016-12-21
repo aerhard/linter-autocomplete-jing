@@ -25,9 +25,14 @@ const createRootLocalNameMatcher = value =>
 const createRootAttributeMatcher = (value, name) =>
   ({ rootAttributes }) => rootAttributes[name] === value;
 
+const createPublicIdMatcher = value =>
+  ({ publicId }) => value === publicId;
+
 const sortByPriority = arr => arr.sort((a, b) => b.priority - a.priority);
 
-const createTestFn = ({ grammarScope, pathRegex, rootNs, rootLocalName, rootAttributes }) => {
+const createTestFn = ({
+  grammarScope, pathRegex, rootNs, rootLocalName, rootAttributes, publicId,
+}) => {
   const matchers = [];
   if (grammarScope) {
     matchers.push(createGrammarScopeMatcher(grammarScope));
@@ -47,6 +52,9 @@ const createTestFn = ({ grammarScope, pathRegex, rootNs, rootLocalName, rootAttr
       rootAttributes,
     );
     matchers.push(...attributeMatchers);
+  }
+  if (publicId) {
+    matchers.push(createPublicIdMatcher(grammarScope));
   }
 
   return matchers.length
