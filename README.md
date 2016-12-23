@@ -13,7 +13,7 @@ Supported schema types:
 * *Validation*: RELAX NG (XML and compact syntax), Schematron (1.5, ISO), W3C Schema (XSD 1.0) and DTD
 * *Autocomplete*: RELAX NG (XML and compact syntax), W3C Schema (XSD 1.0)
 
-You can find a package with a basic set of common XML schemata and corresponding rules for linter-autocomplete-jing at https://github.com/aerhard/xml-common-schemata.  
+You can find a basic set of common XML schemata and corresponding rules for linter-autocomplete-jing in the [xml-common-schemata](https://atom.io/packages/xml-common-schemata) package.  
 
 XML document processing is handled in Java using [Jing](https://github.com/aerhard/jing-trang), [Xerces](http://xerces.apache.org/xerces2-j/) and [Saxon HE](http://saxon.sourceforge.net/). For the source code of the Java part see https://github.com/aerhard/xml-tools.
 
