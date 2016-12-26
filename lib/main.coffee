@@ -3095,7 +3095,7 @@ var createRootLocalNameMatcher = function createRootLocalNameMatcher(value) {
     return value === rootLocalName;
   };
 };
-var createRootAttributeMatcher = function createRootAttributeMatcher(value, name) {
+var createRootAttributeMatcher = function createRootAttributeMatcher(name, value) {
   return function (_ref5) {
     var rootAttributes = _ref5.rootAttributes;
     return rootAttributes[name] === value;
@@ -3133,8 +3133,28 @@ var createTestFn = function createTestFn(_ref7) {
     matchers.push(createRootLocalNameMatcher(rootLocalName));
   }
   if (rootAttributes) {
-    var attributeMatchers = map(createRootAttributeMatcher, rootAttributes);
-    matchers.push.apply(matchers, toConsumableArray(attributeMatchers));
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+    try {
+      for (var _iterator = Object.keys(rootAttributes)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var name = _step.value;
+        matchers.push(createRootAttributeMatcher(name, rootAttributes[name]));
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
   }
   if (publicId) {
     matchers.push(createPublicIdMatcher(grammarScope));

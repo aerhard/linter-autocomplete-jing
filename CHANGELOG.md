@@ -77,3 +77,6 @@
 ### 0.7.1
 * make schemaProps in rule outcome optional
 * add publicId to rule tests
+
+### 0.7.2
+* fix attribute matching

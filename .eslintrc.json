@@ -8,6 +8,7 @@
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "no-param-reassign": [0],
     "no-plusplus": [0],
+    "no-restricted-syntax": [0],
     "prefer-template": [0],
     "space-before-function-paren": [2, "never"]
   },

@@ -22,7 +22,7 @@ const createRootNsMatcher = value =>
 const createRootLocalNameMatcher = value =>
   ({ rootLocalName }) => value === rootLocalName;
 
-const createRootAttributeMatcher = (value, name) =>
+const createRootAttributeMatcher = (name, value) =>
   ({ rootAttributes }) => rootAttributes[name] === value;
 
 const createPublicIdMatcher = value =>
@@ -47,11 +47,9 @@ const createTestFn = ({
     matchers.push(createRootLocalNameMatcher(rootLocalName));
   }
   if (rootAttributes) {
-    const attributeMatchers = map(
-      createRootAttributeMatcher,
-      rootAttributes,
-    );
-    matchers.push(...attributeMatchers);
+    for (const name of Object.keys(rootAttributes)) {
+      matchers.push(createRootAttributeMatcher(name, rootAttributes[name]));
+    }
   }
   if (publicId) {
     matchers.push(createPublicIdMatcher(grammarScope));
