@@ -32,7 +32,7 @@ const parseMessage = (textEditor, schemaProps, config) => function(str) {
       type: level === 'warning' ? 'Warning' : 'Error',
       html: lang === 'none' ? html : `<span class="badge badge-flexible">${lang.toUpperCase()}</span> ${html}`,
       filePath,
-      range: helpers.rangeFromLineNumber(textEditor, Number(line) - 1),
+      range: helpers.generateRange(textEditor, Number(line) - 1),
     };
   }
 
@@ -46,7 +46,7 @@ const parseMessage = (textEditor, schemaProps, config) => function(str) {
 
   const schema = schemaProps.find(sch => sch.path === systemId && sch.lang === lang);
   const range = schema
-    ? helpers.rangeFromLineNumber(textEditor, schema.line)
+    ? helpers.generateRange(textEditor, schema.line)
     : [[0, 0], [0, 0]];
 
   return {

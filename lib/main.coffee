@@ -354,8 +354,7 @@ function baseGetTag(value) {
   if (value == null) {
     return value === undefined ? undefinedTag : nullTag;
   }
-  value = Object(value);
-  return symToStringTag && symToStringTag in value ? getRawTag(value) : objectToString(value);
+  return symToStringTag && symToStringTag in Object(value) ? getRawTag(value) : objectToString(value);
 }
 
 function isObjectLike(value) {
@@ -1236,14 +1235,40 @@ function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
   return false;
 }
 
+function baseGetAllKeys(object, keysFunc, symbolsFunc) {
+  var result = keysFunc(object);
+  return isArray(object) ? result : arrayPush(result, symbolsFunc(object));
+}
+
+function stubArray() {
+  return [];
+}
+
+var objectProto$11 = Object.prototype;
+var propertyIsEnumerable$1 = objectProto$11.propertyIsEnumerable;
+var nativeGetSymbols = Object.getOwnPropertySymbols;
+var getSymbols = !nativeGetSymbols ? stubArray : function (object) {
+  if (object == null) {
+    return [];
+  }
+  object = Object(object);
+  return arrayFilter(nativeGetSymbols(object), function (symbol) {
+    return propertyIsEnumerable$1.call(object, symbol);
+  });
+};
+
+function getAllKeys(object) {
+  return baseGetAllKeys(object, keys, getSymbols);
+}
+
 var COMPARE_PARTIAL_FLAG$4 = 1;
 var objectProto$10 = Object.prototype;
 var hasOwnProperty$8 = objectProto$10.hasOwnProperty;
 function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
   var isPartial = bitmask & COMPARE_PARTIAL_FLAG$4,
-      objProps = keys(object),
+      objProps = getAllKeys(object),
       objLength = objProps.length,
-      othProps = keys(other),
+      othProps = getAllKeys(other),
       othLength = othProps.length;
   if (objLength != othLength && !isPartial) {
     return false;
@@ -1341,16 +1366,10 @@ var hasOwnProperty$7 = objectProto$9.hasOwnProperty;
 function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
   var objIsArr = isArray(object),
       othIsArr = isArray(other),
-      objTag = arrayTag$1,
-      othTag = arrayTag$1;
-  if (!objIsArr) {
-    objTag = getTag$1(object);
-    objTag = objTag == argsTag$2 ? objectTag$1 : objTag;
-  }
-  if (!othIsArr) {
-    othTag = getTag$1(other);
-    othTag = othTag == argsTag$2 ? objectTag$1 : othTag;
-  }
+      objTag = objIsArr ? arrayTag$1 : getTag$1(object),
+      othTag = othIsArr ? arrayTag$1 : getTag$1(other);
+  objTag = objTag == argsTag$2 ? objectTag$1 : objTag;
+  othTag = othTag == argsTag$2 ? objectTag$1 : othTag;
   var objIsObj = objTag == objectTag$1,
       othIsObj = othTag == objectTag$1,
       isSameTag = objTag == othTag;
@@ -1386,7 +1405,7 @@ function baseIsEqual(value, other, bitmask, customizer, stack) {
   if (value === other) {
     return true;
   }
-  if (value == null || other == null || !isObject(value) && !isObjectLike(other)) {
+  if (value == null || other == null || !isObjectLike(value) && !isObjectLike(other)) {
     return value !== value && other !== other;
   }
   return baseIsEqualDeep(value, other, bitmask, customizer, baseIsEqual, stack);
@@ -1988,7 +2007,7 @@ function toInteger(value) {
 
 function startsWith$1(string, target, position) {
   string = toString(string);
-  position = baseClamp(toInteger(position), 0, string.length);
+  position = position == null ? 0 : baseClamp(toInteger(position), 0, string.length);
   target = baseToString(target);
   return string.slice(position, position + target.length) == target;
 }
@@ -2082,8 +2101,8 @@ var getData = !metaMap ? noop : function (func) {
 
 var realNames = {};
 
-var objectProto$11 = Object.prototype;
-var hasOwnProperty$9 = objectProto$11.hasOwnProperty;
+var objectProto$12 = Object.prototype;
+var hasOwnProperty$9 = objectProto$12.hasOwnProperty;
 function getFuncName(func) {
   var result = func.name + '',
       array = realNames[result],
@@ -2122,8 +2141,8 @@ function wrapperClone(wrapper) {
   return result;
 }
 
-var objectProto$12 = Object.prototype;
-var hasOwnProperty$10 = objectProto$12.hasOwnProperty;
+var objectProto$13 = Object.prototype;
+var hasOwnProperty$10 = objectProto$13.hasOwnProperty;
 function lodash(value) {
   if (isObjectLike(value) && !isArray(value) && !(value instanceof LazyWrapper)) {
     if (value instanceof LodashWrapper) {
@@ -2151,7 +2170,6 @@ function isLaziable(func) {
   return !!data && func === data[0];
 }
 
-var LARGE_ARRAY_SIZE$1 = 200;
 var FUNC_ERROR_TEXT$2 = 'Expected a function';
 var WRAP_CURRY_FLAG = 8;
 var WRAP_PARTIAL_FLAG = 32;
@@ -2188,7 +2206,7 @@ function createFlow(fromRight) {
     return function () {
       var args = arguments,
           value = args[0];
-      if (wrapper && args.length == 1 && isArray(value) && value.length >= LARGE_ARRAY_SIZE$1) {
+      if (wrapper && args.length == 1 && isArray(value)) {
         return wrapper.plant(value).value();
       }
       var index = 0,
@@ -2526,7 +2544,7 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
             type: 'Warning',
             html: 'Unknown schema type',
             filePath: textEditor.getPath(),
-            range: helpers.rangeFromLineNumber(textEditor, row)
+            range: helpers.generateRange(textEditor, row)
           });
         }
       }
@@ -2648,7 +2666,7 @@ var parseMessage = function parseMessage(textEditor, schemaProps, config) {
         type: level === 'warning' ? 'Warning' : 'Error',
         html: lang === 'none' ? html : '<span class="badge badge-flexible">' + lang.toUpperCase() + '</span> ' + html,
         filePath: filePath,
-        range: helpers$1.rangeFromLineNumber(textEditor, Number(line) - 1)
+        range: helpers$1.generateRange(textEditor, Number(line) - 1)
       };
     }
     if (!config.displaySchemaWarnings && level === 'warning') {
@@ -2658,7 +2676,7 @@ var parseMessage = function parseMessage(textEditor, schemaProps, config) {
     var schema = schemaProps.find(function (sch) {
       return sch.path === systemId && sch.lang === lang;
     });
-    var range = schema ? helpers$1.rangeFromLineNumber(textEditor, schema.line) : [[0, 0], [0, 0]];
+    var range = schema ? helpers$1.generateRange(textEditor, schema.line) : [[0, 0], [0, 0]];
     return {
       type: 'Warning',
       html: label + html,
@@ -3084,16 +3102,11 @@ var createGrammarScopeMatcher = function createGrammarScopeMatcher(value) {
 };
 var createPathRegexMatcher = function createPathRegexMatcher(pathRegexStr) {
   try {
-    var _ret = function () {
-      var pathRegex = new RegExp(pathRegexStr);
-      return {
-        v: function v(_ref2) {
-          var filePath = _ref2.filePath;
-          return pathRegex.test(filePath);
-        }
-      };
-    }();
-    if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+    var pathRegex = new RegExp(pathRegexStr);
+    return function (_ref2) {
+      var filePath = _ref2.filePath;
+      return pathRegex.test(filePath);
+    };
   } catch (err) {
     console.error('Could not parse RegExp "' + pathRegexStr + '"', err);
     return function () {

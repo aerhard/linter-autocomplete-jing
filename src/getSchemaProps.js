@@ -75,7 +75,7 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
             type: 'Warning',
             html: 'Unknown schema type',
             filePath: textEditor.getPath(),
-            range: helpers.rangeFromLineNumber(textEditor, row),
+            range: helpers.generateRange(textEditor, row),
           });
         }
       }
