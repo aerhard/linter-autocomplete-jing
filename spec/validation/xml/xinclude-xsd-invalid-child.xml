@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.example.com ../schema/schema.xsd" xmlns="http://www.example.com">
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="child-invalid.xml"/>
+  <!-- asdf -->
+</root>

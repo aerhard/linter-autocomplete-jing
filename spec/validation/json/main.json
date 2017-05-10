@@ -79,6 +79,42 @@
       "expectMessageLength": 5
     }]
   }, {
+    "description": "given a well-formed xml document with a correct reference to a valid RNG schema and an xinclude",
+    "schemata": [
+      { "lang": "rng", "path": "../schema/schema.rng" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/xinclude-rng-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 3 validation errors",
+      "expectation": "returns an array of length 3",
+      "file": "../xml/xinclude-rng-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 3
+    }, {
+      "condition": "when the included document contains 2 validation errors",
+      "expectation": "returns an array of length 2",
+      "file": "../xml/xinclude-rng-invalid-child.xml",
+      "expectArray": true,
+      "expectMessageLength": 2
+    }, {
+      "condition": "when the included document is not well-formed",
+      "expectation": "returns an array of length 1",
+      "file": "../xml/xinclude-rng-not-wellformed.xml",
+      "expectArray": true,
+      "expectMessageLength": 1
+    }, {
+      "condition": "when the document contains a wrong href",
+      "expectation": "returns an array of length 2",
+      "file": "../xml/xinclude-rng-wrong-href.xml",
+      "expectArray": true,
+      "expectMessageLength": 2
+    }]
+  }, {
     "description": "given a well-formed xml document with a correct reference to a valid RNC schema",
     "schemata": [
       { "lang": "rnc", "path": "../schema/schema.rnc" }
@@ -115,6 +151,30 @@
       "expectMessageLength": 6
     }]
   }, {
+    "description": "given a well-formed xml document with a correct reference to a valid XSD schema and an xinclude",
+    "schemata": [
+      { "lang": "xsd", "path": "../schema/schema.xsd" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/xinclude-xsd-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 4 validation errors",
+      "expectation": "returns an array of length 4",
+      "file": "../xml/xinclude-xsd-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 4
+    }, {
+      "condition": "when the child document contains 3 validation errors",
+      "expectation": "returns an array of length 3",
+      "file": "../xml/xinclude-xsd-invalid-child.xml",
+      "expectArray": true,
+      "expectMessageLength": 3
+    }]
+  }, {
     "description": "given a well-formed xml document with correct references to three XSD schemata",
     "schemata": [
       { "lang": "xsd", "path": "aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-2.xsd*../schema/schema-multi-2.xsd*aerhard-test://github.com/aerhard/linter-autocomplete-jing/missing-file-resolved-in-catalog-1.xsd" }
@@ -149,6 +209,30 @@
       "file": "../xml/iso-sch-invalid.xml",
       "expectArray": true,
       "expectMessageLength": 3
+    }]
+  }, {
+    "description": "given a well-formed xml document with a correct reference to a valid ISO schematron schema and an xinclude",
+    "schemata": [
+      { "lang": "sch.iso", "path": "../schema/schema.iso.sch" }
+    ],
+    "items": [{
+      "condition": "when the document is valid",
+      "expectation": "returns an empty array",
+      "file": "../xml/xinclude-iso-sch-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document contains 2 validation errors",
+      "expectation": "returns an array of length 2",
+      "file": "../xml/xinclude-iso-sch-invalid.xml",
+      "expectArray": true,
+      "expectMessageLength": 2
+    }, {
+      "condition": "when the child document contains 1 validation error",
+      "expectation": "returns an array of length 1",
+      "file": "../xml/xinclude-iso-sch-invalid-child.xml",
+      "expectArray": true,
+      "expectMessageLength": 1
     }]
   }, {
     "description": "given a well-formed xml document with a correct reference to a valid schematron 1.5 schema",

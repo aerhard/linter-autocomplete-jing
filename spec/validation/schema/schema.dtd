@@ -7,4 +7,5 @@
 <!ELEMENT child (#PCDATA)>
 <!ATTLIST child
   xmlns CDATA #FIXED 'http://www.example.com'
+  xml:base CDATA #IMPLIED
   x NMTOKEN #REQUIRED>

@@ -6,6 +6,11 @@
         <attribute name="x">
           <data type="NCName"/>
         </attribute>
+        <optional>
+          <attribute name="base" ns="http://www.w3.org/XML/1998/namespace">
+            <data type="anyURI"/>
+          </attribute>
+        </optional>
         <data type="NCName"/>
       </element>
     </element>

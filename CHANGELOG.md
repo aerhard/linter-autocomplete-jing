@@ -80,3 +80,6 @@
 
 ### 0.7.2
 * fix attribute matching
+
+## 0.8.0
+* support XInclude-aware RNG, XSD and Schematron validation

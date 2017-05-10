@@ -175,6 +175,14 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
       ? rule.outcome.dtdValidation
       : config.dtdValidation;
 
+    const xIncludeAware = rule && 'xIncludeAware' in rule.outcome
+      ? rule.outcome.xIncludeAware
+      : config.xIncludeAware;
+
+    const xIncludeFixupBaseUris = rule && 'xIncludeFixupBaseUris' in rule.outcome
+      ? rule.outcome.xIncludeFixupBaseUris
+      : config.xIncludeFixupBaseUris;
+
     if (rule && 'schemaProps' in rule.outcome && !schemaProps.length) {
       schemaProps.push(...rule.outcome.schemaProps);
     }
@@ -196,7 +204,7 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
       });
     }
 
-    resolve({ schemaProps, messages, xmlCatalog });
+    resolve({ schemaProps, messages, xmlCatalog, xIncludeAware, xIncludeFixupBaseUris });
   });
 
 export default getSchemaProps;

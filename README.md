@@ -33,6 +33,8 @@ The package depends on a Java Runtime Environment (JRE) v1.6 or above. If runnin
 | Display Schema Parser Warnings | displaySchemaWarnings | Whether or not to display warning messages from the schema parser. |
 | XML Catalog                    | xmlCatalog            | The path to the XML Catalog file to be used in validation. |
 | DTD Validation                 | dtdValidation         | Determines under which circumstances DTDs should be used in validation. Possible values: 'always', 'never' or 'only as fallback'. When 'only as fallback' is selected, documents get validated against DTDs only if no other schemata are available for validation. |
+| XInclude Aware                 | xIncludeAware         | Whether or not validation should resolve XIncludes in the instance document. |
+| XInclude Fixup Base URIs       | xIncludeFixupBaseUris | Whether or not xml:base attributes should be added / adjusted in documents included with XInclude statements. |
 | Autocomplete Priority          | autocompletePriority  | The inclusion priority of the Autocomplete Plus provider. In order to exclude other autocomplete providers, the number must be larger than the other providers' priorities. Defaults to 1 (In order to suppresses the default tag snippets provided by the `language-xml` package, set autocomplete priority to 2.) |
 | Autocomplete Scope             | autocompleteScope     | The schema types which should be used for autocomplete. |
 | Wildcard Suggestions           | wildcardSuggestions   | Inclusion of wildcards in autocomplete suggestions. Possible values: 'all', 'localparts', 'none'. |
@@ -119,6 +121,8 @@ Possible properties of `test`:
 Possible properties of `outcome`:
 
 * `dtdValidation`: (see above for possible values)
+* `xIncludeAware`: whether or not validation should resolve XIncludes in the instance document (boolean)
+* `xIncludeFixupBaseUris`: whether or not xml:base attributes should be added / adjusted in documents included with XInclude statements (boolean)
 * `xmlCatalog`: (see above for possible values)
 * `schemaProps`: the schemata to be used in validation (array of objects with the properties `lang` and `path`. `path` specifies the file path of the schema, `lang` the schema language which must be one of 'rng', 'rnc', 'sch.iso', 'sch.15', 'xsd' or 'none')
 

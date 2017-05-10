@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schema/schema.iso.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<root xmlns="http://www.example.com">
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="child.xml"/>
+  <child/>
+  <!-- asdf -->
+</root>

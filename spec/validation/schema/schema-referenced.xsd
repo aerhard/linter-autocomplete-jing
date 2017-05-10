@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.example.com" xmlns:ns1="http://www.example.com">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  
   <xs:element name="root">
     <xs:complexType>
       <xs:sequence>
@@ -12,6 +14,7 @@
       <xs:simpleContent>
         <xs:extension base="xs:NCName">
           <xs:attribute name="x" use="required" type="xs:NCName"/>
+          <xs:attribute ref="xml:base" use="optional" />
         </xs:extension>
       </xs:simpleContent>
     </xs:complexType>

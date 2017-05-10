@@ -105,6 +105,16 @@
         }
       ]
     },
+    "xIncludeAware": {
+      "title": "XInclude Aware",
+      "type": "boolean",
+      "default": true
+    },
+    "xIncludeFixupBaseUris": {
+      "title": "XInclude Fixup Base URIs",
+      "type": "boolean",
+      "default": true
+    },
     "wildcardSuggestions": {
       "type": "string",
       "default": "none",

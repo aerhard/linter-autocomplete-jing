@@ -1343,6 +1343,12 @@
         "replacementPrefix": "",
         "retrigger": false
       }, {
+        "snippet": "${1} xmlns=\"http://www.w3.org/XML/1998/namespace\">${2}</${1}>",
+        "displayText": "* (http://www.w3.org/XML/1998/namespace)",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
         "snippet": "child xmlns=\"http://www.example.com\" x=\"${1}\">${2}</child>",
         "displayText": "child (http://www.example.com)",
         "type": "tag",
@@ -1406,6 +1412,12 @@
       }, {
         "snippet": "${1} xmlns=\"http://www.example.com\">${2}</${1}>",
         "displayText": "* (http://www.example.com)",
+        "type": "tag",
+        "replacementPrefix": "",
+        "retrigger": false
+      }, {
+        "snippet": "${1} xmlns=\"http://www.w3.org/XML/1998/namespace\">${2}</${1}>",
+        "displayText": "* (http://www.w3.org/XML/1998/namespace)",
         "type": "tag",
         "replacementPrefix": "",
         "retrigger": false

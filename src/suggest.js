@@ -256,13 +256,13 @@ const wildcardOptions = {
   all: 'wn',
 };
 
-const buildHeaders = (editorPath, xmlCatalog, wildcardSuggestions,
+const buildHeaders = (editorPath, xmlCatalog, processingOptions,
   { lang, path: schemaPath }, type, fragment, splitPoint) => [
     'A',
     type,
     fragment || '',
     splitPoint || '',
-    'r' + wildcardOptions[wildcardSuggestions],
+    'r' + processingOptions,
     'UTF-8',
     editorPath,
     xmlCatalog || '',
@@ -270,11 +270,25 @@ const buildHeaders = (editorPath, xmlCatalog, wildcardSuggestions,
   ];
 
 const getSuggestions = (sharedConfig, suggestionOptions) => {
-  const { options, xmlCatalog, currentSchemaProps, wildcardSuggestions } = sharedConfig;
+  const {
+    options,
+    xmlCatalog,
+    xIncludeAware,
+    xIncludeFixupBaseUris,
+    currentSchemaProps,
+    wildcardSuggestions,
+  } = sharedConfig;
   const { editor } = options;
   const { type, fragment, body, splitPoint, clientData, filterFn, builderFn } = suggestionOptions;
 
-  const headers = buildHeaders(editor.getPath(), xmlCatalog, wildcardSuggestions,
+  const processingOptions = [
+    'r',
+    wildcardOptions[wildcardSuggestions],
+    xIncludeAware ? 'x' : '',
+    xIncludeFixupBaseUris ? 'f' : '',
+  ].join('');
+
+  const headers = buildHeaders(editor.getPath(), xmlCatalog, processingOptions,
     currentSchemaProps, type, fragment, splitPoint);
 
   return serverProcessInstance.sendRequest(headers, body)
@@ -395,13 +409,20 @@ const getElementPISuggestions = (sharedConfig, tagNamePIPrefix) => {
 };
 
 const suggest = (options, { autocompleteScope, wildcardSuggestions }) =>
-  ([, { schemaProps, xmlCatalog }]) => {
+  ([, { schemaProps, xmlCatalog, xIncludeAware, xIncludeFixupBaseUris }]) => {
     const currentSchemaProps =
       schemaProps.find(({ lang }) => !!autocompleteScope[lang]) ||
       { type: 'none' };
 
     const scopesArray = options.scopeDescriptor.getScopesArray();
-    const sharedConfig = { options, xmlCatalog, currentSchemaProps, wildcardSuggestions };
+    const sharedConfig = {
+      options,
+      xmlCatalog,
+      xIncludeAware,
+      xIncludeFixupBaseUris,
+      currentSchemaProps,
+      wildcardSuggestions,
+    };
     const precedingLineText = getPrecedingLineText(options);
     const tagNamePIPrefix = getTagNamePIPrefix(precedingLineText);
 

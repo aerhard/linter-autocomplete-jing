@@ -2312,7 +2312,7 @@ var startsWith = function startsWith(a) {
 };
 
 var portRegex = /XML Tools Server listening on port (\d+)/;
-var jarPath = '../vendor/xml-tools-server-0.4.6.jar';
+var jarPath = '../vendor/xml-tools-server-0.4.7.jar';
 var initialPort = 0;
 function ServerProcess() {
   this.state = this.STOPPED;
@@ -2603,6 +2603,8 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
     });
     var xmlCatalog = rule && 'xmlCatalog' in rule.outcome ? rule.outcome.xmlCatalog : config.xmlCatalog;
     var dtdValidation = rule && 'dtdValidation' in rule.outcome ? rule.outcome.dtdValidation : config.dtdValidation;
+    var xIncludeAware = rule && 'xIncludeAware' in rule.outcome ? rule.outcome.xIncludeAware : config.xIncludeAware;
+    var xIncludeFixupBaseUris = rule && 'xIncludeFixupBaseUris' in rule.outcome ? rule.outcome.xIncludeFixupBaseUris : config.xIncludeFixupBaseUris;
     if (rule && 'schemaProps' in rule.outcome && !schemaProps.length) {
       schemaProps.push.apply(schemaProps, toConsumableArray(rule.outcome.schemaProps));
     }
@@ -2619,7 +2621,7 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
         path: null
       });
     }
-    resolve({ schemaProps: schemaProps, messages: messages, xmlCatalog: xmlCatalog });
+    resolve({ schemaProps: schemaProps, messages: messages, xmlCatalog: xmlCatalog, xIncludeAware: xIncludeAware, xIncludeFixupBaseUris: xIncludeFixupBaseUris });
   });
 };
 
@@ -2668,11 +2670,15 @@ var parseMessage = function parseMessage(textEditor, schemaProps, config) {
 var validate = function validate(textEditor, config) {
   return function (_ref) {
     var _ref2 = slicedToArray(_ref, 2),
-        _ref2$ = _ref2[1],
-        schemaProps = _ref2$.schemaProps,
-        messages = _ref2$.messages,
-        xmlCatalog = _ref2$.xmlCatalog;
-    var headers = ['V', 'r', 'UTF-8', textEditor.getPath(), xmlCatalog || ''].concat(toConsumableArray(schemaProps.map(function (schema) {
+        localConfig = _ref2[1];
+    var schemaProps = localConfig.schemaProps,
+        messages = localConfig.messages,
+        xmlCatalog = localConfig.xmlCatalog,
+        xIncludeAware = localConfig.xIncludeAware,
+        xIncludeFixupBaseUris = localConfig.xIncludeFixupBaseUris;
+    var xIncludeOption = xIncludeAware ? 'x' : '';
+    var xIncludeFixupOption = xIncludeFixupBaseUris ? 'f' : '';
+    var headers = ['V', 'r' + xIncludeOption + xIncludeFixupOption, 'UTF-8', textEditor.getPath(), xmlCatalog || ''].concat(toConsumableArray(schemaProps.map(function (schema) {
       return schema.lang + ' ' + (schema.path || '');
     })));
     var body = textEditor.getText();
@@ -2909,14 +2915,16 @@ var wildcardOptions = {
   localparts: 'w',
   all: 'wn'
 };
-var buildHeaders = function buildHeaders(editorPath, xmlCatalog, wildcardSuggestions, _ref10, type, fragment, splitPoint) {
+var buildHeaders = function buildHeaders(editorPath, xmlCatalog, processingOptions, _ref10, type, fragment, splitPoint) {
   var lang = _ref10.lang,
       schemaPath = _ref10.path;
-  return ['A', type, fragment || '', splitPoint || '', 'r' + wildcardOptions[wildcardSuggestions], 'UTF-8', editorPath, xmlCatalog || '', lang + ' ' + (schemaPath || '')];
+  return ['A', type, fragment || '', splitPoint || '', 'r' + processingOptions, 'UTF-8', editorPath, xmlCatalog || '', lang + ' ' + (schemaPath || '')];
 };
 var getSuggestions$1 = function getSuggestions$1(sharedConfig, suggestionOptions) {
   var options = sharedConfig.options,
       xmlCatalog = sharedConfig.xmlCatalog,
+      xIncludeAware = sharedConfig.xIncludeAware,
+      xIncludeFixupBaseUris = sharedConfig.xIncludeFixupBaseUris,
       currentSchemaProps = sharedConfig.currentSchemaProps,
       wildcardSuggestions = sharedConfig.wildcardSuggestions;
   var editor = options.editor;
@@ -2927,7 +2935,8 @@ var getSuggestions$1 = function getSuggestions$1(sharedConfig, suggestionOptions
       clientData = suggestionOptions.clientData,
       filterFn = suggestionOptions.filterFn,
       builderFn = suggestionOptions.builderFn;
-  var headers = buildHeaders(editor.getPath(), xmlCatalog, wildcardSuggestions, currentSchemaProps, type, fragment, splitPoint);
+  var processingOptions = ['r', wildcardOptions[wildcardSuggestions], xIncludeAware ? 'x' : '', xIncludeFixupBaseUris ? 'f' : ''].join('');
+  var headers = buildHeaders(editor.getPath(), xmlCatalog, processingOptions, currentSchemaProps, type, fragment, splitPoint);
   return serverProcessInstance$2.sendRequest(headers, body).then(flow(JSON.parse, function (data) {
     return clientData ? data.concat(clientData) : data;
   }, filter(filterFn), map(builderFn), compact)).catch(function () {
@@ -3033,13 +3042,22 @@ var suggest = function suggest(options, _ref15) {
     var _ref17 = slicedToArray(_ref16, 2),
         _ref17$ = _ref17[1],
         schemaProps = _ref17$.schemaProps,
-        xmlCatalog = _ref17$.xmlCatalog;
+        xmlCatalog = _ref17$.xmlCatalog,
+        xIncludeAware = _ref17$.xIncludeAware,
+        xIncludeFixupBaseUris = _ref17$.xIncludeFixupBaseUris;
     var currentSchemaProps = schemaProps.find(function (_ref18) {
       var lang = _ref18.lang;
       return !!autocompleteScope[lang];
     }) || { type: 'none' };
     var scopesArray = options.scopeDescriptor.getScopesArray();
-    var sharedConfig = { options: options, xmlCatalog: xmlCatalog, currentSchemaProps: currentSchemaProps, wildcardSuggestions: wildcardSuggestions };
+    var sharedConfig = {
+      options: options,
+      xmlCatalog: xmlCatalog,
+      xIncludeAware: xIncludeAware,
+      xIncludeFixupBaseUris: xIncludeFixupBaseUris,
+      currentSchemaProps: currentSchemaProps,
+      wildcardSuggestions: wildcardSuggestions
+    };
     var precedingLineText = getPrecedingLineText(options);
     var tagNamePIPrefix = getTagNamePIPrefix(precedingLineText);
     if (tagNamePIPrefix !== null) {
