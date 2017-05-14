@@ -275,6 +275,7 @@ const getSuggestions = (sharedConfig, suggestionOptions) => {
     xmlCatalog,
     xIncludeAware,
     xIncludeFixupBaseUris,
+    xIncludeFixupLanguage,
     currentSchemaProps,
     wildcardSuggestions,
   } = sharedConfig;
@@ -286,6 +287,7 @@ const getSuggestions = (sharedConfig, suggestionOptions) => {
     wildcardOptions[wildcardSuggestions],
     xIncludeAware ? 'x' : '',
     xIncludeFixupBaseUris ? 'f' : '',
+    xIncludeFixupLanguage ? 'l' : '',
   ].join('');
 
   const headers = buildHeaders(editor.getPath(), xmlCatalog, processingOptions,
@@ -408,41 +410,44 @@ const getElementPISuggestions = (sharedConfig, tagNamePIPrefix) => {
   });
 };
 
-const suggest = (options, { autocompleteScope, wildcardSuggestions }) =>
-  ([, { schemaProps, xmlCatalog, xIncludeAware, xIncludeFixupBaseUris }]) => {
-    const currentSchemaProps =
-      schemaProps.find(({ lang }) => !!autocompleteScope[lang]) ||
-      { type: 'none' };
+const suggest = (options, { autocompleteScope, wildcardSuggestions }) => ([
+  ,
+  { schemaProps, xmlCatalog, xIncludeAware, xIncludeFixupBaseUris, xIncludeFixupLanguage },
+]) => {
+  const currentSchemaProps =
+    schemaProps.find(({ lang }) => !!autocompleteScope[lang]) ||
+    { type: 'none' };
 
-    const scopesArray = options.scopeDescriptor.getScopesArray();
-    const sharedConfig = {
-      options,
-      xmlCatalog,
-      xIncludeAware,
-      xIncludeFixupBaseUris,
-      currentSchemaProps,
-      wildcardSuggestions,
-    };
-    const precedingLineText = getPrecedingLineText(options);
-    const tagNamePIPrefix = getTagNamePIPrefix(precedingLineText);
-
-    if (tagNamePIPrefix !== null) {
-      return getElementPISuggestions(sharedConfig, tagNamePIPrefix);
-    }
-
-    if (includesTagScope(scopesArray)) {
-      const quotedScope = getQuotedScope(scopesArray);
-
-      if (quotedScope) {
-        return getAttributeValueSuggestions(sharedConfig, precedingLineText, quotedScope);
-      }
-
-      if (getPreviousTagBracket(options) === '<') {
-        return getAttributeNameSuggestions(sharedConfig, precedingLineText);
-      }
-    }
-
-    return [];
+  const scopesArray = options.scopeDescriptor.getScopesArray();
+  const sharedConfig = {
+    options,
+    xmlCatalog,
+    xIncludeAware,
+    xIncludeFixupBaseUris,
+    xIncludeFixupLanguage,
+    currentSchemaProps,
+    wildcardSuggestions,
   };
+  const precedingLineText = getPrecedingLineText(options);
+  const tagNamePIPrefix = getTagNamePIPrefix(precedingLineText);
+
+  if (tagNamePIPrefix !== null) {
+    return getElementPISuggestions(sharedConfig, tagNamePIPrefix);
+  }
+
+  if (includesTagScope(scopesArray)) {
+    const quotedScope = getQuotedScope(scopesArray);
+
+    if (quotedScope) {
+      return getAttributeValueSuggestions(sharedConfig, precedingLineText, quotedScope);
+    }
+
+    if (getPreviousTagBracket(options) === '<') {
+      return getAttributeNameSuggestions(sharedConfig, precedingLineText);
+    }
+  }
+
+  return [];
+};
 
 export default suggest;

@@ -115,6 +115,11 @@
       "type": "boolean",
       "default": true
     },
+    "xIncludeFixupLanguage": {
+      "title": "XInclude Fixup Language",
+      "type": "boolean",
+      "default": true
+    },
     "wildcardSuggestions": {
       "type": "string",
       "default": "none",

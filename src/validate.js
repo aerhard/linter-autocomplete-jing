@@ -59,12 +59,20 @@ const parseMessage = (textEditor, schemaProps, config) => function(str) {
 
 // 'x', 'f'
 const validate = (textEditor, config) => ([, localConfig]) => {
-  const { schemaProps, messages, xmlCatalog, xIncludeAware, xIncludeFixupBaseUris } = localConfig;
+  const {
+    schemaProps,
+    messages,
+    xmlCatalog,
+    xIncludeAware,
+    xIncludeFixupBaseUris,
+    xIncludeFixupLanguage,
+  } = localConfig;
   const xIncludeOption = xIncludeAware ? 'x' : '';
   const xIncludeFixupOption = xIncludeFixupBaseUris ? 'f' : '';
+  const xIncludeLanguageOption = xIncludeFixupLanguage ? 'l' : '';
   const headers = [
     'V',
-    'r' + xIncludeOption + xIncludeFixupOption,
+    'r' + xIncludeOption + xIncludeFixupOption + xIncludeLanguageOption,
     'UTF-8',
     textEditor.getPath(),
     xmlCatalog || '',

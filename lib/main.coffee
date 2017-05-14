@@ -2623,6 +2623,7 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
     var dtdValidation = rule && 'dtdValidation' in rule.outcome ? rule.outcome.dtdValidation : config.dtdValidation;
     var xIncludeAware = rule && 'xIncludeAware' in rule.outcome ? rule.outcome.xIncludeAware : config.xIncludeAware;
     var xIncludeFixupBaseUris = rule && 'xIncludeFixupBaseUris' in rule.outcome ? rule.outcome.xIncludeFixupBaseUris : config.xIncludeFixupBaseUris;
+    var xIncludeFixupLanguage = rule && 'xIncludeFixupLanguage' in rule.outcome ? rule.outcome.xIncludeFixupLanguage : config.xIncludeFixupLanguage;
     if (rule && 'schemaProps' in rule.outcome && !schemaProps.length) {
       schemaProps.push.apply(schemaProps, toConsumableArray(rule.outcome.schemaProps));
     }
@@ -2639,7 +2640,14 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
         path: null
       });
     }
-    resolve({ schemaProps: schemaProps, messages: messages, xmlCatalog: xmlCatalog, xIncludeAware: xIncludeAware, xIncludeFixupBaseUris: xIncludeFixupBaseUris });
+    resolve({
+      schemaProps: schemaProps,
+      messages: messages,
+      xmlCatalog: xmlCatalog,
+      xIncludeAware: xIncludeAware,
+      xIncludeFixupBaseUris: xIncludeFixupBaseUris,
+      xIncludeFixupLanguage: xIncludeFixupLanguage
+    });
   });
 };
 
@@ -2693,10 +2701,12 @@ var validate = function validate(textEditor, config) {
         messages = localConfig.messages,
         xmlCatalog = localConfig.xmlCatalog,
         xIncludeAware = localConfig.xIncludeAware,
-        xIncludeFixupBaseUris = localConfig.xIncludeFixupBaseUris;
+        xIncludeFixupBaseUris = localConfig.xIncludeFixupBaseUris,
+        xIncludeFixupLanguage = localConfig.xIncludeFixupLanguage;
     var xIncludeOption = xIncludeAware ? 'x' : '';
     var xIncludeFixupOption = xIncludeFixupBaseUris ? 'f' : '';
-    var headers = ['V', 'r' + xIncludeOption + xIncludeFixupOption, 'UTF-8', textEditor.getPath(), xmlCatalog || ''].concat(toConsumableArray(schemaProps.map(function (schema) {
+    var xIncludeLanguageOption = xIncludeFixupLanguage ? 'l' : '';
+    var headers = ['V', 'r' + xIncludeOption + xIncludeFixupOption + xIncludeLanguageOption, 'UTF-8', textEditor.getPath(), xmlCatalog || ''].concat(toConsumableArray(schemaProps.map(function (schema) {
       return schema.lang + ' ' + (schema.path || '');
     })));
     var body = textEditor.getText();
@@ -2943,6 +2953,7 @@ var getSuggestions$1 = function getSuggestions$1(sharedConfig, suggestionOptions
       xmlCatalog = sharedConfig.xmlCatalog,
       xIncludeAware = sharedConfig.xIncludeAware,
       xIncludeFixupBaseUris = sharedConfig.xIncludeFixupBaseUris,
+      xIncludeFixupLanguage = sharedConfig.xIncludeFixupLanguage,
       currentSchemaProps = sharedConfig.currentSchemaProps,
       wildcardSuggestions = sharedConfig.wildcardSuggestions;
   var editor = options.editor;
@@ -2953,7 +2964,7 @@ var getSuggestions$1 = function getSuggestions$1(sharedConfig, suggestionOptions
       clientData = suggestionOptions.clientData,
       filterFn = suggestionOptions.filterFn,
       builderFn = suggestionOptions.builderFn;
-  var processingOptions = ['r', wildcardOptions[wildcardSuggestions], xIncludeAware ? 'x' : '', xIncludeFixupBaseUris ? 'f' : ''].join('');
+  var processingOptions = ['r', wildcardOptions[wildcardSuggestions], xIncludeAware ? 'x' : '', xIncludeFixupBaseUris ? 'f' : '', xIncludeFixupLanguage ? 'l' : ''].join('');
   var headers = buildHeaders(editor.getPath(), xmlCatalog, processingOptions, currentSchemaProps, type, fragment, splitPoint);
   return serverProcessInstance$2.sendRequest(headers, body).then(flow(JSON.parse, function (data) {
     return clientData ? data.concat(clientData) : data;
@@ -3062,7 +3073,8 @@ var suggest = function suggest(options, _ref15) {
         schemaProps = _ref17$.schemaProps,
         xmlCatalog = _ref17$.xmlCatalog,
         xIncludeAware = _ref17$.xIncludeAware,
-        xIncludeFixupBaseUris = _ref17$.xIncludeFixupBaseUris;
+        xIncludeFixupBaseUris = _ref17$.xIncludeFixupBaseUris,
+        xIncludeFixupLanguage = _ref17$.xIncludeFixupLanguage;
     var currentSchemaProps = schemaProps.find(function (_ref18) {
       var lang = _ref18.lang;
       return !!autocompleteScope[lang];
@@ -3073,6 +3085,7 @@ var suggest = function suggest(options, _ref15) {
       xmlCatalog: xmlCatalog,
       xIncludeAware: xIncludeAware,
       xIncludeFixupBaseUris: xIncludeFixupBaseUris,
+      xIncludeFixupLanguage: xIncludeFixupLanguage,
       currentSchemaProps: currentSchemaProps,
       wildcardSuggestions: wildcardSuggestions
     };

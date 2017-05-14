@@ -183,6 +183,10 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
       ? rule.outcome.xIncludeFixupBaseUris
       : config.xIncludeFixupBaseUris;
 
+    const xIncludeFixupLanguage = rule && 'xIncludeFixupLanguage' in rule.outcome
+      ? rule.outcome.xIncludeFixupLanguage
+      : config.xIncludeFixupLanguage;
+
     if (rule && 'schemaProps' in rule.outcome && !schemaProps.length) {
       schemaProps.push(...rule.outcome.schemaProps);
     }
@@ -204,7 +208,14 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
       });
     }
 
-    resolve({ schemaProps, messages, xmlCatalog, xIncludeAware, xIncludeFixupBaseUris });
+    resolve({
+      schemaProps,
+      messages,
+      xmlCatalog,
+      xIncludeAware,
+      xIncludeFixupBaseUris,
+      xIncludeFixupLanguage,
+    });
   });
 
 export default getSchemaProps;
