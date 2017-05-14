@@ -1,10 +1,4 @@
 
-import { flow, trim, split, map, compact, concat, sortBy, filter, identity } from './fp';
-
-import ServerProcess from './ServerProcess';
-
-const serverProcessInstance = ServerProcess.getInstance();
-
 const helpers = require('atom-linter');
 
 const messageRegex =
@@ -57,41 +51,4 @@ const parseMessage = (textEditor, schemaProps, config) => function(str) {
   };
 };
 
-// 'x', 'f'
-const validate = (textEditor, config) => ([, localConfig]) => {
-  const {
-    schemaProps,
-    messages,
-    xmlCatalog,
-    xIncludeAware,
-    xIncludeFixupBaseUris,
-    xIncludeFixupLanguage,
-  } = localConfig;
-  const xIncludeOption = xIncludeAware ? 'x' : '';
-  const xIncludeFixupOption = xIncludeFixupBaseUris ? 'f' : '';
-  const xIncludeLanguageOption = xIncludeFixupLanguage ? 'l' : '';
-  const headers = [
-    'V',
-    'r' + xIncludeOption + xIncludeFixupOption + xIncludeLanguageOption,
-    'UTF-8',
-    textEditor.getPath(),
-    xmlCatalog || '',
-    ...schemaProps.map(schema => schema.lang + ' ' + (schema.path || '')),
-  ];
-  const body = textEditor.getText();
-
-  return serverProcessInstance.sendRequest(headers, body)
-    .then(
-      flow(
-        trim,
-        split(/\r?\n/),
-        filter(identity),
-        map(parseMessage(textEditor, schemaProps, config)),
-        compact,
-        concat(messages),
-        sortBy('range[0][0]'),
-      ),
-    );
-};
-
-export default validate;
+export default parseMessage;
