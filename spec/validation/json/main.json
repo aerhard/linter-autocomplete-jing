@@ -90,6 +90,12 @@
       "expectArray": true,
       "expectMessageLength": 0
     }, {
+      "condition": "when the document is valid and the xinclude refers to a child element by xml:id",
+      "expectation": "returns an empty array",
+      "file": "../xml/xinclude-rng-valid-xmlid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
       "condition": "when the document contains 3 validation errors",
       "expectation": "returns an array of length 3",
       "file": "../xml/xinclude-rng-invalid.xml",
@@ -162,6 +168,12 @@
       "expectArray": true,
       "expectMessageLength": 0
     }, {
+      "condition": "when the document is valid and the xinclude refers to a child element by xml:id",
+      "expectation": "returns an empty array",
+      "file": "../xml/xinclude-xsd-valid-xmlid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
       "condition": "when the document contains 4 validation errors",
       "expectation": "returns an array of length 4",
       "file": "../xml/xinclude-xsd-invalid.xml",
@@ -219,6 +231,12 @@
       "condition": "when the document is valid",
       "expectation": "returns an empty array",
       "file": "../xml/xinclude-iso-sch-valid.xml",
+      "expectArray": true,
+      "expectMessageLength": 0
+    }, {
+      "condition": "when the document is valid and the xinclude refers to a child element by xml:id",
+      "expectation": "returns an empty array",
+      "file": "../xml/xinclude-iso-sch-valid-xmlid.xml",
       "expectArray": true,
       "expectMessageLength": 0
     }, {

@@ -15,6 +15,7 @@
         <xs:extension base="xs:NCName">
           <xs:attribute name="x" use="required" type="xs:NCName"/>
           <xs:attribute ref="xml:base" use="optional" />
+          <xs:attribute ref="xml:id" use="optional" />
         </xs:extension>
       </xs:simpleContent>
     </xs:complexType>

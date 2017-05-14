@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schema/schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<root xmlns="http://www.example.com">
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="child-xmlid.xml" xpointer="child_id"/>
+  <!-- asdf -->
+</root>

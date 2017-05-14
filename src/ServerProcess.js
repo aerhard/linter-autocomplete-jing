@@ -4,7 +4,7 @@ import spawn from 'cross-spawn';
 import path from 'path';
 
 const portRegex = /XML Tools Server listening on port (\d+)/;
-const jarPath = '../vendor/xml-tools-server-0.4.7.jar';
+const jarPath = '../vendor/xml-tools-server-0.4.8.jar';
 const initialPort = 0;
 
 function ServerProcess() {

@@ -11,6 +11,11 @@
             <data type="anyURI"/>
           </attribute>
         </optional>
+        <optional>
+          <attribute name="id" ns="http://www.w3.org/XML/1998/namespace">
+            <data type="NCName"/>
+          </attribute>
+        </optional>
         <data type="NCName"/>
       </element>
     </element>

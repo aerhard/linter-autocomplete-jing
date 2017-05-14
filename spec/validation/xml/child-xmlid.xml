@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parent xmlns="http://www.example.com">
+  <child x="a" xml:id="child_id">text</child>
+</parent>
