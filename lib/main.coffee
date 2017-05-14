@@ -2651,7 +2651,6 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
   });
 };
 
-var serverProcessInstance$1 = ServerProcess.getInstance();
 var helpers$1 = require('atom-linter');
 var messageRegex = /^([a-z0-9.]+?):((.*?):\s?)?((\d+):)?(?:\d+:\s)?(error|fatal|warning):\s(.*)$/;
 var parseMessage = function parseMessage(textEditor, schemaProps, config) {
@@ -2693,54 +2692,80 @@ var parseMessage = function parseMessage(textEditor, schemaProps, config) {
     };
   };
 };
+
+var serverProcessInstance$1 = ServerProcess.getInstance();
+var buildHeaders = function buildHeaders(textEditor, localConfig) {
+  var schemaProps = localConfig.schemaProps,
+      xmlCatalog = localConfig.xmlCatalog,
+      xIncludeAware = localConfig.xIncludeAware,
+      xIncludeFixupBaseUris = localConfig.xIncludeFixupBaseUris,
+      xIncludeFixupLanguage = localConfig.xIncludeFixupLanguage;
+  var xIncludeOption = xIncludeAware ? 'x' : '';
+  var xIncludeFixupOption = xIncludeFixupBaseUris ? 'f' : '';
+  var xIncludeLanguageOption = xIncludeFixupLanguage ? 'l' : '';
+  return ['V', 'r' + xIncludeOption + xIncludeFixupOption + xIncludeLanguageOption, 'UTF-8', textEditor.getPath(), xmlCatalog || ''].concat(toConsumableArray(schemaProps.map(function (schema) {
+    return schema.lang + ' ' + (schema.path || '');
+  })));
+};
+var requestValidation = function requestValidation(textEditor, config, localConfig) {
+  var schemaProps = localConfig.schemaProps,
+      messages = localConfig.messages;
+  var headers = buildHeaders(textEditor, localConfig);
+  var body = textEditor.getText();
+  return serverProcessInstance$1.sendRequest(headers, body).then(flow(trim, split(/\r?\n/), filter(identity), map(parseMessage(textEditor, schemaProps, config)), compact, concat(messages), sortBy('range[0][0]')));
+};
+
 var validate = function validate(textEditor, config) {
   return function (_ref) {
     var _ref2 = slicedToArray(_ref, 2),
         localConfig = _ref2[1];
-    var schemaProps = localConfig.schemaProps,
-        messages = localConfig.messages,
-        xmlCatalog = localConfig.xmlCatalog,
-        xIncludeAware = localConfig.xIncludeAware,
-        xIncludeFixupBaseUris = localConfig.xIncludeFixupBaseUris,
-        xIncludeFixupLanguage = localConfig.xIncludeFixupLanguage;
-    var xIncludeOption = xIncludeAware ? 'x' : '';
-    var xIncludeFixupOption = xIncludeFixupBaseUris ? 'f' : '';
-    var xIncludeLanguageOption = xIncludeFixupLanguage ? 'l' : '';
-    var headers = ['V', 'r' + xIncludeOption + xIncludeFixupOption + xIncludeLanguageOption, 'UTF-8', textEditor.getPath(), xmlCatalog || ''].concat(toConsumableArray(schemaProps.map(function (schema) {
-      return schema.lang + ' ' + (schema.path || '');
-    })));
-    var body = textEditor.getText();
-    return serverProcessInstance$1.sendRequest(headers, body).then(flow(trim, split(/\r?\n/), filter(identity), map(parseMessage(textEditor, schemaProps, config)), compact, concat(messages), sortBy('range[0][0]')));
+    return requestValidation(textEditor, config, localConfig);
   };
 };
 
 var serverProcessInstance$2 = ServerProcess.getInstance();
-var getEndToken = function getEndToken(str) {
-  var match = str.match(regex.endToken);
-  return match ? match[1] : '';
+var wildcardOptions = {
+  none: '',
+  localparts: 'w',
+  all: 'wn'
 };
-var getPreviousTagBracket = function getPreviousTagBracket(_ref) {
+var buildHeaders$1 = function buildHeaders$1(sharedConfig, suggestionOptions) {
+  var editor = sharedConfig.options.editor,
+      xmlCatalog = sharedConfig.xmlCatalog,
+      xIncludeAware = sharedConfig.xIncludeAware,
+      xIncludeFixupBaseUris = sharedConfig.xIncludeFixupBaseUris,
+      xIncludeFixupLanguage = sharedConfig.xIncludeFixupLanguage,
+      _sharedConfig$current = sharedConfig.currentSchemaProps,
+      lang = _sharedConfig$current.lang,
+      schemaPath = _sharedConfig$current.path,
+      wildcardSuggestions = sharedConfig.wildcardSuggestions;
+  var type = suggestionOptions.type,
+      fragment = suggestionOptions.fragment,
+      splitPoint = suggestionOptions.splitPoint;
+  var processingOptions = ['r', wildcardOptions[wildcardSuggestions], xIncludeAware ? 'x' : '', xIncludeFixupBaseUris ? 'f' : '', xIncludeFixupLanguage ? 'l' : ''].join('');
+  return ['A', type, fragment || '', splitPoint || '', processingOptions, 'UTF-8', editor.getPath(), xmlCatalog || '', lang + ' ' + (schemaPath || '')];
+};
+var requestSuggestions = function requestSuggestions(sharedConfig, suggestionOptions) {
+  var body = suggestionOptions.body,
+      clientData = suggestionOptions.clientData,
+      filterFn = suggestionOptions.filterFn,
+      builderFn = suggestionOptions.builderFn;
+  var headers = buildHeaders$1(sharedConfig, suggestionOptions);
+  return serverProcessInstance$2.sendRequest(headers, body).then(flow(JSON.parse, function (data) {
+    return clientData ? data.concat(clientData) : data;
+  }, filter(filterFn), map(builderFn), compact)).catch(function () {
+    return [];
+  });
+};
+
+var getEndBracketPosition = function getEndBracketPosition(_ref) {
   var editor = _ref.editor,
       bufferPosition = _ref.bufferPosition;
-  var bracket = null;
-  editor.backwardsScanInBufferRange(regex.previousTagBracket, [bufferPosition, [0, 0]], function (_ref2) {
-    var matchText = _ref2.matchText,
-        stop = _ref2.stop;
-    if (!matchText.startsWith('\'') && !matchText.startsWith('"')) {
-      bracket = matchText;
-      stop();
-    }
-  });
-  return bracket;
-};
-var getEndBracketPosition = function getEndBracketPosition(_ref3) {
-  var editor = _ref3.editor,
-      bufferPosition = _ref3.bufferPosition;
   var position = null;
-  editor.scanInBufferRange(regex.nextTagBracket, [bufferPosition, editor.getBuffer().getEndPosition()], function (_ref4) {
-    var matchText = _ref4.matchText,
-        range = _ref4.range,
-        stop = _ref4.stop;
+  editor.scanInBufferRange(regex.nextTagBracket, [bufferPosition, editor.getBuffer().getEndPosition()], function (_ref2) {
+    var matchText = _ref2.matchText,
+        range = _ref2.range,
+        stop = _ref2.stop;
     if (!matchText.startsWith('\'') && !matchText.startsWith('"')) {
       if (matchText !== '<') {
         position = [range.start.row, range.start.column + matchText.length];
@@ -2780,6 +2805,61 @@ var buildAttributeStrings = function buildAttributeStrings(attribute, index, add
     index: index
   };
 };
+
+var buildAttributeNameSuggestion = function buildAttributeNameSuggestion(replacementPrefix, addSuffix) {
+  return function (_ref) {
+    var value = _ref.value,
+        documentation = _ref.documentation;
+    var _buildAttributeString = buildAttributeStrings(value, 0, addSuffix),
+        snippet = _buildAttributeString.snippet,
+        displayText = _buildAttributeString.displayText;
+    return {
+      snippet: snippet,
+      displayText: displayText,
+      type: 'attribute',
+      replacementPrefix: replacementPrefix,
+      description: documentation ? buildDescriptionString(documentation) : undefined,
+      retrigger: addSuffix
+    };
+  };
+};
+var getAttributeNameProps = function getAttributeNameProps(precedingLineText) {
+  var match = precedingLineText.match(regex.attStartFromAttName);
+  return match ? { prefix: match[1] || '', column: match.index } : null;
+};
+var attributeNameFilter = function attributeNameFilter(prefix) {
+  return function (_ref2) {
+    var value = _ref2.value;
+    return value.startsWith(prefix);
+  };
+};
+var getAttributeNameSuggestions = function getAttributeNameSuggestions(sharedConfig, precedingLineText) {
+  var options = sharedConfig.options;
+  var editor = options.editor,
+      bufferPosition = options.bufferPosition;
+  var attributeNameProps = getAttributeNameProps(precedingLineText);
+  if (!attributeNameProps) return [];
+  var endBracketPosition = getEndBracketPosition(options);
+  if (!endBracketPosition) return [];
+  var prefix = attributeNameProps.prefix,
+      prefixStartColumn = attributeNameProps.column;
+  var textBeforeAttribute = editor.getTextInBufferRange([[0, 0], [bufferPosition.row, prefixStartColumn]]);
+  var followingText = editor.getTextInBufferRange([bufferPosition, endBracketPosition]);
+  var match = followingText.match(regex.attEndFromAttName);
+  var textAfterAttribute = match ? followingText.substr(match[0].length) : followingText;
+  var addSuffix = !match;
+  return requestSuggestions(sharedConfig, {
+    type: 'N',
+    body: textBeforeAttribute + textAfterAttribute,
+    filterFn: attributeNameFilter(prefix),
+    builderFn: buildAttributeNameSuggestion(prefix, addSuffix)
+  });
+};
+
+var getEndToken = function getEndToken(str) {
+  var match = str.match(regex.endToken);
+  return match ? match[1] : '';
+};
 var escape = function escape(quoteChar) {
   var quoteReplacements = {
     '"': '&quot;',
@@ -2799,10 +2879,10 @@ var escape = function escape(quoteChar) {
 var escapeWithDblQuotes = escape('"');
 var escapeWithSingleQuotes = escape('\'');
 var buildAttributeValueSuggestion = function buildAttributeValueSuggestion(prefix, endToken, hasDblQuotes) {
-  return function (_ref5) {
-    var listItem = _ref5.listItem,
-        value = _ref5.value,
-        documentation = _ref5.documentation;
+  return function (_ref) {
+    var listItem = _ref.listItem,
+        value = _ref.value,
+        documentation = _ref.documentation;
     return {
       snippet: hasDblQuotes ? escapeWithDblQuotes(value) : escapeWithSingleQuotes(value),
       displayText: value,
@@ -2813,32 +2893,58 @@ var buildAttributeValueSuggestion = function buildAttributeValueSuggestion(prefi
     };
   };
 };
-var buildAttributeNameSuggestion = function buildAttributeNameSuggestion(replacementPrefix, addSuffix) {
-  return function (_ref6) {
-    var value = _ref6.value,
-        documentation = _ref6.documentation;
-    var _buildAttributeString = buildAttributeStrings(value, 0, addSuffix),
-        snippet = _buildAttributeString.snippet,
-        displayText = _buildAttributeString.displayText;
-    return {
-      snippet: snippet,
-      displayText: displayText,
-      type: 'attribute',
-      replacementPrefix: replacementPrefix,
-      description: documentation ? buildDescriptionString(documentation) : undefined,
-      retrigger: addSuffix
-    };
+var getAttributeValueProps = function getAttributeValueProps(_ref2, hasDblQuotes) {
+  var editor = _ref2.editor,
+      bufferPosition = _ref2.bufferPosition;
+  var attStartRegex = hasDblQuotes ? regex.attStartFromAttValueDouble : regex.attStartFromAttValueSingle;
+  var result = void 0;
+  editor.backwardsScanInBufferRange(attStartRegex, [bufferPosition, [0, 0]], function (_ref3) {
+    var match = _ref3.match,
+        stop = _ref3.stop;
+    result = match;
+    stop();
+  });
+  return result ? { name: result[1], prefix: result[2] || '' } : null;
+};
+var attributeValueFilter = function attributeValueFilter(prefix, endToken) {
+  return function (_ref4) {
+    var value = _ref4.value,
+        listItem = _ref4.listItem;
+    return value.startsWith(listItem ? endToken : prefix);
   };
 };
+var getAttributeValueSuggestions = function getAttributeValueSuggestions(sharedConfig, precedingLineText, quotedScope) {
+  var options = sharedConfig.options;
+  var editor = options.editor;
+  var hasDblQuotes = quotedScope === 'string.quoted.double.xml';
+  var attributeValueProps = getAttributeValueProps(options, hasDblQuotes);
+  if (!attributeValueProps) return [];
+  var endBracketPosition = getEndBracketPosition(options);
+  if (!endBracketPosition) return [];
+  var fragment = attributeValueProps.name,
+      prefix = attributeValueProps.prefix;
+  var endToken = getEndToken(prefix);
+  var head = editor.getTextInBufferRange([[0, 0], endBracketPosition]);
+  var splitPoint = Buffer.byteLength(head);
+  return requestSuggestions(sharedConfig, {
+    type: 'V',
+    body: editor.getText(),
+    fragment: fragment,
+    splitPoint: splitPoint,
+    filterFn: attributeValueFilter(prefix, endToken),
+    builderFn: buildAttributeValueSuggestion(prefix, endToken, hasDblQuotes)
+  });
+};
+
 var buildElementSuggestion = function buildElementSuggestion(replacementPrefix, addSuffix) {
-  return function (_ref7) {
-    var value = _ref7.value,
-        empty = _ref7.empty,
-        closing = _ref7.closing,
-        _ref7$attributes = _ref7.attributes,
-        attributes = _ref7$attributes === undefined ? [] : _ref7$attributes,
-        documentation = _ref7.documentation,
-        preDefinedSnippet = _ref7.snippet;
+  return function (_ref) {
+    var value = _ref.value,
+        empty = _ref.empty,
+        closing = _ref.closing,
+        _ref$attributes = _ref.attributes,
+        attributes = _ref$attributes === undefined ? [] : _ref$attributes,
+        documentation = _ref.documentation,
+        preDefinedSnippet = _ref.snippet;
     if (preDefinedSnippet) {
       return {
         snippet: preDefinedSnippet,
@@ -2883,9 +2989,9 @@ var buildElementSuggestion = function buildElementSuggestion(replacementPrefix, 
         displayText = tagName;
       }
       var attributeSnippets = attributes.map(function (attribute) {
-        var _buildAttributeString2 = buildAttributeStrings(attribute, index, true),
-            attributeSnippet = _buildAttributeString2.snippet,
-            newIndex = _buildAttributeString2.index;
+        var _buildAttributeString = buildAttributeStrings(attribute, index, true),
+            attributeSnippet = _buildAttributeString.snippet,
+            newIndex = _buildAttributeString.index;
         index = newIndex;
         return attributeSnippet;
       });
@@ -2907,26 +3013,54 @@ var buildElementSuggestion = function buildElementSuggestion(replacementPrefix, 
     };
   };
 };
+var piSuggestions = [{
+  value: '!--  -->',
+  snippet: '!-- ${1} -->',
+  documentation: 'Comment'
+}, {
+  value: '![CDATA[]]>',
+  snippet: '![CDATA[${1}]]>',
+  documentation: 'CDATA Section'
+}];
+var elementSuggestionFilter = function elementSuggestionFilter(prefix) {
+  return function (_ref2) {
+    var value = _ref2.value,
+        closing = _ref2.closing;
+    return closing ? ('/' + value).startsWith(prefix) : value.startsWith(prefix);
+  };
+};
+var getElementPISuggestions = function getElementPISuggestions(sharedConfig, tagNamePIPrefix) {
+  var options = sharedConfig.options;
+  var editor = options.editor,
+      bufferPosition = options.bufferPosition;
+  var body = editor.getTextInBufferRange([[0, 0], [bufferPosition.row, bufferPosition.column - tagNamePIPrefix.length - 1]]);
+  var addSuffix = !getEndBracketPosition(options);
+  return requestSuggestions(sharedConfig, {
+    type: 'E',
+    body: body,
+    clientData: piSuggestions,
+    filterFn: elementSuggestionFilter(tagNamePIPrefix),
+    builderFn: buildElementSuggestion(tagNamePIPrefix, addSuffix)
+  });
+};
+
+var getPreviousTagBracket = function getPreviousTagBracket(_ref) {
+  var editor = _ref.editor,
+      bufferPosition = _ref.bufferPosition;
+  var bracket = null;
+  editor.backwardsScanInBufferRange(regex.previousTagBracket, [bufferPosition, [0, 0]], function (_ref2) {
+    var matchText = _ref2.matchText,
+        stop = _ref2.stop;
+    if (!matchText.startsWith('\'') && !matchText.startsWith('"')) {
+      bracket = matchText;
+      stop();
+    }
+  });
+  return bracket;
+};
 var getTagNamePIPrefix = function getTagNamePIPrefix(precedingLineText) {
   var match = precedingLineText.match(regex.tagNamePI);
   return match ? match[1] || '' : null;
-};
-var getAttributeNameProps = function getAttributeNameProps(precedingLineText) {
-  var match = precedingLineText.match(regex.attStartFromAttName);
-  return match ? { prefix: match[1] || '', column: match.index } : null;
-};
-var getAttributeValueProps = function getAttributeValueProps(_ref8, hasDblQuotes) {
-  var editor = _ref8.editor,
-      bufferPosition = _ref8.bufferPosition;
-  var attStartRegex = hasDblQuotes ? regex.attStartFromAttValueDouble : regex.attStartFromAttValueSingle;
-  var result = void 0;
-  editor.backwardsScanInBufferRange(attStartRegex, [bufferPosition, [0, 0]], function (_ref9) {
-    var match = _ref9.match,
-        stop = _ref9.stop;
-    result = match;
-    stop();
-  });
-  return result ? { name: result[1], prefix: result[2] || '' } : null;
 };
 var getQuotedScope = function getQuotedScope(scopes) {
   return scopes.find(function (scope) {
@@ -2938,145 +3072,24 @@ var includesTagScope = function includesTagScope(scopesArray) {
     return item.startsWith('meta.tag.xml') || item === 'meta.tag.no-content.xml';
   });
 };
-var wildcardOptions = {
-  none: '',
-  localparts: 'w',
-  all: 'wn'
-};
-var buildHeaders = function buildHeaders(editorPath, xmlCatalog, processingOptions, _ref10, type, fragment, splitPoint) {
-  var lang = _ref10.lang,
-      schemaPath = _ref10.path;
-  return ['A', type, fragment || '', splitPoint || '', 'r' + processingOptions, 'UTF-8', editorPath, xmlCatalog || '', lang + ' ' + (schemaPath || '')];
-};
-var getSuggestions$1 = function getSuggestions$1(sharedConfig, suggestionOptions) {
-  var options = sharedConfig.options,
-      xmlCatalog = sharedConfig.xmlCatalog,
-      xIncludeAware = sharedConfig.xIncludeAware,
-      xIncludeFixupBaseUris = sharedConfig.xIncludeFixupBaseUris,
-      xIncludeFixupLanguage = sharedConfig.xIncludeFixupLanguage,
-      currentSchemaProps = sharedConfig.currentSchemaProps,
-      wildcardSuggestions = sharedConfig.wildcardSuggestions;
-  var editor = options.editor;
-  var type = suggestionOptions.type,
-      fragment = suggestionOptions.fragment,
-      body = suggestionOptions.body,
-      splitPoint = suggestionOptions.splitPoint,
-      clientData = suggestionOptions.clientData,
-      filterFn = suggestionOptions.filterFn,
-      builderFn = suggestionOptions.builderFn;
-  var processingOptions = ['r', wildcardOptions[wildcardSuggestions], xIncludeAware ? 'x' : '', xIncludeFixupBaseUris ? 'f' : '', xIncludeFixupLanguage ? 'l' : ''].join('');
-  var headers = buildHeaders(editor.getPath(), xmlCatalog, processingOptions, currentSchemaProps, type, fragment, splitPoint);
-  return serverProcessInstance$2.sendRequest(headers, body).then(flow(JSON.parse, function (data) {
-    return clientData ? data.concat(clientData) : data;
-  }, filter(filterFn), map(builderFn), compact)).catch(function () {
-    return [];
-  });
-};
-var elementSuggestionFilter = function elementSuggestionFilter(prefix) {
-  return function (_ref11) {
-    var value = _ref11.value,
-        closing = _ref11.closing;
-    return closing ? ('/' + value).startsWith(prefix) : value.startsWith(prefix);
-  };
-};
-var attributeValueFilter = function attributeValueFilter(prefix, endToken) {
-  return function (_ref12) {
-    var value = _ref12.value,
-        listItem = _ref12.listItem;
-    return value.startsWith(listItem ? endToken : prefix);
-  };
-};
-var attributeNameFilter = function attributeNameFilter(prefix) {
-  return function (_ref13) {
-    var value = _ref13.value;
-    return value.startsWith(prefix);
-  };
-};
-var getPrecedingLineText = function getPrecedingLineText(_ref14) {
-  var editor = _ref14.editor,
-      bufferPosition = _ref14.bufferPosition;
+var getPrecedingLineText = function getPrecedingLineText(_ref3) {
+  var editor = _ref3.editor,
+      bufferPosition = _ref3.bufferPosition;
   return editor.getTextInBufferRange([[bufferPosition.row, 0], bufferPosition]);
 };
-var getAttributeValueSuggestions = function getAttributeValueSuggestions(sharedConfig, precedingLineText, quotedScope) {
-  var options = sharedConfig.options;
-  var editor = options.editor;
-  var hasDblQuotes = quotedScope === 'string.quoted.double.xml';
-  var attributeValueProps = getAttributeValueProps(options, hasDblQuotes);
-  if (!attributeValueProps) return [];
-  var endBracketPosition = getEndBracketPosition(options);
-  if (!endBracketPosition) return [];
-  var fragment = attributeValueProps.name,
-      prefix = attributeValueProps.prefix;
-  var endToken = getEndToken(prefix);
-  var head = editor.getTextInBufferRange([[0, 0], endBracketPosition]);
-  var splitPoint = Buffer.byteLength(head);
-  return getSuggestions$1(sharedConfig, {
-    type: 'V',
-    body: editor.getText(),
-    fragment: fragment,
-    splitPoint: splitPoint,
-    filterFn: attributeValueFilter(prefix, endToken),
-    builderFn: buildAttributeValueSuggestion(prefix, endToken, hasDblQuotes)
-  });
-};
-var getAttributeNameSuggestions = function getAttributeNameSuggestions(sharedConfig, precedingLineText) {
-  var options = sharedConfig.options;
-  var editor = options.editor,
-      bufferPosition = options.bufferPosition;
-  var attributeNameProps = getAttributeNameProps(precedingLineText);
-  if (!attributeNameProps) return [];
-  var endBracketPosition = getEndBracketPosition(options);
-  if (!endBracketPosition) return [];
-  var prefix = attributeNameProps.prefix,
-      prefixStartColumn = attributeNameProps.column;
-  var textBeforeAttribute = editor.getTextInBufferRange([[0, 0], [bufferPosition.row, prefixStartColumn]]);
-  var followingText = editor.getTextInBufferRange([bufferPosition, endBracketPosition]);
-  var match = followingText.match(regex.attEndFromAttName);
-  var textAfterAttribute = match ? followingText.substr(match[0].length) : followingText;
-  var addSuffix = !match;
-  return getSuggestions$1(sharedConfig, {
-    type: 'N',
-    body: textBeforeAttribute + textAfterAttribute,
-    filterFn: attributeNameFilter(prefix),
-    builderFn: buildAttributeNameSuggestion(prefix, addSuffix)
-  });
-};
-var piSuggestions = [{
-  value: '!--  -->',
-  snippet: '!-- ${1} -->',
-  documentation: 'Comment'
-}, {
-  value: '![CDATA[]]>',
-  snippet: '![CDATA[${1}]]>',
-  documentation: 'CDATA Section'
-}];
-var getElementPISuggestions = function getElementPISuggestions(sharedConfig, tagNamePIPrefix) {
-  var options = sharedConfig.options;
-  var editor = options.editor,
-      bufferPosition = options.bufferPosition;
-  var body = editor.getTextInBufferRange([[0, 0], [bufferPosition.row, bufferPosition.column - tagNamePIPrefix.length - 1]]);
-  var addSuffix = !getEndBracketPosition(options);
-  return getSuggestions$1(sharedConfig, {
-    type: 'E',
-    body: body,
-    clientData: piSuggestions,
-    filterFn: elementSuggestionFilter(tagNamePIPrefix),
-    builderFn: buildElementSuggestion(tagNamePIPrefix, addSuffix)
-  });
-};
-var suggest = function suggest(options, _ref15) {
-  var autocompleteScope = _ref15.autocompleteScope,
-      wildcardSuggestions = _ref15.wildcardSuggestions;
-  return function (_ref16) {
-    var _ref17 = slicedToArray(_ref16, 2),
-        _ref17$ = _ref17[1],
-        schemaProps = _ref17$.schemaProps,
-        xmlCatalog = _ref17$.xmlCatalog,
-        xIncludeAware = _ref17$.xIncludeAware,
-        xIncludeFixupBaseUris = _ref17$.xIncludeFixupBaseUris,
-        xIncludeFixupLanguage = _ref17$.xIncludeFixupLanguage;
-    var currentSchemaProps = schemaProps.find(function (_ref18) {
-      var lang = _ref18.lang;
+var suggest = function suggest(options, _ref4) {
+  var autocompleteScope = _ref4.autocompleteScope,
+      wildcardSuggestions = _ref4.wildcardSuggestions;
+  return function (_ref5) {
+    var _ref6 = slicedToArray(_ref5, 2),
+        _ref6$ = _ref6[1],
+        schemaProps = _ref6$.schemaProps,
+        xmlCatalog = _ref6$.xmlCatalog,
+        xIncludeAware = _ref6$.xIncludeAware,
+        xIncludeFixupBaseUris = _ref6$.xIncludeFixupBaseUris,
+        xIncludeFixupLanguage = _ref6$.xIncludeFixupLanguage;
+    var currentSchemaProps = schemaProps.find(function (_ref7) {
+      var lang = _ref7.lang;
       return !!autocompleteScope[lang];
     }) || { type: 'none' };
     var scopesArray = options.scopeDescriptor.getScopesArray();

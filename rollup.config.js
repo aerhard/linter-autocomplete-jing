@@ -6,12 +6,12 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 
 export default {
   entry: 'src/main.js',
+  external: ['atom', 'cross-spawn', 'sax', 'atom-package-deps'],
   format: 'cjs',
   plugins: [
     babel(babelrc()),
     nodeResolve({
       jsnext: true,
-      skip: ['atom', 'cross-spawn', 'sax', 'atom-package-deps'],
     }),
     cleanup(),
   ],

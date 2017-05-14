@@ -83,3 +83,7 @@
 
 ## 0.8.0
 * support XInclude-aware RNG, XSD and Schematron validation
+
+### 0.8.1
+* refactor
+* update dev dependencies
