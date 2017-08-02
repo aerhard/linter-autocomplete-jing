@@ -22,6 +22,8 @@ env:
     - ATOM_CHANNEL=stable
     - ATOM_CHANNEL=beta
 
+dist: trusty
+
 addons:
   apt:
     packages:
