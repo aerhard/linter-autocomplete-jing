@@ -87,3 +87,6 @@
 ### 0.8.1
 * refactor
 * update dev dependencies
+
+### 0.8.2
+* prevent path.dirname warning in recent Atom versions

@@ -34,6 +34,11 @@ const splitQName = (qName) => {
 
 const getSchemaProps = (textEditor, parsedRules, config) =>
   new Promise((resolve) => {
+    const filePath = textEditor.getPath();
+    const dirname = filePath
+      ? path.dirname(filePath)
+      : __dirname;
+
     const messages = [];
     const schemaProps = [];
     const xsdSchemaPaths = [];
@@ -50,7 +55,7 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
     const addXsdSchemaPath = href => href && xsdSchemaPaths.push(
       regex.url.test(href)
         ? href
-        : path.resolve(path.dirname(textEditor.getPath()), href),
+        : path.resolve(dirname, href),
     );
 
     const onProcessingInstruction = (node) => {
@@ -74,7 +79,7 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
           messages.push({
             type: 'Warning',
             html: 'Unknown schema type',
-            filePath: textEditor.getPath(),
+            filePath,
             range: helpers.generateRange(textEditor, row),
           });
         }
@@ -86,7 +91,7 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
           line: row,
           path: regex.url.test(href)
             ? href
-            : path.resolve(path.dirname(textEditor.getPath()), href),
+            : path.resolve(dirname, href),
         });
       }
     };
@@ -158,7 +163,7 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
 
     const docProps = {
       rootScopes: textEditor.getRootScopeDescriptor().scopes,
-      filePath: textEditor.getPath(),
+      filePath,
       rootNs,
       rootLocalName,
       rootAttributes,

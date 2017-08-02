@@ -2507,6 +2507,8 @@ var splitQName = function splitQName(qName) {
 };
 var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
   return new Promise(function (resolve) {
+    var filePath = textEditor.getPath();
+    var dirname = filePath ? path.dirname(filePath) : __dirname;
     var messages = [];
     var schemaProps = [];
     var xsdSchemaPaths = [];
@@ -2519,7 +2521,7 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
     var rootAttributes = {};
     var publicId = null;
     var addXsdSchemaPath = function addXsdSchemaPath(href) {
-      return href && xsdSchemaPaths.push(regex.url.test(href) ? href : path.resolve(path.dirname(textEditor.getPath()), href));
+      return href && xsdSchemaPaths.push(regex.url.test(href) ? href : path.resolve(dirname, href));
     };
     var onProcessingInstruction = function onProcessingInstruction(node) {
       if (node.name !== 'xml-model') return;
@@ -2543,7 +2545,7 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
           messages.push({
             type: 'Warning',
             html: 'Unknown schema type',
-            filePath: textEditor.getPath(),
+            filePath: filePath,
             range: helpers.generateRange(textEditor, row)
           });
         }
@@ -2552,7 +2554,7 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
         schemaProps.push({
           lang: lang,
           line: row,
-          path: regex.url.test(href) ? href : path.resolve(path.dirname(textEditor.getPath()), href)
+          path: regex.url.test(href) ? href : path.resolve(dirname, href)
         });
       }
     };
@@ -2610,7 +2612,7 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
     }
     var docProps = {
       rootScopes: textEditor.getRootScopeDescriptor().scopes,
-      filePath: textEditor.getPath(),
+      filePath: filePath,
       rootNs: rootNs,
       rootLocalName: rootLocalName,
       rootAttributes: rootAttributes,
