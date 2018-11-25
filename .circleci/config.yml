@@ -1,4 +1,4 @@
-# Copy of https://github.com/AtomLinter/linter-eslint/blob/9decd71cce61f0bf59aa0b78f6c988c6be981478/.circleci/config.yml
+# based on https://github.com/AtomLinter/linter-eslint/blob/9decd71cce61f0bf59aa0b78f6c988c6be981478/.circleci/config.yml
 
 version: 2
 
@@ -10,6 +10,9 @@ defaults: &defaults
     # Restore project state
     - attach_workspace:
         at: /tmp
+    - run:
+        name: Install Java
+        command: sudo apt-get update && sudo apt-get install openjdk-11-jdk --assume-yes
     - run:
         name: Create VFB for Atom to run in
         command: /usr/local/bin/xvfb_start
