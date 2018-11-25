@@ -1,5 +1,6 @@
 ## 0.8.3
 * fix: make compatible with Atom API since v1.32-beta0
+* fix: use CI config files from https://github.com/atom/ci to fix failing CI builds
 
 ## 0.8.2
 * prevent path.dirname warning in recent Atom versions
