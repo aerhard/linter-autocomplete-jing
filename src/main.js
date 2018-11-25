@@ -88,11 +88,15 @@ const updateRules = () => {
 
   const rules = flow(
     flatMap('settings'),
-    flatMap(({ path: settingsPath, scopedProperties }) =>
+    // In Atom prior to v1.32.0-beta0, the key for the nested setting properties was
+    // `scopedProperties`. Since v1.32.0-beta0, it's `properties`. We're using
+    // `scopedProperties` as a fallback for `properties` to keep supporting older
+    // Atom versions.
+    flatMap(({ path: settingsPath, scopedProperties, properties = scopedProperties }) =>
       flow(
         get(['.text.xml', 'validation', 'rules']),
         map(({ test, outcome }) => ({ test, outcome, settingsPath })),
-      )(scopedProperties),
+      )(properties),
     ),
     compact,
   )(activePackages);
