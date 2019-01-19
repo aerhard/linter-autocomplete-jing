@@ -44,7 +44,7 @@ const requestValidation = (textEditor, config, localConfig) => {
         map(parseMessage(textEditor, schemaProps, config)),
         compact,
         concat(messages),
-        sortBy('range[0][0]'),
+        sortBy('location.position[0][0]'),
       ),
     );
 };

@@ -11,7 +11,7 @@
       "file": "../xml/empty.xml",
       "expectArray": true,
       "expectMessageLength": 1,
-      "expectFirstItemType": "Error"
+      "expectFirstItemSeverity": "error"
     }]
   }, {
     "description": "given a not well-formed file",
@@ -23,7 +23,7 @@
       "file": "../xml/notwellformed.xml",
       "expectArray": true,
       "expectMessageLength": 1,
-      "expectFirstItemType": "Error"
+      "expectFirstItemSeverity": "error"
     }]
   }, {
     "description": "given a well-formed xml document without schema references",
@@ -46,7 +46,7 @@
       "file": "../xml/wrong-schema-path.xml",
       "expectArray": true,
       "expectMessageLength": 1,
-      "expectFirstItemType": "Warning"
+      "expectFirstItemSeverity": "warning"
     }]
   }, {
     "description": "given a well-formed xml document with an unknown schema type",
@@ -58,7 +58,7 @@
       "file": "../xml/unknown-schematype.xml",
       "expectArray": true,
       "expectMessageLength": 1,
-      "expectFirstItemType": "Warning"
+      "expectFirstItemSeverity": "warning"
     }]
   }, {
     "description": "given a well-formed xml document with a correct reference to a valid RNG schema",
@@ -337,7 +337,7 @@
       "file": "../xml/rng-notwellformed.xml",
       "expectArray": true,
       "expectMessageLength": 1,
-      "expectFirstItemType": "Warning"
+      "expectFirstItemSeverity": "warning"
     }]
   }, {
     "description": "given a well-formed xml document with a correct schematron reference to an RNG file with embedded schematron rules and an include element with a wrong path",
@@ -349,7 +349,7 @@
       "file": "../xml/rng-embedded-iso-sch-wronginclude.xml",
       "expectArray": true,
       "expectMessageLength": 1,
-      "expectFirstItemType": "Warning"
+      "expectFirstItemSeverity": "warning"
     }]
   }, {
     "description": "given a well-formed xml document with a correct RNG reference to an RNG file containing an include element with a wrong path",
@@ -361,7 +361,7 @@
       "file": "../xml/rng-schema-wronginclude.xml",
       "expectArray": true,
       "expectMessageLength": 1,
-      "expectFirstItemType": "Warning"
+      "expectFirstItemSeverity": "warning"
     }]
   }, {
     "description": "given a well-formed xml document with a correct schematron reference to a not well-formed RNG file with embedded schematron rules",
@@ -373,7 +373,7 @@
       "file": "../xml/rng-embedded-iso-sch-notwellformed.xml",
       "expectArray": true,
       "expectMessageLength": 1,
-      "expectFirstItemType": "Warning"
+      "expectFirstItemSeverity": "warning"
     }]
   }, {
     "description": "given a well-formed xml document with a correct reference to a DTD",
@@ -501,7 +501,7 @@
       "file": "../xml/catalog-rnc-valid.xml",
       "expectArray": true,
       "expectMessageLength": 1,
-      "expectFirstItemType": "Warning"
+      "expectFirstItemSeverity": "warning"
     }]
   }]
 }, {
@@ -517,7 +517,7 @@
       "file": "../xml/catalog-rnc-valid.xml",
       "expectArray": true,
       "expectMessageLength": 1,
-      "expectFirstItemType": "Warning"
+      "expectFirstItemSeverity": "warning"
     }]
   }]
 }, {
@@ -533,7 +533,7 @@
       "file": "../xml/catalog-rnc-valid.xml",
       "expectArray": true,
       "expectMessageLength": 1,
-      "expectFirstItemType": "Warning"
+      "expectFirstItemSeverity": "warning"
     }]
   }]
 }, {

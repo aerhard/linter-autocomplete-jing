@@ -6,8 +6,8 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 var atom$1 = require('atom');
 var net = require('net');
 var spawn = _interopDefault(require('cross-spawn'));
-var sax = _interopDefault(require('sax'));
 var path = _interopDefault(require('path'));
+var sax = _interopDefault(require('sax'));
 
 function arrayPush(array, values) {
   var index = -1,
@@ -128,9 +128,10 @@ function getRawTag(value) {
       tag = value[symToStringTag];
   try {
     value[symToStringTag] = undefined;
+    var unmasked = true;
   } catch (e) {}
   var result = nativeObjectToString.call(value);
-  {
+  if (unmasked) {
     if (isOwn) {
       value[symToStringTag] = tag;
     } else {
@@ -2346,10 +2347,12 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
           addXsdSchemaPath(href);
         } else {
           messages.push({
-            type: 'Warning',
-            html: 'Unknown schema type',
-            filePath: filePath,
-            range: helpers.generateRange(textEditor, row)
+            severity: 'warning',
+            excerpt: 'Unknown schema type',
+            location: {
+              file: filePath,
+              position: helpers.generateRange(textEditor, row)
+            }
           });
         }
       }
@@ -2472,13 +2475,15 @@ var parseMessage = function parseMessage(textEditor, schemaProps, config) {
         level = _match[6],
         text = _match[7];
     var filePath = textEditor.getPath();
-    var html = document.createElement('div').appendChild(document.createTextNode(text)).parentNode.innerHTML;
+    var excerpt = text;
     if (systemId === filePath) {
       return {
-        type: level === 'warning' ? 'Warning' : 'Error',
-        html: lang === 'none' ? html : '<span class="badge badge-flexible">' + lang.toUpperCase() + '</span> ' + html,
-        filePath: filePath,
-        range: helpers$1.generateRange(textEditor, Number(line) - 1)
+        severity: level === 'warning' ? level : 'error',
+        excerpt: lang === 'none' ? excerpt : excerpt + ' [' + lang.toUpperCase() + ']',
+        location: {
+          file: filePath,
+          position: helpers$1.generateRange(textEditor, Number(line) - 1)
+        }
       };
     }
     if (!config.displaySchemaWarnings && level === 'warning') {
@@ -2488,12 +2493,14 @@ var parseMessage = function parseMessage(textEditor, schemaProps, config) {
     var schema = schemaProps.find(function (sch) {
       return sch.path === systemId && sch.lang === lang;
     });
-    var range = schema ? helpers$1.generateRange(textEditor, schema.line) : [[0, 0], [0, 0]];
+    var position = schema ? helpers$1.generateRange(textEditor, schema.line) : [[0, 0], [0, 0]];
     return {
-      type: 'Warning',
-      html: label + html,
-      filePath: filePath,
-      range: range
+      severity: 'warning',
+      excerpt: label + excerpt,
+      location: {
+        file: filePath,
+        position: position
+      }
     };
   };
 };
@@ -2517,7 +2524,7 @@ var requestValidation = function requestValidation(textEditor, config, localConf
       messages = localConfig.messages;
   var headers = buildHeaders(textEditor, localConfig);
   var body = textEditor.getText();
-  return serverProcessInstance.sendRequest(headers, body).then(flow(trim, split$1(/\r?\n/), filter$1(identity), map$1(parseMessage(textEditor, schemaProps, config)), compact, concat$1(messages), sortBy$1('range[0][0]')));
+  return serverProcessInstance.sendRequest(headers, body).then(flow(trim, split$1(/\r?\n/), filter$1(identity), map$1(parseMessage(textEditor, schemaProps, config)), compact, concat$1(messages), sortBy$1('location.position[0][0]')));
 };
 
 var validate = function validate(textEditor, config) {
@@ -3196,7 +3203,7 @@ var main = {
       name: 'Jing',
       grammarScopes: grammarScopes,
       scope: 'file',
-      lintOnFly: true,
+      lintsOnChange: true,
       lint: function lint(textEditor) {
         return Promise.all([serverProcessInstance$2.ensureIsReady(localConfig), getSchemaProps(textEditor, ruleManager.getParsedRules(), localConfig)]).then(validate(textEditor, localConfig)).catch(addErrorNotification);
       }

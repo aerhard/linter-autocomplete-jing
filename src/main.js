@@ -159,7 +159,7 @@ export default {
       name: 'Jing',
       grammarScopes,
       scope: 'file',
-      lintOnFly: true,
+      lintsOnChange: true,
       lint(textEditor) {
         return Promise.all([
           serverProcessInstance.ensureIsReady(localConfig),

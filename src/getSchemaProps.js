@@ -77,10 +77,12 @@ const getSchemaProps = (textEditor, parsedRules, config) =>
           addXsdSchemaPath(href);
         } else {
           messages.push({
-            type: 'Warning',
-            html: 'Unknown schema type',
-            filePath,
-            range: helpers.generateRange(textEditor, row),
+            severity: 'warning',
+            excerpt: 'Unknown schema type',
+            location: {
+              file: filePath,
+              position: helpers.generateRange(textEditor, row),
+            },
           });
         }
       }

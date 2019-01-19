@@ -48,8 +48,8 @@ describe('validation', () => {
                 if ({}.hasOwnProperty.call(item, 'expectMessageLength')) {
                   expect(messages.length).toEqual(item.expectMessageLength);
                 }
-                if ({}.hasOwnProperty.call(item, 'expectFirstItemType')) {
-                  expect(messages[0].type).toEqual(item.expectFirstItemType);
+                if ({}.hasOwnProperty.call(item, 'expectFirstItemSeverity')) {
+                  expect(messages[0].severity).toEqual(item.expectFirstItemSeverity);
                 }
               });
             });

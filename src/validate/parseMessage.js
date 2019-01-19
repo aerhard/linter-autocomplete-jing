@@ -15,18 +15,16 @@ const parseMessage = (textEditor, schemaProps, config) => function(str) {
 
   const filePath = textEditor.getPath();
 
-  const html = document
-    .createElement('div')
-    .appendChild(document.createTextNode(text))
-    .parentNode
-    .innerHTML;
+  const excerpt = text;
 
   if (systemId === filePath) {
     return {
-      type: level === 'warning' ? 'Warning' : 'Error',
-      html: lang === 'none' ? html : `<span class="badge badge-flexible">${lang.toUpperCase()}</span> ${html}`,
-      filePath,
-      range: helpers.generateRange(textEditor, Number(line) - 1),
+      severity: level === 'warning' ? level : 'error',
+      excerpt: lang === 'none' ? excerpt : `${excerpt} [${lang.toUpperCase()}]`,
+      location: {
+        file: filePath,
+        position: helpers.generateRange(textEditor, Number(line) - 1),
+      },
     };
   }
 
@@ -39,15 +37,17 @@ const parseMessage = (textEditor, schemaProps, config) => function(str) {
     : 'Could not process schema or catalog: ';
 
   const schema = schemaProps.find(sch => sch.path === systemId && sch.lang === lang);
-  const range = schema
+  const position = schema
     ? helpers.generateRange(textEditor, schema.line)
     : [[0, 0], [0, 0]];
 
   return {
-    type: 'Warning',
-    html: label + html,
-    filePath,
-    range,
+    severity: 'warning',
+    excerpt: label + excerpt,
+    location: {
+      file: filePath,
+      position,
+    },
   };
 };
 
