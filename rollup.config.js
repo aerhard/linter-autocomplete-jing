@@ -5,9 +5,14 @@ import cleanup from 'rollup-plugin-cleanup';
 import nodeResolve from 'rollup-plugin-node-resolve';
 
 export default {
-  entry: 'src/main.js',
-  external: ['atom', 'cross-spawn', 'sax', 'atom-package-deps'],
-  format: 'cjs',
+  input: 'src/main.js',
+  external: ['atom', 'cross-spawn', 'sax', 'atom-package-deps', 'net', 'path'],
+  output: {
+    format: 'cjs',
+    banner: '`',
+    footer: '`',
+    file: 'lib/main.coffee',
+  },
   plugins: [
     babel(babelrc()),
     nodeResolve({
@@ -15,7 +20,4 @@ export default {
     }),
     cleanup(),
   ],
-  banner: '`',
-  footer: '`',
-  dest: 'lib/main.coffee',
 };
