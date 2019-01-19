@@ -1,3 +1,7 @@
+## 0.8.4
+* fix: make compatible with linter v2.3.0
+* chore: update rollup config
+
 ## 0.8.3
 * fix: make compatible with Atom API since v1.32-beta0
 * fix: use CI config files from https://github.com/atom/ci to fix failing CI builds
