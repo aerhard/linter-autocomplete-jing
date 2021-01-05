@@ -113,7 +113,7 @@ export default {
   ServerProcess,
   ruleManager,
   activate() {
-    require('atom-package-deps').install();
+    require('atom-package-deps').install('linter-autocomplete-jing');
 
     subscriptions = new CompositeDisposable();
 
