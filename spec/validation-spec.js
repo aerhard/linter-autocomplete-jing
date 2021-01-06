@@ -10,57 +10,53 @@ const ServerProcess = main.ServerProcess;
 const serverProcessInstance = ServerProcess.getInstance();
 
 describe('validation', () => {
+  const linterProvider = main.provideLinter();
+  const { lint } = linterProvider;
+
   it('%%% pseudo before all %%%', () => {
     serverProcessInstance.exit = function() {};
   });
 
-  const testValidation = (basename, cb) =>
-    waitsForPromise(() =>
-      atom.workspace.open(resolvePath(basename))
-      .then(editor =>
-        main.provideLinter().lint(editor)
-        .then(cb)
-        .then(() => {
-          const pane = atom.workspace.paneForItem(editor);
-          pane.destroyItem(editor);
-        }),
-      ),
-    );
+  testData.forEach((outerTestGroup) => {
+    describe(outerTestGroup.description, () => {
+      outerTestGroup.items.forEach((innerTestGroup) => {
+        describe(innerTestGroup.description, () => {
+          innerTestGroup.items.forEach((test) => {
+            describe(test.condition || '...', () => {
+              let editor = null;
 
-  testData.forEach(({ description, catalog, items }) => {
-    describe(description, () => {
-      beforeEach(() => {
-        waitsForPromise(() =>
-          atom.packages.activatePackage('linter-autocomplete-jing'),
-        );
-        atom.config.set('linter-autocomplete-jing.dtdValidation', 'always');
-        atom.config.set('linter-autocomplete-jing.xmlCatalog', resolvePath(catalog));
-      });
+              beforeEach(() => {
+                const activationPromise = atom.packages.activatePackage('linter-autocomplete-jing')
+                  .then(() => {
+                    atom.config.set('linter-autocomplete-jing.dtdValidation', 'always');
+                    atom.config.set('linter-autocomplete-jing.xmlCatalog', resolvePath(outerTestGroup.catalog));
+                  });
 
-      items.forEach(({ description, items }) => { // eslint-disable-line
-        describe(description, () => {
-          items.forEach((item) => {
-            const runAssertions = () => it(item.expectation, () => {
-              testValidation(item.file, (messages) => {
-                if ({}.hasOwnProperty.call(item, 'expectArray')) {
-                  expect(Array.isArray(messages)).toBe(item.expectArray);
-                }
-                if ({}.hasOwnProperty.call(item, 'expectMessageLength')) {
-                  expect(messages.length).toEqual(item.expectMessageLength);
-                }
-                if ({}.hasOwnProperty.call(item, 'expectFirstItemSeverity')) {
-                  expect(messages[0].severity).toEqual(item.expectFirstItemSeverity);
-                }
+                waitsForPromise(() =>
+                  atom.workspace.open(resolvePath(test.file)).then((e) => { editor = e; }),
+                );
+
+                main.activate();
+                // atom.packages.triggerDeferredActivationHooks();
+
+                waitsForPromise(() => activationPromise);
+              });
+
+              it(test.expectation, () => {
+                waitsForPromise(() => lint(editor)
+                    .then((messages) => {
+                      if ({}.hasOwnProperty.call(test, 'expectArray')) {
+                        expect(Array.isArray(messages)).toBe(test.expectArray);
+                      }
+                      if ({}.hasOwnProperty.call(test, 'expectMessageLength')) {
+                        expect(messages.length).toEqual(test.expectMessageLength);
+                      }
+                      if ({}.hasOwnProperty.call(test, 'expectFirstItemSeverity')) {
+                        expect(messages[0].severity).toEqual(test.expectFirstItemSeverity);
+                      }
+                    }));
               });
             });
-
-            if (item.condition) {
-              describe(item.condition, () => {
-                runAssertions();
-              });
-            } else {
-              runAssertions();
-            }
           });
         });
       });

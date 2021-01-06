@@ -1,3 +1,6 @@
+## 0.8.5
+* test: adjust tests to Atom v1.53.0
+
 ## 0.8.4
 * fix: make compatible with linter v2.3.0
 * chore: update rollup config

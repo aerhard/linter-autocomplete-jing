@@ -9,21 +9,21 @@ const resolvePath = filename => path.resolve(__dirname, 'autocomplete/json', fil
 const ServerProcess = main.ServerProcess;
 const serverProcessInstance = ServerProcess.getInstance();
 
-const buildOptions = (editor, suggestionType, fragment, splitPoint) => {
-  const endPosition = splitPoint
-    ? editor.getBuffer().positionForCharacterIndex(splitPoint)
+const buildOptions = (test, editor) => {
+  const endPosition = test.splitPoint
+    ? editor.getBuffer().positionForCharacterIndex(test.splitPoint)
     : editor.getBuffer().getEndPosition();
 
   let bufferPosition;
   let scopeDescriptor;
 
-  if (suggestionType === 'E') {
+  if (test.suggestionType === 'E') {
     editor.setCursorBufferPosition(endPosition);
     editor.insertText('<');
     bufferPosition = { row: endPosition.row, column: endPosition.column + 1 };
     scopeDescriptor = editor.scopeDescriptorForBufferPosition(bufferPosition);
     editor.setCursorBufferPosition(bufferPosition);
-  } else if (suggestionType === 'N') {
+  } else if (test.suggestionType === 'N') {
     let row = endPosition.row + 1;
     let line;
     let lastGtIndex = -1;
@@ -38,7 +38,7 @@ const buildOptions = (editor, suggestionType, fragment, splitPoint) => {
     scopeDescriptor = editor.scopeDescriptorForBufferPosition(bufferPosition);
     editor.setCursorBufferPosition(bufferPosition);
   } else {
-    fragment = fragment.split(' ')[0];
+    const fragment = test.fragment.split(' ')[0];
     let row = endPosition.row + 1;
     let line;
     let lastFragmentIndex = -1;
@@ -60,65 +60,69 @@ const buildOptions = (editor, suggestionType, fragment, splitPoint) => {
 };
 
 describe('autocomplete', () => {
+  const autocompleteProvider = main.provideAutocomplete();
+  const { getSuggestions } = autocompleteProvider;
+
   it('%%% pseudo before all %%%', () => {
     serverProcessInstance.exit = function() {};
   });
 
-  const testAutocomplete = ({ file, suggestionType, fragment, splitPoint }, cb) =>
-    waitsForPromise(() =>
-      atom.packages.activatePackage('language-xml')
-      .then(() => atom.workspace.open(resolvePath(file)))
-      .then(editor =>
-        main.provideAutocomplete().getSuggestions(
-          buildOptions(editor, suggestionType, fragment, splitPoint),
-        )
-        .then(cb)
-        .then(() => {
-          const pane = atom.workspace.paneForItem(editor);
-          pane.destroyItem(editor);
-        }),
-      ),
-    );
-
-  testData.forEach(({ description, catalog, items: firstLevelItems }) => {
-    describe(description, () => {
-      beforeEach(() => {
-        waitsForPromise(() =>
-          atom.packages.activatePackage('linter-autocomplete-jing'),
-        );
-        atom.config.set('linter-autocomplete-jing.wildcardSuggestions', 'all');
-        atom.config.set('linter-autocomplete-jing.xmlCatalog', resolvePath(catalog));
-      });
-
-      firstLevelItems.forEach(({ schemata, items: secondLevelItems }) => {
-        const schemaFiles = schemata.map(({ path: schemaPath }) => (
+  testData.forEach((outerTestGroup) => {
+    describe(outerTestGroup.description, () => {
+      outerTestGroup.items.forEach((innerTestGroup) => {
+        const schemaFiles = innerTestGroup.schemata.map(({ path: schemaPath }) => (
           schemaPath
             ? path.basename(schemaPath)
             : 'none'
         )).join(', ');
 
         describe(`given schema "${schemaFiles}", `, () => {
-          secondLevelItems.forEach((item) => {
-            const str = 'suggests ' +
-              '[' + item.expectResult.map(({ displayText }) => displayText.replace('#', '[hash]')).join(', ') + '] ' +
-              'when requesting type "' + item.suggestionType + '" autocomplete ' +
-              'in file "' + path.basename(item.file) + '" ' +
-              (item.fragment ? 'at fragment "' + item.fragment : '');
+          innerTestGroup.items.forEach((test) => {
+            describe(test.condition || '...', () => {
+              let editor = null;
 
-            const runAssertions = () => it(str, () => {
-              testAutocomplete(item, (messages) => {
-                expect(JSON.stringify(messages, 2, null))
-                  .toEqual(JSON.stringify(item.expectResult, 2, null));
+              beforeEach(() => {
+                const activationPromise =
+                  atom.packages.activatePackage('linter-autocomplete-jing').then(() => {
+                    atom.config.set('linter-autocomplete-jing.wildcardSuggestions', 'all');
+                    atom.config.set('linter-autocomplete-jing.xmlCatalog', resolvePath(outerTestGroup.catalog));
+                  });
+
+                waitsForPromise(() =>
+                      atom.packages.activatePackage('language-xml'));
+
+                waitsForPromise(() =>
+                  atom.workspace.open(resolvePath(test.file)).then((e) => { editor = e; }),
+                );
+
+                main.activate();
+                // atom.packages.triggerDeferredActivationHooks();
+
+                waitsForPromise(() => activationPromise);
+              });
+
+              const testDescription = 'suggests ' +
+                '[' + test.expectResult.map(({ displayText }) => displayText.replace('#', '[hash]')).join(', ') + '] ' +
+                'when requesting type "' + test.suggestionType + '" autocomplete ' +
+                'in file "' + path.basename(test.file) + '" ' +
+                (test.fragment ? 'at fragment "' + test.fragment : '');
+
+              it(testDescription, () => {
+                const options = buildOptions(test, editor);
+
+                waitsForPromise(() =>
+                  getSuggestions(options)
+                    .then((messages) => {
+                      expect(JSON.stringify(messages, 2, null))
+                        .toEqual(JSON.stringify(test.expectResult, 2, null));
+                    })
+                    .then(() => {
+                      const pane = atom.workspace.paneForItem(editor);
+                      pane.destroyItem(editor);
+                    }),
+                );
               });
             });
-
-            if (item.condition) {
-              describe(item.condition, () => {
-                runAssertions();
-              });
-            } else {
-              runAssertions();
-            }
           });
         });
       });
