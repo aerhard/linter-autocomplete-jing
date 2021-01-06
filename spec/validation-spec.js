@@ -2,7 +2,7 @@
 
 import path from 'path';
 import { beforeEach, it } from 'jasmine-fix';
-import main from '../lib/main.coffee';
+import main from '../lib/main';
 import testData from './validation/json/main.json';
 
 const resolvePath = filename => path.resolve(__dirname, 'validation/json', filename);

@@ -1,6 +1,7 @@
 ## 0.8.5
 * test: adjust tests to Atom v1.53.0
-* chore: update lodash and cross-spawn
+* chore: update dependencies
+* refactor: use typescript
 
 ## 0.8.4
 * fix: make compatible with linter v2.3.0

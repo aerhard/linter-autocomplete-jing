@@ -2,7 +2,7 @@
 
 import path from 'path';
 import { it } from 'jasmine-fix';
-import main from '../lib/main.coffee';
+import main from '../lib/main';
 
 const ServerProcess = main.ServerProcess;
 

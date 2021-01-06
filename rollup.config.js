@@ -1,23 +1,20 @@
 
-import babel from 'rollup-plugin-babel';
-import babelrc from 'babelrc-rollup';
-import cleanup from 'rollup-plugin-cleanup';
-import nodeResolve from 'rollup-plugin-node-resolve';
+import { createPlugins } from 'rollup-plugin-atomic'
 
-export default {
-  input: 'src/main.js',
-  external: ['atom', 'cross-spawn', 'sax', 'atom-package-deps', 'net', 'path'],
-  output: {
-    format: 'cjs',
-    banner: '`',
-    footer: '`',
-    file: 'lib/main.coffee',
+const plugins = createPlugins(['js', ['ts', { tsconfig: './src/tsconfig.json', noEmitOnError: false, module: 'ESNext' }]])
+
+export default [
+  {
+    input: 'src/main.ts',
+    output: [
+      {
+        dir: 'lib',
+        format: 'cjs',
+        sourcemap: true,
+      },
+    ],
+    // loaded externally
+    external: ['atom', 'cross-spawn', 'sax', 'atom-package-deps', 'net', 'path'],
+    plugins,
   },
-  plugins: [
-    babel(babelrc()),
-    nodeResolve({
-      jsnext: true,
-    }),
-    cleanup(),
-  ],
-};
+];

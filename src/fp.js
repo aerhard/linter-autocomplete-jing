@@ -1,14 +1,14 @@
 
-import _concat from 'lodash-es/concat';
-import _debounce from 'lodash-es/debounce';
-import _filter from 'lodash-es/filter';
-import _flatMap from 'lodash-es/flatMap';
-import _get from 'lodash-es/get';
-import _join from 'lodash-es/join';
-import _map from 'lodash-es/map';
-import _sortBy from 'lodash-es/sortBy';
-import _split from 'lodash-es/split';
-import _startsWith from 'lodash-es/startsWith';
+import _concat from 'lodash/concat';
+import _debounce from 'lodash/debounce';
+import _filter from 'lodash/filter';
+import _flatMap from 'lodash/flatMap';
+import _get from 'lodash/get';
+import _join from 'lodash/join';
+import _map from 'lodash/map';
+import _sortBy from 'lodash/sortBy';
+import _split from 'lodash/split';
+import _startsWith from 'lodash/startsWith';
 
 export const concat = a => b => _concat(a, b);
 export const debounce = (a, b) => _debounce(b, a);
@@ -21,8 +21,8 @@ export const sortBy = a => b => _sortBy(b, a);
 export const split = a => b => _split(b, a);
 export const startsWith = a => b => _startsWith(b, a);
 
-export { default as allPass } from 'lodash-es/overEvery';
-export { default as compact } from 'lodash-es/compact';
-export { default as flow } from 'lodash-es/flow';
-export { default as identity } from 'lodash-es/identity';
-export { default as trim } from 'lodash-es/trim';
+export { default as allPass } from 'lodash/overEvery';
+export { default as compact } from 'lodash/compact';
+export { default as flow } from 'lodash/flow';
+export { default as identity } from 'lodash/identity';
+export { default as trim } from 'lodash/trim';

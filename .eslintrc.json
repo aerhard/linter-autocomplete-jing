@@ -1,23 +1,8 @@
 {
-  "extends": "airbnb-base",
-  "parser": "babel-eslint",
-  "plugins": ["jasmine"],
+  "extends": "eslint-config-atomic",
+  "ignorePatterns": ["lib/", "node_modules/"],
   "rules": {
-    "func-names": [0],
-    "global-require": [0],
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
-    "no-param-reassign": [0],
-    "no-plusplus": [0],
-    "no-restricted-syntax": [0],
-    "prefer-template": [0],
-    "space-before-function-paren": [2, "never"]
-  },
-  "globals": {
-    "atom": true,
-    "document": true,
-    "waitsForPromise": true
-  },
-  "env": {
-    "jasmine": true
+    "@typescript-eslint/no-inferrable-types": "off",
+    "@typescript-eslint/no-non-null-assertion": "off"
   }
 }
