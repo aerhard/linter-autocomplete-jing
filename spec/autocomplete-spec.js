@@ -1,6 +1,7 @@
 'use babel';
 
 import path from 'path';
+import { beforeEach, it } from 'jasmine-fix';
 import main from '../lib/main.coffee';
 import testData from './autocomplete/json/main.json';
 
@@ -63,7 +64,8 @@ describe('autocomplete', () => {
   const autocompleteProvider = main.provideAutocomplete();
   const { getSuggestions } = autocompleteProvider;
 
-  it('%%% pseudo before all %%%', () => {
+  it('"beforeAll()"', () => {
+    // prevent Java server from shutting down after each test
     serverProcessInstance.exit = function() {};
   });
 
@@ -81,24 +83,17 @@ describe('autocomplete', () => {
             describe(test.condition || '...', () => {
               let editor = null;
 
-              beforeEach(() => {
-                const activationPromise =
-                  atom.packages.activatePackage('linter-autocomplete-jing').then(() => {
-                    atom.config.set('linter-autocomplete-jing.wildcardSuggestions', 'all');
-                    atom.config.set('linter-autocomplete-jing.xmlCatalog', resolvePath(outerTestGroup.catalog));
-                  });
+              beforeEach(async() => {
+                atom.config.set('linter-autocomplete-jing.wildcardSuggestions', 'all');
+                atom.config.set('linter-autocomplete-jing.xmlCatalog', resolvePath(outerTestGroup.catalog));
 
-                waitsForPromise(() =>
-                      atom.packages.activatePackage('language-xml'));
+                await atom.packages.activatePackage('language-xml');
+                await atom.packages.activatePackage('linter-autocomplete-jing');
 
-                waitsForPromise(() =>
-                  atom.workspace.open(resolvePath(test.file)).then((e) => { editor = e; }),
-                );
+                editor = await atom.workspace.open(resolvePath(test.file));
 
                 main.activate();
                 // atom.packages.triggerDeferredActivationHooks();
-
-                waitsForPromise(() => activationPromise);
               });
 
               const testDescription = 'suggests ' +
@@ -107,20 +102,13 @@ describe('autocomplete', () => {
                 'in file "' + path.basename(test.file) + '" ' +
                 (test.fragment ? 'at fragment "' + test.fragment : '');
 
-              it(testDescription, () => {
+              it(testDescription, async() => {
                 const options = buildOptions(test, editor);
 
-                waitsForPromise(() =>
-                  getSuggestions(options)
-                    .then((messages) => {
-                      expect(JSON.stringify(messages, 2, null))
-                        .toEqual(JSON.stringify(test.expectResult, 2, null));
-                    })
-                    .then(() => {
-                      const pane = atom.workspace.paneForItem(editor);
-                      pane.destroyItem(editor);
-                    }),
-                );
+                const messages = await getSuggestions(options);
+
+                expect(JSON.stringify(messages, 2, null))
+                  .toEqual(JSON.stringify(test.expectResult, 2, null));
               });
             });
           });
@@ -129,7 +117,8 @@ describe('autocomplete', () => {
     });
   });
 
-  it('%%% pseudo after all %%%', () => {
+  it('"afterAll()"', () => {
+    // shut down Java server after all tests
     ServerProcess.prototype.exit.apply(serverProcessInstance);
   });
 });
