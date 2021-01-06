@@ -1,13 +1,17 @@
 `
 'use strict';
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
 var atom$1 = require('atom');
 var net = require('net');
-var spawn = _interopDefault(require('cross-spawn'));
-var path = _interopDefault(require('path'));
-var sax = _interopDefault(require('sax'));
+var spawn = require('cross-spawn');
+var path = require('path');
+var sax = require('sax');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var spawn__default = /*#__PURE__*/_interopDefaultLegacy(spawn);
+var path__default = /*#__PURE__*/_interopDefaultLegacy(path);
+var sax__default = /*#__PURE__*/_interopDefaultLegacy(sax);
 
 function arrayPush(array, values) {
   var index = -1,
@@ -349,6 +353,7 @@ function debounce(func, wait, options) {
         return leadingEdge(lastCallTime);
       }
       if (maxing) {
+        clearTimeout(timerId);
         timerId = setTimeout(timerExpired, wait);
         return invokeFunc(lastCallTime);
       }
@@ -917,9 +922,10 @@ function equalArrays(array, other, bitmask, customizer, equalFunc, stack) {
   if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
     return false;
   }
-  var stacked = stack.get(array);
-  if (stacked && stack.get(other)) {
-    return stacked == other;
+  var arrStacked = stack.get(array);
+  var othStacked = stack.get(other);
+  if (arrStacked && othStacked) {
+    return arrStacked == other && othStacked == array;
   }
   var index = -1,
       result = true,
@@ -1085,9 +1091,10 @@ function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
       return false;
     }
   }
-  var stacked = stack.get(object);
-  if (stacked && stack.get(other)) {
-    return stacked == other;
+  var objStacked = stack.get(object);
+  var othStacked = stack.get(other);
+  if (objStacked && othStacked) {
+    return objStacked == other && othStacked == object;
   }
   var result = true;
   stack.set(object, other);
@@ -1394,18 +1401,18 @@ function toKey(value) {
   return result == '0' && 1 / value == -INFINITY$1 ? '-0' : result;
 }
 
-function baseGet(object, path$$1) {
-  path$$1 = castPath(path$$1, object);
+function baseGet(object, path) {
+  path = castPath(path, object);
   var index = 0,
-      length = path$$1.length;
+      length = path.length;
   while (object != null && index < length) {
-    object = object[toKey(path$$1[index++])];
+    object = object[toKey(path[index++])];
   }
   return index && index == length ? object : undefined;
 }
 
-function get$1(object, path$$1, defaultValue) {
-  var result = object == null ? undefined : baseGet(object, path$$1);
+function get(object, path, defaultValue) {
+  var result = object == null ? undefined : baseGet(object, path);
   return result === undefined ? defaultValue : result;
 }
 
@@ -1413,13 +1420,13 @@ function baseHasIn(object, key) {
   return object != null && key in Object(object);
 }
 
-function hasPath(object, path$$1, hasFunc) {
-  path$$1 = castPath(path$$1, object);
+function hasPath(object, path, hasFunc) {
+  path = castPath(path, object);
   var index = -1,
-      length = path$$1.length,
+      length = path.length,
       result = false;
   while (++index < length) {
-    var key = toKey(path$$1[index]);
+    var key = toKey(path[index]);
     if (!(result = object != null && hasFunc(object, key))) {
       break;
     }
@@ -1432,19 +1439,19 @@ function hasPath(object, path$$1, hasFunc) {
   return !!length && isLength(length) && isIndex(key, length) && (isArray(object) || isArguments(object));
 }
 
-function hasIn(object, path$$1) {
-  return object != null && hasPath(object, path$$1, baseHasIn);
+function hasIn(object, path) {
+  return object != null && hasPath(object, path, baseHasIn);
 }
 
 var COMPARE_PARTIAL_FLAG$5 = 1,
     COMPARE_UNORDERED_FLAG$3 = 2;
-function baseMatchesProperty(path$$1, srcValue) {
-  if (isKey(path$$1) && isStrictComparable(srcValue)) {
-    return matchesStrictComparable(toKey(path$$1), srcValue);
+function baseMatchesProperty(path, srcValue) {
+  if (isKey(path) && isStrictComparable(srcValue)) {
+    return matchesStrictComparable(toKey(path), srcValue);
   }
   return function (object) {
-    var objValue = get$1(object, path$$1);
-    return objValue === undefined && objValue === srcValue ? hasIn(object, path$$1) : baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG$5 | COMPARE_UNORDERED_FLAG$3);
+    var objValue = get(object, path);
+    return objValue === undefined && objValue === srcValue ? hasIn(object, path) : baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG$5 | COMPARE_UNORDERED_FLAG$3);
   };
 }
 
@@ -1458,14 +1465,14 @@ function baseProperty(key) {
   };
 }
 
-function basePropertyDeep(path$$1) {
+function basePropertyDeep(path) {
   return function (object) {
-    return baseGet(object, path$$1);
+    return baseGet(object, path);
   };
 }
 
-function property(path$$1) {
-  return isKey(path$$1) ? baseProperty(toKey(path$$1)) : basePropertyDeep(path$$1);
+function property(path) {
+  return isKey(path) ? baseProperty(toKey(path)) : basePropertyDeep(path);
 }
 
 function baseIteratee(value) {
@@ -1483,7 +1490,7 @@ function baseIteratee(value) {
 
 function filter(collection, predicate) {
   var func = isArray(collection) ? arrayFilter : baseFilter;
-  return func(collection, baseIteratee(predicate, 3));
+  return func(collection, baseIteratee(predicate));
 }
 
 function baseMap(collection, iteratee) {
@@ -1497,7 +1504,7 @@ function baseMap(collection, iteratee) {
 
 function map(collection, iteratee) {
   var func = isArray(collection) ? arrayMap : baseMap;
-  return func(collection, baseIteratee(iteratee, 3));
+  return func(collection, baseIteratee(iteratee));
 }
 
 function flatMap(collection, iteratee) {
@@ -1559,8 +1566,20 @@ function compareMultiple(object, other, orders) {
 }
 
 function baseOrderBy(collection, iteratees, orders) {
+  if (iteratees.length) {
+    iteratees = arrayMap(iteratees, function (iteratee) {
+      if (isArray(iteratee)) {
+        return function (value) {
+          return baseGet(value, iteratee.length === 1 ? iteratee[0] : iteratee);
+        };
+      }
+      return iteratee;
+    });
+  } else {
+    iteratees = [identity];
+  }
   var index = -1;
-  iteratees = arrayMap(iteratees.length ? iteratees : [identity], baseUnary(baseIteratee));
+  iteratees = arrayMap(iteratees, baseUnary(baseIteratee));
   var result = baseMap(collection, function (value, key, collection) {
     var criteria = arrayMap(iteratees, function (iteratee) {
       return iteratee(value);
@@ -2084,50 +2103,50 @@ function trim(string, chars, guard) {
   return castSlice(strSymbols, start, end).join('');
 }
 
-var concat$1 = function concat$$1(a) {
+var concat$1 = function concat$1(a) {
   return function (b) {
     return concat(a, b);
   };
 };
-var debounce$1 = function debounce$$1(a, b) {
+var debounce$1 = function debounce$1(a, b) {
   return debounce(b, a);
 };
-var filter$1 = function filter$$1(a) {
+var filter$1 = function filter$1(a) {
   return function (b) {
     return filter(b, a);
   };
 };
-var flatMap$1 = function flatMap$$1(a) {
+var flatMap$1 = function flatMap$1(a) {
   return function (b) {
     return flatMap(b, a);
   };
 };
-var get$2 = function get(a) {
+var get$1 = function get$1(a) {
   return function (b) {
-    return get$1(b, a);
+    return get(b, a);
   };
 };
-var join$1 = function join$$1(a) {
+var join$1 = function join$1(a) {
   return function (b) {
     return join(b, a);
   };
 };
-var map$1 = function map$$1(a) {
+var map$1 = function map$1(a) {
   return function (b) {
     return map(b, a);
   };
 };
-var sortBy$1 = function sortBy$$1(a) {
+var sortBy$1 = function sortBy$1(a) {
   return function (b) {
     return sortBy(b, a);
   };
 };
-var split$1 = function split$$1(a) {
+var split$1 = function split$1(a) {
   return function (b) {
     return split(b, a);
   };
 };
-var startsWith$1 = function startsWith$$1(a) {
+var startsWith$1 = function startsWith$1(a) {
   return function (b) {
     return startsWith(b, a);
   };
@@ -2162,8 +2181,8 @@ ServerProcess.prototype = {
     var _this = this;
     this.state = this.INITIALIZING;
     return new Promise(function (resolve, reject) {
-      var args = [].concat(toConsumableArray(config.jvmArguments.split(/\s+/)), ['-jar', path.resolve(__dirname, jarPath), initialPort, config.schemaCacheSize]);
-      _this.javaProcess = spawn(config.javaExecutablePath, args, {});
+      var args = [].concat(toConsumableArray(config.jvmArguments.split(/\s+/)), ['-jar', path__default['default'].resolve(__dirname, jarPath), initialPort, config.schemaCacheSize]);
+      _this.javaProcess = spawn__default['default'](config.javaExecutablePath, args, {});
       _this.setStartupListeners(config, resolve, reject);
     });
   },
@@ -2312,11 +2331,11 @@ var splitQName = function splitQName(qName) {
 var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
   return new Promise(function (resolve) {
     var filePath = textEditor.getPath();
-    var dirname = filePath ? path.dirname(filePath) : __dirname;
+    var dirname = filePath ? path__default['default'].dirname(filePath) : __dirname;
     var messages = [];
     var schemaProps = [];
     var xsdSchemaPaths = [];
-    var saxParser = sax.parser(true);
+    var saxParser = sax__default['default'].parser(true);
     var row = 0;
     var done = false;
     var hasDoctype = false;
@@ -2325,7 +2344,7 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
     var rootAttributes = {};
     var publicId = null;
     var addXsdSchemaPath = function addXsdSchemaPath(href) {
-      return href && xsdSchemaPaths.push(regex.url.test(href) ? href : path.resolve(dirname, href));
+      return href && xsdSchemaPaths.push(regex.url.test(href) ? href : path__default['default'].resolve(dirname, href));
     };
     var onProcessingInstruction = function onProcessingInstruction(node) {
       if (node.name !== 'xml-model') return;
@@ -2338,7 +2357,7 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
         if (type === 'application/relax-ng-compact-syntax') {
           lang = 'rnc';
         } else if (schematypens === 'http://relaxng.org/ns/structure/1.0') {
-          lang = path.extname(href) === '.rnc' ? 'rnc' : 'rng';
+          lang = path__default['default'].extname(href) === '.rnc' ? 'rnc' : 'rng';
         } else if (schematypens === 'http://purl.oclc.org/dsdl/schematron') {
           lang = 'sch.iso';
         } else if (schematypens === 'http://www.ascc.net/xml/schematron') {
@@ -2360,7 +2379,7 @@ var getSchemaProps = function getSchemaProps(textEditor, parsedRules, config) {
         schemaProps.push({
           lang: lang,
           line: row,
-          path: regex.url.test(href) ? href : path.resolve(dirname, href)
+          path: regex.url.test(href) ? href : path__default['default'].resolve(dirname, href)
         });
       }
     };
@@ -3038,16 +3057,16 @@ var parseRule = function parseRule(_ref8) {
       settingsPath = _ref8.settingsPath;
   var testFn = createTestFn(test);
   var newOutcome = {};
-  var basePath = path.dirname(settingsPath);
+  var basePath = path__default['default'].dirname(settingsPath);
   if (outcome.xmlCatalog) {
-    newOutcome.xmlCatalog = path.resolve(basePath, outcome.xmlCatalog);
+    newOutcome.xmlCatalog = path__default['default'].resolve(basePath, outcome.xmlCatalog);
   }
   if (outcome.schemaProps) {
     newOutcome.schemaProps = outcome.schemaProps.map(function (_ref9) {
       var schemaPath = _ref9.path,
           lang = _ref9.lang;
       return {
-        path: path.resolve(basePath, schemaPath),
+        path: path__default['default'].resolve(basePath, schemaPath),
         lang: lang
       };
     });
@@ -3153,7 +3172,7 @@ var updateRules = function updateRules() {
         scopedProperties = _ref.scopedProperties,
         _ref$properties = _ref.properties,
         properties = _ref$properties === undefined ? scopedProperties : _ref$properties;
-    return flow(get$2(['.text.xml', 'validation', 'rules']), map$1(function (_ref2) {
+    return flow(get$1(['.text.xml', 'validation', 'rules']), map$1(function (_ref2) {
       var test = _ref2.test,
           outcome = _ref2.outcome;
       return { test: test, outcome: outcome, settingsPath: settingsPath };
@@ -3169,7 +3188,7 @@ var main = {
   ServerProcess: ServerProcess,
   ruleManager: ruleManager,
   activate: function activate() {
-    require('atom-package-deps').install();
+    require('atom-package-deps').install('linter-autocomplete-jing');
     subscriptions = new atom$1.CompositeDisposable();
     Object.keys(atom.config.get('linter-autocomplete-jing')).forEach(function (key) {
       return subscriptions.add(atom.config.observe('linter-autocomplete-jing.' + key, setLocalConfig(key)));

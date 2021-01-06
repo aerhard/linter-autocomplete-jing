@@ -24,7 +24,7 @@
   "dependencies": {
     "atom-linter": "10.0.0",
     "atom-package-deps": "7.0.3",
-    "cross-spawn": "^5.1.0",
+    "cross-spawn": "7.0.3",
     "sax": "^1.2.2"
   },
   "devDependencies": {
@@ -40,7 +40,7 @@
     "eslint-plugin-import": "^2.1.0",
     "eslint-plugin-jasmine": "^2.1.0",
     "jasmine-fix": "^1.3.1",
-    "lodash-es": "^4.17.2",
+    "lodash-es": "^4.17.20",
     "rollup-plugin-babel": "^2.6.1",
     "rollup-plugin-cleanup": "1.0.0",
     "rollup-plugin-node-resolve": "3.0.0",
