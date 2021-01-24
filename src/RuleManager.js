@@ -83,8 +83,8 @@ const parseRule = ({ test, outcome, settingsPath }) => {
 };
 
 const parseRules = flow(
-  map(parseRule),
   sortByPriority,
+  map(parseRule),
 );
 
 export default class RuleManager {

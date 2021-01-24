@@ -95,7 +95,7 @@ const updateRules = () => {
     flatMap(({ path: settingsPath, scopedProperties, properties = scopedProperties }) =>
       flow(
         get(['.text.xml', 'validation', 'rules']),
-        map(({ test, outcome }) => ({ test, outcome, settingsPath })),
+        map(({ test, outcome, priority }) => ({ test, outcome, priority, settingsPath })),
       )(properties),
     ),
     compact,
