@@ -121,11 +121,11 @@ Possible properties of `test`:
 
 Possible properties of `outcome`:
 
-* `dtdValidation`: (see above for possible values)
+* `dtdValidation`: determines under which circumstances DTDs should be used in validation. Possible values: 'always', 'never' or 'fallback'. When 'fallback' is selected, documents get validated against DTDs only if no other schemata are available for validation.
 * `xIncludeAware`: whether or not validation should resolve XIncludes in the instance document (boolean)
 * `xIncludeFixupBaseUris`: whether or not xml:base attributes should be added / adjusted in documents included with XInclude statements (boolean)
 * `xIncludeFixupLanguage`: whether or not xml:lang attributes should be added / adjusted in documents included with XInclude statements (boolean)
-* `xmlCatalog`: (see above for possible values)
+* `xmlCatalog`: the path to the XML Catalog file to be used in validation
 * `schemaProps`: the schemata to be used in validation (array of objects with the properties `lang` and `path`. `path` specifies the file path of the schema, `lang` the schema language which must be one of 'rng', 'rnc', 'sch.iso', 'sch.15', 'xsd' or 'none')
 
 For an example of an Atom package containing a schema and schema association rules see [demo package](https://github.com/aerhard/xml-demo-package).  
@@ -134,10 +134,10 @@ For an example of an Atom package containing a schema and schema association rul
 
 * *linter-autocomplete-jing:clear-schema-cache*: Removes all schema and catalog data from the in-memory cache so it will get read from disk in the next validation run.
 
-
 ## Development
 
-If you intend to adjust only the JavaScript part of the code, uninstall then linter-autocomplete-jing package in Atom, checkout https://github.com/aerhard/linter-autocomplete-jing from GitHub and link it to Atom by running `apm link` from the repository root (undo with `apm unlink`). The ES6 source code is in the `src` folder of the project. `npm run build` and `npm run watch` transpile the content of `src` to a single CoffeeScript file in `lib` which gets exposed to Atom. Both commands depend on Rollup (`npm i rollup -g`).
+If you intend to adjust the TypeScript part of the package (without making changes to the Java server), first uninstall the version of linter-autocomplete-jing downloaded with Atom’s package manager (`apm uninstall linter-autocomplete-jing`) and clone the package respository from https://github.com/aerhard/linter-autocomplete-jing. From the root of the repository, first run `apm install` and `npm install --only=dev` to install all dependencies. Then run `apm link` to register the package in Atom (undo with `apm unlink`). The Typescript source code is in the `src` folder of the project. `npm run build` and `npm run watch` transpile the content of `src` to a single JavaScript file in `dist` which gets loaded by Atom.
 Press <kbd>Ctrl-Alt-R</kbd> in Atom to reload the updated module.
+Integration tests are located in the `spec` folder and can be run with `npm run test`. Unit tests are located in `src` (all files ending with `.spec.ts`) and get run with `npm run jest`.
 
-In order to make adjustments to the JavaScript as well as as the Java parts, checkout https://github.com/aerhard/xml-tools and follow the instructions in the README file.
+In order to make adjustments to the TypeScript as well as as the Java parts, checkout https://github.com/aerhard/xml-tools and follow the instructions in the README file.

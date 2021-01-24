@@ -55,10 +55,10 @@ jobs:
       # Restore node_modules from the last build
       - restore_cache:
           keys:
-          # Get latest cache for this package.json
-          - v2-dependencies-{{ checksum "package.json" }}
-          # Fallback to the last available cache
-          - v2-dependencies
+            # Get latest cache for this package.json
+            - v2-dependencies-{{ checksum "package.json" }}
+            # Fallback to the last available cache
+            - v2-dependencies
       # Save project state for next steps
       - persist_to_workspace:
           root: /tmp

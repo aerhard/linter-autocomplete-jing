@@ -1,206 +1,306 @@
+import { CompositeDisposable, TextEditor } from 'atom'
 
-import {
-  debounce, flow, flatMap, compact, get, filter, startsWith, map,
-} from './fp';
-import { CompositeDisposable } from 'atom'; // eslint-disable-line
-import ServerProcess from './ServerProcess';
-import getSchemaProps from './getSchemaProps';
-import validate from './validate';
-import suggest from './suggest';
-import RuleManager from './RuleManager';
+import suggest from './autocomplete/suggest'
+import { AutocompleteContext, Suggestion } from './autocomplete/util'
+import getParserConfig, {
+  DefaultParserConfig,
+  LinterMessage,
+} from './getParserConfig'
+import getRulesFromAtomPackages from './rules/getRulesFromAtomPackages'
+import RuleStore, { Rule } from './rules/RuleStore'
+import showErrorNotification from './util/showErrorNotification'
+import { ValidationConfig } from './validation/createLinterMessages'
+import validate from './validation/validate'
+import { AutocompleteConfig } from './xmlService/util'
+import XmlService from './xmlService/XmlService'
 
-const serverProcessInstance = ServerProcess.getInstance();
+let subscriptions = new CompositeDisposable()
 
-if (serverProcessInstance.onError === ServerProcess.prototype.onError) {
-  serverProcessInstance.onError = (err) => {
-    atom.notifications.addError(`[linter-autocomplete-jing] ${err.message}`, {
-      detail: err.stack,
-      dismissable: true,
-    });
-  };
+export const xmlService = new XmlService()
+
+const ruleStore = new RuleStore()
+
+/**
+ * The grammar scopes our Linter provider should be invoked on.
+ */
+const grammarScopes: Array<string> = []
+
+const defaultParserConfig: DefaultParserConfig = {
+  xmlCatalog: '',
+  dtdValidation: 'fallback',
+  xIncludeAware: true,
+  xIncludeFixupBaseUris: true,
+  xIncludeFixupLanguage: true,
 }
 
-let subscriptions;
-let initialPackagesActivated = false;
-let shouldSuppressAutocomplete = false;
-const ruleManager = new RuleManager();
-const grammarScopes = [];
+const validationConfig: ValidationConfig = {
+  displaySchemaWarnings: false,
+}
 
-const localConfig = {};
+const autocompleteConfig: AutocompleteConfig = {
+  wildcardSuggestions: 'none',
+  autocompletePriority: 1,
+  autocompleteScope: {
+    rnc: true,
+    rng: true,
+    xsd: true,
+  },
+}
 
-const addErrorNotification = (err) => {
-  atom.notifications.addError(`[linter-autocomplete-jing] ${err.message}`, {
-    detail: err.stack,
-    dismissable: true,
-  });
-  return [];
-};
+// ******************* ATOM HOOKS, EVENTS AND COMMANDS *********************
 
-const setServerConfig = (args) => {
-  if (serverProcessInstance.isReadyPromise) {
-    serverProcessInstance.isReadyPromise
-      .then(() => serverProcessInstance.sendRequest(args, null))
-      .catch(addErrorNotification);
+const handlePackageChanges = () => {
+  const newGrammarScopes = atom.grammars
+    .getGrammars()
+    .map((grammar) => grammar.scopeName)
+    .filter((scopeName) => scopeName?.startsWith('text.xml'))
+
+  // `grammarScopes` gets passed to the linter when the initial
+  // `provideLinter()` function is called and gets stored there. In order
+  // to propagate changes to the content of `grammarScopes` to the linter,
+  // we need to mutate it
+  grammarScopes.splice(0, grammarScopes.length, ...newGrammarScopes)
+
+  const packages = atom.packages.getActivePackages()
+  const packageRules = getRulesFromAtomPackages(packages)
+  ruleStore.setPackageRules(packageRules)
+}
+
+/**
+ * Activation hook, called by Atom when the `linter-autocomplete-jing`
+ * package is activated
+ */
+export function activate() {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require('atom-package-deps').install('linter-autocomplete-jing')
+
+  subscriptions = new CompositeDisposable()
+
+  subscriptions.add(
+    atom.config.observe(
+      `linter-autocomplete-jing.rules`,
+      (rules: Array<Rule>) => ruleStore.setConfigRules(rules)
+    )
+  )
+
+  subscriptions.add(
+    atom.config.observe(
+      `linter-autocomplete-jing.jvmArguments`,
+      (jvmArguments: string) => xmlService.setJvmArguments(jvmArguments)
+    )
+  )
+
+  subscriptions.add(
+    atom.config.observe(
+      `linter-autocomplete-jing.javaExecutablePath`,
+      (javaExecutablePath: string) =>
+        xmlService.setJavaExecutablePath(javaExecutablePath)
+    )
+  )
+
+  subscriptions.add(
+    atom.config.observe(
+      `linter-autocomplete-jing.schemaCacheSize`,
+      (schemaCacheSize: number) =>
+        xmlService.setSchemaCacheSize(schemaCacheSize)
+    )
+  )
+  ;(Object.keys(defaultParserConfig) as Array<
+    keyof DefaultParserConfig
+  >).forEach(
+    <K extends keyof DefaultParserConfig, V extends DefaultParserConfig[K]>(
+      key: K
+    ) =>
+      subscriptions.add(
+        atom.config.observe(`linter-autocomplete-jing.${key}`, (value: V) => {
+          defaultParserConfig[key] = value
+        })
+      )
+  )
+
+  subscriptions.add(
+    atom.config.observe(
+      `linter-autocomplete-jing.displaySchemaWarnings`,
+      (displaySchemaWarnings: boolean) => {
+        validationConfig.displaySchemaWarnings = displaySchemaWarnings
+      }
+    )
+  )
+  ;(Object.keys(autocompleteConfig) as Array<keyof AutocompleteConfig>).forEach(
+    <K extends keyof AutocompleteConfig, V extends AutocompleteConfig[K]>(
+      key: K
+    ) =>
+      subscriptions.add(
+        atom.config.observe(`linter-autocomplete-jing.${key}`, (value: V) => {
+          autocompleteConfig[key] = value
+        })
+      )
+  )
+
+  subscriptions.add(
+    atom.commands.add('atom-workspace', {
+      'linter-autocomplete-jing:clear-schema-cache': () =>
+        xmlService.clearSchemaCache(),
+    })
+  )
+
+  const setPackageChangeListeners = () => {
+    subscriptions.add(atom.packages.onDidActivatePackage(handlePackageChanges))
+    subscriptions.add(
+      atom.packages.onDidDeactivatePackage(handlePackageChanges)
+    )
   }
-};
 
-const setLocalConfig = key => (value) => {
-  if (key === 'rules') {
-    ruleManager.updateConfigRules(value);
-    return;
+  // if the inital Atom packages haven't all been activated yet,
+  // defer handling package changes until all packages have been
+  // activated
+  if (!atom.packages.hasActivatedInitialPackages()) {
+    subscriptions.add(
+      atom.packages.onDidActivateInitialPackages(() => {
+        handlePackageChanges()
+        setPackageChangeListeners()
+      })
+    )
+  } else {
+    handlePackageChanges()
+    setPackageChangeListeners()
   }
+}
 
-  localConfig[key] = value;
+/**
+ * Deactivation hook, called by Atom when the `linter-autocomplete-jing`
+ * package is deactivated.
+ */
+export function deactivate() {
+  subscriptions.dispose()
+  xmlService.shutdown()
+}
 
-  if (!serverProcessInstance.isReady) return;
+// ********************************* LINTER **********************************
 
-  if (['javaExecutablePath', 'jvmArguments'].includes(key)) {
-    serverProcessInstance.exit();
-  } else if (key === 'schemaCacheSize') {
-    setServerConfig(['S', value]);
+/**
+ * Exposes the `linter-autocomplete-jing` linter provider to the linter service.
+ */
+export function provideLinter() {
+  return {
+    name: 'Jing',
+    grammarScopes,
+    scope: 'file',
+    lintsOnChange: true,
+
+    async lint(textEditor: TextEditor): Promise<Array<LinterMessage> | null> {
+      if (!textEditor.getPath()) return null
+
+      try {
+        const { parserConfig, xmlModelWarnings } = getParserConfig(
+          textEditor,
+          ruleStore,
+          defaultParserConfig
+        )
+
+        const messages = await validate(
+          textEditor,
+          validationConfig,
+          parserConfig,
+          xmlService
+        )
+
+        return messages.concat(xmlModelWarnings).sort((a, b) => {
+          return a.location.position[0][0] - b.location.position[0][0]
+        })
+      } catch (err) {
+        showErrorNotification(err)
+        return []
+      }
+    },
   }
-};
+}
 
-const triggerAutocomplete = (editor) => {
-  atom.commands.dispatch(atom.views.getView(editor), 'autocomplete-plus:activate', {
-    activatedManually: false,
-  });
-};
+// ****************************** AUTOCOMPLETE ********************************
 
-const cancelAutocomplete = (editor) => {
-  atom.commands.dispatch(atom.views.getView(editor), 'autocomplete-plus:cancel', {
-    activatedManually: false,
-  });
-};
-
-const updateGrammarScopes = () => {
-  const grammars = atom.grammars.getGrammars();
-  const newGrammarScopes = flow(
-    map('scopeName'),
-    filter(startsWith('text.xml')),
-  )(grammars);
-
-  grammarScopes.splice(0, grammarScopes.length, ...newGrammarScopes);
-};
-
-const updateRules = () => {
-  const activePackages = atom.packages.getActivePackages();
-
-  const rules = flow(
-    flatMap('settings'),
-    // In Atom prior to v1.32.0-beta0, the key for the nested setting properties was
-    // `scopedProperties`. Since v1.32.0-beta0, it's `properties`. We're using
-    // `scopedProperties` as a fallback for `properties` to keep supporting older
-    // Atom versions.
-    flatMap(({ path: settingsPath, scopedProperties, properties = scopedProperties }) =>
-      flow(
-        get(['.text.xml', 'validation', 'rules']),
-        map(({ test, outcome, priority }) => ({ test, outcome, priority, settingsPath })),
-      )(properties),
-    ),
-    compact,
-  )(activePackages);
-
-  ruleManager.updatePackageRules(rules);
-};
-
-const handlePackageChanges = debounce(500, () => {
-  updateGrammarScopes();
-  updateRules();
-});
-
-export default {
-  ServerProcess,
-  ruleManager,
-  activate() {
-    require('atom-package-deps').install('linter-autocomplete-jing');
-
-    subscriptions = new CompositeDisposable();
-
-    Object
-      .keys(atom.config.get('linter-autocomplete-jing'))
-      .forEach(key =>
-        subscriptions.add(
-          atom.config.observe(`linter-autocomplete-jing.${key}`, setLocalConfig(key)),
-        ),
-      );
-
-    subscriptions.add(atom.commands.add('atom-workspace', {
-      'linter-autocomplete-jing:clear-schema-cache': () => setServerConfig(['C']),
-    }));
-
-    const setPackageListeners = () => {
-      subscriptions.add(atom.packages.onDidActivatePackage(handlePackageChanges));
-      subscriptions.add(atom.packages.onDidDeactivatePackage(handlePackageChanges));
-    };
-
-    if (initialPackagesActivated) {
-      setPackageListeners();
-    } else {
-      subscriptions.add(atom.packages.onDidActivateInitialPackages(() => {
-        initialPackagesActivated = true;
-        handlePackageChanges();
-        setPackageListeners();
-      }));
+const triggerAutocomplete = (editor: TextEditor) => {
+  ;(atom.commands.dispatch as (
+    target: Node,
+    commandName: string,
+    // The `options` parameter is not part of the official Atom API but gets
+    // forwarded to Autocomplete Plus and processed there
+    options: { activatedManually: boolean }
+  ) => Promise<void> | null)(
+    atom.views.getView(editor),
+    'autocomplete-plus:activate',
+    {
+      activatedManually: false,
     }
+  )
+}
 
-    serverProcessInstance
-      .ensureIsReady(localConfig)
-      .catch(addErrorNotification);
-  },
+/**
+ * Indicates whether the next call of `getSuggestions()` should get canceled.
+ */
+let cancelNextAutocomplete = false
 
-  deactivate() {
-    subscriptions.dispose();
-    serverProcessInstance.exit();
-  },
+/**
+ * Exposes the `linter-autocomplete-jing` autocomplete provider to the
+ * `autocomplete plus` service.
+ */
+export function provideAutocomplete() {
+  return {
+    selector: '.text.xml',
+    disableForSelector: '.comment, .string.unquoted.cdata.xml',
+    inclusionPriority: autocompleteConfig.autocompletePriority,
+    excludeLowerPriority: true,
 
-  provideLinter() {
-    return {
-      name: 'Jing',
-      grammarScopes,
-      scope: 'file',
-      lintsOnChange: true,
-      lint(textEditor) {
-        return Promise.all([
-          serverProcessInstance.ensureIsReady(localConfig),
-          getSchemaProps(textEditor, ruleManager.getParsedRules(), localConfig),
-        ])
-        .then(validate(textEditor, localConfig))
-        .catch(addErrorNotification);
-      },
-    };
-  },
+    async getSuggestions(
+      ctx: AutocompleteContext
+    ): Promise<Array<Suggestion> | null> {
+      if (cancelNextAutocomplete) {
+        atom.commands.dispatch(
+          atom.views.getView(ctx.editor),
+          'autocomplete-plus:cancel'
+        )
+        cancelNextAutocomplete = false
 
-  provideAutocomplete() {
-    return {
-      selector: '.text.xml',
-      disableForSelector: '.comment, .string.unquoted.cdata.xml',
-      inclusionPriority: localConfig.autocompletePriority,
-      excludeLowerPriority: true,
-      getSuggestions(options) {
-        if (shouldSuppressAutocomplete) {
-          cancelAutocomplete(options.editor);
-          shouldSuppressAutocomplete = false;
-          return null;
-        }
+        return null
+      }
 
-        return Promise.all([
-          serverProcessInstance.ensureIsReady(localConfig),
-          getSchemaProps(options.editor, ruleManager.getParsedRules(), localConfig),
-        ])
-        .then(suggest(options, localConfig))
-        .catch(addErrorNotification);
-      },
+      try {
+        const { parserConfig } = getParserConfig(
+          ctx.editor,
+          ruleStore,
+          defaultParserConfig
+        )
 
-      onDidInsertSuggestion(data) {
-        const { editor, suggestion } = data;
-        if (suggestion.retrigger) {
-          setTimeout(() => triggerAutocomplete(editor), 1);
-        } else {
-          shouldSuppressAutocomplete = true;
-          setTimeout(() => { shouldSuppressAutocomplete = false; }, 300);
-        }
-      },
-    };
-  },
-};
+        return suggest(ctx, autocompleteConfig, parserConfig, xmlService)
+      } catch (err) {
+        showErrorNotification(err)
+        return []
+      }
+    },
+
+    onDidInsertSuggestion({
+      editor,
+      suggestion,
+    }: {
+      editor: TextEditor
+      suggestion: Suggestion
+    }) {
+      if (suggestion.retrigger) {
+        // When a suggestion has `retrigger` set to `true` (which, for example,
+        // is the case when an element suggestion with new attributes got
+        // inserted), trigger autocomplete (in this case, on the value of the
+        // first new attribute).
+
+        setTimeout(() => triggerAutocomplete(editor), 1)
+      } else {
+        // Exit early from any call of `getSuggestions()` within the next 300ms.
+        // This prevents surplus suggestion dialogs appearing immediately after
+        // the insertion of a plain element or attribute name.
+
+        cancelNextAutocomplete = true
+        setTimeout(() => {
+          cancelNextAutocomplete = false
+        }, 300)
+      }
+    },
+  }
+}

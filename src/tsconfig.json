@@ -25,7 +25,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "importHelpers": false,
-    "outDir": "../lib"
+    "outDir": "../dist"
   },
   "compileOnSave": false
 }

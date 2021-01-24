@@ -1,66 +1,81 @@
-'use babel';
+'use babel'
 
-import path from 'path';
-import { beforeEach, it } from 'jasmine-fix';
-import main from '../lib/main';
-import testData from './validation/json/main.json';
+import path from 'path'
 
-const resolvePath = filename => path.resolve(__dirname, 'validation/json', filename);
+import { beforeEach, it } from 'jasmine-fix'
 
-const ServerProcess = main.ServerProcess;
-const serverProcessInstance = ServerProcess.getInstance();
+import * as main from '../dist/main'
+import testData from './validation/json/main.json'
+
+const resolvePath = (filename) =>
+  path.resolve(__dirname, 'validation/json', filename)
+
+const runTest = (test) => {
+  describe(test.condition || '...', () => {
+    let editor = null
+    const linterProvider = main.provideLinter()
+    const { lint } = linterProvider
+
+    beforeEach(async () => {
+      const activationPromise = atom.packages.activatePackage(
+        'linter-autocomplete-jing'
+      )
+
+      editor = await atom.workspace.open(resolvePath(test.file))
+
+      atom.packages.triggerDeferredActivationHooks()
+
+      await activationPromise
+    })
+
+    it(test.expectation, async () => {
+      const messages = await lint(editor)
+
+      if ({}.hasOwnProperty.call(test, 'expectArray')) {
+        expect(Array.isArray(messages)).toBe(test.expectArray)
+      }
+      if ({}.hasOwnProperty.call(test, 'expectMessageLength')) {
+        expect(messages.length).toEqual(test.expectMessageLength)
+      }
+      if ({}.hasOwnProperty.call(test, 'expectFirstItemSeverity')) {
+        expect(messages[0].severity).toEqual(test.expectFirstItemSeverity)
+      }
+    })
+  })
+}
 
 describe('validation', () => {
-  const linterProvider = main.provideLinter();
-  const { lint } = linterProvider;
+  let shutdownSpy
 
-  it('"beforeAll()"', () => {
-    // prevent Java server from shutting down after each test
-    serverProcessInstance.exit = function() {};
-  });
+  beforeEach(() => {
+    // for performance reasons prevent Java server from shutting down after
+    // each test
+    shutdownSpy = spyOn(main.xmlService, 'shutdown')
+  })
 
   testData.forEach((outerTestGroup) => {
     describe(outerTestGroup.description, () => {
+      beforeEach(() => {
+        atom.config.set('linter-autocomplete-jing.dtdValidation', 'always')
+        atom.config.set(
+          'linter-autocomplete-jing.xmlCatalog',
+          resolvePath(outerTestGroup.catalog)
+        )
+      })
+
       outerTestGroup.items.forEach((innerTestGroup) => {
         describe(innerTestGroup.description, () => {
           innerTestGroup.items.forEach((test) => {
-            describe(test.condition || '...', () => {
-              let editor = null;
-
-              beforeEach(async() => {
-                atom.config.set('linter-autocomplete-jing.dtdValidation', 'always');
-                atom.config.set('linter-autocomplete-jing.xmlCatalog', resolvePath(outerTestGroup.catalog));
-
-                await atom.packages.activatePackage('linter-autocomplete-jing');
-
-                editor = await atom.workspace.open(resolvePath(test.file));
-
-                main.activate();
-                // atom.packages.triggerDeferredActivationHooks();
-              });
-
-              it(test.expectation, async() => {
-                const messages = await lint(editor);
-
-                if ({}.hasOwnProperty.call(test, 'expectArray')) {
-                  expect(Array.isArray(messages)).toBe(test.expectArray);
-                }
-                if ({}.hasOwnProperty.call(test, 'expectMessageLength')) {
-                  expect(messages.length).toEqual(test.expectMessageLength);
-                }
-                if ({}.hasOwnProperty.call(test, 'expectFirstItemSeverity')) {
-                  expect(messages[0].severity).toEqual(test.expectFirstItemSeverity);
-                }
-              });
-            });
-          });
-        });
-      });
-    });
-  });
+            runTest(test)
+          })
+        })
+      })
+    })
+  })
 
   it('"afterAll()"', () => {
     // shut down Java server after all tests
-    ServerProcess.prototype.exit.apply(serverProcessInstance);
-  });
-});
+    shutdownSpy.andCallThrough()
+    main.xmlService.shutdown()
+  })
+})

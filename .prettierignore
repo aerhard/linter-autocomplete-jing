@@ -1,7 +1,10 @@
 
+.rollup.cache
 node_modules
+dist
+vendor
+
+CHANGELOG.md
 package.json
 package-lock.json
-lib
-CHANGELOG.md
 README.md
