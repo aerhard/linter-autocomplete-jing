@@ -177,7 +177,8 @@
         "type": "object",
         "properties": {
           "priority": {
-            "type": "number"
+            "type": "number",
+            "default": 0
           },
           "test": {
             "type": "object",

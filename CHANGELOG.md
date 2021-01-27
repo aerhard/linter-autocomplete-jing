@@ -1,4 +1,5 @@
 ## 0.8.5
+* feat: make rule priorities optional
 * fix: rules don't get sorted by priority
 * test: adjust tests to Atom v1.53.0
 * chore: update dependencies

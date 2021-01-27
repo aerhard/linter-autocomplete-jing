@@ -50,7 +50,7 @@ export interface RuleOutcome {
 }
 
 export interface Rule {
-  priority: number
+  priority?: number
   test: RuleTestSpecs
   outcome: RuleOutcome
 }
@@ -143,7 +143,7 @@ const createDocumentPropsMatcher = ({
  * Sorts rules by `priority` in descending order.
  */
 const sortByPriority = (rules: Array<Rule>): Array<Rule> =>
-  rules.sort((a, b) => b.priority - a.priority)
+  rules.sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0))
 
 /**
  * Converts the data of a rule's `test` property into a `matches()` function.
