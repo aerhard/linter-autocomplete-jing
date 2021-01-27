@@ -8,7 +8,11 @@ import getParserConfig, {
 } from './getParserConfig'
 import getRulesFromAtomPackages from './rules/getRulesFromAtomPackages'
 import RuleStore, { Rule } from './rules/RuleStore'
-import showErrorNotification from './util/showErrorNotification'
+import validateRules from './rules/validateRules'
+import {
+  showErrorNotification,
+  showWarningNotification,
+} from './util/notifications'
 import { ValidationConfig } from './validation/createLinterMessages'
 import validate from './validation/validate'
 import { AutocompleteConfig } from './xmlService/util'
@@ -77,10 +81,20 @@ export function activate() {
   subscriptions = new CompositeDisposable()
 
   subscriptions.add(
-    atom.config.observe(
-      `linter-autocomplete-jing.rules`,
-      (rules: Array<Rule>) => ruleStore.setConfigRules(rules)
-    )
+    atom.config.observe(`linter-autocomplete-jing.rules`, (rules: unknown) => {
+      if (Array.isArray(rules)) {
+        try {
+          validateRules(rules)
+        } catch (err) {
+          showWarningNotification(
+            `Could not set rules from user config: ${err.message}`,
+            JSON.stringify(rules, null, 2)
+          )
+          return
+        }
+        ruleStore.setConfigRules(rules as Array<Rule>)
+      }
+    })
   )
 
   subscriptions.add(

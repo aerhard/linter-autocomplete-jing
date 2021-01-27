@@ -1,6 +1,6 @@
 import { ParserConfig } from '../getParserConfig'
 import logError from '../util/logError'
-import showErrorNotification from '../util/showErrorNotification'
+import { showErrorNotification } from '../util/notifications'
 import { request } from './client'
 import ServerProcessManager, { ServerConfig } from './ServerProcessManager'
 import {

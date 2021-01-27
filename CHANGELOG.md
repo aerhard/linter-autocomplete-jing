@@ -1,9 +1,10 @@
-## 0.8.5
+## 0.9.0
+* feat: notify user about invalid rules
 * feat: make rule priorities optional
 * fix: rules don't get sorted by priority
+* refactor: use typescript
 * test: adjust tests to Atom v1.53.0
 * chore: update dependencies
-* refactor: use typescript
 
 ## 0.8.4
 * fix: make compatible with linter v2.3.0

@@ -237,10 +237,8 @@ const getParserConfig = (
   const ruleOutcome = ruleStore.getMatchingOutcome(docProps)
 
   const xmlCatalog = ruleOutcome?.xmlCatalog ?? defaults.xmlCatalog
-  const dtdValidation =
-    ruleOutcome?.dtdValidation ?? defaults.dtdValidation
-  const xIncludeAware =
-    ruleOutcome?.xIncludeAware ?? defaults.xIncludeAware
+  const dtdValidation = ruleOutcome?.dtdValidation ?? defaults.dtdValidation
+  const xIncludeAware = ruleOutcome?.xIncludeAware ?? defaults.xIncludeAware
   const xIncludeFixupBaseUris =
     ruleOutcome?.xIncludeFixupBaseUris ?? defaults.xIncludeFixupBaseUris
   const xIncludeFixupLanguage =

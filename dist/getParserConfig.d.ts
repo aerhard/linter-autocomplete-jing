@@ -29,7 +29,7 @@ export interface LinterMessage {
         position: RangeCompatible;
     };
 }
-declare const getParserConfig: (textEditor: TextEditor, ruleStore: RuleStore, defaultConfig: DefaultParserConfig) => {
+declare const getParserConfig: (textEditor: TextEditor, ruleStore: RuleStore, defaults: DefaultParserConfig) => {
     xmlModelWarnings: Array<LinterMessage>;
     parserConfig: ParserConfig;
 };

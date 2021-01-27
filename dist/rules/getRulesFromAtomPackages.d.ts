@@ -5,7 +5,7 @@ interface SettingsFile {
     properties?: {
         '.text.xml'?: {
             validation?: {
-                rules?: Array<Rule>;
+                rules?: unknown;
             };
         };
     };

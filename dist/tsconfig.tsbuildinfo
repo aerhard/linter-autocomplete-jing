@@ -392,13 +392,13 @@
         "affectsGlobalScope": false
       },
       "../src/util/logerror.ts": {
-        "version": "168241afb020ea509c187d02dec50350cc866e8f66a18898189432128da5fe20",
+        "version": "cb0a646af625497781a4d3183395b7d0065445ed465fff0ec8a9070d302f9a4b",
         "signature": "d3dee1a126fe457bd3dab74961d63128d8ccff83738e88007d29137ec2c5e66c",
         "affectsGlobalScope": false
       },
       "../src/rules/rulestore.ts": {
-        "version": "174458ea0bba113f9a9253cb2fd654e3d08675e0a456e7fcec7c77bbfbb2eeff",
-        "signature": "7b5b4ca26501f60a3c5e8903d951165ca257131310604c6594021743d9eb882e",
+        "version": "e1da5c222d88c0285059bca087bd3b6fdc659acfe4e91d7001dc511ebff66a6b",
+        "signature": "8e48bedc7f847199740223463bbe8f93b5ea4cf46efc6d7aaea559c8861f47d6",
         "affectsGlobalScope": false
       },
       "../src/util/generaterange.ts": {
@@ -407,8 +407,8 @@
         "affectsGlobalScope": false
       },
       "../src/getparserconfig.ts": {
-        "version": "c385b3bf941f19072856dfc17fd69777148ad677a3e1dd6ba098ca5e69ed4585",
-        "signature": "791430537c71c65ed2769956df85cb89b6464ad9f7e66dc55f18368170229452",
+        "version": "5af6150dfd01fa73b48ea4743bac2125bf8f8cfa6e474e360d46818645f7c016",
+        "signature": "f07ece92eacc9bae66fb2234b361fcf0ca9baf07793237db50aea24d25e7704e",
         "affectsGlobalScope": false
       },
       "../src/xmlservice/util.ts": {
@@ -416,9 +416,9 @@
         "signature": "f25b26c9941de733a1322cf9b373f47a350b0578126c6be88b58e06dd9b35193",
         "affectsGlobalScope": false
       },
-      "../src/util/showerrornotification.ts": {
-        "version": "b8c69acf0c3d03262bcde90ff5a4bd70b000f62edab21e57838ca0272aa360af",
-        "signature": "dea8ff36aa694d0a13e2613f53e0ce4d611ccbe71d466196c7b616f47745f126",
+      "../src/util/notifications.ts": {
+        "version": "7e1c172fddd6438f5695d26ad4cdc74be3352fdccc2e73985773ba591de32d9b",
+        "signature": "1631c6f8c4c543fd63964258490379d34359baa7bdefe9eb5971d1ae17a55042",
         "affectsGlobalScope": false
       },
       "../src/xmlservice/client.ts": {
@@ -432,12 +432,12 @@
         "affectsGlobalScope": false
       },
       "../src/xmlservice/serverprocessmanager.ts": {
-        "version": "d9039f2fae22906fe158f88a31485cdd13168f594a45c8ab5da49dac823fc903",
+        "version": "5b023863efb1a008b309474fa9f410e55fdfa51c2e061aa9164b3a91879036c0",
         "signature": "3a65f1cc1335d93b872fd213244f3336dafa4cdad0e07987d1284ae82a592efd",
         "affectsGlobalScope": false
       },
       "../src/xmlservice/xmlservice.ts": {
-        "version": "0bda5d2ed8c21cbca2ea60674c5654e620332be13a473c713036b9f1c929b9bb",
+        "version": "8894f2f13fea9cdafe37ebed12bad20243a281ad3bdf71e82b9cff5a73805597",
         "signature": "6e129c9244754d1efabdc0a79fbd5a5f0abf0d8ae63587df720f722379a4a869",
         "affectsGlobalScope": false
       },
@@ -471,9 +471,14 @@
         "signature": "3f9ff38c939f0eb6308df84dac17c8f7db13cfe86d01057926d843d5b74e61b4",
         "affectsGlobalScope": false
       },
+      "../src/rules/validaterules.ts": {
+        "version": "31aa9a5572299d06f0a27a1f7a022428e0bb830eed7386deb9a67647be534197",
+        "signature": "dc977db6d898f681b174214a77ff313081154f93b7d75045474eaacb9fc0f3b0",
+        "affectsGlobalScope": false
+      },
       "../src/rules/getrulesfromatompackages.ts": {
-        "version": "95892d2ca4869ab1a7b4a1232a9e19ca9cef5b7323cb84f02ba30e01f41ab1d3",
-        "signature": "fc9c566df016aff618468dfe9f05a85410aa713314757c1b936161768461a0cb",
+        "version": "449a2faedd080d642f25a6f4f0d99a31c7cc1a5184316e461b5912e92c541385",
+        "signature": "687c6c3ff90c3c93443c249b59618b83dfa12c343ade7ff649623fccbf050576",
         "affectsGlobalScope": false
       },
       "../src/validation/createlintermessages.ts": {
@@ -487,7 +492,7 @@
         "affectsGlobalScope": false
       },
       "../src/main.ts": {
-        "version": "da9c268e3ae61dbc5ba93f975062b026d06eda4be8b2d1731ddf4017a1ca187a",
+        "version": "40c3853a5f7544d163c6c05458f12fb3afb486f463b3bfe3dde19c57ffcf4cd2",
         "signature": "a10fbfcca4dee13555cbdfaa442307f56273d1db657d1cb75212c857e79d2979",
         "affectsGlobalScope": false
       },
@@ -981,7 +986,8 @@
         "../src/getparserconfig.ts",
         "../src/rules/getrulesfromatompackages.ts",
         "../src/rules/rulestore.ts",
-        "../src/util/showerrornotification.ts",
+        "../src/rules/validaterules.ts",
+        "../src/util/notifications.ts",
         "../src/validation/createlintermessages.ts",
         "../src/validation/validate.ts",
         "../src/xmlservice/util.ts",
@@ -997,7 +1003,9 @@
         "../node_modules/@types/atom/index.d.ts",
         "../node_modules/@types/node/path.d.ts",
         "../node_modules/tslib/tslib.d.ts",
-        "../src/rules/rulestore.ts"
+        "../src/rules/rulestore.ts",
+        "../src/rules/validaterules.ts",
+        "../src/util/logerror.ts"
       ],
       "../src/rules/rulestore.spec.ts": [
         "../node_modules/tslib/tslib.d.ts",
@@ -1007,6 +1015,10 @@
         "../node_modules/tslib/tslib.d.ts",
         "../src/util/logerror.ts"
       ],
+      "../src/rules/validaterules.ts": [
+        "../node_modules/tslib/tslib.d.ts",
+        "../src/rules/rulestore.ts"
+      ],
       "../src/util/generaterange.ts": [
         "../node_modules/@types/atom/index.d.ts",
         "../node_modules/tslib/tslib.d.ts"
@@ -1014,7 +1026,7 @@
       "../src/util/logerror.ts": [
         "../node_modules/tslib/tslib.d.ts"
       ],
-      "../src/util/showerrornotification.ts": [
+      "../src/util/notifications.ts": [
         "../node_modules/tslib/tslib.d.ts"
       ],
       "../src/validation/createlintermessages.ts": [
@@ -1046,7 +1058,7 @@
         "../node_modules/@types/node/path.d.ts",
         "../node_modules/tslib/tslib.d.ts",
         "../src/util/logerror.ts",
-        "../src/util/showerrornotification.ts"
+        "../src/util/notifications.ts"
       ],
       "../src/xmlservice/util.ts": [
         "../node_modules/tslib/tslib.d.ts",
@@ -1056,7 +1068,7 @@
         "../node_modules/tslib/tslib.d.ts",
         "../src/getparserconfig.ts",
         "../src/util/logerror.ts",
-        "../src/util/showerrornotification.ts",
+        "../src/util/notifications.ts",
         "../src/xmlservice/client.ts",
         "../src/xmlservice/serverprocessmanager.ts",
         "../src/xmlservice/util.ts"
@@ -1342,6 +1354,9 @@
         "../node_modules/@types/atom/index.d.ts",
         "../src/rules/rulestore.ts"
       ],
+      "../src/rules/validaterules.ts": [
+        "../src/rules/rulestore.ts"
+      ],
       "../src/util/generaterange.ts": [
         "../node_modules/@types/atom/index.d.ts"
       ],
@@ -1485,9 +1500,10 @@
       "../src/rules/getrulesfromatompackages.ts",
       "../src/rules/rulestore.spec.ts",
       "../src/rules/rulestore.ts",
+      "../src/rules/validaterules.ts",
       "../src/util/generaterange.ts",
       "../src/util/logerror.ts",
-      "../src/util/showerrornotification.ts",
+      "../src/util/notifications.ts",
       "../src/validation/createlintermessages.ts",
       "../src/validation/validate.ts",
       "../src/xmlservice/client.ts",

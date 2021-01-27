@@ -2,14 +2,16 @@ import path from 'path'
 
 import { Package } from 'atom'
 
+import logError from '../util/logError'
 import { Rule, RuleOutcome } from './RuleStore'
+import validateRules from './validateRules'
 
 interface SettingsFile {
   path: string
   properties?: {
     '.text.xml'?: {
       validation?: {
-        rules?: Array<Rule>
+        rules?: unknown
       }
     }
   }
@@ -70,6 +72,13 @@ const getRulesFromAtomPackages = (packages: Array<Package>): Array<Rule> => {
     const rules = properties?.['.text.xml']?.validation?.rules
 
     if (!settingsPath || !Array.isArray(rules)) return result
+
+    try {
+      validateRules(rules)
+    } catch (err) {
+      logError(`Skipping rules from ${settingsPath}: ${err.message}`)
+      return result
+    }
 
     const settingsDir = path.dirname(settingsPath)
 

@@ -31,7 +31,7 @@ export interface RuleOutcome {
     xIncludeFixupLanguage?: boolean;
 }
 export interface Rule {
-    priority: number;
+    priority?: number;
     test: RuleTestSpecs;
     outcome: RuleOutcome;
 }
