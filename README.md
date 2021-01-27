@@ -77,36 +77,37 @@ If your documents contain references to remote schemata, you can improve perform
 
 If you'd like to avoid providing schema hints in each individual source document you can specify 'validation rules' in Atom's `config.cson` or in a separate Atom package.
 
-Here are two demo rules, the first of which associates files ending with `.rng` with an RNG schema at `/path/to/relaxng.rng`, the second associating the root element namespace `urn:oasis:names:tc:entity:xmlns:xml:catalog` with the RNC schema at `/path/to/catalog.rnc`:
+Below is an example of rules in `config.cson`. The first rule associates files ending with `.rng` with an RNG schema at `/path/to/relaxng.rng`, the second one associates the root element namespace `urn:oasis:names:tc:entity:xmlns:xml:catalog` with the RNC schema at `/path/to/catalog.rnc`:
 
 ```
-"linter-autocomplete-jing":
-  rules: [
-    {
-      priority: 1
-      test:
-        pathRegex: "\\.rng$"
-      outcome:
-        schemaProps: [
-          {
-            lang: "rng"
-            path: "/path/to/relaxng.rng"
-          }
-        ]
-    }
-    {
-      priority: 1
-      test:
-        rootNs: "urn:oasis:names:tc:entity:xmlns:xml:catalog"
-      outcome:
-        schemaProps: [
-          {
-            lang: "rnc"
-            path: "/path/to/catalog.rnc"
-          }
-        ]
-    }
-  ]
+"*":
+  "linter-autocomplete-jing":
+    rules: [
+      {
+        priority: 1
+        test:
+          pathRegex: "\\.rng$"
+        outcome:
+          schemaProps: [
+            {
+              lang: "rng"
+              path: "/path/to/relaxng.rng"
+            }
+          ]
+      }
+      {
+        priority: 1
+        test:
+          rootNs: "urn:oasis:names:tc:entity:xmlns:xml:catalog"
+        outcome:
+          schemaProps: [
+            {
+              lang: "rnc"
+              path: "/path/to/catalog.rnc"
+            }
+          ]
+      }
+    ]
 ```
 
 Each rule must have a `test` and an `outcome` property. `test` contains the criteria which need to be fulfilled for that rule to apply. `outcome` contains the schema / catalog information to be used when the rule is matched. When there are multiple rules, the `outcome` of the first matched rule gets applied (order is significant). The `priority` property of a rule is optional and defaults to 0. Rules with higher `priority` get evaluated first, rules with the same priority get evaluated in the order in which they are specified. Rules in `config.cson` always take precedence over rules from packages.
