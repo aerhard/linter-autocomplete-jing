@@ -54,23 +54,23 @@ const prepareEditorBufferForAttNameSuggestion = (test, editor) => {
 
 /**
  * Returns the position after the start quote of the attribute specified
- * by `test.fragment` before `test.splitPoint` or the end of the document.
+ * by `test.attName` before `test.splitPoint` or the end of the document.
  */
 const getPositionForAttValueSuggestion = (test, editor) => {
   const endPosition = test.splitPoint
     ? editor.getBuffer().positionForCharacterIndex(test.splitPoint)
     : editor.getBuffer().getEndPosition()
 
-  const fragment = test.fragment.split(' ')[0]
+  const attName = test.attName.split(' ')[0]
   let row = endPosition.row + 1
   let line
   let lastFragmentIndex = -1
   while (lastFragmentIndex === -1 && --row > -1) {
     line = editor.lineTextForBufferRow(row)
-    lastFragmentIndex = line.lastIndexOf(fragment + '=')
+    lastFragmentIndex = line.lastIndexOf(attName + '=')
   }
 
-  return { row, column: lastFragmentIndex + fragment.length + 2 }
+  return { row, column: lastFragmentIndex + attName.length + 2 }
 }
 
 const setupAutocompleteContext = (test, editor) => {
@@ -107,7 +107,7 @@ const createTestDescription = (test) => {
     `suggests [${expectedResults}] when requesting ` +
     `type "${test.suggestionType}" autocomplete ` +
     `in file "${path.basename(test.file)}"` +
-    (test.fragment ? ` at attribute "${test.fragment}"` : '')
+    (test.attName ? ` at attribute "${test.attName}"` : '')
   )
 }
 

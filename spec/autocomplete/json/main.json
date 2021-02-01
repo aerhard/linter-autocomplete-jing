@@ -443,7 +443,7 @@
           {
             "file": "../xml/rnc-after-first-child-start-tag.xml",
             "suggestionType": "V",
-            "fragment": "x",
+            "attName": "x",
             "expectResult": [
               {
                 "snippet": "val1",
@@ -464,19 +464,19 @@
           {
             "file": "../xml/rnc-after-first-child.xml",
             "suggestionType": "V",
-            "fragment": "notthere",
+            "attName": "notthere",
             "expectResult": []
           },
           {
             "file": "../xml/rnc-before-first-child.xml",
             "suggestionType": "V",
-            "fragment": "b",
+            "attName": "b",
             "expectResult": []
           },
           {
             "file": "../xml/rnc-after-second-child-with-att-prefix.xml",
             "suggestionType": "V",
-            "fragment": "other:yiu",
+            "attName": "other:yiu",
             "expectResult": [
               {
                 "snippet": "val3",
@@ -497,7 +497,7 @@
           {
             "file": "../xml/rnc-after-second-child-with-att-prefix-1.xml",
             "suggestionType": "V",
-            "fragment": "other:yiu",
+            "attName": "other:yiu",
             "expectResult": [
               {
                 "snippet": "val3",
@@ -1564,7 +1564,7 @@
           {
             "file": "../xml/rng-after-first-child-start-tag.xml",
             "suggestionType": "V",
-            "fragment": "x",
+            "attName": "x",
             "expectResult": [
               {
                 "snippet": "val1",
@@ -1585,19 +1585,19 @@
           {
             "file": "../xml/rng-after-first-child.xml",
             "suggestionType": "V",
-            "fragment": "notthere",
+            "attName": "notthere",
             "expectResult": []
           },
           {
             "file": "../xml/rng-before-first-child.xml",
             "suggestionType": "V",
-            "fragment": "b",
+            "attName": "b",
             "expectResult": []
           },
           {
             "file": "../xml/rng-after-second-child-with-att-prefix.xml",
             "suggestionType": "V",
-            "fragment": "other:yiu",
+            "attName": "other:yiu",
             "expectResult": [
               {
                 "snippet": "val3",
@@ -1618,7 +1618,7 @@
           {
             "file": "../xml/rng-after-second-child-with-att-prefix-1.xml",
             "suggestionType": "V",
-            "fragment": "other:yiu",
+            "attName": "other:yiu",
             "expectResult": [
               {
                 "snippet": "val3",
@@ -3437,7 +3437,7 @@
           {
             "file": "../xml/xsd-after-first-child-start-tag.xml",
             "suggestionType": "V",
-            "fragment": "x",
+            "attName": "x",
             "expectResult": [
               {
                 "snippet": "val1",
@@ -3457,19 +3457,19 @@
           {
             "file": "../xml/xsd-after-first-child.xml",
             "suggestionType": "V",
-            "fragment": "notthere",
+            "attName": "notthere",
             "expectResult": []
           },
           {
             "file": "../xml/xsd-before-first-child.xml",
             "suggestionType": "V",
-            "fragment": "b",
+            "attName": "b",
             "expectResult": []
           },
           {
             "file": "../xml/xsd-after-second-child-with-att-prefix.xml",
             "suggestionType": "V",
-            "fragment": "other:yiu",
+            "attName": "other:yiu",
             "expectResult": [
               {
                 "snippet": "val3",
@@ -3488,7 +3488,7 @@
           {
             "file": "../xml/xsd-after-second-child-with-att-prefix-1.xml",
             "suggestionType": "V",
-            "fragment": "other:yiu",
+            "attName": "other:yiu",
             "expectResult": [
               {
                 "snippet": "val3",
@@ -3517,7 +3517,7 @@
           {
             "file": "../xml/xsd8-1.xml",
             "suggestionType": "V",
-            "fragment": "l",
+            "attName": "l",
             "expectResult": [
               {
                 "snippet": "fixed",
@@ -3540,7 +3540,7 @@
           {
             "file": "../xml/xsd9-1.xml",
             "suggestionType": "V",
-            "fragment": "l",
+            "attName": "l",
             "expectResult": [
               {
                 "snippet": "1.11",
@@ -3563,7 +3563,7 @@
           {
             "file": "../xml/xsd10-1.xml",
             "suggestionType": "V",
-            "fragment": "l",
+            "attName": "l",
             "expectResult": [
               {
                 "snippet": "1.11",
@@ -3592,7 +3592,7 @@
           {
             "file": "../xml/xsd11-1.xml",
             "suggestionType": "V",
-            "fragment": "l",
+            "attName": "l",
             "expectResult": [
               {
                 "snippet": "1.11",
@@ -3623,7 +3623,7 @@
           {
             "file": "../xml/rnc-att-values1.xml",
             "suggestionType": "V",
-            "fragment": "b",
+            "attName": "b",
             "expectResult": [
               {
                 "snippet": "&amp;'>&lt;&quot;&quot;'>@",
@@ -3636,7 +3636,7 @@
           {
             "file": "../xml/rnc-att-values2.xml",
             "suggestionType": "V",
-            "fragment": "b",
+            "attName": "b",
             "expectResult": [
               {
                 "snippet": "&amp;&apos;>&lt;\"\"&apos;>@",
@@ -3659,7 +3659,7 @@
           {
             "file": "../xml/rng-att-values1.xml",
             "suggestionType": "V",
-            "fragment": "b",
+            "attName": "b",
             "expectResult": [
               {
                 "snippet": "&amp;'>&lt;&quot;&quot;'>@",
@@ -3672,7 +3672,7 @@
           {
             "file": "../xml/rng-att-values2.xml",
             "suggestionType": "V",
-            "fragment": "b",
+            "attName": "b",
             "expectResult": [
               {
                 "snippet": "&amp;&apos;>&lt;\"\"&apos;>@",
@@ -3695,7 +3695,7 @@
           {
             "file": "../xml/xsd-att-values1.xml",
             "suggestionType": "V",
-            "fragment": "b",
+            "attName": "b",
             "expectResult": [
               {
                 "snippet": "&amp;'>&lt;&quot;&quot;'>@",
@@ -3708,7 +3708,7 @@
           {
             "file": "../xml/xsd-att-values2.xml",
             "suggestionType": "V",
-            "fragment": "b",
+            "attName": "b",
             "expectResult": [
               {
                 "snippet": "&amp;&apos;>&lt;\"\"&apos;>@",
@@ -3810,7 +3810,7 @@
           {
             "file": "../xml/failing-schema-after-first-child-start.xml",
             "suggestionType": "V",
-            "fragment": "x",
+            "attName": "x",
             "expectResult": []
           }
         ]
@@ -3904,7 +3904,7 @@
           {
             "file": "../xml/schemaless-after-first-child-start.xml",
             "suggestionType": "V",
-            "fragment": "x",
+            "attName": "x",
             "expectResult": []
           }
         ]
@@ -4595,7 +4595,7 @@
           {
             "file": "../xml/xsd-types.xml",
             "suggestionType": "V",
-            "fragment": "a",
+            "attName": "a",
             "expectResult": [
               {
                 "snippet": "0",
@@ -4637,7 +4637,7 @@
           {
             "file": "../xml/rng-idref.xml",
             "suggestionType": "V",
-            "fragment": "ref",
+            "attName": "ref",
             "splitPoint": 254,
             "expectResult": [
               {
@@ -4657,7 +4657,7 @@
           {
             "file": "../xml/rng-idref.xml",
             "suggestionType": "V",
-            "fragment": "refs",
+            "attName": "refs",
             "splitPoint": 254,
             "expectResult": [
               {
@@ -4679,7 +4679,7 @@
           {
             "file": "../xml/rng-idref.xml",
             "suggestionType": "V",
-            "fragment": "uri",
+            "attName": "uri",
             "splitPoint": 254,
             "expectResult": [
               {
@@ -4699,7 +4699,7 @@
           {
             "file": "../xml/rng-idref.xml",
             "suggestionType": "V",
-            "fragment": "uris",
+            "attName": "uris",
             "splitPoint": 254,
             "expectResult": [
               {
@@ -4721,7 +4721,7 @@
           {
             "file": "../xml/rng-idref.xml",
             "suggestionType": "V",
-            "fragment": "plus",
+            "attName": "plus",
             "splitPoint": 254,
             "expectResult": [
               {
@@ -4757,7 +4757,7 @@
           {
             "file": "../xml/xsd-idref.xml",
             "suggestionType": "V",
-            "fragment": "ref",
+            "attName": "ref",
             "splitPoint": 260,
             "expectResult": [
               {
@@ -4777,7 +4777,7 @@
           {
             "file": "../xml/xsd-idref.xml",
             "suggestionType": "V",
-            "fragment": "refs",
+            "attName": "refs",
             "splitPoint": 260,
             "expectResult": [
               {
@@ -4799,7 +4799,7 @@
           {
             "file": "../xml/xsd-idref.xml",
             "suggestionType": "V",
-            "fragment": "uri",
+            "attName": "uri",
             "splitPoint": 260,
             "expectResult": [
               {
@@ -4819,7 +4819,7 @@
           {
             "file": "../xml/xsd-idref.xml",
             "suggestionType": "V",
-            "fragment": "uris",
+            "attName": "uris",
             "splitPoint": 260,
             "expectResult": [
               {
@@ -4841,7 +4841,7 @@
           {
             "file": "../xml/xsd-idref.xml",
             "suggestionType": "V",
-            "fragment": "plus",
+            "attName": "plus",
             "splitPoint": 260,
             "expectResult": [
               {
@@ -4891,7 +4891,7 @@
           {
             "file": "../xml/xsd-keyref1.xml",
             "suggestionType": "V",
-            "fragment": "keyRef",
+            "attName": "keyRef",
             "splitPoint": 397,
             "expectResult": [
               {
@@ -4915,7 +4915,7 @@
           {
             "file": "../xml/xsd-keyref2.xml",
             "suggestionType": "V",
-            "fragment": "keyRef",
+            "attName": "keyRef",
             "splitPoint": 398,
             "expectResult": [
               {
@@ -4951,7 +4951,7 @@
           {
             "file": "../xml/xsd-keyref3.xml",
             "suggestionType": "V",
-            "fragment": "keyRef",
+            "attName": "keyRef",
             "splitPoint": 403,
             "expectResult": [
               {
@@ -4987,7 +4987,7 @@
           {
             "file": "../xml/xsd-keyref4.xml",
             "suggestionType": "V",
-            "fragment": "otherKeyRef",
+            "attName": "otherKeyRef",
             "splitPoint": 469,
             "expectResult": [
               {
@@ -5023,7 +5023,7 @@
           {
             "file": "../xml/xsd-keyref5.xml",
             "suggestionType": "V",
-            "fragment": "keyRef",
+            "attName": "keyRef",
             "splitPoint": 431,
             "expectResult": [
               {
@@ -5065,7 +5065,7 @@
           {
             "file": "../xml/xsd-keyref6.xml",
             "suggestionType": "V",
-            "fragment": "keyRef",
+            "attName": "keyRef",
             "splitPoint": 397,
             "expectResult": [
               {
