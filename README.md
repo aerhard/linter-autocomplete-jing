@@ -21,7 +21,7 @@ XML document processing is handled in Java using [Jing](https://github.com/aerha
 
 Select the package in Atom's Settings View (<kbd>Ctrl-,</kbd>) / Install Packages or run `apm install linter-autocomplete-jing` from the command line.
 
-The package depends on a Java Runtime Environment (JRE) v1.6 or above. If running `java -version` on the command line returns an appropriate version number, you should be set. Otherwise, install a recent JRE and provide the path to the Java executable either in the PATH environment variable or in the linter-autocomplete-jing package settings in Atom.
+The package depends on a Java Runtime Environment (JRE) v1.7 or above. If running `java -version` on the command line returns an appropriate version number, you should be set. Otherwise, install a recent JRE and provide the path to the Java executable either in the PATH environment variable or in the linter-autocomplete-jing package settings in Atom.
 
 ## Package Settings
 

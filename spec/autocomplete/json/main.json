@@ -5077,7 +5077,73 @@
             ]
           }
         ]
-      }
+      },
+      {
+        "schemata": [
+          {
+            "lang": "rng",
+            "path": "../schema/schema-duplicates.rng"
+          }
+        ],
+        "items": [
+          {
+            "file": "../xml/rng-duplicate-element.xml",
+            "suggestionType": "E",
+            "expectResult": [
+              {
+                "snippet": "root xmlns=\"http://www.example.com\" b=\"${1}\"/>",
+                "displayText": "root (http://www.example.com)",
+                "type": "tag",
+                "replacementPrefix": "",
+                "description": "root",
+                "retrigger": true
+              },
+              {
+                "snippet": "!-- ${1} -->",
+                "displayText": "!--  -->",
+                "type": "tag",
+                "replacementPrefix": "",
+                "description": "Comment",
+                "retrigger": false
+              },
+              {
+                "snippet": "![CDATA[${1}]]>",
+                "displayText": "![CDATA[]]>",
+                "type": "tag",
+                "replacementPrefix": "",
+                "description": "CDATA Section",
+                "retrigger": false
+              }
+            ]
+          },
+          {
+            "file": "../xml/rng-duplicate-attribute.xml",
+            "suggestionType": "N",
+            "expectResult": [
+              {
+                "snippet": "b=\"${1}\"",
+                "displayText": "b",
+                "type": "attribute",
+                "replacementPrefix": "",
+                "retrigger": true
+              }
+            ]
+          },
+          {
+            "file": "../xml/rng-duplicate-value.xml",
+            "suggestionType": "V",
+            "attName": "b",
+            "expectResult": [
+              {
+                "snippet": "value",
+                "displayText": "value",
+                "type": "value",
+                "replacementPrefix": ""
+              }
+            ]
+          }
+        ]
+      }      
     ]
   }
 ]

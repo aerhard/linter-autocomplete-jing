@@ -432,7 +432,7 @@
         "affectsGlobalScope": false
       },
       "../src/xmlservice/serverprocessmanager.ts": {
-        "version": "5b023863efb1a008b309474fa9f410e55fdfa51c2e061aa9164b3a91879036c0",
+        "version": "d2ebf6d5cf6001b6653bb85918a1cd65bf51b3df7a2f831ee496510a14a7de3a",
         "signature": "3a65f1cc1335d93b872fd213244f3336dafa4cdad0e07987d1284ae82a592efd",
         "affectsGlobalScope": false
       },

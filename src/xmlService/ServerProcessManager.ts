@@ -6,7 +6,7 @@ import spawn from 'cross-spawn'
 import logError from '../util/logError'
 import { showErrorNotification } from '../util/notifications'
 
-const jarPath = '../vendor/xml-tools-server-0.4.8.jar'
+const jarPath = '../vendor/xml-tools-server-0.5.0.jar'
 
 /**
  * Global server configuration.

@@ -1,6 +1,7 @@
 ## 0.9.0
 * feat: notify user about invalid rules
 * feat: make rule priorities optional
+* fix: avoid duplicates in autocomplete suggestions
 * fix: rules don't get sorted by priority
 * refactor: use typescript
 * test: adjust tests to Atom v1.53.0

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar
+    ns="http://www.example.com"
+    xmlns="http://relaxng.org/ns/structure/1.0"
+    xmlns:other="http://www.other.com"
+    datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <start>
+    <choice>
+      <ref name="root1"/>
+      <ref name="root2"/>
+    </choice>
+  </start>
+
+  <define name="atts1">
+    <attribute name="b">
+      <choice>
+        <value type="string">value</value>
+        <value type="string">value</value>
+      </choice>
+    </attribute>
+  </define>
+
+  <define name="atts2">
+    <attribute name="b">
+      <choice>
+        <value type="string">value</value>
+        <value type="string">value</value>
+      </choice>
+    </attribute>
+  </define>
+
+  <define name="root1">
+    <element name="root">
+      <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">root</documentation>
+      <choice>
+        <ref name="atts1"/>
+        <ref name="atts2"/>
+      </choice>
+    </element>
+  </define>
+
+  <define name="root2">
+    <element name="root">
+      <documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0">root</documentation>
+      <choice>
+        <ref name="atts1"/>
+        <ref name="atts2"/>
+      </choice>
+    </element>
+  </define>
+</grammar>
